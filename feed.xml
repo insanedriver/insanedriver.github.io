@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Insane driver</title>
+    <description>Alternative metal band.
+</description>
+    <link>http://insanedriver.com.br/</link>
+    <atom:link href="http://insanedriver.com.br/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 27 Sep 2014 20:28:35 -0300</pubDate>
+    <lastBuildDate>Sat, 27 Sep 2014 20:28:35 -0300</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+  </channel>
+</rss>
