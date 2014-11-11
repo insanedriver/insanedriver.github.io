@@ -362,6 +362,16 @@ footer .footer-below {
     font-size: 20px;
     line-height: 45px;
 }
+@media(max-width:500px) {
+    .btn-social {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 25px;
+    }
+}
 
 .btn:focus,
 .btn:active,
