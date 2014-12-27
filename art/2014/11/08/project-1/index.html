@@ -4,9 +4,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Recording</title>
+    <title>Insane Driver Official Website</title>
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+    <meta name="description" content="The official website of the brazilian metal band Insane Driver. Information about contacts, news, the band and social networkings.">
+    <meta name="keywords" content="Insane Driver, Insane, Driver, Metal, Rock, Band, Banda, ID, Official, Oficial, InsaneDriver, InsaneDriverID, InsaneDriverOfficial">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="/art/2014/11/08/project-1/">
 
 
@@ -41,24 +43,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top">Insane Driver</a>
-                  </ul>
+                <a class="navbar-brand" href="#page-top" onmouseover="hover(this);" onmouseout="unhover(this);">
+                    <img id="logo" src="img/portfolio/logo_horizontal_b.png" alt="The Band"> 
+                    
+                </a>
+             </ul>
                 
             </div>
 
- <div class="col-md-5 col-md-offset-1">
+                    <div class="col-md-4 col-md-offset-2">
                         <ul class="list-inline">
-                            
-                            <li>
-                                <a href="http://twitter.com/insanedriveroff" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
                             
                             <li>
                                 <a href="http://facebook.com/projectrocker" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                             </li>
                             
                             <li>
-                                <a href="http://soundcloud.com/insanedriver" class="btn-social btn-outline"><i class="fa fa-fw fa-soundcloud"></i></a>
+                                <a href="http://soundcloud.com/InsaneDriver" class="btn-social btn-outline"><i class="fa fa-fw fa-soundcloud"></i></a>
                             </li>
                             
                             <li>
@@ -66,11 +67,7 @@
                             </li>
                             
                             <li>
-                                <a href="http://plus.google.com/u/1/110041480519649259510" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            
-                            <li>
-                                <a href="http://instagram.com/insanedriverofficial" class="btn-social btn-outline"><i class="fa fa-fw fa-instagram"></i></a>
+                                <a href="http://twitter.com/InsaneDriverID" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
                             </li>
                             
                         </ul>
@@ -84,13 +81,13 @@
                         <a href="#page-top"></a>
                     </li>
 			<li class="page-scroll">
-                        <a href="#portfolio">News</a>
+                        <a href="#portfolio" class="pageScrollTitle">News</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">The band</a>
+                        <a href="#about" class="pageScrollTitle">The band</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                        <a href="#contact" class="pageScrollTitle">Contact</a>
                     </li>
 
                     </ul>
@@ -130,6 +127,14 @@
  -->
 `
 
+<script>
+function hover(element) {
+    document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_p.png');
+}
+function unhover(element) {
+    document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_b.png');
+}
+</script>
     
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
@@ -179,19 +184,20 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <p>Insane Driver is a band from São Paulo - Brazil, and was formed by Deivid Martins (Guitar), Nei Souza (Bass) and Wagner Neute (Drums) in 2013</p>
-			
-			<p>They are recording their first album and it will be released soon.</p><br>
-			<h4>Members: </h4>
+                    <p>Insane Driver is a band from São Paulo - Brazil, and was formed by Deivid Martins (Guitar), Nei Sousa (Bass) and Wagner Neute (Drums) in 2013.</p>
+			<br>
+            <img src="img/portfolio/the_band.jpg" class="img-responsive" alt="The Band">
+			<br>
+            <h3>Members: </h3>
             
-            <ul>    
-                <li><p>Danilo Bigal (Guitar)</p></li>
-                <li><p>Deivid Martins (Guitar)</p></li>
-                <li><p>Marcos Bolsoni (Vocals)</p></li>
-                <li><p>Nei Sousa (Bass and Backing Vocals)</p></li>
-                <li><p>Wagner Neute (Drums and Keyboards)</p></li>
+                <ul>    
+                    <li><p><a class="linkMembers" target="_blank" href="https://www.facebook.com/danilo.bigal">Danilo Bigal (Guitar and Backing Vocals)</a></p></li>
+                    <li><p><a class="linkMembers" target="_blank" href="https://www.facebook.com/dmartinsID">Deivid Martins (Guitar)</a></p></li>
+                    <li><p><a class="linkMembers" target="_blank" href="https://www.facebook.com/marcos.bolsoni">Marcos Bolsoni (Vocals)</a></p></li>
+                    <li><p><a class="linkMembers" target="_blank" href="https://www.facebook.com/neisousa85">Nei Sousa (Bass and Backing Vocals)</a></p></li>
+                    <li><p><a class="linkMembers" target="_blank" href="https://www.facebook.com/wagner.baterista2014">Wagner Neute (Drums and Keyboards)</a></p></li>
 
-		</ul>
+    		  </ul>
                 </div>
           
                 
@@ -204,14 +210,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Contact Us</h2>
+                    <h2>Contact</h2>
                     <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12">
  
-                    <p>Please send an e-mail to <a href="mailto:insanedriverofficial@gmail.com">insanedriverofficial@gmail.com</a></p>
+                    <p class="text-center">Please send an e-mail to <a href="mailto:insanedriverofficial@gmail.com">insanedriverofficial@gmail.com</a> or send a message 
+                    <a href="https://www.facebook.com/messages/282328368634250" target="_blank">here </a>on facebook</p>
                 </div>
             </div>
         </div>
@@ -224,7 +231,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Insane Driver 2014
+                        Copyright &copy; Insane Driver Official Website 2014
                     </div>
                 </div>
             </div>
