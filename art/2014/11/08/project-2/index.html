@@ -128,11 +128,17 @@
 `
 
 <script>
+
 function hover(element) {
-    document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_p.png');
+    if(!isMobile.phone) {
+        document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_p.png');
+    }
 }
+
 function unhover(element) {
-    document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_b.png');
+    if(!isMobile.phone) {
+        document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_b.png');
+    }
 }
 </script>
     
@@ -327,6 +333,7 @@ function unhover(element) {
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/freelancer.js"></script>
+    <script src="/js/isMobile.js"></script>
 
 
     </body>
