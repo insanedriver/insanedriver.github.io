@@ -152,6 +152,7 @@ header .intro-text .skills {
         -webkit-transition: padding .3s;
         -moz-transition: padding .3s;
         transition: padding .3s;
+	height: 90px;
     }
 
     .navbar-fixed-top .navbar-brand {

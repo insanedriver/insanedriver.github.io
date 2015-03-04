@@ -5,9 +5,22 @@
     <description>The official website of the brazilian metal band Insane Driver. Information about contacts, news, the band and social networkings.</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 29 Dec 2014 00:05:56 -0200</pubDate>
-    <lastBuildDate>Mon, 29 Dec 2014 00:05:56 -0200</lastBuildDate>
+    <pubDate>Wed, 04 Mar 2015 01:38:52 -0300</pubDate>
+    <lastBuildDate>Wed, 04 Mar 2015 01:38:52 -0300</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Single Release</title>
+        <description>
+</description>
+        <pubDate>Wed, 04 Mar 2015 00:00:00 -0300</pubDate>
+        <link>/art/2015/03/04/project-3%20/</link>
+        <guid isPermaLink="true">/art/2015/03/04/project-3%20/</guid>
+        
+        
+        <category>art</category>
+        
+      </item>
     
       <item>
         <title>Recording</title>
