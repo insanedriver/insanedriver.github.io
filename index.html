@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="icon" href="img/favicon.png" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +55,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#page-top" onmouseover="hover(this);" onmouseout="unhover(this);">
-                    <img id="logo" src="img/portfolio/logo_horizontal_b.png" alt="Insane Driver"> 
+                    <img id="logo" src="img/news/logo_horizontal_b.png" alt="Insane Driver"> 
                     
                 </a>
              </ul>
@@ -65,19 +66,19 @@
                         <ul class="list-inline">
                             
                             <li>
-                                <a href="http://facebook.com/projectrocker" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/InsaneDriverID" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                             </li>
                             
                             <li>
-                                <a href="http://soundcloud.com/InsaneDriver" class="btn-social btn-outline"><i class="fa fa-fw fa-soundcloud"></i></a>
+                                <a href="http://soundcloud.com/InsaneDriver" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-soundcloud"></i></a>
                             </li>
                             
                             <li>
-                                <a href="http://www.youtube.com/user/insanedriverofficial" class="btn-social btn-outline"><i class="fa fa-fw fa-youtube"></i></a>
+                                <a href="http://www.youtube.com/user/insanedriverofficial" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-youtube"></i></a>
                             </li>
                             
                             <li>
-                                <a href="http://twitter.com/InsaneDriverID" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                                <a href="http://twitter.com/InsaneDriverID" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
                             </li>
                             
                         </ul>
@@ -91,7 +92,7 @@
                         <a href="#page-top"></a>
                     </li>
 			<li class="page-scroll">
-                        <a href="#portfolio" class="pageScrollTitle">News</a>
+                        <a href="#news" class="pageScrollTitle">News</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about" class="pageScrollTitle">The band</a>
@@ -131,24 +132,24 @@
 <script>
 
 var logoBackgroundImage = new Image();
-logoBackgroundImage.src = 'img/portfolio/logo_horizontal_p.png';
+logoBackgroundImage.src = 'img/news/logo_horizontal_p.png';
 
 function hover(element) {
     if(!isMobile.phone) {
-        document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_p.png');
+        document.getElementById('logo').setAttribute('src', 'img/news/logo_horizontal_p.png');
     }
 }
 
 function unhover(element) {
     if(!isMobile.phone) {
-        document.getElementById('logo').setAttribute('src', 'img/portfolio/logo_horizontal_b.png');
+        document.getElementById('logo').setAttribute('src', 'img/news/logo_horizontal_b.png');
     }
 }
 </script>
 
     
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
+    <!-- news Grid Section -->
+    <section id="news">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -158,36 +159,47 @@ function unhover(element) {
             </div>
             <div class="row">
                 
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal-4" class="portfolio-link" data-toggle="modal">
+                    <div class="col-sm-4 news-item">
+                        <a href="#newsModal-5" class="news-link" data-toggle="modal">
                             <div class="caption">
                                 <div class="caption-content">
                                     <i class="fa fa-search-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img src="img/portfolio/surprise.jpg" class="img-responsive" alt="Single Tide of Fears">
+                            <img src="img/news/Tide_of_fears.png" class="img-responsive" alt="Tide Of Fears">
                         </a>
                     </div>
                 
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal-3" class="portfolio-link" data-toggle="modal">
+                    <div class="col-sm-4 news-item">
+                        <a href="#newsModal-4" class="news-link" data-toggle="modal">
                             <div class="caption">
                                 <div class="caption-content">
                                     <i class="fa fa-search-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img src="img/portfolio/bass_recording.jpg" class="img-responsive" alt="Recording">
+                            <img src="img/news/surprise.jpg" class="img-responsive" alt="Single Tide of Fears">
                         </a>
                     </div>
                 
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal-2" class="portfolio-link" data-toggle="modal">
+                    <div class="col-sm-4 news-item">
+                        <a href="#newsModal-3" class="news-link" data-toggle="modal">
                             <div class="caption">
                                 <div class="caption-content">
                                     <i class="fa fa-search-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img src="img/portfolio/drums_recording.jpg" class="img-responsive" alt="Recording">
+                            <img src="img/news/bass_recording.jpg" class="img-responsive" alt="Recording">
+                        </a>
+                    </div>
+                
+                    <div class="col-sm-4 news-item">
+                        <a href="#newsModal-2" class="news-link" data-toggle="modal">
+                            <div class="caption">
+                                <div class="caption-content">
+                                    <i class="fa fa-search-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img src="img/news/drums_recording.jpg" class="img-responsive" alt="Recording">
                         </a>
                     </div>
                 
@@ -208,7 +220,7 @@ function unhover(element) {
                 <div class="col-md-8 col-md-offset-2">
                     <p>Insane Driver is a band from São Paulo - Brazil, and was formed by Deivid Martins (Guitar), Nei Sousa (Bass) and Wagner Neute (Drums) in 2013.</p>
 			<br>
-            <img src="img/portfolio/the_band.jpg" class="img-responsive" alt="The Band">
+            <img src="img/news/the_band.jpg" class="img-responsive" alt="The Band">
 			<br>
             <h3>Members: </h3>
             
@@ -266,9 +278,72 @@ function unhover(element) {
         </a>
     </div>
 
-     <!-- Portfolio Modals -->
+     <!-- news Modals -->
  
-    <div class="portfolio-modal modal fade" id="portfolioModal-4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="news-modal modal fade" id="newsModal-5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Tide Of Fears</h2>
+                            <hr class="star-primary">
+                            <img src="img/news/Tide_of_fears.png" class="img-responsive img-centered" alt="Tide Of Fears">
+                            <p>Band releases its firts Single, Tide Of Fears.<br>
+                            You can hear the song on the links below:
+                            <br>
+                            <a href="https://www.youtube.com/watch?v=jeFZOT95L18" target="_blank">https://www.youtube.com/watch?v=jeFZOT95L18</a> 
+                            <br>
+                            <a href="https://soundcloud.com/insanedriver/insane-driver-tide-of-fears-studio-version" target="_blank">https://soundcloud.com/insanedriver/insane-driver-tide-of-fears-studio-version</a>
+                            </p>
+
+                             <ul class="list-unstyled item-details">
+                             	<li>Name:
+                                	<strong>
+                                		<a href="https://soundcloud.com/insanedriver/insane-driver-tide-of-fears-studio-version" target="_blank">Tide Of Fears</a>
+                                	</strong>
+                            	</li>
+                            	<li>Duration:
+                                	<strong>
+                                		<a href="https://soundcloud.com/insanedriver/insane-driver-tide-of-fears-studio-version" target="_blank">06:54</a>
+                                	</strong>
+                            	</li>
+
+                            	<li>Producer:
+                                	<strong>
+                                		<a href="https://www.facebook.com/thiagooliveiraguitar" target="_blank">Thiago Oliveira</a>
+                                	</strong>
+                            	</li>
+
+                            	<li>Studio:
+                                	<strong>
+                                		<a href="https://www.facebook.com/stagedivebr" target="_blank">Stage Dive</a>
+                                	</strong>
+                            	</li>
+
+                            	<li>Arts:
+                                	<strong>
+                                		<a href="http://alesantos.prosite.com" target="blank">Alexandre Santos</a>
+                                	</strong>
+                            	</li>
+
+                            </ul>
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="news-modal modal fade" id="newsModal-4" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -282,7 +357,7 @@ function unhover(element) {
                         <div class="modal-body">
                             <h2>Single Release</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/surprise.jpg" class="img-responsive img-centered" alt="Single Tide of Fears">
+                            <img src="img/news/surprise.jpg" class="img-responsive img-centered" alt="Single Tide of Fears">
                             <p>Insane Driver announces the release of its first single, Tide Of Fears, on mar-06 at 7:30 p.m (Brazil official time).</p>
                             <ul class="list-inline item-details">
                                    <li>Date:
@@ -299,7 +374,7 @@ function unhover(element) {
         </div>
     </div>
 
-    <div class="portfolio-modal modal fade" id="portfolioModal-3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="news-modal modal fade" id="newsModal-3" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -313,7 +388,7 @@ function unhover(element) {
                         <div class="modal-body">
                             <h2>Recording</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/bass_recording.jpg" class="img-responsive img-centered" alt="Recording">
+                            <img src="img/news/bass_recording.jpg" class="img-responsive img-centered" alt="Recording">
                             <p>This week Nei Sousa recorded five bass tracks of your first CD</p>
                             <ul class="list-inline item-details">
                                    <li>Date:
@@ -330,7 +405,7 @@ function unhover(element) {
         </div>
     </div>
 
-    <div class="portfolio-modal modal fade" id="portfolioModal-2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="news-modal modal fade" id="newsModal-2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -344,7 +419,7 @@ function unhover(element) {
                         <div class="modal-body">
                             <h2>Recording</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/drums_recording.jpg" class="img-responsive img-centered" alt="Recording">
+                            <img src="img/news/drums_recording.jpg" class="img-responsive img-centered" alt="Recording">
                             <p>This week Wagner Neute recorded five drum tracks of your first CD</p>
                             <ul class="list-inline item-details">
                                    <li>Date:
@@ -375,7 +450,6 @@ function unhover(element) {
 
     <!-- Contact Form JavaScript -->
     <script src="/js/jqBootstrapValidation.js"></script>
-    <script src="/js/contact_me.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="/js/freelancer.js"></script>
