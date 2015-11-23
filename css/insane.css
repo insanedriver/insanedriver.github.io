@@ -99,12 +99,7 @@ footer a:visited {
 #player-home {
     background-image: url(../images/player_home_2.jpg);
     color: white;
-    background-size: 100% auto;
-}
-@media (max-width: 768px) {
-    #player-home {
-        background-size: cover;
-    }
+    background-size: cover;
 }
 
 .player-art {
