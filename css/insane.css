@@ -86,6 +86,12 @@ footer a:visited {
     padding-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+    .footer-social i {
+        font-size: 2em;
+    }
+}
+
 .footer-copyright {
     padding-top: 20px;
 }
@@ -94,6 +100,11 @@ footer a:visited {
     background-image: url(../images/player_home_2.jpg);
     color: white;
     background-size: 100% auto;
+}
+@media (max-width: 768px) {
+    #player-home {
+        background-size: cover;
+    }
 }
 
 .player-art {
@@ -114,10 +125,22 @@ footer a:visited {
     margin-top: 80px;
 }
 
+@media (max-width: 768px) {
+    .iframe-spotify {
+        margin-bottom:20px;
+        width:100%;
+    }
+}
+
 .logo-footer {
     padding-top: 40px;
     margin: 0 auto;
     padding-bottom: 40px;
+}
+@media (max-width: 768px) {
+    .logo-footer {
+        width:150px;
+    }
 }
 
 #content {
