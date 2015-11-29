@@ -228,3 +228,9 @@ footer a:visited {
     margin-top:30px;
     margin-bottom:30px;
 }
+
+@media (min-width: 768px) {
+    .navbar {
+        border-radius: 0px;
+    }
+}
