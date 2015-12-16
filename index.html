@@ -153,6 +153,51 @@
     <!-- Content -->
     <div class="container-fluid insane-content">
         <div class="container">
+            <h1 class="text-center insane-font page-header">VIDEOS</h1>
+            <div class="row">
+                <center>
+                    <div id="player"></div>
+                </center>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid" id="player-home">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="text-center insane-font">AVAILABLE SOON</h1>
+
+                    <div class="row">
+                        <img src="images/player_art.jpg" class="img-responsive text-center player-art">
+                    </div>
+                    <div class="row text-center">
+                        <a href="https://itunes.apple.com/br/artist/insane-driver/id1058331029" target="_blank">
+                            <img src="images/buy-itunes.png" class="img-responsive text-center buy-resources">
+                        </a>
+                        <a href="http://www.amazon.com/s/ref=ntt_srch_drd_B0180P9O3K?ie=UTF8&field-keywords=Insane%20Driver&index=digital-music&search-type=ss"
+                           target="_blank">
+                            <img src="images/buy-amazon.png" class="img-responsive text-center buy-resources">
+                        </a>
+                        <a href="https://play.google.com/store/music/artist/Insane_Driver?id=A7c3fa4enqnaq6qqpwybfg4zppu"
+                           target="_blank">
+                            <img src="images/buy-google.png" class="img-responsive text-center buy-resources">
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <iframe src="https://embed.spotify.com/?uri=spotify:trackset:INSANE PLAYLIST:1Svjjcvygny0XMOxaR7xhM,62c1bCTlL5JfEVqUojrg07"
+                            width="480"
+                            height="328" frameborder="0" allowtransparency="true" class="iframe-spotify"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid insane-content">
+        <div class="container">
             <div class="row">
                 <div class="center-block mailist-home ">
                     <!-- Begin MailChimp Signup Form -->
@@ -201,52 +246,21 @@
         </div>
     </div>
 
-    <div class="container-fluid" id="player-home">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="text-center insane-font">AVAILABLE SOON</h1>
-
-                    <div class="row">
-                        <img src="images/player_art.jpg" class="img-responsive text-center player-art">
-                    </div>
-                    <div class="row text-center">
-                        <a href="https://itunes.apple.com/br/artist/insane-driver/id1058331029" target="_blank">
-                            <img src="images/buy-itunes.png" class="img-responsive text-center buy-resources">
-                        </a>
-                        <a href="http://www.amazon.com/s/ref=ntt_srch_drd_B0180P9O3K?ie=UTF8&field-keywords=Insane%20Driver&index=digital-music&search-type=ss"
-                           target="_blank">
-                            <img src="images/buy-amazon.png" class="img-responsive text-center buy-resources">
-                        </a>
-                        <a href="https://play.google.com/store/music/artist/Insane_Driver?id=A7c3fa4enqnaq6qqpwybfg4zppu"
-                           target="_blank">
-                            <img src="images/buy-google.png" class="img-responsive text-center buy-resources">
-                        </a>
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <iframe src="https://embed.spotify.com/?uri=spotify:trackset:INSANE PLAYLIST:1Svjjcvygny0XMOxaR7xhM,62c1bCTlL5JfEVqUojrg07"
-                            width="480"
-                            height="328" frameborder="0" allowtransparency="true" class="iframe-spotify"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Removendo Dates temporariamente até achar um estilo legal para combinar com o video
     <div class="container-fluid insane-content">
         <div class="container">
             <h1 class="text-center insane-font page-header">DATES</h1>
-            <!-- Three columns of text below the carousel -->
             <div class="row">
                 <script type='text/javascript' src='http://widget.bandsintown.com/javascripts/bit_widget.js'></script>
                 <a href="http://www.bandsintown.com/Insane%20Driver" class="bit-widget-initializer"
                    data-artist="Insane Driver">Insane
                     Driver Tour Dates</a>
 
-            </div><!-- /.row -->
+            </div>
         </div>
 
     </div>
+    -->
 
 </div>
 <!-- FOOTER -->
@@ -315,6 +329,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
+<script src="js/videos.js"></script>
 <script>
     $(document).ready(function () {
 
