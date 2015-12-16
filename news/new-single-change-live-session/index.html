@@ -141,52 +141,53 @@
                     <div class="post">
 
                         <h1 class="insane-font blog-post-title">
-                            New album's info
+                            New single - Change - Live Session
                         </h1>
 
-                        <p class="blog-post-meta">09 Jul 2015</p>
-                        <img src="insane_driver_album.jpg" class="img-responsive">
+                        <p class="blog-post-meta">16 December 2015</p>
 
                         <div class="blog-post-text">
 
-                            <p>Band announces its first self titled album, "Insane Driver".</p>
+                            <p>We released our third and last single before "Insane Driver" album as a Live Session format.
+                            Watch it! And don't forget to share and comment your impressions.</p>
+
+                            <center>
+                                <div id="player"></div>
+                            </center>
                             <hr>
                             <h3>Infos</h3>
-
                             <ul class="list-unstyled item-details">
-                                <li><strong>Cover art:</strong>
+                                <li><strong>Song:</strong>
                                     <strong>
-                                        <a href="http://alesantos.prosite.com" target="blank">Alexandre Santos</a>
+                                        <a href="https://www.youtube.com/watch?v=iR7k_6wKnxE"
+                                           target="_blank">Change</a>
                                     </strong>
                                 </li>
-                                <li><strong>Production:</strong>
+                                <li><strong>Duration:</strong>
                                     <strong>
-                                        <a href="https://www.facebook.com/thiagooliveiraguitar" target="_blank">Thiago
-                                            Oliveira</a>
-                                    </strong>
-                                </li>
-                                <li><strong>Post Production:</strong>
-                                    <strong>
-                                        <a href="http://www.rua-d.com" target="blank">Rua D Produções</a>
+                                        <a href="https://www.youtube.com/watch?v=iR7k_6wKnxE"
+                                           target="_blank">05:14</a>
                                     </strong>
                                 </li>
 
-                                <li><strong>Tracklist:</strong>
-                                    <ol>
-                                        <li> Endless Path</li>
-                                        <li>The Edge Of Life</li>
-                                        <li>Firstly My Breakfast</li>
-                                        <li>Tide Of Fears</li>
-                                        <li>Buried Thoughts</li>
-                                        <li>Fallen Dreams</li>
-                                        <li>Change</li>
-                                        <li>Today Is Sunday</li>
-                                        <li>Faithless Breath</li>
-                                        <li>Make Decisions</li>
-                                        <li>Tears Of Blood</li>
-                                    </ol>
-
+                                <li><strong>Sound Engineer:</strong>
+                                    <strong>
+                                        <a href="http://www.acusticastudios.com" target="_blank">Danilo Pozzani and Maurício Pozzani</a>
+                                    </strong>
                                 </li>
+
+                                <li><strong>Studio:</strong>
+                                    <strong>
+                                        <a href="http://www.acusticastudios.com" target="_blank">Acustica Studios</a>
+                                    </strong>
+                                </li>
+
+                                <li><strong>Edited by:</strong>
+                                    <strong>
+                                        <a href="http://www.rua-d.com" target="blank">Denis Salgado (Rua D Produções)</a>
+                                    </strong>
+                                </li>
+
                             </ul>
                         </div>
 
@@ -292,7 +293,68 @@
 <script src="../../js/bootstrap.min.js"></script>
 <script src="../../js/owl.carousel.min.js"></script>
 <script id="dsq-count-scr" src="//insanedriver.disqus.com/count.js" async></script>
+<script>
 
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+
+    var screenWidth = $(window).width(),
+            screenHeight = $(window).height(),
+            largeDeviceWidth = 1200,
+            mediumDeviceWidth = 992,
+            smallDeviceWidth = 768;
+
+
+    var playerSizeResolver = function() {
+        if(screenWidth > largeDeviceWidth) {
+            return {
+                width: 760,
+                height: 428
+            }
+        }
+        else if(screenWidth > mediumDeviceWidth) {
+            return {
+                width: 700,
+                height: 394
+            }
+        }
+        else if(screenWidth > smallDeviceWidth) {
+            return {
+                width: 500,
+                height: 281
+            }
+        }
+        else {
+            return {
+                width: screenWidth - 100,
+                height: (screenWidth - 100) * 0.562
+            }
+        }
+    };
+
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: playerSizeResolver().height,
+            width: playerSizeResolver().width,
+            videoId: 'iR7k_6wKnxE',
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.setPlaybackQuality('hd720');
+    }
+
+
+</script>
 
 </body>
 </html>
