@@ -330,7 +330,10 @@
 
 <script>
 
-   
+    $(window).load(function() {
+        $("#player_spotify").html("<iframe src='https://embed.spotify.com/?uri=spotify:album:6bOxFlwJsILoy1Xv3ByR0d' width='480' height='328' frameborder='0' allowtransparency='true' class='iframe-spotify' </iframe>");
+    });
+
     $(document).ready(function () {
 
         $("#owl-demo").owlCarousel({
