@@ -317,10 +317,21 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
-<script src="js/videos.js"></script>
+
 <script>
     $(document).ready(function () {
 
+        $("#owl-demo").owlCarousel({
+
+            slideSpeed: 1000,
+            paginationSpeed: 1000,
+            singleItem: true,
+            pagination: false,
+            dots: false,
+            autoPlay: 5000
+
+        });
+		
 		
 		
     });
