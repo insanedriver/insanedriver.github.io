@@ -449,5 +449,6 @@ footer a:visited {
 
 .loading-message {
 	color: white;
-	font-family: "raleway",sans-serif;
+	font-family: insaneFont;
+	font-size: 20px;
 }
