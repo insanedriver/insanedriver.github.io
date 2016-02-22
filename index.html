@@ -39,7 +39,7 @@
       window.loadingScreen = window.pleaseWait({
         logo: "images/logo_footer.png",
         backgroundColor: '#000000',
-        loadingHtml: '<div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div>'
+        loadingHtml: '<p class="insane-font loading-message">Official Website</p><div class="sk-wave"><div class="sk-rect sk-rect1"></div><div class="sk-rect sk-rect2"></div><div class="sk-rect sk-rect3"></div><div class="sk-rect sk-rect4"></div><div class="sk-rect sk-rect5"></div></div>'
       });
     </script>
     <nav class="navbar navbar-inverse">
@@ -330,7 +330,7 @@
     $(window).load(function() {
         $("#player_spotify").html("<iframe src='https://embed.spotify.com/?uri=spotify:album:6bOxFlwJsILoy1Xv3ByR0d' width='480' height='328' frameborder='0' allowtransparency='true' class='iframe-spotify' </iframe>");
 
-        window.loadingScreen.finish();
+        //window.loadingScreen.finish();
     });
 
 
