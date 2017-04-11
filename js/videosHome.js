@@ -1,4 +1,4 @@
-var player, playerChange;
+var player;
 
 $(window).load(function() {
     var tag = document.createElement('script');
@@ -52,15 +52,6 @@ function onYouTubeIframeAPIReady() {
             height: playerSizeResolver().height,
             width: playerSizeResolver().width,
             videoId: '9vjR56iVLq8',
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-
-        playerChange = new YT.Player('playerChange', {
-            height: playerSizeResolver().height,
-            width: playerSizeResolver().width,
-            videoId: 'iR7k_6wKnxE',
             events: {
                 'onReady': onPlayerReady
             }
