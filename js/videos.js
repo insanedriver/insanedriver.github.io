@@ -1,4 +1,4 @@
-var player, playerChange;
+var player, playerChange, playerBuried, playerTide;
 
 $(window).load(function() {
     var tag = document.createElement('script');
@@ -42,42 +42,43 @@ var playerSizeResolver = function() {
     }
 };
 
-function onYouTubeIframeAPIReady() {
-    var todayIsSundayReleaseDate = Date.UTC(2017, 3, 11,  16),
-        now = Date.now();
+function onYouTubeIframeAPIReady() { 
+    player = new YT.Player('player', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: '9vjR56iVLq8',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
 
+    playerBuried = new YT.Player('playerBuried', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'gV4XZMaa9wQ',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
 
-    if(now > todayIsSundayReleaseDate) {
-        player = new YT.Player('player', {
-            height: playerSizeResolver().height,
-            width: playerSizeResolver().width,
-            videoId: '9vjR56iVLq8',
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
+    playerTide = new YT.Player('playerTide', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'vif1ku9btbM',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
 
-        playerChange = new YT.Player('playerChange', {
-            height: playerSizeResolver().height,
-            width: playerSizeResolver().width,
-            videoId: 'iR7k_6wKnxE',
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
+    playerChange = new YT.Player('playerChange', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'iR7k_6wKnxE',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
 
-    else {
-
-        player = new YT.Player('player', {
-            height: playerSizeResolver().height,
-            width: playerSizeResolver().width,
-            videoId: 'iR7k_6wKnxE',
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
 }
 
 function onPlayerReady(event) {
