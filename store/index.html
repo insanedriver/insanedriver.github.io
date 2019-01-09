@@ -139,12 +139,28 @@
                         <div class="col-sm-4 col-sm-offset-4" style="
         margin-top: 20px;
     ">
-                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="text-align: center;">
-                                <input type="hidden" name="cmd" value="_s-xclick">
-                                <input type="hidden" name="hosted_button_id" value="ACB6SNWZ97592">
-                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                                <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-                            </form>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="U7UQL3VCM274A">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="on0" value="Shipment Options">Shipment Options</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="os0">
+                                            <option value="Economic (No Tracking)">Economic (No Tracking) $15,00 USD</option>
+                                            <option value="Standard (With tracking code)">Standard (With tracking code) $22,00 USD</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <input type="hidden" name="currency_code" value="USD">
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                            <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+        
                         </div>
 
                         <div class="col-md-12">
@@ -166,7 +182,6 @@
                                         <p></p>
                                     </h4>
                                     <ul>
-                                        <li>Value: $22.00</li>
                                         <li>Release date: Feb 02, 2016</li>
                                     </ul>
                                     <p>Tracklisting:</p>
