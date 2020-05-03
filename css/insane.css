@@ -268,4 +268,8 @@ footer a:visited {
         border-radius: 0px;
     }
 }
+.linkMembers {
+    font-weight: 800;
+    color: #444;
+}
 
