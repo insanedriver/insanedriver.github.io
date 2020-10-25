@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WW9HZGP');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '379421529852933');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=379421529852933&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,48 +52,21 @@
         ga('send', 'pageview');
 
     </script>
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '379421529852933');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=379421529852933&ev=PageView&noscript=1"/>
-    </noscript>
-    <!-- End Facebook Pixel Code -->
-
-    <!-- Global site tag (gtag.js) - Google Ads: 855186587 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-855186587"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'AW-855186587');
-    </script>
-
-    <!-- Event snippet for Silicon Fortress - Single - Smart Link conversion page -->
-    <script>
-        gtag('event', 'conversion', {'send_to': 'AW-855186587/L8zeCJ_LseQBEJu55JcD'});
-    </script>
-
 </head>
 <!-- NAVBAR
 ================================================== -->
 <body>
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW9HZGP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
     <script type="text/javascript" src="js/please-wait.min.js"></script>
     <script type="text/javascript">
       window.loadingScreen = window.pleaseWait({
-        logo: "images/logo_footer.png",
+        logo: "images/logo_home.png",
         backgroundColor: '#000000',
         loadingHtml: '<p class="loading-message">OFFICIAL WEBSITE</p><div class="sk-wave"><div class="sk-rect sk-rect1"></div><div class="sk-rect sk-rect2"></div><div class="sk-rect sk-rect3"></div><div class="sk-rect sk-rect4"></div><div class="sk-rect sk-rect5"></div></div>'
       });
@@ -129,9 +129,9 @@
                         <li class="menu-insane">
                             <a href="band" class="menu-font site-insane-header">Band</a>
                         </li>
-                        <li class="menu-insane">
+                        <!-- <li class="menu-insane">
                             <a href="dates" class="menu-font site-insane-header">Dates</a>
-                        </li>
+                        </li> -->
                         <li class="menu-insane">
                             <a href="discography" class="menu-font site-insane-header">Discography</a>
                         </li>
@@ -141,9 +141,9 @@
                         <li class="menu-insane">
                             <a href="photos" class="menu-font site-insane-header">Photos</a>
                         </li>
-                        <li class="menu-insane">
+                        <!-- <li class="menu-insane">
                             <a href="press" class="menu-font site-insane-header">Press</a>
-                        </li>
+                        </li> -->
                         <li class="menu-insane">
                             <a href="store" class="menu-font site-insane-header">Store</a>
                         </li>
@@ -160,6 +160,8 @@
     </div>
 </nav>
 
+<h1 class="text-center subtitle-font page-header">Home</h1>
+
 
 <!-- Carousel
 ================================================== -->
@@ -175,9 +177,16 @@
     <div class="container-fluid insane-content">
         <div class="container">
             <h1 class="text-center subtitle-font page-header">Videos</h1>
+            
             <div class="row">
                 <center>
-                    <div id="player"></div>
+                    <div id="playerTeaserSilicon"></div>
+                </center>
+            </div>
+            
+            <div class="row">
+                <center>
+                    <div id="playerToday"></div>
                 </center>
             </div>
         </div>
@@ -188,14 +197,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3 class="text-center silicon-font">Silicon Fortress - 2021</h3>
+                    <h4 class="text-center silicon-font">Silicon Fortress - 2021</h3>
 
                     <div class="row">
                         <img src="images/player_sf.jpg" class="img-responsive text-center player-art">
                     </div>
                 </div>
-                <div id="player_spotify" class="col-md-6">
-                </div>
+                <center>
+                    <div id="player_spotify" class="col-md-6"></div>
+                </center>
             </div>
         </div>
     </div>
@@ -250,7 +260,8 @@
 <!-- FOOTER -->
 <footer>
 
-    <div class="container">
+    <div class="container footer">
+        
         <div class="text-center footer-social">
             <a class="btn btn-social-icon btn-spotify social-footer" target="_blank"
                href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE">
@@ -278,11 +289,11 @@
             <strong>
                 <a href="index.html">HOME</a> &nbsp; | &nbsp;
                 <a href="/band/">BAND</a> &nbsp; | &nbsp;
-                <a href="/dates/">DATES</a> &nbsp; | &nbsp;
+                <!-- <a href="/dates/">DATES</a> &nbsp; | &nbsp; -->
                 <a href="/discography/">DISCOGRAPHY</a> &nbsp; | &nbsp;
                 <a href="/videos/">VIDEOS</a> &nbsp; | &nbsp;
                 <a href="/photos/">PHOTOS</a> &nbsp; | &nbsp;
-                <a href="/press/">PRESS</a> &nbsp; | &nbsp;
+                <!-- <a href="/press/">PRESS</a> &nbsp; | &nbsp; -->
                 <a href="/store/">STORE</a> &nbsp; | &nbsp;
                 <a href="/newsletter/">NEWSLETTER</a>&nbsp; | &nbsp;
                 <a href="/contact/">CONTACT</a>
@@ -305,21 +316,20 @@
 
     </div><!--/col-->
 
-
 </footer>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/insane.js"></script>
-<script src="js/videosHome.js"></script>
+<script src="js/videos.js"></script>
 <script>
 
 
 
     $(window).load(function() {
-        $("#player_spotify").append("<div class='follow-button-spotify'> <span class='h4 silicon-font'>Follow on Spotify</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe></div>");
-        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA' width='480' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify' </iframe>"); 
+        $("#player_spotify").append("<span class='h4 silicon-font'>Follow on Spotify</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>");
+        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify-silicon' </iframe>"); 
 
         window.loadingScreen.finish();
     });
