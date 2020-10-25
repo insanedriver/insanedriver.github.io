@@ -4,13 +4,15 @@ Instalar o less e o watch compiler. O watch compiler vai ficar escutando os arqu
 
 Para instalar o less:
 ```
-npm install
+npm install -g less
 ```
 
-Para instalar (globalmente) o less-watch-compiler:
+Para instalar o less-watch-compiler:
 ```
 npm install -g less-watch-compiler
 ```
+
+OBS: Não deixar de instalar globalmente (flag `-g`).
 
 ## Usando
 
