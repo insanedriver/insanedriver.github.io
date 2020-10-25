@@ -79,6 +79,15 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
+    playerTeaser = new YT.Player('playerTeaser', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'S3O9aD76HRY',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
 }
 
 function onPlayerReady(event) {
