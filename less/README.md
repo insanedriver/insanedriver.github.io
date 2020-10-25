@@ -2,10 +2,12 @@
 
 Instalar o less e o watch compiler. O watch compiler vai ficar escutando os arquivos salvos e atualizar a página automaticamente.
 
+Para instalar o less:
 ```
-npm install -g less
+npm install
 ```
 
+Para instalar (globalmente) o less-watch-compiler:
 ```
 npm install -g less-watch-compiler
 ```
