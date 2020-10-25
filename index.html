@@ -44,6 +44,21 @@
     </noscript>
     <!-- End Facebook Pixel Code -->
 
+    <!-- Global site tag (gtag.js) - Google Ads: 855186587 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-855186587"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-855186587');
+    </script>
+
+    <!-- Event snippet for Silicon Fortress - Single - Smart Link conversion page -->
+    <script>
+        gtag('event', 'conversion', {'send_to': 'AW-855186587/L8zeCJ_LseQBEJu55JcD'});
+    </script>
+
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -169,14 +184,30 @@
 
     </div>
 
-    <div class="container-fluid" id="player-home">
+    <div class="container-fluid" id="player-sf">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="text-center insane-font">INSANE DRIVER</h1>
+                    <h3 class="text-center silicon-font">Silicon Fortress - 2021</h3>
 
                     <div class="row">
-                        <img src="images/player_art.jpg" class="img-responsive text-center player-art">
+                        <img src="images/player_sf.jpg" class="img-responsive text-center player-art">
+                    </div>
+                </div>
+                <div id="player_spotify" class="col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="container-fluid" id="player-id">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-center insane-font">INSANE DRIVER - DELUXE - 2016</h1>
+
+                    <div class="row">
+                        <img src="images/player_ID_Deluxe.jpg" class="img-responsive text-center player-art">
                     </div>
                     <div class="row text-center">
                         <a href="https://itunes.apple.com/br/album/insane-driver-deluxe-edition/1353578399" target="_blank">
@@ -197,7 +228,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Removendo Dates temporariamente até achar um estilo legal para combinar com o video
     <div class="container-fluid insane-content">
@@ -287,8 +318,8 @@
 
 
     $(window).load(function() {
-        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:album:2neL9B7Ljt6NELsvXsVWJ6' width='480' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify' </iframe>"); 
-        $("#player_spotify").append("<div class='follow-button-spotify'> <span class='h3 insane-font'>FOLLOW US ON SPOTIFY</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe></div>");
+        $("#player_spotify").append("<div class='follow-button-spotify'> <span class='h4 silicon-font'>Follow on Spotify</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe></div>");
+        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA' width='480' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify' </iframe>"); 
 
         window.loadingScreen.finish();
     });
