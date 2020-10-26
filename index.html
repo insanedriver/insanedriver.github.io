@@ -55,7 +55,7 @@
 </head>
 <!-- NAVBAR
 ================================================== -->
-<body>
+<body class="page_home">
     
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW9HZGP"
@@ -178,16 +178,12 @@
         <div class="container">
             <h1 class="text-center subtitle-font page-header">Videos</h1>
             
-            <div class="row">
-                <center>
-                    <div id="playerTeaserSilicon"></div>
-                </center>
+            <div class="row text-center">
+                <div id="playerTeaserSilicon"></div>
             </div>
             
-            <div class="row">
-                <center>
-                    <div id="playerToday"></div>
-                </center>
+            <div class="row text-center">
+                <div id="playerToday"></div>
             </div>
         </div>
 
@@ -203,9 +199,12 @@
                         <img src="images/player_sf.jpg" class="img-responsive text-center player-art">
                     </div>
                 </div>
-                <center>
-                    <div id="player_spotify" class="col-md-6"></div>
-                </center>
+                <div class="col-md-6">
+                    <div id="player_spotify">
+                        <div class="follow_title text-center"><span class="h4 silicon-font">Follow on Spotify</span></div>
+                        <div class="player_container text-center"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -328,8 +327,8 @@
 
 
     $(window).load(function() {
-        $("#player_spotify").append("<span class='h4 silicon-font'>Follow on Spotify</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe>");
-        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify-silicon' </iframe>"); 
+        $("#player_spotify .follow_title").append('<iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark" width="150" height="25" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>');
+        $("#player_spotify .player_container").append('<iframe src="https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA" height="328" frameborder="0" allowtransparency="true" allow="encrypted-media" class="iframe-spotify-silicon" </iframe>'); 
 
         window.loadingScreen.finish();
     });
