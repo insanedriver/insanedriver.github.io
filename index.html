@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WW9HZGP');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '379421529852933');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=379421529852933&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,15 +35,13 @@
     <meta name="description"
           content="The official website of the brazilian metal band Insane Driver. Information about contacts, news, the band and social networkings.">
     <meta name="keywords"
-          content="Insane Driver, Insane, Driver, Metal, Rock, Band, Banda, ID, Official, Oficial, InsaneDriver, InsaneDriverID, InsaneDriverOfficial">
+          content="Insane Driver, Insane, Driver, Metal, Rock, Band, Banda, ID, Official, Oficial, InsaneDriver, InsaneDriverID, InsaneDriverOfficial, Silicon Fortress, SiliconFortress">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="/">
-    <link rel="icon" href="favicon.ico">
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/please-wait.css" rel="stylesheet">
-    <link href="css/insane-all.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.png"/>
+    
+    <link href="css/style.min.css" rel="stylesheet">
+    
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -27,19 +52,26 @@
         ga('send', 'pageview');
 
     </script>
-
 </head>
 <!-- NAVBAR
 ================================================== -->
-<body>
-    <script type="text/javascript" src="js/please-wait.min.js"></script>
+<body id="page_home">
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW9HZGP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Comentando o Load -->
+    <!-- <script type="text/javascript" src="js/please-wait.min.js"></script>
     <script type="text/javascript">
       window.loadingScreen = window.pleaseWait({
-        logo: "images/logo_footer.png",
+        logo: "images/logo_loading.png",
         backgroundColor: '#000000',
         loadingHtml: '<p class="loading-message">OFFICIAL WEBSITE</p><div class="sk-wave"><div class="sk-rect sk-rect1"></div><div class="sk-rect sk-rect2"></div><div class="sk-rect sk-rect3"></div><div class="sk-rect sk-rect4"></div><div class="sk-rect sk-rect5"></div></div>'
       });
-    </script>
+    </script> -->
+
     <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -52,69 +84,82 @@
             </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-left nav-pills">
+            <ul class="nav navbar-nav navbar-left nav-pills nav-logo">
                 <li class="menu-insane">
-                    <a href="index.html" class="insane-font site-insane-header"><img src="images/logo_header.png"></a>
+                    <a href="index.html" class="insane-font site-insane-header">
+                        <img class='logo-header' src="images/logo_horizontal.png">
+                    </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right nav-pills">
+            <ul class="nav navbar-nav navbar-right nav-pills nav-media">
                 <li>
-                    <a href="https://facebook.com/insanedriverid" target="_blank"
-                       class="btn btn-social-icon btn-facebook">
-                        <i class="fa fa-facebook fa-lg"></i>
+                    <a href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE" target="_blank"
+                       class="btn btn-social-icon btn-spotify" title="Insane Driver on Spotify">
+                        <i class="fa fa-spotify fa-lg"></i>
+                        <span class="social-text">Insane Driver on Spotify</span>
                     </a>
                 </li>
                 <li>
                     <a href="https://www.youtube.com/user/insanedriverofficial" target="_blank"
-                       class="btn btn-social-icon btn-youtube">
+                       class="btn btn-social-icon btn-youtube" title="Insane Driver on YouTube">
                         <i class="fa fa-youtube fa-lg"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://twitter.com/insanedriverid" target="_blank"
-                       class="btn btn-social-icon btn-twitter">
-                        <i class="fa fa-twitter fa-lg"></i>
+                        <span class="social-text">Insane Driver on YouTube</span>
                     </a>
                 </li>
                 <li>
                     <a href="https://www.instagram.com/insanedriverid/" target="_blank"
-                       class="btn btn-social-icon btn-instagram">
+                       class="btn btn-social-icon btn-instagram" title="Insane Driver on Instagram">
                         <i class="fa fa-instagram fa-lg"></i>
+                        <span class="social-text">Insane Driver on Instagram</span>
                     </a>
                 </li>
                 <li>
-                    <a href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE" target="_blank"
-                       class="btn btn-social-icon btn-spotify">
-                        <i class="fa fa-spotify fa-lg"></i>
+                    <a href="https://facebook.com/insanedriverid" target="_blank"
+                       class="btn btn-social-icon btn-facebook" title="Insane Driver on Facebook">
+                        <i class="fa fa-facebook fa-lg"></i>
+                        <span class="social-text">Insane Driver on Facebook</span>
                     </a>
                 </li>
+                <li>
+                    <a href="https://twitter.com/insanedriverid" target="_blank"
+                       class="btn btn-social-icon btn-twitter" title="Insane Driver on Twitter">
+                        <i class="fa fa-twitter fa-lg"></i>
+                        <span class="social-text">Insane Driver on Twitter</span>
+                    </a>
+                </li>  
             </ul>
             <div class="container center-block menu-center">
                 <div class="center-block">
                     <ul class="nav navbar-nav">
                         <li class="active menu-insane">
-                            <a href="index.html" class="insane-font site-insane-header">HOME</a>
+                            <a href="index.html" class="menu-font site-insane-header">Home</a>
                         </li>
                         <li class="menu-insane">
-                            <a href="band" class="insane-font site-insane-header">BAND</a>
+                            <a href="band/" class="menu-font site-insane-header">Band</a>
+                        </li>
+                        <!-- <li class="menu-insane">
+                            <a href="dates/" class="menu-font site-insane-header">Dates</a>
+                        </li> -->
+                        <li class="menu-insane">
+                            <a href="discography/" class="menu-font site-insane-header">Discography</a>
                         </li>
                         <li class="menu-insane">
-                            <a href="dates" class="insane-font site-insane-header">DATES</a>
+                            <a href="videos/" class="menu-font site-insane-header">Videos</a>
                         </li>
                         <li class="menu-insane">
-                            <a href="discography" class="insane-font site-insane-header">DISCOGRAPHY</a>
+                            <a href="photos/" class="menu-font site-insane-header">Photos</a>
+                        </li>
+                        <!-- <li class="menu-insane">
+                            <a href="press/" class="menu-font site-insane-header">Press</a>
+                        </li> -->
+                        <li class="menu-insane">
+                            <a href="store/" class="menu-font site-insane-header">Store</a>
                         </li>
                         <li class="menu-insane">
-                            <a href="videos" class="insane-font site-insane-header">VIDEOS</a>
+                            <a href="newsletter/" class="menu-font site-insane-header">Newsletter</a>
                         </li>
                         <li class="menu-insane">
-                            <a href="photos" class="insane-font site-insane-header">PHOTOS</a></li><li class="menu-insane"><a href="store" class="insane-font site-insane-header">STORE</a>
-                        </li>
-                        <li class="menu-insane">
-                            <a href="newsletter" class="insane-font site-insane-header">NEWSLETTER</a>
-                        </li>
-                        <li class="menu-insane">
-                            <a href="contact" class="insane-font site-insane-header">CONTACT</a>
+                            <a href="contact/" class="menu-font site-insane-header">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -123,6 +168,7 @@
     </div>
 </nav>
 
+<h1 class="text-center subtitle-font page-header">Insane Driver</h1>
 
 <!-- Carousel
 ================================================== -->
@@ -137,24 +183,52 @@
     <!-- Content -->
     <div class="container-fluid insane-content">
         <div class="container">
-            <h1 class="text-center insane-font page-header">VIDEOS</h1>
-            <div class="row">
-                <center>
-                    <div id="player"></div>
-                </center>
+            <h1 class="text-center subtitle-font">Videos</h1>
+            
+            <div class="row text-center">
+                <div id="playerTeaserSilicon"></div>
+            </div>
+            
+            <div class="row text-center">
+                <div id="playerToday"></div>
             </div>
         </div>
 
     </div>
 
-    <div class="container-fluid" id="player-home">
+    <div class="container-fluid" id="player-sf">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="text-center insane-font">Check out now</h1>
+                    <h4 class="text-center silicon-font">Silicon Fortress - 2021</h4>
+                    <h4 class="text-center silicon-font">Available soon</h4>    
 
                     <div class="row">
-                        <img src="images/player_art.jpg" class="img-responsive text-center player-art">
+                        <img src="images/player_sf.jpg" class="img-responsive text-center player-art">
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div id="player_spotify">
+                        <div class="follow_title text-center">
+                            <h4 class="silicon-font">Follow on Spotify</h4>
+                        </div>
+                        <div class="player_container text-center"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="container-fluid" id="player-id">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-center insane-font">INSANE DRIVER - DELUXE - 2016</h1>
+
+                    <div class="row">
+                        <img src="images/player_ID_Deluxe.jpg" class="img-responsive text-center player-art">
                     </div>
                     <div class="row text-center">
                         <a href="https://itunes.apple.com/br/album/insane-driver-deluxe-edition/1353578399" target="_blank">
@@ -175,62 +249,12 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container-fluid insane-content">
-        <div class="container">
-            <div class="row">
-                <div class="center-block mailist-home ">
-                    <!-- Begin MailChimp Signup Form -->
-                    <div id="mc_embed_signup">
-                        <form action="//insanedriver.us11.list-manage.com/subscribe/post?u=31b9d99c4318b90997348c1ed&amp;id=79f822eba5"
-                              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                              class="validate"
-                              target="_blank" novalidate>
-                            <div id="mc_embed_signup_scroll">
-                                <h1 class="text-center insane-font page-header">SUBSCRIBE TO INSANE LIST</h1>
-
-                                <div class="mc-field-group form-group">
-                                    <label for="mce-EMAIL">E-Mail <span class="asterisk">*</span>
-                                    </label>
-                                    <input type="email" value="" name="EMAIL" class="required email form-control"
-                                           id="mce-EMAIL" placeholder="Enter your e-mail">
-                                </div>
-                                <div id="mce-responses" class="clear">
-                                    <div class="response" id="mce-error-response" style="display:none"></div>
-                                    <div class="response" id="mce-success-response" style="display:none"></div>
-                                </div>
-                                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                <div style="position: absolute; left: -5000px;"><input type="text"
-                                                                                       name="b_31b9d99c4318b90997348c1ed_79f822eba5"
-                                                                                       tabindex="-1" value=""></div>
-                                <div class="clear"><input type="submit" value="Subscribe" name="subscribe"
-                                                          id="mc-embedded-subscribe" class="btn btn-lg btn-default">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <script type='text/javascript'
-                            src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-                    <script type='text/javascript'>(function ($) {
-                        window.fnames = new Array();
-                        window.ftypes = new Array();
-                        fnames[0] = 'EMAIL';
-                        ftypes[0] = 'email';
-
-
-                    }(jQuery));
-                    var $mcj = jQuery.noConflict(true);</script>
-                    <!--End mc_embed_signup-->
-                </div>
-            </div>
-        </div>
-    </div>
+    </div> -->
 
     <!-- Removendo Dates temporariamente até achar um estilo legal para combinar com o video
     <div class="container-fluid insane-content">
         <div class="container">
-            <h1 class="text-center insane-font page-header">DATES</h1>
+            <h1 class="text-center subtitle-font page-header">Dates</h1>
             <div class="row">
                 <script type='text/javascript' src='http://widget.bandsintown.com/javascripts/bit_widget.js'></script>
                 <a href="http://www.bandsintown.com/Insane%20Driver" class="bit-widget-initializer"
@@ -247,50 +271,58 @@
 <!-- FOOTER -->
 <footer>
 
-    <div class="container">
+    <div class="container footer">
+        
         <div class="text-center footer-social">
-            <a class="btn btn-social-icon btn-facebook social-footer" target="_blank"
-               href="https://facebook.com/insanedriverid">
-                <i class="fa fa-facebook fa-3x"></i>
+            <a class="btn btn-social-icon btn-spotify social-footer" target="_blank"
+                href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE" title="Insane Driver on Spotify">
+                <i class="fa fa-spotify fa-3x"></i>
+                <span class="social-text">Insane Driver on Spotify</span>
             </a>
             <a class="btn btn-social-icon btn-vk social-footer" target="_blank"
-               href="https://www.youtube.com/user/insanedriverofficial">
+                href="https://www.youtube.com/user/insanedriverofficial" title="Insane Driver on YouTube">
                 <i class="fa fa-youtube fa-3x"></i>
-            </a>
-            <a class="btn btn-social-icon btn-twitter social-footer" target="_blank"
-               href="https://twitter.com/insanedriverid">
-                <i class="fa fa-twitter fa-3x"></i>
+                <span class="social-text">Insane Driver on YouTube</span>
             </a>
             <a class="btn btn-social-icon btn-instagram social-footer" target="_blank"
-               href="https://www.instagram.com/insanedriverid/">
+                href="https://www.instagram.com/insanedriverid/" title="Insane Driver on Instagram">
                 <i class="fa fa-instagram fa-3x"></i>
+                <span class="social-text">Insane Driver on Instagram</span>
             </a>
-            <a class="btn btn-social-icon btn-spotify social-footer" target="_blank"
-               href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE">
-                <i class="fa fa-spotify fa-3x"></i>
+            <a class="btn btn-social-icon btn-facebook social-footer" target="_blank"
+                href="https://facebook.com/insanedriverid" title="Insane Driver on Facebook">
+                <i class="fa fa-facebook fa-3x"></i>
+                <span class="social-text">Insane Driver on Facebook</span>
+            </a>
+            <a class="btn btn-social-icon btn-twitter social-footer" target="_blank"
+                href="https://twitter.com/insanedriverid" title="Insane Driver on Twitter">
+                <i class="fa fa-twitter fa-3x"></i>
+                <span class="social-text">Insane Driver on Twitter</span>
             </a>
         </div>
 
-        <h5 class="text-center">
+        <nav class="text-center">
             <strong>
                 <a href="index.html">HOME</a> &nbsp; | &nbsp;
                 <a href="/band/">BAND</a> &nbsp; | &nbsp;
-                <a href="/dates/">DATES</a> &nbsp; | &nbsp;
+                <!-- <a href="/dates/">DATES</a> &nbsp; | &nbsp; -->
                 <a href="/discography/">DISCOGRAPHY</a> &nbsp; | &nbsp;
                 <a href="/videos/">VIDEOS</a> &nbsp; | &nbsp;
                 <a href="/photos/">PHOTOS</a> &nbsp; | &nbsp;
+                <!-- <a href="/press/">PRESS</a> &nbsp; | &nbsp; -->
+                <a href="/store/">STORE</a> &nbsp; | &nbsp;
                 <a href="/newsletter/">NEWSLETTER</a>&nbsp; | &nbsp;
                 <a href="/contact/">CONTACT</a>
             </strong>
-        </h5>
+        </nav>
+
+        <img src="../images/logo_horizontal.png" class="img-responsive logo-footer">
 
         <div class="text-center footer-copyright">
             Copyright &copy; 2013-2020 Insane Driver
         </div>
 
-        <img src="images/logo_footer.png" class="img-responsive logo-footer">
-
-        <ul class="nav pull-right scroll-top">
+        <ul class="nav scroll-top">
             <li>
                 <a href="#" title="Scroll to top" class="top-link">
                     <i class="glyphicon glyphicon-chevron-up"></i>
@@ -300,21 +332,20 @@
 
     </div><!--/col-->
 
-
 </footer>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/insane.js"></script>
-<script src="js/videosHome.js"></script>
+<script src="js/videos.js"></script>
 <script>
 
 
 
     $(window).load(function() {
-        $("#player_spotify").append("<iframe src='https://open.spotify.com/embed?uri=spotify:album:2neL9B7Ljt6NELsvXsVWJ6' width='480' height='328' frameborder='0' allowtransparency='true' allow='encrypted-media' class='iframe-spotify' </iframe>"); 
-        $("#player_spotify").append("<div class='follow-button-spotify'> <span class='h3 insane-font'>FOLLOW US ON SPOTIFY</span><iframe src='https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark' width='150' height='25' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowtransparency='true'></iframe></div>");
+        $("#player_spotify .follow_title").append('<h4><iframe src="https://embed.spotify.com/follow/1/?uri=spotify:artist:2ye4AQnKI7zNyOnuLGHaaE&amp;size=basic&amp;theme=dark" width="150" height="25" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe></h4>');
+        $("#player_spotify .player_container").append('<iframe src="https://open.spotify.com/embed?uri=spotify:playlist:4NSGSicKX7WP3qrBLCUdkA" height="328" width="480" frameborder="0" allowtransparency="true" allow="encrypted-media" class="iframe-spotify" </iframe>'); 
 
         window.loadingScreen.finish();
     });

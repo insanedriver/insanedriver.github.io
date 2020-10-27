@@ -43,7 +43,7 @@ var playerSizeResolver = function() {
 };
 
 function onYouTubeIframeAPIReady() { 
-    player = new YT.Player('player', {
+    playerToday = new YT.Player('playerToday', {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
         videoId: '9vjR56iVLq8',
@@ -74,6 +74,24 @@ function onYouTubeIframeAPIReady() {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
         videoId: 'iR7k_6wKnxE',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
+    playerTeaserSilicon = new YT.Player('playerTeaserSilicon', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'S3O9aD76HRY',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
+    playerTeaserSiliconExtended = new YT.Player('playerTeaserSiliconExtended', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'WGEYIYcISoE',
         events: {
             'onReady': onPlayerReady
         }
