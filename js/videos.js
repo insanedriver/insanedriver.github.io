@@ -115,6 +115,24 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
+    playerImaginedLyric = new YT.Player('playerImaginedLyric', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'QhPJuVkPNNY',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
+    playerTeaserExtendedDesperate = new YT.Player('playerTeaserExtendedDesperate', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: '3Gh1jd4u7NE',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
 }
 
 function onPlayerReady(event) {
