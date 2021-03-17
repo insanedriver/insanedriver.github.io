@@ -133,6 +133,15 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
+    playerTeaserInsaneDriver = new YT.Player('playerTeaserInsaneDriver', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'kCwIOad0ur8',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
 }
 
 function onPlayerReady(event) {
