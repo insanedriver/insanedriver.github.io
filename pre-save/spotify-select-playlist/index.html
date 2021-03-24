@@ -296,7 +296,8 @@
 
     $(document).ready(function() {
         $("#preSaveSendPlaylistLink" ).click(function() {
-
+            var urlParams = new URLSearchParams(window.location.search);
+            var user = urlParams.get('id');
             var headers = new Headers();
             headers.append("Content-Type", "application/json");
 
