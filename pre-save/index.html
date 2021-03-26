@@ -40,9 +40,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="nofollow">
+    <meta name="description"
+        content="The official website of the brazilian metal band Insane Driver. Information about contacts, news, the band and social networkings.">
+    <meta name="keywords"
+        content="Insane Driver, Insane, Driver, Metal, Rock, Band, Banda, ID, Official, Oficial, InsaneDriver, InsaneDriverID, InsaneDriverOfficial">
+    <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="/pre-save/spotify-select-playlist/">
+    <link rel="canonical" href="/pre-save/">
     <link rel="icon" href="../../images/favicon.png">
     <link rel="stylesheet" href="../../css/style.min.css">
 
@@ -182,24 +186,26 @@
             <div class="container">
 
                 <div class="col-md-8 col-md-offset-2">
-                    <h2 class="text-center subtitle-font mb">Done!</h2>
+                    <h2 class="text-center subtitle-font">Connect with Insane Driver on Spotify</h2>
 
-                    <p>Insane Driver's upcoming songs will be added to your library as soon as they are
-                        available.<br>Choose a playlist to which you want to add the new songs: (optional)</p>
+                    <p class="mt">
+                        It recently came to us that that people were afraid to pre-save our songs, trusting their data
+                        to third-party services.</p>
+                    <p>We agree that everyone should care about privacy, thus we decided to
+                        <strong>create our own pre-save service</strong>. We guarantee that we won't keep any private
+                        information, as we don't intend to provide you with any advertisements or other services
+                        whatsoever - we only care to deliver you our music in the best possible way.
+                    </p>
+                    <p>Here's what this service really does:</p>
+                    <ul>
+                        <li>Follows Insane Driver's profile</li>
+                        <li>Follows Silicon Fortress's singles playlist</li>
+                        <li>Pre-saves Insane Driver's songs</li>
+                        <li>You can optionally add them to a playlist of your choosing</li>
+                    </ul>
 
-                    <div class="form-group">
-                        <label for="favoritePlaylist">Playlist:</label>
-                        <select class="form-control" id="favoritePlaylist">
-                        </select>
-                    </div>
-                    <a id="preSaveSendPlaylistLink" class="btn btn-primary mt" href="#" role="button">Add to playlist</a>
-                    <span id="preSaveError" class="error"></span>
-                    <div class="row-fluid text-center">
-                        <h2 id="preSaveSuccessMessage"></h2>
-                    </div>
-
+                    <a class="btn btn-success mt" href="https://presave.insanedriver.com.br/">Connect with Insane Driver on Spotify</a>
                 </div>
-
 
             </div>
         </div>
@@ -269,81 +275,11 @@
             </ul>
 
         </div>
-        <!--/col-->
-
-
     </footer>
 
     <script src="../../js/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/owl.carousel.min.js"></script>
-    <script>
-        function loadSelectValues() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var user = urlParams.get('id');
-
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-
-            fetch("https://presave.insanedriver.com.br/spotify/playlist/" + user, requestOptions)
-                .then(response => response.json())
-                .catch(error => {
-                    console.log('Error fetching data: ', error);
-                    $('#preSaveError').text('An error occurred while requesting your playlists.');
-                    Promise.reject();
-                })
-                .then(data => {
-                    data.forEach(playlist => {
-                        $('#favoritePlaylist').append($('<option>', {
-                            value: playlist.id,
-                            text: playlist.name
-                        }));
-                    })
-                })
-                .catch(error => {
-                    console.log('Error: ', error);
-                    $('#preSaveError').text('An error occurred. Please try again in a few hours.');
-                });
-        }
-
-        loadSelectValues();
-
-        $(document).ready(function () {
-            $("#preSaveSendPlaylistLink").click(function () {
-                var urlParams = new URLSearchParams(window.location.search);
-                var user = urlParams.get('id');
-                var headers = new Headers();
-                headers.append("Content-Type", "application/json");
-
-                var playlistSelected = $('#favoritePlaylist option:selected').val();
-                var body = JSON.stringify({ "playlistId": playlistSelected, "uuid": user });
-
-                var requestOptions = {
-                    method: 'POST',
-                    headers: headers,
-                    body: body,
-                    redirect: 'follow'
-                };
-
-                fetch("https://presave.insanedriver.com.br/spotify/playlist/", requestOptions)
-                    .then(response => {
-                        if (response.ok) {
-                            $("#preSaveSuccessMessage").text("Done! Thank you so much!")
-                        }
-
-                    })
-                    .catch(error => console.log('error', error));
-
-            });
-        });
-
-
-
-
-    </script>
-
 </body>
 
 </html>
