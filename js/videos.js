@@ -142,6 +142,33 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
+    playerDeperateLyric = new YT.Player('playerDeperateLyric', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'vJl7VaET5QU',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
+    playerDistantLyric = new YT.Player('playerDistantLyric', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'dvFAJez2xEw',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
+    playerGhostsLyric = new YT.Player('playerGhostsLyric', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: '0Hx9LmWjxQo',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
 }
 
 function onPlayerReady(event) {
