@@ -11,7 +11,9 @@ DON'T REPLACE:
 
 ## Primeiros passos
 
-Instalar o less e o watch compiler. O watch compiler vai ficar escutando os arquivos salvos e atualizar a página automaticamente.
+### Instalar o less e o watch compiler.
+
+O watch compiler vai ficar escutando os arquivos salvos e atualizar a página automaticamente.
 
 Para instalar o less:
 ```
@@ -24,6 +26,15 @@ npm install -g less-watch-compiler
 ```
 
 OBS: Não deixar de instalar globalmente (flag `-g`).
+
+### Instalar o 11ty através do package.json
+
+Para instalar o 11ty e qualquer outro pacote do package.kson:
+```
+npm install
+```
+
+Estes pacotes devem ser instalados localmente.
 
 ## Usando
 
