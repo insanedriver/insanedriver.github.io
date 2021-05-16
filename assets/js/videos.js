@@ -142,7 +142,7 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
-    playerDesperateLyric = new YT.Player('playerDeperateLyric', {
+    playerDesperateLyric = new YT.Player('playerDesperateLyric', {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
         videoId: 'vJl7VaET5QU',
