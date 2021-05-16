@@ -1,6 +1,6 @@
 {
     "watchFolder": "less",   
-    "outputFolder": "css",
+    "outputFolder": "assets/css",
     "mainFile": "style.less",   
     "sourceMap": false,
     "runOnce": false,

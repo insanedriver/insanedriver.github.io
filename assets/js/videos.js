@@ -1,6 +1,6 @@
 var player, playerChange, playerBuried, playerTide;
 
-$(window).load(function() {
+$(window).load(function () {
     var tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
@@ -10,25 +10,25 @@ $(window).load(function() {
 });
 
 var screenWidth = $(window).width(),
-        screenHeight = $(window).height(),
-        largeDeviceWidth = 1200,
-        mediumDeviceWidth = 992,
-        smallDeviceWidth = 768;
+    screenHeight = $(window).height(),
+    largeDeviceWidth = 1200,
+    mediumDeviceWidth = 992,
+    smallDeviceWidth = 768;
 
-var playerSizeResolver = function() {
-    if(screenWidth > largeDeviceWidth) {
+var playerSizeResolver = function () {
+    if (screenWidth > largeDeviceWidth) {
         return {
             width: 1100,
             height: 619
         }
     }
-    else if(screenWidth > mediumDeviceWidth) {
+    else if (screenWidth > mediumDeviceWidth) {
         return {
             width: 900,
             height: 506
         }
     }
-    else if(screenWidth > smallDeviceWidth) {
+    else if (screenWidth > smallDeviceWidth) {
         return {
             width: 700,
             height: 394
@@ -42,7 +42,7 @@ var playerSizeResolver = function() {
     }
 };
 
-function onYouTubeIframeAPIReady() { 
+function onYouTubeIframeAPIReady() {
     playerToday = new YT.Player('playerToday', {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
@@ -142,7 +142,7 @@ function onYouTubeIframeAPIReady() {
         }
     });
 
-    playerDeperateLyric = new YT.Player('playerDeperateLyric', {
+    playerDesperateLyric = new YT.Player('playerDeperateLyric', {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
         videoId: 'vJl7VaET5QU',
@@ -168,7 +168,6 @@ function onYouTubeIframeAPIReady() {
             'onReady': onPlayerReady
         }
     });
-
 }
 
 function onPlayerReady(event) {

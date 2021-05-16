@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% include 'head/gtm' %}
+    {% include 'head/fbpixel' %}
+
+    <title>Insane Driver Official Website</title>
+
+    {% include 'head/metatags' %}
+
+    <link rel="canonical" href="/">
+
+    {% include 'head/styles' %}
+
+    {% if csspath != null %}
+    {% include csspath %}
+    {% endif %}
+
+    {% include 'head/ie8' %}
+    {% include 'head/analytics' %}
+</head>
+
+<body id="page_{{page_id}}">
+
+    {% include 'head/gtm-noscript' %}
+
+    <!-- Loading Screen-->
+    <script type="text/javascript" src="/assets/js/please-wait.min.js"></script>
+    <script type="text/javascript">
+        window.loadingScreen = window.pleaseWait({
+            logo: "/assets/images/logo_loading.png",
+            backgroundColor: '#000000',
+            loadingHtml: '<p class="loading-message">Official Website</p><div class="sk-wave"><div class="sk-rect sk-rect1"></div><div class="sk-rect sk-rect2"></div><div class="sk-rect sk-rect3"></div><div class="sk-rect sk-rect4"></div><div class="sk-rect sk-rect5"></div></div>'
+        });
+    </script>
+    <!-- End Loading Screen-->
+
+    {% include 'header/menu' %}
+
+    <h1 class="text-center subtitle-font page-header">{{page_title}}</h1>
+
+    <!-- Main Image Carousel -->
+    <div id="owl-demo" class="owl-carousel">
+        <div class="item">
+            <img src="/assets/images/2.jpg" class="img-responsive">
+        </div>
+    </div>
+    <!-- End Main Image Carousel -->
+
+    <div id="content">
+        <div class="container-fluid insane-content">
+            {{ content }}
+        </div>
+    </div>
+
+    {% include 'footer/footer' %}
+
+    {% if jspath != null %}
+    {% include jspath %}
+    {% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left nav-pills nav-logo">
+                <li class="menu-insane">
+                    <a href="../" class="insane-font site-insane-header">
+                        <img class='logo-header' src="/assets/images/logo_horizontal.png">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right nav-pills nav-media">
+                <li>
+                    <a href="https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE" target="_blank"
+                        class="btn btn-social-icon btn-spotify" title="Insane Driver on Spotify">
+                        <i class="fa fa-spotify fa-lg"></i>
+                        <span class="social-text">Insane Driver on Spotify</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/user/insanedriverofficial" target="_blank"
+                        class="btn btn-social-icon btn-youtube" title="Insane Driver on YouTube">
+                        <i class="fa fa-youtube fa-lg"></i>
+                        <span class="social-text">Insane Driver on YouTube</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/insanedriverid/" target="_blank"
+                        class="btn btn-social-icon btn-instagram" title="Insane Driver on Instagram">
+                        <i class="fa fa-instagram fa-lg"></i>
+                        <span class="social-text">Insane Driver on Instagram</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://facebook.com/insanedriverid" target="_blank"
+                        class="btn btn-social-icon btn-facebook" title="Insane Driver on Facebook">
+                        <i class="fa fa-facebook fa-lg"></i>
+                        <span class="social-text">Insane Driver on Facebook</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/insanedriverid" target="_blank" class="btn btn-social-icon btn-twitter"
+                        title="Insane Driver on Twitter">
+                        <i class="fa fa-twitter fa-lg"></i>
+                        <span class="social-text">Insane Driver on Twitter</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="container center-block menu-center">
+                <div class="center-block">
+                    <ul class="nav navbar-nav">
+                        <li class="{% if 'home' == page_id %}active{% endif %} menu-insane">
+                            <a href="/" class="menu-font site-insane-header">Home</a>
+                        </li>
+                        <li class="{% if 'band' == page_id %}active{% endif %} menu-insane">
+                            <a href="/band/" class="menu-font site-insane-header">Band</a>
+                        </li>
+                        <!-- <li class="menu-insane">
+                            <a href="/dates/" class="menu-font site-insane-header">Dates</a>
+                        </li> -->
+                        <li class="{% if 'discography' == page_id %}active{% endif %} menu-insane">
+                            <a href="/discography/" class="menu-font site-insane-header">Discography</a>
+                        </li>
+                        <li class="{% if 'videos' == page_id %}active{% endif %} menu-insane">
+                            <a href="/videos/" class="menu-font site-insane-header">Videos</a>
+                        </li>
+                        <li class="{% if 'photos' == page_id %}active{% endif %} menu-insane">
+                            <a href="/photos/" class="menu-font site-insane-header">Photos</a>
+                        </li>
+                        <!-- <li class="{% if 'press' == page_id %}active{% endif %} menu-insane">
+                            <a href="/press/" class="menu-font site-insane-header">Press</a>
+                        </li> -->
+                        <li class="{% if 'store' == page_id %}active{% endif %} menu-insane">
+                            <a href="/store/" class="menu-font site-insane-header">Store</a>
+                        </li>
+                        <li class="{% if 'newsletter' == page_id %}active{% endif %} menu-insane">
+                            <a href="/newsletter/" class="menu-font site-insane-header">Newsletter</a>
+                        </li>
+                        <li class="{% if 'contact' == page_id %}active{% endif %} menu-insane">
+                            <a href="/contact/" class="menu-font site-insane-header">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
