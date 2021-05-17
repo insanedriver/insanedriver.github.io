@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% include 'head/gtm' %}
+    {% include 'head/fbpixel' %}
+
+    {% include 'head/title' %}
+
+    {% include 'head/metatags' %}
+    <link rel="canonical" href="/{{page_id}}/">
+
+    {% include 'head/styles' %}
+
+    {% if csspath != null %}
+    {% include csspath %}
+    {% endif %}
+
+    {% include 'head/ie8' %}
+    {% include 'head/analytics' %}
+</head>
+
+<body id="page_{{page_id}}">
+
+    {% include 'head/gtm-noscript' %}
+
+    {% include 'header/menu' %}
+
+    <div class="header-img">
+        <img src="/assets/images/{{header_img_path}}" class="img-responsive">
+    </div>
+
+    <h1 class="text-center subtitle-font page-header">{{page_title}}</h1>
+
+    <div id="content">
+        <div class="container-fluid insane-content">
+            {{ content }}
+        </div>
+    </div>
+
+    {% include 'footer/footer' %}
+
+    {% if jspath != null %}
+    {% include jspath %}
+    {% endif %}
+
+</body>
+
+</html>
