@@ -1,0 +1,65 @@
+---
+layout: base.html
+
+page_title: Pre-Order
+page_description: Pre-order Insane Driver's Silicon Fortress.
+page_robots: index, follow
+page_id: preorder
+jspath: js/preorder
+header_img_path: header_1.jpg
+---
+
+<div class="container">
+    <div id="prices_international" class="prices-form-container">
+        <h3>Buy from anywhere in the world!</h3>
+        <span class="change-country">
+            (<a href="?imInBrazil=true" title="Change country">I'm in Brazil</a>)
+        </span>
+        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
+            <table>
+                <tr>
+                    <td><input type="hidden" name="on0" value="Nome do menu suspenso">Nome do menu suspenso</td>
+                </tr>
+                <tr>
+                    <td><select name="os0">
+                            <option value="CD Silicon Fortress">CD Silicon Fortress $25,00 USD</option>
+                            <option value="CD Insane Driver">CD Insane Driver $22,00 USD</option>
+                            <option value="COMBO: CD Silicon Fortress + Insane Driver">COMBO: CD Silicon Fortress +
+                                Insane
+                                Driver $35,00 USD</option>
+                        </select> </td>
+                </tr>
+            </table>
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" style="border: 0 none"
+                border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1"
+                height="1">
+        </form>
+
+
+        <!-- SEM O INSANE DRIVER 
+        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
+            <table>
+            <tr><td><input type="hidden" name="on0" value="Nome do menu suspenso">Nome do menu suspenso</td></tr><tr><td><select name="os0">
+                <option value="COMBO: CD Silicon Fortress + Insane Driver">COMBO: CD Silicon Fortress + Insane Driver $35,00 USD</option>
+                <option value="CD Silicon Fortress">CD Silicon Fortress $25,00 USD</option>
+            </select> </td></tr>
+            </table>
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+            </form> -->
+    </div>
+
+    <div id="prices_brazil" class="prices-form-container">
+        Preços do BR!
+        <span class="change-country">
+            (<a href="?imInBrazil=false" title="Change country">I'm not in Brazil</a>)
+        </span>
+    </div>
+</div>
