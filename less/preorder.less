@@ -15,15 +15,23 @@
 
 #page_preorder label {
     display: block;
+    font-weight: 400;
 }
 
 #page_preorder input[type="radio"] {
-    position: relative;
-    top: 1px;
+    display: none;
+}
+
+#page_preorder input[type="radio"]:checked ~ span {
+    border-color: gold;
+    background-color: lightgoldenrodyellow;
 }
 
 #page_preorder label span {
-    padding-left: 5px;
+    padding: 6px 3px;
+    display: block;
+    border: 1px solid transparent;
+    cursor: pointer;
 }
 
 #page_preorder .images {
