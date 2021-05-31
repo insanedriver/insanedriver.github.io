@@ -13,7 +13,7 @@ const getQueryParameters = () => {
     return urlParams;
 };
 
-const isInBrazil = async () => {
+const requestIsInBrazil = async () => {
     const apiUrl = 'http://ip-api.com/json';
     return fetch(apiUrl, {
         method: 'GET',
@@ -35,15 +35,28 @@ const showPrices = (isFromBrazil) => {
     }
 }
 
+const imageCombo = $('#image-combo'),
+    imageCd = $('#image-cd'),
+    toggleImage = (form, value) => {
+        const isCombo = value.indexOf('COMBO') > -1;
+        $('.image-container', form).html(isCombo ? imageCombo : imageCd);
+    };
+
 $(function () {
     const params = getQueryParameters();
     if (params.imInBrazil != null) {
         showPrices(params.imInBrazil == 'true');
     } else {
-        isInBrazil().then((isFromBrazil) => {
+        requestIsInBrazil().then((isFromBrazil) => {
             showPrices(isFromBrazil);
         }).catch((error) => {
             console.error(error);
         });
     }
+
+    const $form = $('form:visible')
+    $('select', $form).change((e) => {
+        toggleImage($form, e.target.value);
+    });
+    toggleImage($form, $form.find('select')[0].value);
 });
