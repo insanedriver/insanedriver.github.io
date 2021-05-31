@@ -35,29 +35,37 @@ const showPrices = (isFromBrazil) => {
     }
 }
 
+let $form, $products, $imageContainer;
+const formIsReady = () => {
+    $form = $('form:visible');
+    $products = $(':input[name="os0"]', $form);
+    $imageContainer = $('.image-container', $form);
+    toggleImage();
+
+    $products.change(() => {
+        toggleImage();
+    });
+}
+
 const imageCombo = $('#image-combo'),
     imageCd = $('#image-cd'),
-    toggleImage = (form, value) => {
-        const isCombo = value.indexOf('COMBO') > -1;
-        $('.image-container', form).html(isCombo ? imageCombo : imageCd);
+    toggleImage = () => {
+        const $selected = $products.filter(':checked')[0],
+            isCombo = $selected.value.indexOf('COMBO') > -1;
+        $imageContainer.html(isCombo ? imageCombo : imageCd);
     };
 
 $(function () {
     const params = getQueryParameters();
     if (params.imInBrazil != null) {
         showPrices(params.imInBrazil == 'true');
+        formIsReady();
     } else {
         requestIsInBrazil().then((isFromBrazil) => {
             showPrices(isFromBrazil);
+            formIsReady();
         }).catch((error) => {
             console.error(error);
         });
     }
-
-    const $form = $('form:visible'),
-        $products = $(':input[name="os0"]', $form);
-    $products.change((e) => {
-        toggleImage($form, e.target.value);
-    });
-    toggleImage($form, $products[0].value);
 });
