@@ -25,55 +25,33 @@ header_img_path: header_1.jpg
         <span class="change-country">
             (<a href="?imInBrazil=true" title="Change country">🇧🇷 I'm in Brazil</a>)
         </span>
-        <!-- 
-        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" class="form-paypal">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
-            <table>
-                <tr>
-                    <td><input type="hidden" name="on0" value="Nome do menu suspenso">Choose your product:</td>
-                    <td rowspan="2" class="images-container"></td>
-                </tr>
-                <tr>
-                    <td><select name="os0">
-                            <option value="CD Silicon Fortress">CD Silicon Fortress $25,00 USD</option>
-                            <option value="CD Insane Driver">CD Insane Driver $22,00 USD</option>
-                            <option value="COMBO: CD Silicon Fortress + Insane Driver">COMBO: CD Silicon Fortress +
-                                Insane Driver $35,00 USD</option>
-                        </select> </td>
-                </tr>
-            </table>
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" style="border: 0 none"
-                style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1"
-                height="1">
-        </form>
 
+        <div class="row text-center form">
+            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
+                <input type="hidden" name="on0" value="Nome do menu suspenso">
+                <input type="hidden" name="currency_code" value="USD">
 
-        SEM O INSANE DRIVER-->
-        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" class="form-paypal">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
-            <table>
-                <tr>
-                    <td><input type="hidden" name="on0" value="Nome do menu suspenso">Choose your product:</td>
-                    <td rowspan="2" class="image-container d-none d-lg-block"></td>
-                </tr>
-                <tr>
-                    <td><select name="os0">
-                            <option value="COMBO: CD Silicon Fortress + Insane Driver">COMBO: CD Silicon Fortress +
-                                Insane Driver $35,00 USD</option>
-                            <option value="CD Silicon Fortress">CD Silicon Fortress $25,00 USD</option>
-                        </select> </td>
-                </tr>
-            </table>
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" style="border: 0 none"
-                name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1"
-                height="1">
-        </form>
+                <span class="choose-title">Choose your product:</span>
+
+                <label><input type="radio" name="os0" checked
+                        value="COMBO: CD Silicon Fortress + Insane Driver"><span>COMBO: CD
+                        Silicon Fortress + Insane Driver $35,00 USD</span></label>
+                <label><input type="radio" name="os0" value="CD Silicon Fortress"><span>CD Silicon Fortress $25,00
+                        USD</span></label>
+
+                <div class="buy-button-container">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"
+                        style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif"
+                        width="1" height="1">
+                </div>
+
+                <div class="image-container"></div>
+            </form>
+        </div>
+
     </div>
 
     <div id="prices_brazil" class="prices-form-container">
@@ -82,28 +60,31 @@ header_img_path: header_1.jpg
             (<a href="?imInBrazil=false" title="Change country">🌍 I'm not in Brazil</a>)
         </span>
 
-        <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" class="form-paypal">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
-            <table>
-                <tr>
-                    <td><input type="hidden" name="on0" value="Nome do menu suspenso">Escolha seu produto:</td>
-                    <td rowspan="2" class="image-container"></td>
-                </tr>
-                <tr>
-                    <td><select name="os0">
-                            <option value="CD Silicon Fortress">CD Silicon Fortress $25,00 USD</option>
-                            <option value="COMBO: CD Silicon Fortress + Insane Driver">COMBO: CD Silicon Fortress +
-                                Insane Driver $35,00 USD</option>
-                        </select> </td>
-                </tr>
-            </table>
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" style="border: 0 none"
-                style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1"
-                height="1">
-        </form>
+        <div class="row text-center form">
+            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="ACF5HQRVAS3ZJ">
+                <input type="hidden" name="on0" value="Nome do menu suspenso">
+                <input type="hidden" name="currency_code" value="BRL">
+
+                <span class="choose-title">Choose your product:</span>
+
+                <label><input type="radio" name="os0" checked
+                        value="COMBO: CD Silicon Fortress + Insane Driver"><span>COMBO: CD
+                        Silicon Fortress + Insane Driver R$40,00</span></label>
+                <label><input type="radio" name="os0" value="CD Silicon Fortress"><span>CD Silicon Fortress R$30,00
+                        USD</span></label>
+
+                <div class="buy-button-container">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"
+                        style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif"
+                        width="1" height="1">
+                </div>
+
+                <div class="image-container"></div>
+            </form>
+        </div>
 
         <div class="alert alert-warning" role="alert">
             DISCLAIMER: If you are <strong>not in Brazil</strong> and tries to place an order through this page,

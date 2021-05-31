@@ -54,9 +54,10 @@ $(function () {
         });
     }
 
-    const $form = $('form:visible')
-    $('select', $form).change((e) => {
+    const $form = $('form:visible'),
+        $products = $(':input[name="os0"]', $form);
+    $products.change((e) => {
         toggleImage($form, e.target.value);
     });
-    toggleImage($form, $form.find('select')[0].value);
+    toggleImage($form, $products[0].value);
 });
