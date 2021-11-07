@@ -1,0 +1,115 @@
+---
+layout: base.html
+
+page_title: Pre-Order
+page_description: Pre-order Insane Driver's Silicon Fortress.
+page_robots: index, follow
+page_id: preorder
+jspath: js/preorder
+header_img_path: header_1.jpg
+---
+
+<div class="container">
+
+
+    <div class="alert alert-info" role="alert">
+        <strong>Note:</strong> The official release date of Silicon Fortress will be on August 27th. If
+        you purchase it during pre-order, you will immediately receive a download link for the
+        full album while you wait for the signed CDs to arrive at your destination.<br>
+        <strong>This promotion will only be available until July 31st</strong>
+    </div>
+
+
+    <div id="prices_international" class="prices-form-container col-md-12">
+        <h3>Buy from anywhere in the world! 🌍</h3>
+        <span class="change-country">
+            (<a href="?imInBrazil=true" title="Change country">🇧🇷 I'm in Brazil</a>)
+        </span>
+
+        <div class="row text-center form">
+            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="JYP8YSM95V69A">
+                <input type="hidden" name="on0" value="Nome do menu suspenso">
+                <input type="hidden" name="currency_code" value="USD">
+
+                <span class="choose-title">Choose your product:</span>
+
+                <div class="row text-center">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <label><input type="radio" name="os0" checked
+                                value="COMBO: CD Silicon Fortress + Insane Driver"><span>COMBO: CD
+                                Silicon Fortress + Insane Driver $35,00 USD</span></label>
+                        <label><input type="radio" name="os0" value="CD Silicon Fortress"><span>CD Silicon Fortress
+                                $25,00
+                                USD</span></label>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+
+                <div class="buy-button-container">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"
+                        style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif"
+                        width="1" height="1">
+                </div>
+
+                <div class="image-container"></div>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="prices_brazil" class="prices-form-container">
+        <h3>Enviamos para todo o Brasil através dos Correios! 🇧🇷</h3>
+        <span class="change-country">
+            (<a href="?imInBrazil=false" title="Change country">🌍 I'm not in Brazil</a>)
+        </span>
+
+        <div class="row text-center form">
+            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="ACF5HQRVAS3ZJ">
+                <input type="hidden" name="on0" value="Nome do menu suspenso">
+                <input type="hidden" name="currency_code" value="BRL">
+
+                <span class="choose-title">Choose your product:</span>
+
+                <div class="row text-center">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <label><input type="radio" name="os0" checked
+                                value="COMBO: CD Silicon Fortress + Insane Driver"><span>COMBO: CD
+                                Silicon Fortress + Insane Driver R$40,00</span></label>
+                        <label><input type="radio" name="os0" value="CD Silicon Fortress"><span>CD Silicon Fortress
+                                R$30,00
+                                USD</span></label>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+
+                <div class="buy-button-container">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"
+                        style="border: 0 none" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" style="border: 0 none" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif"
+                        width="1" height="1">
+                </div>
+
+                <div class="image-container"></div>
+            </form>
+        </div>
+
+        <div class="alert alert-warning" role="alert">
+            DISCLAIMER: If you are <strong>not in Brazil</strong> and tries to place an order through this page,
+            <strong>we
+                will not be able to deliver the CD and cannot guarantee your refund</strong>.<br>
+            We recommend that you buy it through <a href="?imInBrazil=false" title="Change country">this page</a>.
+        </div>
+    </div>
+
+    <div class="images">
+        <img src="/assets/images/silicon-preorder-cd.png" id="image-cd">
+        <img src="/assets/images/silicon-preorder-combo.png" id="image-combo">
+    </div>
+</div>

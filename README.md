@@ -1,14 +1,3 @@
-# 11ty on Insane Driver site test
-
-[sezabass.github.io](https://sezabass.github.io/)
-
-
-DON'T REPLACE:
-
-- CNAME
-- robots.txt
-
-
 ## Primeiros passos
 
 ### Instalar o less e o watch compiler.
