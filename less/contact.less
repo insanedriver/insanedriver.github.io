@@ -6,17 +6,10 @@
         padding: 0;
     }
 
-    .container-fluid {
-        padding: 0;
-    }
-
-    .container {
-        padding: 0;
-        width: 100%;
-    }
-
     .contact-container {
-        padding: 0;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .cyberpunk-card {
@@ -469,25 +462,6 @@
         position: relative;
         margin-bottom: 2.5rem;
         overflow: hidden;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #00f3ff, transparent);
-            opacity: 0.5;
-        }
-
-        &::after {
-            content: '◆';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: #00f3ff;
-            font-size: 0.6rem;
-            text-shadow: 0 0 6px rgba(0,243,255,0.8);
-        }
     }
 
     .cyber-ticker {
@@ -577,9 +551,9 @@
     }
 
     .cyber-email-link {
-        font-size: 1.4rem;
+        font-size: 1.50rem;
         font-weight: 700;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.1em;
         color: #00f3ff;
         text-transform: uppercase;
         text-align: center;
@@ -647,5 +621,6 @@
             }
         }
 
+        @media (min-width: 480px) { font-size: 1.4rem; letter-spacing: 0.15em; }
         @media (min-width: 768px) { font-size: 2rem; }
     }
