@@ -1,4 +1,4 @@
-var player, playerChange, playerBuried, playerTide;
+var player, playerChange, playerBuried, playerTide, playerKeepAway;
 
 $(window).load(function () {
     var tag = document.createElement('script');
@@ -43,6 +43,15 @@ var playerSizeResolver = function () {
 };
 
 function onYouTubeIframeAPIReady() {
+    playerKeepAway = new YT.Player('playerKeepAway', {
+        height: playerSizeResolver().height,
+        width: playerSizeResolver().width,
+        videoId: 'PTT5D9qFKcg',
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+
     playerToday = new YT.Player('playerToday', {
         height: playerSizeResolver().height,
         width: playerSizeResolver().width,
