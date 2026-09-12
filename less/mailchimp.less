@@ -1,55 +1,608 @@
-/* MailChimp Form Embed Code - Classic - 12/17/2015 v10.7 */
-#mc_embed_signup form {display:block; position:relative; text-align:left; padding:10px 0 10px 3%}
-#mc_embed_signup h2 {font-weight:bold; padding:0; margin:15px 0; font-size:1.4em;}
-#mc_embed_signup input {border: 1px solid #ABB0B2; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;}
-#mc_embed_signup input[type=checkbox]{-webkit-appearance:checkbox;}
-#mc_embed_signup input[type=radio]{-webkit-appearance:radio;}
-#mc_embed_signup input:focus {border-color:#333;}
-#mc_embed_signup .button {clear:both; background-color: #aaa; border: 0 none; border-radius:4px; transition: all 0.23s ease-in-out 0s; color: #FFFFFF; cursor: pointer; display: inline-block; font-size:15px; font-weight: normal; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding: 0 22px; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: auto;}
-#mc_embed_signup .button:hover {background-color:#777;}
-#mc_embed_signup .small-meta {font-size: 11px;}
-#mc_embed_signup .nowrap {white-space:nowrap;}
+#page_newsletter {
+    overflow-x: hidden;
 
-#mc_embed_signup .mc-field-group {clear:left; position:relative; width:96%; padding-bottom:3%; min-height:50px;}
-#mc_embed_signup .size1of2 {clear:none; float:left; display:inline-block; width:46%; margin-right:4%;}
-* html #mc_embed_signup .size1of2 {margin-right:2%; /* Fix for IE6 double margins. */}
-#mc_embed_signup .mc-field-group label {display:block; margin-bottom:3px;}
-#mc_embed_signup .mc-field-group input {display:block; width:100%; padding:8px 0; text-indent:2%;}
-#mc_embed_signup .mc-field-group select {display:inline-block; width:99%; padding:5px 0; margin-bottom:2px;}
+    .insane-content {
+        padding: 0;
+    }
 
-#mc_embed_signup .datefield, #mc_embed_signup .phonefield-us{padding:5px 0;}
-#mc_embed_signup .datefield input, #mc_embed_signup .phonefield-us input{display:inline; width:60px; margin:0 2px; letter-spacing:1px; text-align:center; padding:5px 0 2px 0;}
-#mc_embed_signup .phonefield-us .phonearea input, #mc_embed_signup .phonefield-us .phonedetail1 input{width:40px;}
-#mc_embed_signup .datefield .monthfield input, #mc_embed_signup .datefield .dayfield input{width:30px;}
-#mc_embed_signup .datefield label, #mc_embed_signup .phonefield-us label{display:none;}
+    .newsletter-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
 
-#mc_embed_signup .indicates-required {text-align:right; font-size:11px; margin-right:4%;}
-#mc_embed_signup .asterisk {color:#e85c41; font-size:150%; font-weight:normal; position:relative; top:5px;}     
-#mc_embed_signup .clear {clear:both;}
+    @keyframes newsletter-noise {
+        from { transform: translate(0, 0); }
+        to { transform: translate(50px, 50px); }
+    }
 
-#mc_embed_signup .mc-field-group.input-group ul {margin:0; padding:5px 0; list-style:none;}
-#mc_embed_signup .mc-field-group.input-group ul li {display:block; padding:3px 0; margin:0;}
-#mc_embed_signup .mc-field-group.input-group label {display:inline;}
-#mc_embed_signup .mc-field-group.input-group input {display:inline; width:auto; border:none;}
+    @keyframes newsletter-glitch {
+        0%, 90%, 100% { transform: skew(0deg); }
+        92% { transform: skew(4deg); }
+        94% { transform: skew(-3deg); }
+        96% { transform: skew(1deg); }
+    }
 
-#mc_embed_signup div#mce-responses {float:left; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%; margin: 0 5%; clear: both;}
-#mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}
-#mc_embed_signup #mce-error-response {display:none;}
-#mc_embed_signup #mce-success-response {color:#529214; display:none;}
-#mc_embed_signup label.error {display:block; float:none; width:auto; margin-left:1.05em; text-align:left; padding:.5em 0;}
+    @keyframes newsletter-color-shift {
+        0%, 100% { text-shadow: 2px 0 #ff00ea, -2px 0 #00f3ff; }
+        33% { text-shadow: -3px 0 #ff00ea, 3px 0 #00f3ff; }
+        66% { text-shadow: 3px 0 #005f8c, -3px 0 #fcee0a; }
+    }
 
-#mc-embedded-subscribe {clear:both; width:auto; display:block; margin:1em 0 1em 5%;}
-#mc_embed_signup #num-subscribers {font-size:1.1em;}
-#mc_embed_signup #num-subscribers span {padding:.5em; border:1px solid #ccc; margin-right:.5em; font-weight:bold;}
+    @keyframes newsletter-panel-glow {
+        0%, 100% { box-shadow: 0 0 6px rgba(0, 243, 255, 0.18), inset 0 0 8px rgba(0, 243, 255, 0.05); }
+        50% { box-shadow: 0 0 22px rgba(0, 243, 255, 0.38), inset 0 0 18px rgba(0, 243, 255, 0.1); }
+    }
 
-#mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error {display:inline-block; margin:2px 0 1em 0; padding:5px 10px; background-color:rgba(255,255,255,0.85); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; font-size:14px; font-weight:normal; z-index:1; color:#e85c41;}
-#mc_embed_signup #mc-embedded-subscribe-form input.mce_inline_error {border:2px solid #e85c41;}
+    @keyframes newsletter-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
 
+    @keyframes newsletter-ticker {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-100%); }
+    }
 
-/* Insane Mailchimp */
+    .cyber-zone {
+        position: relative;
+        overflow: hidden;
+        padding: 4rem 1rem 3rem;
+        font-family: Rajdhani, sans-serif;
 
-#mc_embed_signup {
+        &::before {
+            content: "";
+            position: absolute;
+            inset: -50%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.015%27/%3E%3C/svg%3E");
+            animation: newsletter-noise 15s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    clear: left;
-    font : 14px Helvetica, Arial, sans-serif;
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.12) 2px,
+                rgba(0, 0, 0, 0.12) 4px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+    }
+
+    .cyber-zone-inner {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 0.25rem;
+
+        @media (min-width: 768px) {
+            padding: 0 2rem;
+        }
+    }
+
+    .cyber-panel {
+        position: relative;
+        margin: 0 0 2.5rem;
+    }
+
+    .cyber-panel-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        max-width: calc(100% - 1rem);
+        padding: 0.45rem 2.5rem 0.45rem 1rem;
+        overflow: hidden;
+        border: 2px solid #00f3ff;
+        border-bottom: 0;
+        background: linear-gradient(135deg, #00f3ff 0%, #007a99 55%, #004d66 100%);
+        clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+        color: #050505;
+        font-family: SiliconFont, Rajdhani, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        line-height: 1.3;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        @media (min-width: 768px) {
+            font-size: 1rem;
+        }
+
+        .tab-icon {
+            flex: 0 0 auto;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            animation: newsletter-blink 2s infinite;
+        }
+    }
+
+    .cyber-panel-body {
+        position: relative;
+        display: flex;
+        min-height: 160px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+        border: 2px solid #00f3ff;
+        background-color: rgba(10, 10, 10, 0.9);
+        background-image:
+            linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+        background-size: 25px 25px;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+        animation: newsletter-panel-glow 5s ease-in-out infinite;
+
+        @media (min-width: 768px) {
+            padding: 3.5rem 2rem;
+        }
+
+        &::after {
+            content: attr(data-hud);
+            position: absolute;
+            right: 30px;
+            bottom: 8px;
+            color: rgba(0, 243, 255, 0.6);
+            font-family: "Share Tech Mono", monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            pointer-events: none;
+        }
+
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00f3ff 0 70%, #ff00ea 70% 86%, #fcee0a 86%);
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+        }
+
+        .corner-tl,
+        .corner-tr,
+        .corner-bl {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 6px;
+            left: 6px;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+        }
+
+        .corner-tr {
+            top: 6px;
+            right: 6px;
+            border-top: 2px solid #00f3ff;
+            border-right: 2px solid #00f3ff;
+        }
+
+        .corner-bl {
+            right: 0;
+            bottom: 0;
+            width: 25px;
+            height: 25px;
+            background: #ff00ea;
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        }
+    }
+
+    .cyber-panel-body--intro {
+        min-height: 280px;
+        text-align: center;
+    }
+
+    .cyber-kicker {
+        margin: 0 0 1rem;
+        color: #fcee0a;
+        font-family: "Share Tech Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+    }
+
+    .cyber-glitch-title {
+        max-width: 100%;
+        margin: 0;
+        color: #ffffff;
+        font-family: insaneFont, SiliconFont, Rajdhani, sans-serif;
+        font-size: clamp(2rem, 8vw, 4rem);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+        text-align: center;
+        text-transform: uppercase;
+        animation: newsletter-glitch 6s infinite linear, newsletter-color-shift 3s infinite steps(4);
+
+        @media (min-width: 768px) {
+            letter-spacing: 0.14em;
+        }
+    }
+
+    .cyber-intro,
+    .cyber-form-intro {
+        max-width: 720px;
+        margin: 1.5rem auto 0;
+        color: #d4d4d4;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+        line-height: 1.7;
+        text-align: center;
+
+        @media (min-width: 768px) {
+            font-size: 1.2rem;
+        }
+    }
+
+    .cyber-separator {
+        position: relative;
+        width: 100%;
+        height: 20px;
+        margin: 0 0 2.5rem;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 9px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #00f3ff 0 26px, transparent 26px 34px);
+            box-shadow: 0 0 8px rgba(0, 243, 255, 0.55);
+        }
+
+        &::after {
+            content: "//";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            padding: 0 1rem;
+            transform: translateX(-50%);
+            background: #0a0a0a;
+            color: #ff00ea;
+            font-family: "Share Tech Mono", monospace;
+            font-weight: 700;
+        }
+    }
+
+    .cyber-panel-body--benefits {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .cyber-section-title {
+        margin: 0 0 2rem;
+        color: #ffffff;
+        font-family: SiliconFont, Rajdhani, sans-serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.1em;
+        line-height: 1.35;
+        text-align: center;
+        text-transform: uppercase;
+
+        @media (min-width: 768px) {
+            font-size: 1.8rem;
+            letter-spacing: 0.16em;
+        }
+    }
+
+    .cyber-benefits-grid {
+        display: grid;
+        width: 100%;
+        max-width: 1100px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+    }
+
+    .cyber-benefit {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        min-height: 190px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 1rem;
+        border: 1px solid rgba(0, 243, 255, 0.65);
+        background: rgba(0, 24, 34, 0.82);
+        clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        text-align: center;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+
+        &:hover {
+            border-color: #ff00ea;
+            box-shadow: 0 0 18px rgba(255, 0, 234, 0.28);
+            transform: translateY(-4px);
+        }
+
+        i {
+            margin-bottom: 1rem;
+            color: #00f3ff;
+            font-size: 2rem;
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.75);
+        }
+
+        strong {
+            color: #ffffff;
+            font-family: SiliconFont, Rajdhani, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        span {
+            margin-top: 0.8rem;
+            color: #b8c8cc;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+    }
+
+    .cyber-panel-body--form {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    #mc_embed_signup {
+        width: 100%;
+        max-width: 720px;
+        color: #d4d4d4;
+        font-family: Rajdhani, sans-serif;
+
+        form {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 0;
+            text-align: left;
+        }
+
+        .cyber-form-intro {
+            margin-top: -0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .indicates-required {
+            margin: 0 0 1rem;
+            color: #8faeb5;
+            font-family: "Share Tech Mono", monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        .asterisk {
+            position: static;
+            color: #ff00ea;
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        .mc-field-group {
+            position: relative;
+            width: 100%;
+            min-height: 0;
+            margin: 0 0 1.5rem;
+            padding: 0;
+            clear: both;
+
+            label {
+                display: block;
+                margin: 0 0 0.55rem;
+                color: #00f3ff;
+                font-family: "Share Tech Mono", monospace;
+                font-size: 0.82rem;
+                font-weight: 700;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+            }
+
+            input,
+            select {
+                display: block;
+                width: 100%;
+                height: 50px;
+                margin: 0;
+                padding: 0 1rem;
+                border: 1px solid rgba(0, 243, 255, 0.75);
+                border-radius: 0;
+                outline: 0;
+                background: rgba(2, 12, 16, 0.95);
+                box-shadow: inset 0 0 12px rgba(0, 243, 255, 0.08);
+                color: #ffffff;
+                font-family: "Share Tech Mono", monospace;
+                font-size: 16px;
+                letter-spacing: 0.04em;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            select {
+                cursor: pointer;
+            }
+
+            option {
+                background: #071015;
+                color: #ffffff;
+            }
+
+            input:focus,
+            select:focus {
+                border-color: #fcee0a;
+                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.28), inset 0 0 14px rgba(252, 238, 10, 0.08);
+            }
+
+            input:user-invalid,
+            select:user-invalid {
+                border-color: #ff00ea;
+                box-shadow: 0 0 0 3px rgba(255, 0, 234, 0.2);
+            }
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        #mce-responses {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .response {
+            width: 100%;
+            margin: 0 0 1rem;
+            padding: 0.8rem 1rem;
+            float: none;
+            border-left: 3px solid #ff00ea;
+            background: rgba(255, 0, 234, 0.08);
+            color: #ffffff;
+            font-family: "Share Tech Mono", monospace;
+            font-weight: 600;
+        }
+
+        #mce-success-response {
+            border-color: #00f3ff;
+            color: #00f3ff;
+        }
+
+        .mailchimp-bot-field {
+            position: absolute;
+            left: -5000px;
+        }
+
+        .button {
+            display: flex;
+            width: 100%;
+            min-height: 52px;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 0;
+            padding: 0.85rem 1.4rem;
+            border: 2px solid #00f3ff;
+            border-radius: 0;
+            background: rgba(0, 243, 255, 0.08);
+            box-shadow: inset 0 0 14px rgba(0, 243, 255, 0.16);
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+            color: #00f3ff;
+            cursor: pointer;
+            font-family: SiliconFont, Rajdhani, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1.3;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+
+            @media (min-width: 480px) {
+                width: auto;
+                min-width: 260px;
+                margin: 0 auto;
+            }
+
+            &:hover,
+            &:focus {
+                border-color: #00f3ff;
+                outline: 0;
+                background: #00f3ff;
+                box-shadow: 0 0 22px rgba(0, 243, 255, 0.75);
+                color: #050505;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.4), 0 0 22px rgba(0, 243, 255, 0.75);
+            }
+        }
+    }
+
+    .cyber-ticker {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 0.45rem 0;
+        overflow: hidden;
+        border-top: 1px solid rgba(0, 243, 255, 0.35);
+        border-bottom: 1px solid rgba(0, 243, 255, 0.35);
+    }
+
+    .cyber-ticker-inner {
+        display: inline-block;
+        color: rgba(0, 243, 255, 0.58);
+        font-family: "Share Tech Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        animation: newsletter-ticker 24s linear infinite;
+    }
+
+    @media (max-width: 479px) {
+        .cyber-zone {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .cyber-panel-body {
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+
+            &::after {
+                right: 24px;
+                max-width: calc(100% - 40px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .cyber-kicker {
+            letter-spacing: 0.13em;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cyber-zone::before,
+        .cyber-glitch-title,
+        .cyber-panel-body,
+        .cyber-panel-tab .tab-icon,
+        .cyber-ticker-inner {
+            animation: none !important;
+        }
+
+        .cyber-benefit,
+        #mc_embed_signup .button {
+            transition: none;
+        }
+
+        .cyber-benefit:hover {
+            transform: none;
+        }
+    }
 }

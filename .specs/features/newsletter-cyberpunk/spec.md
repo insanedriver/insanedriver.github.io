@@ -76,17 +76,17 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| NEWS-01 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-02 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-03 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-04 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-05 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-06 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-07 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-08 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-09 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-10 | P1: Join the Insane Network | Execute | Pending |
-| NEWS-11 | P1: Join the Insane Network | Execute | Pending |
+| NEWS-01 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-02 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-03 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-04 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-05 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-06 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-07 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-08 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-09 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-10 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-11 | P1: Join the Insane Network | Execute | Implementing |
 
 **Coverage:** 11 total, 11 mapped to the implicit Execute steps, 0 unmapped.
 
