@@ -6,9 +6,9 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 
 ## Goals
 
-- [ ] Present the newsletter content and form with the cyberpunk panel, HUD, neon, scanline, separator, and ticker language established by the Band and Contact pages.
-- [ ] Preserve the existing Mailchimp subscription contract while making required fields, keyboard focus, validation, and responsive layout clear.
-- [ ] Keep the page usable without horizontal overflow from 320px mobile widths through desktop widths.
+- [x] Present the newsletter content and form with the cyberpunk panel, HUD, neon, scanline, separator, and ticker language established by the Band and Contact pages.
+- [x] Preserve the existing Mailchimp subscription contract while making required fields, keyboard focus, validation, and responsive layout clear.
+- [x] Keep the page usable without horizontal overflow from 320px mobile widths through desktop widths.
 
 ## Out of Scope
 
@@ -76,17 +76,17 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| NEWS-01 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-02 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-03 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-04 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-05 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-06 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-07 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-08 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-09 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-10 | P1: Join the Insane Network | Execute | Implementing |
-| NEWS-11 | P1: Join the Insane Network | Execute | Implementing |
+| NEWS-01 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-02 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-03 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-04 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-05 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-06 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-07 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-08 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-09 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-10 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-11 | P1: Join the Insane Network | Execute | Verified |
 
 **Coverage:** 11 total, 11 mapped to the implicit Execute steps, 0 unmapped.
 
@@ -94,7 +94,7 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 
 ## Success Criteria
 
-- [ ] The production build completes and emits the redesigned newsletter HTML and CSS.
-- [ ] The generated page satisfies NEWS-01 through NEWS-11 through structural checks and browser inspection.
-- [ ] The Mailchimp integration values match the pre-change form exactly, apart from native validation attributes.
-- [ ] The page has no horizontal overflow at 320px, 768px, or a desktop viewport.
+- [x] The production build completes and emits the redesigned newsletter HTML and CSS.
+- [x] The generated page satisfies NEWS-01 through NEWS-11 through structural checks and browser inspection.
+- [x] The Mailchimp integration values match the pre-change form exactly, apart from native validation attributes.
+- [x] The page has no horizontal overflow at 320px, 768px, or a desktop viewport.

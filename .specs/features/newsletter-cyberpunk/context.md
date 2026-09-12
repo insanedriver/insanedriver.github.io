@@ -2,7 +2,7 @@
 
 **Gathered:** 2026-09-12
 **Spec:** `.specs/features/newsletter-cyberpunk/spec.md`
-**Status:** Ready for implementation after spec approval
+**Status:** Validated
 
 ---
 
