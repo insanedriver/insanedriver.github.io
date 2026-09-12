@@ -458,6 +458,12 @@
                 box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.28), inset 0 0 14px rgba(252, 238, 10, 0.08);
             }
 
+            &:focus-within input,
+            &:focus-within select {
+                border-color: #fcee0a !important;
+                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.28), inset 0 0 14px rgba(252, 238, 10, 0.08) !important;
+            }
+
             input:user-invalid,
             select:user-invalid {
                 border-color: #ff00ea;
@@ -561,6 +567,12 @@
         text-transform: uppercase;
         white-space: nowrap;
         animation: newsletter-ticker 24s linear infinite;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .menu-center {
+            width: auto;
+        }
     }
 
     @media (max-width: 479px) {

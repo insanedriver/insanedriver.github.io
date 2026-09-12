@@ -98,4 +98,3 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 - [ ] The generated page satisfies NEWS-01 through NEWS-11 through structural checks and browser inspection.
 - [ ] The Mailchimp integration values match the pre-change form exactly, apart from native validation attributes.
 - [ ] The page has no horizontal overflow at 320px, 768px, or a desktop viewport.
-
