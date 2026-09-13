@@ -80,6 +80,8 @@
         position: relative;
         z-index: 10;
         width: 100%;
+        // Contact's legacy global rule otherwise caps this at 56rem.
+        max-width: 100%;
         margin: 0 auto;
         padding: 0 0.25rem;
 
@@ -106,7 +108,7 @@
         clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
         color: #050505;
         font-family: SiliconFont, Rajdhani, sans-serif;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         line-height: 1.3;
@@ -156,7 +158,7 @@
             bottom: 8px;
             color: rgba(0, 243, 255, 0.6);
             font-family: "Share Tech Mono", monospace;
-            font-size: 0.62rem;
+            font-size: 0.7rem;
             letter-spacing: 0.16em;
             pointer-events: none;
         }
@@ -213,7 +215,7 @@
         margin: 0 0 1rem;
         color: #fcee0a;
         font-family: "Share Tech Mono", monospace;
-        font-size: 0.78rem;
+        font-size: 1.2rem;
         letter-spacing: 0.22em;
         text-transform: uppercase;
     }
@@ -223,7 +225,7 @@
         margin: 0;
         color: #ffffff;
         font-family: insaneFont, SiliconFont, Rajdhani, sans-serif;
-        font-size: clamp(2rem, 8vw, 4rem);
+        font-size: 2.5rem;
         font-weight: 700;
         letter-spacing: 0.08em;
         line-height: 1.15;
@@ -233,6 +235,7 @@
         animation: newsletter-glitch 6s infinite linear, newsletter-color-shift 3s infinite steps(4);
 
         @media (min-width: 768px) {
+            font-size: 4rem;
             letter-spacing: 0.14em;
         }
     }
@@ -243,13 +246,13 @@
         margin: 1.5rem auto 0;
         color: #d4d4d4;
         font-family: "Courier New", Courier, monospace;
-        font-size: 1rem;
+        font-size: 1.35rem;
         letter-spacing: 0.05em;
         line-height: 1.7;
         text-align: center;
 
         @media (min-width: 768px) {
-            font-size: 1.2rem;
+            font-size: 1.65rem;
         }
     }
 
@@ -294,7 +297,7 @@
         margin: 0 0 2rem;
         color: #ffffff;
         font-family: SiliconFont, Rajdhani, sans-serif;
-        font-size: 1.35rem;
+        font-size: 1.5rem;
         letter-spacing: 0.1em;
         line-height: 1.35;
         text-align: center;
@@ -309,7 +312,6 @@
     .cyber-benefits-grid {
         display: grid;
         width: 100%;
-        max-width: 1100px;
         grid-template-columns: minmax(0, 1fr);
         gap: 1rem;
 
@@ -343,14 +345,14 @@
         i {
             margin-bottom: 1rem;
             color: #00f3ff;
-            font-size: 2rem;
+            font-size: 3.2rem;
             text-shadow: 0 0 12px rgba(0, 243, 255, 0.75);
         }
 
         strong {
             color: #ffffff;
             font-family: SiliconFont, Rajdhani, sans-serif;
-            font-size: 1rem;
+            font-size: 1.5rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
@@ -359,8 +361,13 @@
             margin-top: 0.8rem;
             color: #b8c8cc;
             font-family: "Courier New", Courier, monospace;
-            font-size: 0.88rem;
+            font-size: 1.35rem;
             line-height: 1.55;
+        }
+
+        @media (min-width: 768px) {
+            strong { font-size: 1.8rem; }
+            span { font-size: 1.65rem; }
         }
     }
 
@@ -392,7 +399,7 @@
             margin: 0 0 1rem;
             color: #8faeb5;
             font-family: "Share Tech Mono", monospace;
-            font-size: 0.72rem;
+            font-size: 1.2rem;
             letter-spacing: 0.12em;
             text-align: right;
             text-transform: uppercase;
@@ -418,7 +425,7 @@
                 margin: 0 0 0.55rem;
                 color: #00f3ff;
                 font-family: "Share Tech Mono", monospace;
-                font-size: 0.82rem;
+                font-size: 1.4rem;
                 font-weight: 700;
                 letter-spacing: 0.14em;
                 text-transform: uppercase;
@@ -521,7 +528,7 @@
             color: #00f3ff;
             cursor: pointer;
             font-family: SiliconFont, Rajdhani, sans-serif;
-            font-size: 0.95rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             line-height: 1.3;
@@ -562,7 +569,7 @@
         display: inline-block;
         color: rgba(0, 243, 255, 0.58);
         font-family: "Share Tech Mono", monospace;
-        font-size: 0.68rem;
+        font-size: 0.7rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         white-space: nowrap;
@@ -572,6 +579,63 @@
     @media (min-width: 768px) and (max-width: 991px) {
         .menu-center {
             width: auto;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .cyber-zone-inner {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+        }
+
+        .cyber-panel,
+        .cyber-separator,
+        .cyber-ticker {
+            grid-column: 1 / -1;
+            margin: 0;
+        }
+
+        .cyber-panel--benefits,
+        .cyber-panel--signup {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            align-items: flex-start;
+            grid-column: auto;
+
+            .cyber-panel-body {
+                width: 100%;
+                flex: 1;
+                padding: 3.5rem;
+            }
+        }
+
+        .cyber-separator--signup {
+            display: none;
+        }
+
+        .cyber-benefits-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .cyber-benefit {
+            display: grid;
+            min-height: 0;
+            grid-template-columns: 4rem minmax(0, 1fr);
+            column-gap: 2rem;
+            padding: 2rem;
+            text-align: left;
+
+            i {
+                grid-row: span 2;
+                margin: 0;
+                text-align: center;
+            }
+
+            span {
+                max-width: 42ch;
+            }
         }
     }
 
@@ -603,6 +667,7 @@
         .cyber-zone::before,
         .cyber-glitch-title,
         .cyber-panel-body,
+        .cyber-panel-body::after,
         .cyber-panel-tab .tab-icon,
         .cyber-ticker-inner {
             animation: none !important;

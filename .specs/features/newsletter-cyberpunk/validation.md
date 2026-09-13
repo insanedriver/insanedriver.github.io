@@ -1,5 +1,27 @@
 # Newsletter Cyberpunk Validation
 
+## PR preparation — 2026-09-13
+
+- Re-ran `npm run build`: PASS; Eleventy wrote 17 pages.
+- Re-ran `git diff --check`: PASS.
+- Browser validation below was performed on 2026-09-12; it was not repeated during PR preparation.
+
+## Follow-up review — responsive typography and layout
+
+**Date**: 2026-09-12. This section records the working-tree corrections after `f19c88d`; the original validation below describes its earlier diff range.
+
+- Fixed the inherited global Contact `max-width: 56rem`, which limited Newsletter to 560px even at a 2560px viewport. Newsletter now explicitly uses the available width.
+- Matched the Band/Contact body copy scale: 13.5px on mobile and 16.5px from 768px. Increased benefit text, field labels, and the submit caption; matched the 25px/40px title scale.
+- At 1200px and above, benefits and signup share a row beneath the full-width introduction. The form remains centered within its panel and capped at 720px. Smaller viewports retain stacked panels.
+- Disabled the inherited HUD pseudo-element animation under reduced motion.
+- Excluded internal specs and agent/tool documentation from Eleventy output. The final production build emits 17 pages instead of 81; old generated internal copies were moved out of `docs` to a recoverable temporary directory.
+
+**Verification**: `npm run build` and `git diff --check` passed. Chrome measurements at 320, 390, 768, 1024, 1440, 1920, and 2560px showed no horizontal document overflow. Desktop and mobile screenshots were visually inspected. At 1440px, the content wrapper increased from 560px to 1405px, and benefits/signup occupy adjacent columns.
+
+Browser checks passed for empty email, malformed email, missing country, a valid submission intercepted locally, visible focus on all three controls, and reduced motion including the HUD pseudo-element. The Mailchimp action, method, target, bot field, and all 252 country option values match `origin/master`. No real subscription was submitted.
+
+---
+
 **Verdict**: PASS ✅
 **Date**: 2026-09-12
 **Spec**: `.specs/features/newsletter-cyberpunk/spec.md`

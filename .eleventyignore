@@ -3,3 +3,9 @@ google*
 .github/
 .git/
 node_modules/
+.agents/
+.claude/
+.codex/
+.cursor/
+.specs/
+.windsurf/
