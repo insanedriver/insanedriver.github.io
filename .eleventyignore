@@ -9,3 +9,7 @@ node_modules/
 .cursor/
 .specs/
 .windsurf/
+tests/
+scripts/
+test-results/
+playwright-report/
