@@ -97,7 +97,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T2: Aplicar o visual cyberpunk responsivo
 
-**Status**: Pending
+**Status**: Complete
 **What**: Aplicar a identidade visual aprovada ao carrossel e à grade com escopo exclusivo da página.
 **Where**: `less/photos.less`
 **Supporting files**: `assets/css/style.css`, `assets/css/style.min.css` e `tests/photos/visual.e2e.cjs`; eventual ajuste de classes no template é limitado à ligação da mesma camada visual.
@@ -112,11 +112,11 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Molduras angulares e acentos ciano/magenta estão presentes sem encobrir as fotos.
-- [ ] Verificar ausência de overflow em 320, 390, 768 e 1440 px; foco visível; movimento reduzido sem animações decorativas.
-- [ ] Gerar os CSS pelo comando existente e revisar as quatro larguras no navegador.
-- [ ] Mínimo de 6 casos e2e: quatro larguras, foco e movimento reduzido. Registrar evidência visual da identidade.
-- [ ] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Molduras angulares e acentos ciano/magenta estão presentes sem encobrir as fotos.
+- [x] Verificar ausência de overflow em 320, 390, 768 e 1440 px; foco visível; movimento reduzido sem animações decorativas.
+- [x] Gerar os CSS pelo comando existente e revisar as quatro larguras no navegador.
+- [x] Mínimo de 6 casos e2e: quatro larguras, foco e movimento reduzido. Registrar evidência visual da identidade.
+- [x] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: e2e + revisão visual
 **Gate**: full

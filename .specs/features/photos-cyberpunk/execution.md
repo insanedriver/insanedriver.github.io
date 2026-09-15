@@ -24,3 +24,21 @@ Gate: 3 unit tests and 2 browser tests passed.
 | test('PHOTO-16: archive links work with JavaScript disabled', async ({browser}) => { | tests/photos/gallery.e2e.cjs:18 | expect(response.headers()['content-type']).toMatch(/^image\//); |
 
 Adequacy: assertions checked against the task criteria; tests map to the PHOTO identifiers and approved design bounds. No speculative coverage.
+
+## T2
+
+Gate: 3 unit tests and 8 browser tests passed. Visual review: /tmp/photos-review-{320,390,768,1440}.jpg. Dark surfaces, natural-color photography and angular cyan/magenta frame confirmed. Below-fold thumbnails are lazy-loaded. Tablet menu overflow corrected only within Photos. PHOTO-15 remains partially verified until viewer transitions in T4.
+
+| Criterion | Evidence and assertion | Expected outcome / reverse mapping |
+| --- | --- | --- |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:6: `await expect(page.locator('.photos-stage')).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:7: `await expect(page.locator('.photos-accent').first()).toHaveCSS('color', 'rgb(255, 0, 234)');` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:8: `expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:9: `await expect(page.locator('.photos-archive')).toHaveCSS('display', 'grid');` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:21: `await expect(control).toBeFocused();` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:22: `await expect(control).toHaveCSS('outline-style', 'solid');` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:23: `expect(await control.getAttribute('aria-label')).toBeTruthy();` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:29: `expect(await page.locator('.photos-shell, .photos-shell *').evaluateAll(nodes => nodes.every(n => {` | PHOTO-03/11/14/15; keep |
+| T2 visual, focus, motion | tests/photos/visual.e2e.cjs:31: `return css.animationName === 'none' && css.transitionDuration === '0s';` | PHOTO-03/11/14/15; keep |
+
+Adequacy: all six planned cases pass; each assertion maps to T2 criteria. No test was weakened or removed. No extra guidelines.
