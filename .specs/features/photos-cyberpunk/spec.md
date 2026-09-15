@@ -161,13 +161,13 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-06 | Explorar as fotos da banda — AC 6 | Execute | Verified |
 | PHOTO-07 | Explorar as fotos da banda — AC 7 | Execute | Verified |
 | PHOTO-08 | Explorar as fotos da banda — AC 8 | Execute | Verified |
-| PHOTO-09 | Explorar as fotos da banda — AC 9 | Execute | In Tasks |
-| PHOTO-10 | Explorar as fotos da banda — AC 10 | Execute | In Tasks |
+| PHOTO-09 | Explorar as fotos da banda — AC 9 | Execute | Verified |
+| PHOTO-10 | Explorar as fotos da banda — AC 10 | Execute | Verified |
 | PHOTO-11 | Navegar no celular e por teclado — AC 1 | Execute | Verified |
 | PHOTO-12 | Navegar no celular e por teclado — AC 2 | Execute | Verified |
-| PHOTO-13 | Navegar no celular e por teclado — AC 3 | Execute | In Tasks |
+| PHOTO-13 | Navegar no celular e por teclado — AC 3 | Execute | Verified |
 | PHOTO-14 | Navegar no celular e por teclado — AC 4 | Execute | Verified |
-| PHOTO-15 | Navegar no celular e por teclado — AC 5 | Execute | In Tasks |
+| PHOTO-15 | Navegar no celular e por teclado — AC 5 | Execute | Verified |
 | PHOTO-16 | Navegar no celular e por teclado — AC 6 | Execute | Verified |
 | PHOTO-17 | Navegar no celular e por teclado — AC 7 | Execute | Verified |
 | PHOTO-18 | Ver publicações recentes do Instagram — AC 1 | Execute | In Tasks |

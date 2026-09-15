@@ -68,3 +68,24 @@ Gate: 3 unit + 15 browser tests passed. No tests skipped, deleted or weakened.
 | test('PHOTO-08: no automatic advancement while idle', async ({page}) => { | tests/photos/carousel.e2e.cjs:46: `await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
 
 Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.
+
+## T4
+
+Gate: build, 3 unit + 20 browser tests, diff check passed. No tests skipped, deleted or weakened.
+
+| Requirement / criterion | Assertion evidence | Reverse mapping |
+| --- | --- | --- |
+| Task criteria | tests/photos/viewer.e2e.cjs:4: `await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);` | Keep: T4 criteria |
+| Task criteria | tests/photos/viewer.e2e.cjs:5: `await expect(page.locator('.pswp__item').nth(1).locator('img.pswp__img').last()).toHaveAttribute('src',src);` | Keep: T4 criteria |
+| test('PHOTO-09: archive opens matching photo, keeps navigation and zoom', async ({page}) => { | tests/photos/viewer.e2e.cjs:18: `await expect(page.locator('.pswp__counter')).toHaveText('9 / 17');` | Keep: T4 criteria |
+| test('PHOTO-09: archive opens matching photo, keeps navigation and zoom', async ({page}) => { | tests/photos/viewer.e2e.cjs:19: `await expect(page.locator('.pswp__button--zoom')).toBeVisible();` | Keep: T4 criteria |
+| test('PHOTO-09: archive opens matching photo, keeps navigation and zoom', async ({page}) => { | tests/photos/viewer.e2e.cjs:21: `await expect(page.locator('.pswp')).toHaveClass(/pswp--zoomed-in/);` | Keep: T4 criteria |
+| test('PHOTO-10/13: Escape and close button restore the exact trigger focus', async ({page}) => { | tests/photos/viewer.e2e.cjs:27: `await link.click(); await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);` | Keep: T4 criteria |
+| test('PHOTO-10/13: Escape and close button restore the exact trigger focus', async ({page}) => { | tests/photos/viewer.e2e.cjs:29: `await expect(page.locator('.pswp')).not.toHaveClass(/pswp--open/);` | Keep: T4 criteria |
+| test('PHOTO-10/13: Escape and close button restore the exact trigger focus', async ({page}) => { | tests/photos/viewer.e2e.cjs:30: `await expect(link).toBeFocused();` | Keep: T4 criteria |
+| test('PHOTO-10/13: Escape and close button restore the exact trigger focus', async ({page}) => { | tests/photos/viewer.e2e.cjs:32: `await expect(link).toBeFocused();` | Keep: T4 criteria |
+| test('PHOTO-15: reduced motion removes viewer opening/closing transitions', async ({page}) => { | tests/photos/viewer.e2e.cjs:42: `expect(await page.evaluate(() => [viewerOptions.showAnimationDuration,viewerOptions.hideAnimationDuration])).toEqual([0,0]);` | Keep: T4 criteria |
+| test('PHOTO-15: reduced motion removes viewer opening/closing transitions', async ({page}) => { | tests/photos/viewer.e2e.cjs:44: `await expect(page.locator('.pswp')).not.toHaveClass(/pswp--open/);` | Keep: T4 criteria |
+| test('PHOTO-09: legacy uppercase dimensions are normalized', async ({page}) => { | tests/photos/viewer.e2e.cjs:51: `expect(await page.evaluate(() => [viewerItem.w,viewerItem.h])).toEqual([photos[0].width,photos[0].height]);` | Keep: T4 criteria |
+
+Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.

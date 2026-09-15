@@ -151,7 +151,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T4: Integrar ampliação e retorno de foco
 
-**Status**: Pending
+**Status**: Complete
 **What**: Abrir a foto correta dos destaques ou do acervo e restaurar o foco ao fechar o visualizador.
 **Where**: `assets/js/photoswipe-impl.js`
 **Supporting files**: `assets/js/photos.js` apenas na chamada do adaptador e `tests/photos/viewer.e2e.cjs`.
@@ -166,11 +166,11 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Abrir a imagem correspondente ao destaque ativo e a uma entrada da grade, mantendo navegação e zoom.
-- [ ] Escape fecha; fechamento restaura o foco no acionador.
-- [ ] Normalizar dimensões e desativar transições de abertura/fechamento com movimento reduzido.
-- [ ] Mínimo de 4 casos e2e: destaque, grade, fechamento/foco e movimento reduzido; build completo passa.
-- [ ] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Abrir a imagem correspondente ao destaque ativo e a uma entrada da grade, mantendo navegação e zoom.
+- [x] Escape fecha; fechamento restaura o foco no acionador.
+- [x] Normalizar dimensões e desativar transições de abertura/fechamento com movimento reduzido.
+- [x] Mínimo de 4 casos e2e: destaque, grade, fechamento/foco e movimento reduzido; build completo passa.
+- [x] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: e2e
 **Gate**: build

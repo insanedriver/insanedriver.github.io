@@ -52,6 +52,11 @@
             event.stopImmediatePropagation();
         }
     }, true);
+    stage.addEventListener('click', function (event) {
+        var link = event.target.closest('[data-photo-open]');
+        if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        if (window.openInsanePhoto && window.openInsanePhoto(link.dataset.photoOpen, link)) event.preventDefault();
+    });
     select(0);
     carousel.querySelectorAll('[data-photo-controls]').forEach(function (controls) { controls.hidden = false; });
 }());
