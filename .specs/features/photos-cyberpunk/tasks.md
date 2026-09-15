@@ -266,7 +266,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T8: Documentar configuração e recuperação
 
-**Status**: Pending
+**Status**: Complete
 **What**: Entregar instruções operacionais que distinguem configuração da conta, desenvolvimento local e ativação real.
 **Where**: `README.md`
 **Supporting files**: Nenhum arquivo de produto adicional; evidências da revisão ficam nos documentos da feature.
@@ -281,12 +281,12 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Documentar conta profissional, permissão básica, versão da API, identificação da conta e cadastro seguro do token.
-- [ ] Documentar execução manual, prazo real do token, renovação manual, reativação de schedule e leitura do resumo.
-- [ ] Documentar limpeza explícita da integração e mídias, incluindo histórico Git; falha transitória não equivale a pedido de exclusão.
-- [ ] Revisar cinco cenários: primeiro uso, build local sem segredo, recuperação de token, agendamento parado e desativação; marcar separadamente tudo que ainda depende da conta real.
-- [ ] Build e suites acumuladas passam; a conclusão desta tarefa dispara automaticamente o verificador independente.
-- [ ] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Documentar conta profissional, permissão básica, versão da API, identificação da conta e cadastro seguro do token.
+- [x] Documentar execução manual, prazo real do token, renovação manual, reativação de schedule e leitura do resumo.
+- [x] Documentar limpeza explícita da integração e mídias, incluindo histórico Git; falha transitória não equivale a pedido de exclusão.
+- [x] Revisar cinco cenários: primeiro uso, build local sem segredo, recuperação de token, agendamento parado e desativação; marcar separadamente tudo que ainda depende da conta real.
+- [x] Build e suites acumuladas passam; a conclusão desta tarefa dispara automaticamente o verificador independente.
+- [x] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: manual
 **Gate**: build

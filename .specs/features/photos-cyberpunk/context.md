@@ -2,7 +2,7 @@
 
 **Gathered:** 2026-09-13
 **Spec:** .specs/features/photos-cyberpunk/spec.md
-**Status:** Especificação aprovada pelo usuário em 2026-09-13; design e plano de tarefas prontos para revisão.
+**Status:** Especificação, design e tarefas aprovados; implementação local em revisão final.
 
 ## Feature Boundary
 

@@ -181,3 +181,24 @@ Gate: build, 37 unit + 22 browser tests, diff check passed. No tests skipped, de
 | test('PHOTO-31: corrupted manifest and unexpected executable files fail restoration',t=>{ | tests/photos/instagram-workflow.test.cjs:66: `assert.throws(()=>restore({cwd:r.checkout('bad-file')}),/restore failed/);` | Keep: T7 criteria |
 
 Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.
+
+## T8 operational review
+
+| Scenario | Documentation / check | Result |
+| --- | --- | --- |
+| First use | README.md: Primeiro uso; official account flow, basic permission, user ID, explicit version, secret table and manual activation | Instructions complete; real account and API contract pending administrator validation |
+| Local build without secrets | README.md: Desenvolvimento local; loader has no environment or network dependency; build gate below | Verified locally |
+| Token recovery | README.md: Expiração, revogação e recuperação; actual expiry from provider, manual secret replacement and manual workflow | Instructions reviewed; no real token used |
+| Stopped schedule | README.md: Execução e resultado; UTC schedule, default branch, 60-day inactivity and reactivation | Instructions reviewed against GitHub documentation |
+| Deactivation | README.md: Desativação e exclusão explícitas; stop runs, revoke, clean source/output/release and address history/caches | Instructions reviewed; destructive operations not executed |
+
+No product files changed for T8. Meta get-started returned 429 on 2026-09-14. No claim of a successful live account/API test. The tested API version is explicitly a fixture. Local validation and external activation are separate in the README.
+
+## T8
+
+Gate: build, 37 unit + 22 browser tests, diff check passed; five operational scenarios reviewed. No tests skipped, deleted or weakened.
+
+| Requirement / criterion | Assertion evidence | Reverse mapping |
+| --- | --- | --- |
+
+Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.

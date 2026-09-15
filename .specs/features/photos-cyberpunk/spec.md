@@ -187,7 +187,7 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-32 | Atualizar o feed sem backend no site — AC 7 | Execute | Verified |
 | PHOTO-33 | Atualizar o feed sem backend no site — AC 8 | Execute | Verified |
 | PHOTO-34 | Atualizar o feed sem backend no site — AC 9 | Execute | Verified |
-| PHOTO-35 | Atualizar o feed sem backend no site — AC 10 | Execute | In Tasks |
+| PHOTO-35 | Atualizar o feed sem backend no site — AC 10 | Execute | Verified |
 
 **Coverage:** 35 requisitos definidos e mapeados às tarefas propostas em tasks.md; execução ainda não iniciada.
 
