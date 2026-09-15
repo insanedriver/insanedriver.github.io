@@ -156,15 +156,15 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-01 | Explorar as fotos da banda — AC 1 | Execute | Verified |
 | PHOTO-02 | Explorar as fotos da banda — AC 2 | Execute | Verified |
 | PHOTO-03 | Explorar as fotos da banda — AC 3 | Execute | Verified |
-| PHOTO-04 | Explorar as fotos da banda — AC 4 | Execute | In Tasks |
-| PHOTO-05 | Explorar as fotos da banda — AC 5 | Execute | In Tasks |
-| PHOTO-06 | Explorar as fotos da banda — AC 6 | Execute | In Tasks |
-| PHOTO-07 | Explorar as fotos da banda — AC 7 | Execute | In Tasks |
-| PHOTO-08 | Explorar as fotos da banda — AC 8 | Execute | In Tasks |
+| PHOTO-04 | Explorar as fotos da banda — AC 4 | Execute | Verified |
+| PHOTO-05 | Explorar as fotos da banda — AC 5 | Execute | Verified |
+| PHOTO-06 | Explorar as fotos da banda — AC 6 | Execute | Verified |
+| PHOTO-07 | Explorar as fotos da banda — AC 7 | Execute | Verified |
+| PHOTO-08 | Explorar as fotos da banda — AC 8 | Execute | Verified |
 | PHOTO-09 | Explorar as fotos da banda — AC 9 | Execute | In Tasks |
 | PHOTO-10 | Explorar as fotos da banda — AC 10 | Execute | In Tasks |
 | PHOTO-11 | Navegar no celular e por teclado — AC 1 | Execute | Verified |
-| PHOTO-12 | Navegar no celular e por teclado — AC 2 | Execute | In Tasks |
+| PHOTO-12 | Navegar no celular e por teclado — AC 2 | Execute | Verified |
 | PHOTO-13 | Navegar no celular e por teclado — AC 3 | Execute | In Tasks |
 | PHOTO-14 | Navegar no celular e por teclado — AC 4 | Execute | Verified |
 | PHOTO-15 | Navegar no celular e por teclado — AC 5 | Execute | In Tasks |

@@ -124,7 +124,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T3: Implementar a navegação do carrossel
 
-**Status**: Pending
+**Status**: Complete
 **What**: Operar o carrossel por setas, miniaturas, teclado e gesto horizontal, sem autoplay.
 **Where**: `assets/js/photos.js`
 **Supporting files**: `_includes/js/photos.liquid` e `tests/photos/carousel.e2e.cjs`.
@@ -139,11 +139,11 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Próximo/anterior fazem wrap; miniatura seleciona a imagem e atualiza contador/estado acessível.
-- [ ] Teclado só controla o carrossel quando há foco nele.
-- [ ] Gesto de pelo menos 40 px troca uma foto, gesto vertical não troca e arrastar não abre lightbox.
-- [ ] Mínimo de 7 casos e2e: wrap nos dois sentidos, miniatura, teclado, swipe, gesto vertical e ausência de autoplay.
-- [ ] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Próximo/anterior fazem wrap; miniatura seleciona a imagem e atualiza contador/estado acessível.
+- [x] Teclado só controla o carrossel quando há foco nele.
+- [x] Gesto de pelo menos 40 px troca uma foto, gesto vertical não troca e arrastar não abre lightbox.
+- [x] Mínimo de 7 casos e2e: wrap nos dois sentidos, miniatura, teclado, swipe, gesto vertical e ausência de autoplay.
+- [x] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: e2e
 **Gate**: full

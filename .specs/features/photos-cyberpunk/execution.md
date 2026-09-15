@@ -42,3 +42,29 @@ Gate: 3 unit tests and 8 browser tests passed. Visual review: /tmp/photos-review
 | T2 visual, focus, motion | tests/photos/visual.e2e.cjs:31: `return css.animationName === 'none' && css.transitionDuration === '0s';` | PHOTO-03/11/14/15; keep |
 
 Adequacy: all six planned cases pass; each assertion maps to T2 criteria. No test was weakened or removed. No extra guidelines.
+
+## T3
+
+Gate: 3 unit + 15 browser tests passed. No tests skipped, deleted or weakened.
+
+| Requirement / criterion | Assertion evidence | Reverse mapping |
+| --- | --- | --- |
+| test('PHOTO-04: next wraps from sixth to first', async ({page}) => { | tests/photos/carousel.e2e.cjs:5: `for (let n=2;n<=6;n++) { await page.getByRole('button',{name:'Next highlight',exact:true}).click(); await expect(counter(page)).toHaveText(`0${n} / 06`); }` | Keep: T3 criteria |
+| test('PHOTO-04: next wraps from sixth to first', async ({page}) => { | tests/photos/carousel.e2e.cjs:7: `await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-05: previous wraps from first to sixth', async ({page}) => { | tests/photos/carousel.e2e.cjs:11: `await expect(counter(page)).toHaveText('06 / 06');` | Keep: T3 criteria |
+| test('PHOTO-06: thumbnail selects matching image and accessible state', async ({page}) => { | tests/photos/carousel.e2e.cjs:15: `await expect(counter(page)).toHaveText('04 / 06');` | Keep: T3 criteria |
+| test('PHOTO-06: thumbnail selects matching image and accessible state', async ({page}) => { | tests/photos/carousel.e2e.cjs:16: `await expect(page.locator('[data-photo-slide]').nth(3)).toBeVisible();` | Keep: T3 criteria |
+| test('PHOTO-06: thumbnail selects matching image and accessible state', async ({page}) => { | tests/photos/carousel.e2e.cjs:17: `await expect(page.locator('[data-photo-select="3"]')).toHaveAttribute('aria-pressed','true');` | Keep: T3 criteria |
+| test('PHOTO-06: thumbnail selects matching image and accessible state', async ({page}) => { | tests/photos/carousel.e2e.cjs:18: `await expect(page.locator('[data-photo-select][aria-pressed="true"]')).toHaveCount(1);` | Keep: T3 criteria |
+| test('PHOTO-12: arrow keys operate only with carousel focus', async ({page}) => { | tests/photos/carousel.e2e.cjs:22: `await page.keyboard.press('ArrowRight'); await expect(counter(page)).toHaveText('02 / 06');` | Keep: T3 criteria |
+| test('PHOTO-12: arrow keys operate only with carousel focus', async ({page}) => { | tests/photos/carousel.e2e.cjs:23: `await page.keyboard.press('ArrowLeft'); await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-12: arrow keys operate only with carousel focus', async ({page}) => { | tests/photos/carousel.e2e.cjs:25: `await page.keyboard.press('ArrowRight'); await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-07: horizontal swipe of 40px selects once and suppresses opening', async ({page}) => { | tests/photos/carousel.e2e.cjs:33: `await gesture(page,-40,0); await expect(counter(page)).toHaveText('02 / 06');` | Keep: T3 criteria |
+| test('PHOTO-07: horizontal swipe of 40px selects once and suppresses opening', async ({page}) => { | tests/photos/carousel.e2e.cjs:35: `await expect(page).toHaveURL(/\/photos\/$/);` | Keep: T3 criteria |
+| test('PHOTO-07: horizontal swipe of 40px selects once and suppresses opening', async ({page}) => { | tests/photos/carousel.e2e.cjs:36: `await expect(page.locator('.pswp')).not.toHaveClass(/pswp--open/);` | Keep: T3 criteria |
+| test('PHOTO-07: horizontal swipe of 40px selects once and suppresses opening', async ({page}) => { | tests/photos/carousel.e2e.cjs:37: `await gesture(page,40,0); await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-07: vertical and short gestures retain selection', async ({page}) => { | tests/photos/carousel.e2e.cjs:40: `await gesture(page,-50,80); await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-07: vertical and short gestures retain selection', async ({page}) => { | tests/photos/carousel.e2e.cjs:41: `await gesture(page,-39,0); await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+| test('PHOTO-08: no automatic advancement while idle', async ({page}) => { | tests/photos/carousel.e2e.cjs:46: `await expect(counter(page)).toHaveText('01 / 06');` | Keep: T3 criteria |
+
+Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.
