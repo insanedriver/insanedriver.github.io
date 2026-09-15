@@ -178,15 +178,15 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-23 | Ver publicações recentes do Instagram — AC 6 | Execute | Verified |
 | PHOTO-24 | Ver publicações recentes do Instagram — AC 7 | Execute | Verified |
 | PHOTO-25 | Ver publicações recentes do Instagram — AC 8 | Execute | Verified |
-| PHOTO-26 | Atualizar o feed sem backend no site — AC 1 | Execute | In Tasks |
-| PHOTO-27 | Atualizar o feed sem backend no site — AC 2 | Execute | In Tasks |
-| PHOTO-28 | Atualizar o feed sem backend no site — AC 3 | Execute | In Tasks |
-| PHOTO-29 | Atualizar o feed sem backend no site — AC 4 | Execute | In Tasks |
-| PHOTO-30 | Atualizar o feed sem backend no site — AC 5 | Execute | In Tasks |
-| PHOTO-31 | Atualizar o feed sem backend no site — AC 6 | Execute | In Tasks |
-| PHOTO-32 | Atualizar o feed sem backend no site — AC 7 | Execute | In Tasks |
+| PHOTO-26 | Atualizar o feed sem backend no site — AC 1 | Execute | Verified |
+| PHOTO-27 | Atualizar o feed sem backend no site — AC 2 | Execute | Verified |
+| PHOTO-28 | Atualizar o feed sem backend no site — AC 3 | Execute | Verified |
+| PHOTO-29 | Atualizar o feed sem backend no site — AC 4 | Execute | Verified |
+| PHOTO-30 | Atualizar o feed sem backend no site — AC 5 | Execute | Verified |
+| PHOTO-31 | Atualizar o feed sem backend no site — AC 6 | Execute | Verified |
+| PHOTO-32 | Atualizar o feed sem backend no site — AC 7 | Execute | Verified |
 | PHOTO-33 | Atualizar o feed sem backend no site — AC 8 | Execute | Verified |
-| PHOTO-34 | Atualizar o feed sem backend no site — AC 9 | Execute | In Tasks |
+| PHOTO-34 | Atualizar o feed sem backend no site — AC 9 | Execute | Verified |
 | PHOTO-35 | Atualizar o feed sem backend no site — AC 10 | Execute | In Tasks |
 
 **Coverage:** 35 requisitos definidos e mapeados às tarefas propostas em tasks.md; execução ainda não iniciada.

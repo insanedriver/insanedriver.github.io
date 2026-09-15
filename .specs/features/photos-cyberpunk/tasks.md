@@ -237,7 +237,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T7: Integrar restauração, sincronização e publicação
 
-**Status**: Pending
+**Status**: Complete
 **What**: Ampliar o workflow existente com recuperação do snapshot e atualização serializada a cada seis horas.
 **Where**: `.github/workflows/main.yml`
 **Supporting files**: `scripts/restore-instagram.cjs` se necessário para tornar a restauração testável; `tests/photos/instagram-workflow.test.cjs`; package scripts apenas para comandos já definidos no plano.
@@ -252,13 +252,13 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Um workflow cobre push master, cron 17 */6 * * * e workflow_dispatch; mesma rota de sincronização para todos.
-- [ ] Serializar desde a restauração até deploy e limitar publicação à fonte de produção; não presumir FIFO na fila.
-- [ ] Restaurar somente dados/imagens do snapshot anterior antes de qualquer build; erro de rede não pode ser confundido com primeiro uso.
-- [ ] O token fica no passo de sincronização; não executar código da release; nenhum comando de publicação remota é executado durante desenvolvimento local.
-- [ ] Mínimo de 6 testes: contrato dos triggers, concorrência/escopo do segredo, restauração completa entre checkouts limpos, bootstrap sem snapshot, falha de recuperação impedindo publicação e preservação após erro da API.
-- [ ] Usar repositório Git temporário como remoto de teste e executar o helper real; conferir conteúdo final, não apenas chamadas mockadas.
-- [ ] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Um workflow cobre push master, cron 17 */6 * * * e workflow_dispatch; mesma rota de sincronização para todos.
+- [x] Serializar desde a restauração até deploy e limitar publicação à fonte de produção; não presumir FIFO na fila.
+- [x] Restaurar somente dados/imagens do snapshot anterior antes de qualquer build; erro de rede não pode ser confundido com primeiro uso.
+- [x] O token fica no passo de sincronização; não executar código da release; nenhum comando de publicação remota é executado durante desenvolvimento local.
+- [x] Mínimo de 6 testes: contrato dos triggers, concorrência/escopo do segredo, restauração completa entre checkouts limpos, bootstrap sem snapshot, falha de recuperação impedindo publicação e preservação após erro da API.
+- [x] Usar repositório Git temporário como remoto de teste e executar o helper real; conferir conteúdo final, não apenas chamadas mockadas.
+- [x] Gate build passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: integration
 **Gate**: build
