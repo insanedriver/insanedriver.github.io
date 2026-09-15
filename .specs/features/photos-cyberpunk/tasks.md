@@ -209,7 +209,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T6: Renderizar a seção estática do Instagram
 
-**Status**: Pending
+**Status**: Complete
 **What**: Exibir a seleção local ou a chamada ao perfil sem chamadas de API no navegador.
 **Where**: `_includes/photos/instagram.liquid`
 **Supporting files**: `_data/instagram.js`, `photos/index.html` apenas para inclusão, `less/photos.less` e CSS gerado para os cards, `tests/photos/instagram-render.test.cjs`, `tests/photos/instagram.e2e.cjs`.
@@ -224,12 +224,12 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Loader lê somente o arquivo público local e retorna dados validados; não lê token nem faz rede.
-- [ ] Cards preservam ordem/capa, apontam ao permalink e escapam legendas e atributos.
-- [ ] Sem seleção, exibir link para insanedriverid; não servir fixtures de demonstração em produção.
-- [ ] Mínimo de 4 testes de integração: seleção renderizada, vazio, legenda hostil e snapshot inválido; 2 e2e: link real e acesso sem login/rede à API.
-- [ ] Cards continuam sem overflow nas quatro larguras já cobertas pela suite visual.
-- [ ] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Loader lê somente o arquivo público local e retorna dados validados; não lê token nem faz rede.
+- [x] Cards preservam ordem/capa, apontam ao permalink e escapam legendas e atributos.
+- [x] Sem seleção, exibir link para insanedriverid; não servir fixtures de demonstração em produção.
+- [x] Mínimo de 4 testes de integração: seleção renderizada, vazio, legenda hostil e snapshot inválido; 2 e2e: link real e acesso sem login/rede à API.
+- [x] Cards continuam sem overflow nas quatro larguras já cobertas pela suite visual.
+- [x] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: integration + e2e
 **Gate**: full

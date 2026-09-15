@@ -126,3 +126,27 @@ Gate: 26 unit + 20 browser tests, diff check passed. No tests skipped, deleted o
 | test('PHOTO-29: total collection deadline preserves previous selection',async t=>{ | tests/photos/instagram-sync.test.cjs:119: `assert.equal(result.status,'retained');assert.deepEqual(files(dir),before);` | Keep: T5 criteria |
 
 Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.
+
+## T6
+
+Gate: 30 unit + 22 browser tests, diff check passed. No tests skipped, deleted or weakened.
+
+| Requirement / criterion | Assertion evidence | Reverse mapping |
+| --- | --- | --- |
+| test('PHOTO-18/20/21: real build renders ordered local covers and original permalinks',()=>{ | tests/photos/instagram-render.test.cjs:6: `assert.equal((html.match(/class="photos-instagram-card"/g) /  / []).length,2);` | Keep: T6 criteria |
+| test('PHOTO-18/20/21: real build renders ordered local covers and original permalinks',()=>{ | tests/photos/instagram-render.test.cjs:7: `assert.ok(html.indexOf('Fixture2')<html.indexOf('Fixture1'));` | Keep: T6 criteria |
+| test('PHOTO-18/20/21: real build renders ordered local covers and original permalinks',()=>{ | tests/photos/instagram-render.test.cjs:8: `assert.match(html,/src="\/assets\/instagram\/2.png"/);assert.match(html,/href="https:\/\/www.instagram.com\/p\/Fixture2\/"/);` | Keep: T6 criteria |
+| test('PHOTO-18/20/21: real build renders ordered local covers and original permalinks',()=>{ | tests/photos/instagram-render.test.cjs:9: `assert.match(html,/>On stage with Insane Driver</);assert.match(html,/datetime="2026-09-02T00:00:00.000Z"/);` | Keep: T6 criteria |
+| test('PHOTO-23: empty and absent selections render actual profile link',()=>{ | tests/photos/instagram-render.test.cjs:13: `const html=render(feed);assert.match(html,/href="https:\/\/www.instagram.com\/insanedriverid\/"/);assert.doesNotMatch(html,/class="photos-instagram-card"/);` | Keep: T6 criteria |
+| test('PHOTO-25: caption and attribute markup are escaped in generated HTML',()=>{ | tests/photos/instagram-render.test.cjs:18: `assert.match(html,/&lt;img src=x onerror=/);assert.doesNotMatch(html,/<img src=x/);assert.doesNotMatch(html,/alt="<img/);assert.match(html,/&amp;/);` | Keep: T6 criteria |
+| test('PHOTO-23/31: malformed or unsafe snapshot becomes empty instead of public content',()=>{ | tests/photos/instagram-render.test.cjs:22: `const html=render(feed);assert.doesNotMatch(html,/class="photos-instagram-card"/);assert.match(html,/insanedriverid/);assert.doesNotMatch(html,/secret / \/etc\/passwd/);` | Keep: T6 criteria |
+| test('PHOTO-21/23: empty section links directly to the band profile',async({page})=>{ | tests/photos/instagram.e2e.cjs:5: `await expect(page.locator('.photos-instagram a').first()).toHaveAttribute('href','https://www.instagram.com/insanedriverid/');` | Keep: T6 criteria |
+| test('PHOTO-21/23: empty section links directly to the band profile',async({page})=>{ | tests/photos/instagram.e2e.cjs:6: `await expect(page.locator('.photos-instagram')).toContainText('@insanedriverid');` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:15: `await expect(cards).toHaveCount(2);` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:16: `await expect(cards.first()).toHaveAttribute('href','https://www.instagram.com/p/Fixture2/');` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:20: `expect(await page.evaluate(()=>window.captionExecuted)).toBeUndefined();` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:24: `expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:25: `await expect(cards.first()).toBeVisible();` | Keep: T6 criteria |
+| test('PHOTO-22/25/14: static photo cards work without login or API at all four widths',async({page})=>{ | tests/photos/instagram.e2e.cjs:27: `expect(requests.filter(url=>url.includes('graph.instagram.com'))).toEqual([]);` | Keep: T6 criteria |
+
+Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.

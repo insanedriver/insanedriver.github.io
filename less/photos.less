@@ -38,6 +38,20 @@
         &[aria-pressed='true'] { border-color: #ff00ea; box-shadow: 0 3px #ff00ea; img { opacity: 1; } }
         &:hover img { opacity: 1; }
     }
+    .photos-instagram { margin-top: 72px; padding-top: 32px; border-top: 1px solid #294149; }
+    .photos-instagram-profile { display: inline-flex; align-items: center; min-height: 44px; color: #00f3ff; gap: 12px; }
+    .photos-instagram-empty { color: #cad6dc; margin-top: 16px; }
+    .photos-instagram-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+    .photos-instagram-card {
+        display: block; min-width: 0; color: #e9edf2; background: #080e16; border: 1px solid #294149;
+        &:hover { color: #fff; border-color: #ff00ea; text-decoration: none; }
+        img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+    }
+    .photos-instagram-caption { padding: 16px; overflow-wrap: anywhere;
+        time { color: #9cbbc2; font-size: 14px; }
+        p { margin: 12px 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    }
+    .photos-instagram-link { font-size: 16px; color: #00f3ff; }
     .photos-archive-section { margin-top: 72px; }
     .photos-archive {
         display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;
@@ -51,7 +65,7 @@
         .menu-center { width: auto; }
     }
     @media (max-width: 991px) {
-        .photos-archive { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .photos-archive, .photos-instagram-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 599px) {
         .photos-shell { padding: 12px 0 40px; }
@@ -62,7 +76,7 @@
         .photos-slide-caption { display: block; padding: 14px 4px 66px; min-height: 134px; span { display: block; } }
         .photos-stage-controls { right: 18px; bottom: 20px; }
         .photos-thumbnails { gap: 8px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .photos-archive { grid-template-columns: minmax(0, 1fr); }
+        .photos-archive, .photos-instagram-grid { grid-template-columns: minmax(0, 1fr); }
         .photos-label { max-width: 64px; }
         .photos-archive-section { margin-top: 48px; }
     }

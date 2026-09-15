@@ -170,14 +170,14 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-15 | Navegar no celular e por teclado — AC 5 | Execute | Verified |
 | PHOTO-16 | Navegar no celular e por teclado — AC 6 | Execute | Verified |
 | PHOTO-17 | Navegar no celular e por teclado — AC 7 | Execute | Verified |
-| PHOTO-18 | Ver publicações recentes do Instagram — AC 1 | Execute | In Tasks |
-| PHOTO-19 | Ver publicações recentes do Instagram — AC 2 | Execute | In Tasks |
-| PHOTO-20 | Ver publicações recentes do Instagram — AC 3 | Execute | In Tasks |
-| PHOTO-21 | Ver publicações recentes do Instagram — AC 4 | Execute | In Tasks |
-| PHOTO-22 | Ver publicações recentes do Instagram — AC 5 | Execute | In Tasks |
-| PHOTO-23 | Ver publicações recentes do Instagram — AC 6 | Execute | In Tasks |
+| PHOTO-18 | Ver publicações recentes do Instagram — AC 1 | Execute | Verified |
+| PHOTO-19 | Ver publicações recentes do Instagram — AC 2 | Execute | Verified |
+| PHOTO-20 | Ver publicações recentes do Instagram — AC 3 | Execute | Verified |
+| PHOTO-21 | Ver publicações recentes do Instagram — AC 4 | Execute | Verified |
+| PHOTO-22 | Ver publicações recentes do Instagram — AC 5 | Execute | Verified |
+| PHOTO-23 | Ver publicações recentes do Instagram — AC 6 | Execute | Verified |
 | PHOTO-24 | Ver publicações recentes do Instagram — AC 7 | Execute | Verified |
-| PHOTO-25 | Ver publicações recentes do Instagram — AC 8 | Execute | In Tasks |
+| PHOTO-25 | Ver publicações recentes do Instagram — AC 8 | Execute | Verified |
 | PHOTO-26 | Atualizar o feed sem backend no site — AC 1 | Execute | In Tasks |
 | PHOTO-27 | Atualizar o feed sem backend no site — AC 2 | Execute | In Tasks |
 | PHOTO-28 | Atualizar o feed sem backend no site — AC 3 | Execute | In Tasks |
