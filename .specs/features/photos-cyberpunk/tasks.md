@@ -180,7 +180,7 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 ### T5: Sincronizar um snapshot completo do Instagram
 
-**Status**: Pending
+**Status**: Complete
 **What**: Consultar mídia autorizada e substituir o snapshot somente após validar a seleção e obter todas as imagens.
 **Where**: `scripts/sync-instagram.cjs`
 **Supporting files**: `tests/photos/instagram-sync.test.cjs` e fixtures isoladas; `.gitignore` apenas para mídia/staging gerados.
@@ -195,13 +195,13 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 
 **Done when**:
 
-- [ ] Adaptador usa host/configuração explícitos e não acessa rede sem configuração; versionamento e contrato real são conferidos antes da ativação.
-- [ ] Ordenar, deduplicar, filtrar tipos e selecionar até 12; capa de vídeo não entra; resolver capa de álbum sem escolher imagem arbitrária.
-- [ ] Validar URLs, timestamps, IDs e downloads conforme limites do design; não seguir páginas externas nem enviar credenciais aos hosts de mídia.
-- [ ] Sucesso substitui manifest e arquivos; 401, 429, timeout, limite ou falha parcial preservam integralmente o anterior; consulta completa vazia limpa a seleção.
-- [ ] Sem snapshot e sem credenciais produz estado vazio sem quebrar build; logs e JSON não contêm token nem URLs autenticadas.
-- [ ] Mínimo de 16 testes: ordem/limite, desempate, duplicação, tipos/capas, vazio válido, ausência de configuração, sucesso completo, substituição, 401, 429, timeout, download parcial, cursor cíclico, limite de coleta, URL/arquivo inválido e ausência de segredo.
-- [ ] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
+- [x] Adaptador usa host/configuração explícitos e não acessa rede sem configuração; versionamento e contrato real são conferidos antes da ativação.
+- [x] Ordenar, deduplicar, filtrar tipos e selecionar até 12; capa de vídeo não entra; resolver capa de álbum sem escolher imagem arbitrária.
+- [x] Validar URLs, timestamps, IDs e downloads conforme limites do design; não seguir páginas externas nem enviar credenciais aos hosts de mídia.
+- [x] Sucesso substitui manifest e arquivos; 401, 429, timeout, limite ou falha parcial preservam integralmente o anterior; consulta completa vazia limpa a seleção.
+- [x] Sem snapshot e sem credenciais produz estado vazio sem quebrar build; logs e JSON não contêm token nem URLs autenticadas.
+- [x] Mínimo de 16 testes: ordem/limite, desempate, duplicação, tipos/capas, vazio válido, ausência de configuração, sucesso completo, substituição, 401, 429, timeout, download parcial, cursor cíclico, limite de coleta, URL/arquivo inválido e ausência de segredo.
+- [x] Gate full passa; tabela de evidência relaciona cada critério às asserções e à spec.
 
 **Tests**: unit + integration
 **Gate**: full

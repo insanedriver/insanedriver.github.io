@@ -176,7 +176,7 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-21 | Ver publicações recentes do Instagram — AC 4 | Execute | In Tasks |
 | PHOTO-22 | Ver publicações recentes do Instagram — AC 5 | Execute | In Tasks |
 | PHOTO-23 | Ver publicações recentes do Instagram — AC 6 | Execute | In Tasks |
-| PHOTO-24 | Ver publicações recentes do Instagram — AC 7 | Execute | In Tasks |
+| PHOTO-24 | Ver publicações recentes do Instagram — AC 7 | Execute | Verified |
 | PHOTO-25 | Ver publicações recentes do Instagram — AC 8 | Execute | In Tasks |
 | PHOTO-26 | Atualizar o feed sem backend no site — AC 1 | Execute | In Tasks |
 | PHOTO-27 | Atualizar o feed sem backend no site — AC 2 | Execute | In Tasks |
@@ -185,7 +185,7 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 | PHOTO-30 | Atualizar o feed sem backend no site — AC 5 | Execute | In Tasks |
 | PHOTO-31 | Atualizar o feed sem backend no site — AC 6 | Execute | In Tasks |
 | PHOTO-32 | Atualizar o feed sem backend no site — AC 7 | Execute | In Tasks |
-| PHOTO-33 | Atualizar o feed sem backend no site — AC 8 | Execute | In Tasks |
+| PHOTO-33 | Atualizar o feed sem backend no site — AC 8 | Execute | Verified |
 | PHOTO-34 | Atualizar o feed sem backend no site — AC 9 | Execute | In Tasks |
 | PHOTO-35 | Atualizar o feed sem backend no site — AC 10 | Execute | In Tasks |
 
