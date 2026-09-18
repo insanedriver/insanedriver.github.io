@@ -60,6 +60,7 @@ T5 -> T6
 T5 -> T7
 T6 -> T7
 T7 -> T8
+T8 -> T9
 ```
 
 Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2, T3, T4, T5, T6, T7, T8.
@@ -372,6 +373,25 @@ Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2,
 | PHOTO-35 | T8 |
 
 ## Closing Verification
+
+### T9: Verificar os resumos emitidos pelo comando de sincronização
+
+**Status**: Complete
+**What**: Fechar a lacuna PHOTO-33 identificada pelo verificador independente: remover stdout e o resumo do Actions sobrevivia aos testes existentes.
+**Where**: `tests/photos/instagram-cli.test.cjs`
+**Supporting files**: Registros desta feature em `tasks.md`, `spec.md` e `execution.md`.
+**Depends on**: T8
+**Requirement**: PHOTO-31, PHOTO-33
+
+**Done when**:
+
+- [x] Executar o entry point real em processos isolados, com rede simulada, para success, retained e no_selection.
+- [x] Conferir status, contagem e categoria em stdout e no arquivo GITHUB_STEP_SUMMARY, preservando o conteúdo anterior e excluindo segredos.
+- [x] Suites acumuladas passam; a remoção dos dois resumos é detectada pelo verificador em cópia temporária.
+
+**Tests**: integration
+**Gate**: full
+**Commit**: `test(photos): verify instagram command summaries`
 
 Após a T8, despachar um verificador novo com spec, diff da feature e testes. O verificador confirma resultados por critério, injeta falhas em cópia temporária e comprova que os testes as detectam. Não modificar o diretório real durante o sensor. Escrever validation.md com evidências file:line e veredito. Executar validate_state.py antes de declarar a entrega local concluída.
 

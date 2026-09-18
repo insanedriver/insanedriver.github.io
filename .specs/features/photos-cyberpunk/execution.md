@@ -202,3 +202,17 @@ Gate: build, 37 unit + 22 browser tests, diff check passed; five operational sce
 | --- | --- | --- |
 
 Adequacy: asserted outcomes reviewed against the approved task and PHOTO requirements. All planned cases present; no speculative cases. Project has no additional test guidelines.
+
+
+## T9: Resumos do comando de sincronização
+
+Gate em 2026-09-18: 40 testes unitários/integração e 22 testes de navegador aprovados; git diff --check aprovado. Nenhum teste removido, ignorado ou enfraquecido. Nenhum arquivo de produto alterado.
+
+| Critério / requisito | Evidência e expressão | Resultado esperado / mapeamento reverso |
+| --- | --- | --- |
+| PHOTO-33: success, retained e no_selection no comando real | tests/photos/instagram-cli.test.cjs:43: `assert.equal(result.stdout,expected)` | Cada cenário exige o status e a contagem correspondentes; falhas exigem categoria request. Manter: PHOTO-33. |
+| PHOTO-33: resumo do GitHub Actions | tests/photos/instagram-cli.test.cjs:45: `assert.equal(written,'Previous step summary\n'+expected)` | Acrescentar o mesmo resultado sem apagar conteúdo anterior. Manter: PHOTO-33. |
+| PHOTO-31: saída sem segredo | tests/photos/instagram-cli.test.cjs:47: `assert.equal(output.includes(token),false)` | stdout, stderr e resumo não contêm a credencial sintética. Manter: PHOTO-31. |
+| PHOTO-31: URL autenticada ausente | tests/photos/instagram-cli.test.cjs:48: `assert.equal(output.includes('sig=fixture-private'),false)` | Nenhuma saída contém a assinatura de mídia sintética. Manter: PHOTO-31. |
+
+Adequação: os três testes executam o entry point real em diretórios temporários e substituem apenas a rede por respostas sintéticas. Asserções verificam valores emitidos, não chamadas internas. O verificador confirmou que remover os dois resumos, remover apenas o resumo do Actions ou acrescentar o token ao stdout causa três falhas por mutação. Nenhuma diretriz adicional de testes encontrada.
