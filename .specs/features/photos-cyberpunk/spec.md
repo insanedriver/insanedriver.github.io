@@ -1,6 +1,6 @@
 # Photos Cyberpunk Specification
 
-**Status:** Aprovada pelo usuário em 2026-09-13; implementação em andamento.
+**Status:** Aprovada pelo usuário em 2026-09-13; entrega local concluída e verificada em 2026-09-18. Ativação externa pendente.
 **Scope:** Large. Galeria interativa, geração estática e integração externa agendada.
 **Date:** 2026-09-13
 **Context:** [Decisões confirmadas](context.md)
@@ -13,11 +13,11 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 
 ## Goals
 
-- [ ] Apresentar 6 destaques locais em um carrossel cyberpunk navegável.
-- [ ] Manter acesso às 17 fotos atuais em grade e em visualização ampliada.
-- [ ] Exibir até 12 publicações elegíveis do Instagram em ordem recente.
-- [ ] Agendar atualização a cada 6 horas com credenciais restritas à automação.
-- [ ] Preservar uma galeria utilizável quando a sincronização falhar.
+- [x] Apresentar 6 destaques locais em um carrossel cyberpunk navegável.
+- [x] Manter acesso às 17 fotos atuais em grade e em visualização ampliada.
+- [x] Exibir até 12 publicações elegíveis do Instagram em ordem recente.
+- [x] Agendar atualização a cada 6 horas com credenciais restritas à automação.
+- [x] Preservar uma galeria utilizável quando a sincronização falhar.
 
 ## Out of Scope
 
@@ -193,11 +193,11 @@ Esta mudança cria um carrossel de destaques, preserva o acervo e adiciona uma s
 
 ## Success Criteria
 
-- [ ] PHOTO-01 a PHOTO-35 possuem evidências vinculadas às tarefas.
-- [ ] O build existente termina com sucesso.
-- [ ] Controles e estados passam na verificação de comportamento e responsividade.
-- [ ] Verificador independente revisa os resultados e executa o sensor exigido pela tlc-spec-driven.
-- [ ] A entrega distingue validação local com fixtures de sincronização real autorizada.
+- [x] PHOTO-01 a PHOTO-35 possuem evidências vinculadas às tarefas.
+- [x] O build existente termina com sucesso.
+- [x] Controles e estados passam na verificação de comportamento e responsividade.
+- [x] Verificador independente revisa os resultados e executa o sensor exigido pela tlc-spec-driven.
+- [x] A entrega distingue validação local com fixtures de sincronização real autorizada.
 
 ## Delivery and Activation
 
@@ -205,4 +205,4 @@ A implementação local incluirá interface, automação, testes e instruções 
 
 ## Implementation Outline
 
-Após aprovação, detalhar galeria, seleção de posts, persistência do último snapshot e integração com o build existente. As tarefas incluirão verificação de interação, falhas da API e conteúdo gerado. Nenhum código de produto foi alterado nesta etapa.
+Galeria, seleção estática do Instagram, persistência e automação implementadas nas tarefas T1–T8. T9 acrescentou testes do comando de sincronização após a revisão independente. Evidências finais e limites da validação estão em validation.md.

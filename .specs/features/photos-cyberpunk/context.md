@@ -2,7 +2,7 @@
 
 **Gathered:** 2026-09-13
 **Spec:** .specs/features/photos-cyberpunk/spec.md
-**Status:** Especificação, design e tarefas aprovados; implementação local em revisão final.
+**Status:** Entrega local concluída e verificação independente aprovada em 2026-09-18. Ativação real do Instagram e publicação pendentes.
 
 ## Feature Boundary
 

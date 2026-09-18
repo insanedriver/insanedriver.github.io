@@ -6,7 +6,7 @@ Implementar com a skill tlc-spec-driven já solicitada pelo usuário. Seguir tes
 
 **Spec:** [spec.md](spec.md), aprovada em 2026-09-13.
 **Design:** [design.md](design.md).
-**Status:** Aprovado; execução em andamento.
+**Status:** T1–T9 concluídas; verificação independente PASS em 2026-09-18.
 
 ## Test Coverage Matrix
 
@@ -63,7 +63,7 @@ T7 -> T8
 T8 -> T9
 ```
 
-Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2, T3, T4, T5, T6, T7, T8.
+Dependência entre fases: T6 também depende de T1. Ordem de execução: T1, T2, T3, T4, T5, T6, T7, T8. T9 foi acrescentada após a revisão independente para cobrir os resumos do comando.
 
 ## Task Breakdown
 
