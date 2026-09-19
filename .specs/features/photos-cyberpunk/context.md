@@ -1,62 +1,28 @@
 # Photos Cyberpunk Context
 
-**Gathered:** 2026-09-13
+**Updated:** 2026-09-19
 **Spec:** .specs/features/photos-cyberpunk/spec.md
-**Status:** Entrega local concluída e verificação independente aprovada em 2026-09-18. Ativação real do Instagram e publicação pendentes.
+**Status:** Galeria local validada após remoção da integração: build e 23 testes aprovados.
 
 ## Feature Boundary
 
-Modernizar a página Photos com um carrossel na identidade cyberpunk do site e uma seção com publicações de @insanedriverid. O site permanece estático, gerado pelo Eleventy e publicado no GitHub Pages.
+Modernizar somente a página Photos com a identidade cyberpunk do site. O usuário cancelou a integração com Instagram porque o perfil contém mais do que fotos. A proposta de renovação automática também foi cancelada antes de qualquer implementação.
 
-## Implementation Decisions
+## Confirmed Decisions
 
-### Identidade visual
-
-- O usuário confirmou que Photos deve seguir a linha cyberpunk do site.
-- A proposta aceita usa neon, molduras angulares e elementos de interface futurista no carrossel.
-
-### Integração com Instagram
-
-- O usuário aceitou a consulta à API oficial durante uma automação no GitHub Actions.
-- A autorização será feita pelo administrador da conta da banda; visitantes não precisarão autenticar.
-- Credenciais permanecerão nos secrets do GitHub e não serão incluídas nos arquivos públicos.
-- A implementação depende da configuração de uma conta profissional e da autorização correspondente. A disponibilidade dessas credenciais ainda não foi verificada.
-- O aceite da arquitetura não representa autorização para publicar mudanças remotas nesta etapa.
-
-### Galeria e carrossel
-
-- Carrossel principal com 6 destaques do acervo local.
-- Setas, miniaturas e gesto de arrastar no celular; sem avanço automático.
-- Clique abre a foto ampliada.
-- Grade abaixo do carrossel preserva acesso às 17 fotos atuais.
-
-### Publicações e atualização
-
-- Até 12 publicações recentes com fotos; atualização agendada a cada 6 horas.
-- Clique abre a publicação no Instagram; álbuns aparecem pela capa.
-- Reels ficam fora desta primeira versão.
-- Falha na sincronização preserva a última seleção disponível.
-- Antes da primeira sincronização, a seção oferece um link para @insanedriverid.
+- Superfícies escuras, neon ciano/magenta e molduras angulares.
+- Carrossel manual com seis destaques, setas, miniaturas e gesto de arrastar no celular.
+- Grade com as 17 fotos originais; clique abre o visualizador PhotoSwipe.
+- Preservar teclado, foco visível, movimento reduzido e links da grade sem JavaScript.
+- Remover feed, scripts de sincronização/restauração, loader, estilos e testes exclusivos do Instagram.
+- Retirar o agendamento de seis horas e as referências a credenciais do workflow.
+- Preservar os links sociais gerais do site, que não fazem parte da integração.
+- Nenhuma configuração de conta, callback ou token é necessária para a galeria.
 
 ## Existing Project Facts
 
-- A página atual contém 17 fotos locais e usa PhotoSwipe para visualização ampliada.
-- Eleventy gera o site em `docs/`.
-- `.github/workflows/main.yml` compila e publica o site quando há push em `master`.
-- A newsletter oferece referências locais de paleta neon, molduras e tipografia.
+Eleventy gera `docs/`; LESS gera `assets/css/style.min.css`. O workflow publica em `release` após push em `master` ou execução manual na branch de produção. Deploys são serializados.
 
-## Specific References
+## Next Step
 
-O usuário respondeu “Todas recomendacoes” à rodada que definiu os comportamentos acima. A identidade visual segue o restante do site, especialmente a newsletter.
-
-## Agent's Discretion
-
-Escolhas de implementação seguem a stack existente. Os detalhes de borda necessários para critérios verificáveis estão explicitados na tabela de premissas da especificação.
-
-## Open Product Decisions
-
-Nenhuma decisão principal pendente. A autorização da conta e a instalação dos secrets são pré-requisitos operacionais ainda não verificados.
-
-## Deferred Ideas
-
-Nenhuma.
+Entrega local concluída. A publicação remota ainda não foi autorizada.

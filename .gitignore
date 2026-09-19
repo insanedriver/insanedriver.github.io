@@ -2,8 +2,3 @@
 node_modules
 test-results/
 playwright-report/
-assets/instagram/
-
-/assets/instagram/
-/assets/instagram-staging-*/
-/assets/instagram-previous-*/

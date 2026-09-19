@@ -1,5 +1,27 @@
 # Photos Cyberpunk Tasks
 
+> Revisão de escopo em 2026-09-19: o usuário cancelou toda a integração com Instagram. PHOTO-18 a PHOTO-35 e T5 a T9 são registros históricos, não requisitos ativos. A galeria local (PHOTO-01 a PHOTO-17) permanece. Os resultados abaixo descrevem a versão anterior; a validação atual está registrada abaixo.
+
+## Remoção da integração — 2026-09-19
+
+**Resultado atual: PASS.** A pedido do usuário, a entrega passa a conter somente a galeria local. Removidos loader, template, estilos da seção, scripts de sincronização/restauração, cron e referências a secrets no workflow. README, contexto, especificação e design refletem o novo escopo. A renovação automática foi cancelada antes de ser implementada.
+
+Validação executada após a remoção:
+
+- `npm run build`: aprovado; CSS recompilado e página gerada pelo Eleventy.
+- `npm test`: 3 testes de dados e 20 testes de navegador aprovados, zero falhas ou skips.
+- Os testes preservados cobrem PHOTO-01 a PHOTO-17, incluindo 320/390/768/1440 px, gestos, teclado, foco, zoom e links sem JavaScript.
+- Verificação do YAML confirma push/manual, ausência de cron, instalação, testes de dados, build e deploy serializado.
+- Verificação do HTML/CSS confirma ausência da seção `photos-instagram`; não há diretórios de mídia da integração no fonte ou na saída.
+- `git diff --check`: aprovado.
+
+Os 37 testes unitários/integração e 2 testes de navegador removidos pertenciam exclusivamente ao recurso cancelado. Nenhuma asserção dos testes da galeria foi alterada. A inspeção de imagens desta revisão não foi concluída porque a ferramenta de leitura de capturas falhou ao inicializar o sandbox; a responsividade foi verificada pelos testes no navegador. Não houve nova revisão por subagente.
+
+Nenhum push, deploy ou alteração de configuração externa foi executado.
+
+## Registro histórico da entrega anterior
+
+
 ## Execution Protocol
 
 Implementar com a skill tlc-spec-driven já solicitada pelo usuário. Seguir testes derivados da especificação, gate por tarefa, status e commit atômicos e verificador independente ao final. Não executar push ou publicação remota sem autorização específica.
