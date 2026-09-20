@@ -130,15 +130,17 @@ T5 → T6
 - Skill: NONE
 
 **Done when**:
-- [ ] All listed selectors present under `#page_photos`, palette matches `#00f3ff`/`#005f8c`/`#ff00ea`, fonts `Rajdhani`/`Share Tech Mono` applied per design
-- [ ] Reduced-motion media query now includes `.photos-shell::before, .photos-shell::after` in addition to the existing selector list
-- [ ] `npm run less:build` compiles with no errors and `assets/css/style.min.css` is regenerated and included in the commit
-- [ ] Verified inert: no HTML class currently applies `.cyber-zone`/`.cyber-panel`/etc. (grep confirms zero usages in `photos/index.html` at this point)
+- [x] All listed selectors present under `#page_photos`, palette matches `#00f3ff`/`#005f8c`/`#ff00ea`, fonts `Rajdhani`/`Share Tech Mono` applied per design
+- [x] Reduced-motion media query now includes `.photos-shell::before, .photos-shell::after` in addition to the existing selector list
+- [x] `npm run less:build` compiles with no errors and `assets/css/style.min.css` is regenerated and included in the commit
+- [x] Verified inert: no HTML class currently applies `.cyber-zone`/`.cyber-panel`/etc. (grep confirms zero usages in `photos/index.html` at this point)
 
 **Tests**: none
 **Gate**: quick
 
 **Commit**: `feat(photos): add cyber-panel component styles`
+
+**Status**: ✅ Complete - compiled clean; grep for the new component classes in `photos/index.html` returned nothing.
 
 ---
 
