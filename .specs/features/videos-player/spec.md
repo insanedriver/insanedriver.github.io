@@ -185,8 +185,8 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-11 | P2: Navigation | Tasks | Implementing |
 | VPLR-12 | P2: Navigation | Tasks | Implementing |
 | VPLR-13 | P2: Navigation | Tasks | Implementing |
-| VPLR-14 | P2: Failure | Design | Pending |
-| VPLR-15 | P2: Failure | Design | Pending |
+| VPLR-14 | P2: Failure | Tasks | Implementing |
+| VPLR-15 | P2: Failure | Tasks | Implementing |
 | VPLR-16 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-17 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-18 | P1: Stage and feed | Tasks | Implementing |

@@ -382,6 +382,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos.js` (tests in `tests/videos/fallback.e2e.cjs`)
 **Depends on**: T11
 **Reuses**: `[data-idtv-fallback]` markup from T5, `watchUrl()`
+**Status**: ✅ Done
 **Requirement**: VPLR-14, VPLR-15
 
 **Tools**:
@@ -391,11 +392,11 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] With the API request aborted, pressing play shows `YouTube unavailable` and a `Watch on YouTube` link to the current watch URL
-- [ ] With the API stubbed to never become ready, the message appears after 8 seconds and not before
-- [ ] While the message shows, selecting another card updates the link to that video
-- [ ] Gate check passes: `npm run build && npm test`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] With the API request aborted, pressing play shows `YouTube unavailable` and a `Watch on YouTube` link to the current watch URL
+- [x] With the API stubbed to never become ready, the message appears after 8 seconds and not before
+- [x] While the message shows, selecting another card updates the link to that video
+- [x] Gate check passes: `npm run build && npm test`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: build

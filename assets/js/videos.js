@@ -16,11 +16,14 @@
     var prevButton = root.querySelector('[data-idtv-prev]');
     var nextButton = root.querySelector('[data-idtv-next]');
     var autoButton = root.querySelector('[data-idtv-auto]');
+    var fallback = root.querySelector('[data-idtv-fallback]');
+    var fallbackLink = root.querySelector('[data-idtv-fallback-link]');
 
     var API_URL = 'https://www.youtube.com/iframe_api';
     var EMBED_HOST = 'https://www.youtube-nocookie.com';
+    var API_TIMEOUT_MS = 8000;
 
-    // api: idle -> loading -> ready. One YT.Player is created on the first play and reused;
+    // api: idle -> loading -> ready | failed. One YT.Player is created on the first play and reused;
     // loadedId is the video the player was last told to load.
     var state = { index: 0, auto: true, started: false, api: 'idle', player: null, playerReady: false, loadedId: null };
 
@@ -33,6 +36,18 @@
         if (!state.playerReady || state.loadedId === currentId()) { return; }
         state.loadedId = currentId();
         state.player.loadVideoById(state.loadedId);
+    }
+
+    function showFallback() {
+        fallbackLink.href = core.watchUrl(currentId());
+        fallback.hidden = false;
+        poster.hidden = false;
+    }
+
+    function failApi() {
+        if (state.api === 'ready') { return; }
+        state.api = 'failed';
+        showFallback();
     }
 
     function createPlayer() {
@@ -49,6 +64,7 @@
                     state.playerReady = true;
                     syncPlayer();
                 },
+                onError: showFallback,
                 onStateChange: function (event) {
                     if (event.data === window.YT.PlayerState.ENDED && state.auto) {
                         select(core.step(state.index, 1, cards.length), { play: true });
@@ -60,19 +76,24 @@
 
     function loadApi() {
         state.api = 'loading';
+        var timer = setTimeout(failApi, API_TIMEOUT_MS);
         window.onYouTubeIframeAPIReady = function () {
+            clearTimeout(timer);
             state.api = 'ready';
             ensurePlaying();
         };
         var tag = document.createElement('script');
         tag.src = API_URL;
+        tag.onerror = failApi;
         document.head.appendChild(tag);
     }
 
     function ensurePlaying() {
         if (!state.started) { return; }
         if (state.api === 'idle') { loadApi(); return; }
+        if (state.api === 'failed') { showFallback(); return; }
         if (state.api !== 'ready') { return; }
+        fallback.hidden = true;
         poster.hidden = true;
         if (!state.player) { createPlayer(); } else { syncPlayer(); }
     }
@@ -105,6 +126,7 @@
             watchLink.href = core.watchUrl(id);
             nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
             counter.textContent = core.formatCounter(index, cards.length);
+            fallbackLink.href = core.watchUrl(id);
             scrollCardIntoView(card);
         }
         if (index !== previous && !(opts && opts.silent)) {
