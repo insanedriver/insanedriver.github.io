@@ -66,7 +66,15 @@
 
     .cyber-zone-inner {
         position: relative;
-        z-index: 10;
+        // Must clear the scanline overlay's z-index (100, above) so it doesn't
+        // darken the actual photo previews - only the empty zone padding keeps the effect.
+        z-index: 101;
+        // less/contact.less declares an unscoped `.cyber-zone-inner { max-width: 56rem }`
+        // that leaks site-wide; band/newsletter escape it by redeclaring max-width
+        // themselves, so this page must too or it gets capped at 560px regardless
+        // of .photos-shell's own width.
+        width: 100%;
+        max-width: 100%;
     }
 
     // ── Panel Components ──
@@ -233,6 +241,10 @@
     .photos-expand { position: absolute; bottom: 0; right: 0; padding: 4px 12px; background: #080e16; color: #00f3ff; }
     @media (min-width: 768px) and (max-width: 991px) {
         .menu-center { width: auto; }
+    }
+    @media (min-width: 1600px) {
+        .photos-shell { max-width: 1600px; }
+        .photos-archive { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
     @media (max-width: 991px) {
         .photos-archive { grid-template-columns: repeat(2, minmax(0, 1fr)); }
