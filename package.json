@@ -7,7 +7,9 @@
     "build": "npm run less:build && npx @11ty/eleventy",
     "less:build": "npx less-watch-compiler --run-once less assets/css style.less",
     "watch": "npx @11ty/eleventy --serve & npx less-watch-compiler less assets/css style.less",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:unit && npm run test:photos",
+    "test:unit": "node --test tests/photos/*.test.cjs",
+    "test:photos": "npm run less:build && playwright test"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "homepage": "https://insanedriver.com.br",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "@playwright/test": "^1.63.0",
     "html-minifier": "^4.0.0",
     "less": "^4.5.1",
     "less-watch-compiler": "^1.17.5"
