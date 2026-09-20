@@ -293,6 +293,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos.js` (stub in `tests/videos/yt-stub.cjs`, tests in `tests/videos/embed.e2e.cjs`)
 **Depends on**: T8
 **Reuses**: `select()` from T8
+**Status**: ✅ Done
 **Requirement**: VPLR-07, VPLR-10
 
 **Tools**:
@@ -302,11 +303,11 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] Play button click creates exactly one iframe whose `src` host is `www.youtube-nocookie.com` and contains the selected video id
-- [ ] Clicking another card reuses the player (still one iframe) with the new video id
-- [ ] Five rapid card clicks end on the last card with one iframe
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] Play button click creates exactly one iframe whose `src` host is `www.youtube-nocookie.com` and contains the selected video id
+- [x] Clicking another card reuses the player (still one iframe) with the new video id
+- [x] Five rapid card clicks end on the last card with one iframe
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full

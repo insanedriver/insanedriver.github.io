@@ -10,8 +10,68 @@
     var watchLink = root.querySelector('[data-idtv-watch]');
     var nowTitle = root.querySelector('[data-idtv-now]');
     var counter = root.querySelector('[data-idtv-counter]');
+    var poster = root.querySelector('[data-idtv-poster]');
+    var screen = root.querySelector('[data-idtv-screen]');
 
-    var state = { index: 0 };
+    var API_URL = 'https://www.youtube.com/iframe_api';
+    var EMBED_HOST = 'https://www.youtube-nocookie.com';
+
+    // api: idle -> loading -> ready. One YT.Player is created on the first play and reused;
+    // loadedId is the video the player was last told to load.
+    var state = { index: 0, started: false, api: 'idle', player: null, playerReady: false, loadedId: null };
+
+    function currentId() {
+        return cards[state.index].getAttribute('data-video-id');
+    }
+
+    // Player methods only exist after onReady, so selections made before then are applied on ready.
+    function syncPlayer() {
+        if (!state.playerReady || state.loadedId === currentId()) { return; }
+        state.loadedId = currentId();
+        state.player.loadVideoById(state.loadedId);
+    }
+
+    function createPlayer() {
+        var holder = document.createElement('div');
+        holder.setAttribute('data-idtv-player', '');
+        screen.appendChild(holder);
+        state.loadedId = currentId();
+        state.player = new window.YT.Player(holder, {
+            host: EMBED_HOST,
+            videoId: state.loadedId,
+            playerVars: { autoplay: 1, rel: 0, playsinline: 1 },
+            events: {
+                onReady: function () {
+                    state.playerReady = true;
+                    syncPlayer();
+                }
+            }
+        });
+    }
+
+    function loadApi() {
+        state.api = 'loading';
+        window.onYouTubeIframeAPIReady = function () {
+            state.api = 'ready';
+            ensurePlaying();
+        };
+        var tag = document.createElement('script');
+        tag.src = API_URL;
+        document.head.appendChild(tag);
+    }
+
+    function ensurePlaying() {
+        if (!state.started) { return; }
+        if (state.api === 'idle') { loadApi(); return; }
+        if (state.api !== 'ready') { return; }
+        poster.hidden = true;
+        if (!state.player) { createPlayer(); } else { syncPlayer(); }
+    }
+
+    function play() {
+        state.started = true;
+        ensurePlaying();
+    }
 
     // Align the card to the feed start so the scroll target matches its scroll-snap point
     // (a target between snap points would snap back and leave the card cut off).
@@ -23,29 +83,32 @@
         }
     }
 
-    function select(index) {
-        var card = cards[index];
-        if (index === state.index && card.getAttribute('aria-current') === 'true') { return; }
-        state.index = index;
-        cards.forEach(function (c, i) {
-            if (i === index) { c.setAttribute('aria-current', 'true'); } else { c.removeAttribute('aria-current'); }
-        });
-        var id = card.getAttribute('data-video-id');
-        posterImg.src = core.posterUrl(id);
-        watchLink.href = core.watchUrl(id);
-        nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
-        counter.textContent = core.formatCounter(index, cards.length);
-        scrollCardIntoView(card);
+    function select(index, opts) {
+        if (index !== state.index) {
+            var card = cards[index];
+            state.index = index;
+            cards.forEach(function (c, i) {
+                if (i === index) { c.setAttribute('aria-current', 'true'); } else { c.removeAttribute('aria-current'); }
+            });
+            var id = card.getAttribute('data-video-id');
+            posterImg.src = core.posterUrl(id);
+            watchLink.href = core.watchUrl(id);
+            nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
+            counter.textContent = core.formatCounter(index, cards.length);
+            scrollCardIntoView(card);
+        }
+        if (opts && opts.play) { play(); } else { ensurePlaying(); }
     }
 
     cards.forEach(function (card, i) {
         card.addEventListener('click', function (event) {
             if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) { return; }
             event.preventDefault();
-            select(i);
+            select(i, { play: true });
         });
     });
 
+    playButton.addEventListener('click', play);
     playButton.hidden = false;
     watchLink.hidden = true;
 }());

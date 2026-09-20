@@ -178,10 +178,10 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-04 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-05 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-06 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-07 | P1: Stage and feed | Design | Pending |
+| VPLR-07 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-08 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-09 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-10 | P1: Stage and feed | Design | Pending |
+| VPLR-10 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-11 | P2: Navigation | Tasks | Implementing |
 | VPLR-12 | P2: Navigation | Tasks | Implementing |
 | VPLR-13 | P2: Navigation | Tasks | Implementing |
