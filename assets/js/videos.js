@@ -1,184 +1,51 @@
-var player, playerChange, playerBuried, playerTide, playerKeepAway;
+(function () {
+    var core = window.IDTV;
+    var root = document.querySelector('[data-idtv]');
+    if (!root || !core) { return; }
 
-$(window).load(function () {
-    var tag = document.createElement('script');
+    var cards = [].slice.call(root.querySelectorAll('[data-idtv-card]'));
+    var feed = root.querySelector('[data-idtv-feed]');
+    var posterImg = root.querySelector('[data-idtv-poster-img]');
+    var playButton = root.querySelector('[data-idtv-play]');
+    var watchLink = root.querySelector('[data-idtv-watch]');
+    var nowTitle = root.querySelector('[data-idtv-now]');
+    var counter = root.querySelector('[data-idtv-counter]');
 
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var state = { index: 0 };
 
-});
-
-var screenWidth = $(window).width(),
-    screenHeight = $(window).height(),
-    largeDeviceWidth = 1200,
-    mediumDeviceWidth = 992,
-    smallDeviceWidth = 768;
-
-var playerSizeResolver = function () {
-    if (screenWidth > largeDeviceWidth) {
-        return {
-            width: 1100,
-            height: 619
+    // Align the card to the feed start so the scroll target matches its scroll-snap point
+    // (a target between snap points would snap back and leave the card cut off).
+    function scrollCardIntoView(card) {
+        var feedBox = feed.getBoundingClientRect();
+        var cardBox = card.getBoundingClientRect();
+        if (cardBox.left < feedBox.left || cardBox.right > feedBox.right) {
+            feed.scrollTo({ left: feed.scrollLeft + (cardBox.left - feedBox.left) - 4, behavior: 'smooth' });
         }
     }
-    else if (screenWidth > mediumDeviceWidth) {
-        return {
-            width: 900,
-            height: 506
-        }
+
+    function select(index) {
+        var card = cards[index];
+        if (index === state.index && card.getAttribute('aria-current') === 'true') { return; }
+        state.index = index;
+        cards.forEach(function (c, i) {
+            if (i === index) { c.setAttribute('aria-current', 'true'); } else { c.removeAttribute('aria-current'); }
+        });
+        var id = card.getAttribute('data-video-id');
+        posterImg.src = core.posterUrl(id);
+        watchLink.href = core.watchUrl(id);
+        nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
+        counter.textContent = core.formatCounter(index, cards.length);
+        scrollCardIntoView(card);
     }
-    else if (screenWidth > smallDeviceWidth) {
-        return {
-            width: 700,
-            height: 394
-        }
-    }
-    else {
-        return {
-            width: screenWidth - 50,
-            height: (screenWidth - 50) * 0.562
-        }
-    }
-};
 
-function onYouTubeIframeAPIReady() {
-    playerKeepAway = new YT.Player('playerKeepAway', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'PTT5D9qFKcg',
-        events: {
-            'onReady': onPlayerReady
-        }
+    cards.forEach(function (card, i) {
+        card.addEventListener('click', function (event) {
+            if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) { return; }
+            event.preventDefault();
+            select(i);
+        });
     });
 
-    playerToday = new YT.Player('playerToday', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: '9vjR56iVLq8',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerBuried = new YT.Player('playerBuried', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'gV4XZMaa9wQ',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTide = new YT.Player('playerTide', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'vif1ku9btbM',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerChange = new YT.Player('playerChange', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'iR7k_6wKnxE',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTeaserSilicon = new YT.Player('playerTeaserSilicon', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'S3O9aD76HRY',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTeaserSiliconExtended = new YT.Player('playerTeaserSiliconExtended', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'WGEYIYcISoE',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTeaserImagined = new YT.Player('playerTeaserImagined', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'DiP6K4qYvaY',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerSiliconLyric = new YT.Player('playerSiliconLyric', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: '_2zR4uHhIBk',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerImaginedLyric = new YT.Player('playerImaginedLyric', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'QhPJuVkPNNY',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTeaserExtendedDesperate = new YT.Player('playerTeaserExtendedDesperate', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: '3Gh1jd4u7NE',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerTeaserInsaneDriver = new YT.Player('playerTeaserInsaneDriver', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'kCwIOad0ur8',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerDesperateLyric = new YT.Player('playerDesperateLyric', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'vJl7VaET5QU',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerDistantLyric = new YT.Player('playerDistantLyric', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: 'dvFAJez2xEw',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-
-    playerGhostsLyric = new YT.Player('playerGhostsLyric', {
-        height: playerSizeResolver().height,
-        width: playerSizeResolver().width,
-        videoId: '0Hx9LmWjxQo',
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    event.target.setPlaybackQuality('hd720');
-}
+    playButton.hidden = false;
+    watchLink.hidden = true;
+}());

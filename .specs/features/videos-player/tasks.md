@@ -263,6 +263,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos.js` (tests in `tests/videos/select.e2e.cjs`)
 **Depends on**: T7
 **Reuses**: `videos-core.js` helpers
+**Status**: ✅ Done
 **Requirement**: VPLR-06, VPLR-08, VPLR-09, VPLR-16, VPLR-17
 
 **Tools**:
@@ -272,12 +273,12 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] On load: 0 iframes and 0 requests to `youtube.com`, `youtube-nocookie.com` or `i.ytimg.com/vi/.../maxres` beyond poster images
-- [ ] Clicking card 4 shows `04 / 10`, `NOW PLAYING` with its title, exactly one card with `aria-current="true"`
-- [ ] The active card is fully inside the feed's visible box after selection
-- [ ] Clicking the already-active card does not change stage state
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] On load: 0 iframes and 0 requests to `youtube.com`, `youtube-nocookie.com` or `i.ytimg.com/vi/.../maxres` beyond poster images
+- [x] Clicking card 4 shows `04 / 10`, `NOW PLAYING` with its title, exactly one card with `aria-current="true"`
+- [x] The active card is fully inside the feed's visible box after selection
+- [x] Clicking the already-active card does not change stage state
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full
