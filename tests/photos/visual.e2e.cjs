@@ -1,4 +1,9 @@
 const { test, expect } = require('./browser.cjs');
+test('PXCP-06: photos page shows the site backdrop behind the gallery', async ({page}) => {
+  await page.goto('/photos/');
+  const backgroundImage = await page.locator('#content').evaluate(el => getComputedStyle(el).backgroundImage);
+  expect(backgroundImage).toContain('bodybg');
+});
 for (const width of [320, 390, 768, 1440]) {
   test(`PHOTO-03/14: cyberpunk gallery fits ${width}px`, async ({page}) => {
     await page.setViewportSize({width, height: 900});

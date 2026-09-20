@@ -112,7 +112,7 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 | PXCP-03        | P1: Visual parity                        | Design | Pending |
 | PXCP-04        | P1: Visual parity                        | Design | Pending |
 | PXCP-05        | P1: Visual parity                        | Design | Pending |
-| PXCP-06        | P1: Visual parity                        | Design | Pending |
+| PXCP-06        | P1: Visual parity                        | Execute | Implementing |
 | PXCP-07        | P1: Visual parity                        | Design | Pending |
 | PXCP-08        | P1: No regression                        | Design | Pending |
 | PXCP-09        | P1: No regression                        | Design | Pending |

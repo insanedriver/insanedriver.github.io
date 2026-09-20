@@ -76,16 +76,18 @@ T5 → T6
 - Skill: NONE
 
 **Done when**:
-- [ ] `#page_photos #content { background: #050a10; }` line removed from `less/photos.less`
-- [ ] `assets/css/style.min.css` regenerated via `npm run less:build` and included in the commit
-- [ ] New Playwright assertion added to `tests/photos/visual.e2e.cjs` confirming `#content`'s computed `background-image` on `/photos/` contains `bodybg` (not `none` and not a solid override)
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] No existing test assertion count decreases
+- [x] `#page_photos #content { background: #050a10; }` line removed from `less/photos.less`
+- [x] `assets/css/style.min.css` regenerated via `npm run less:build` and included in the commit
+- [x] New Playwright assertion added to `tests/photos/visual.e2e.cjs` confirming `#content`'s computed `background-image` on `/photos/` contains `bodybg` (not `none` and not a solid override)
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] No existing test assertion count decreases
 
 **Tests**: e2e
 **Gate**: full
 
 **Commit**: `feat(photos): show the site backdrop behind the gallery`
+
+**Status**: ✅ Complete - 3 unit + 22 e2e tests pass (was 21 e2e before this task).
 
 ---
 
