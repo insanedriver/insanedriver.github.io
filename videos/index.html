@@ -63,9 +63,9 @@ header_img_path: header_1.jpg
         <ul class="videos-feed" data-idtv-feed>
             {% for video in videos %}
             <li class="videos-feed-item">
-                <a class="videos-card" href="https://www.youtube.com/watch?v={{ video.id }}" data-idtv-card="{{ forloop.index0 }}" data-slug="{{ video.slug }}" data-video-id="{{ video.id }}" data-title="{{ video.title | escape }}"{% if forloop.first %} aria-current="true"{% endif %}>
+                <a class="videos-card" href="https://www.youtube.com/watch?v={{ video.id }}" data-idtv-card="{{ forloop.index0 }}" data-slug="{{ video.slug | escape }}" data-video-id="{{ video.id | escape }}" data-title="{{ video.title | escape }}"{% if forloop.first %} aria-current="true"{% endif %}>
                     <span class="videos-card-thumb"><img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" {% unless forloop.first %}loading="lazy"{% endunless %} decoding="async"><span class="videos-card-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span></span>
-                    <span class="videos-card-meta"><span class="videos-eyebrow">{{ video.type }}</span><span class="videos-card-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span></span>
+                    <span class="videos-card-meta"><span class="videos-eyebrow">{{ video.type | escape }}</span><span class="videos-card-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span></span>
                 </a>
             </li>
             {% endfor %}

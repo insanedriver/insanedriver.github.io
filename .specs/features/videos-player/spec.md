@@ -118,7 +118,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 2. The Videos page SHALL leave `.cyber-zone` background transparent so `bodybg.jpg` shows through. (VPLR-20)
 3. The Videos page SHALL use `#00f3ff`/`#005f8c` for panel chrome, `#ff00ea` for hover and counter accents, `Rajdhani` for body text and `Share Tech Mono` for HUD text. (VPLR-21)
 4. WHILE the visitor's system has `prefers-reduced-motion: reduce` the page SHALL run no CSS animation or transition on `.videos-*` and cyber-zone elements. (VPLR-22)
-5. The page SHALL not draw scanline, noise or glow overlays on top of the video stage area. (VPLR-23)
+5. The scanline overlay SHALL stack below `.cyber-zone-inner`, which contains the video stage, so the overlay never covers the stage (`z-index` of `.cyber-zone-inner` greater than that of the scanline). (VPLR-23)
 6. The stage and the feed SHALL fit within the viewport width, with no horizontal page scroll, at 375px and 1280px widths. (VPLR-24)
 
 **Independent Test**: Compare with Band side by side; resize to 375px and 1280px.

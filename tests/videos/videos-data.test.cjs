@@ -26,3 +26,7 @@ test('VPLR-02/05: every entry has a type from the allowed set and an "Insane Dri
     assert.ok(v.title.startsWith('Insane Driver - '), v.slug);
   }
 });
+
+test('VPLR-05: every id is an 11-character YouTube id made of URL-safe characters', () => {
+  for (const v of videos) assert.match(v.id, /^[A-Za-z0-9_-]{11}$/, v.slug);
+});

@@ -152,7 +152,6 @@
     controls.hidden = false;
     root.addEventListener('keydown', function (event) {
         if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) { return; }
-        if (event.target.tagName === 'IFRAME') { return; }
         if (event.key === 'ArrowRight') {
             event.preventDefault();
             select(core.step(state.index, 1, cards.length), { play: true });

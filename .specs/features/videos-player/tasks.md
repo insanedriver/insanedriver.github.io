@@ -421,6 +421,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **What**: Add `| escape` to `slug`, `id`, `type` in the feed markup, an id-format assertion in the catalog test, and remove the unreachable IFRAME check in the keydown handler.
 **Where**: `videos/index.html`, `tests/videos/videos-data.test.cjs`, `assets/js/videos.js`
+**Status**: ✅ Done
 **Requirement**: VPLR-05, VPLR-27
 
 **Tests**: unit, e2e
@@ -430,6 +431,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **What**: Reword VPLR-23 so the verified outcome is precise.
 **Where**: `.specs/features/videos-player/spec.md`
+**Status**: ✅ Done
 **Requirement**: VPLR-23
 
 **Tests**: none
