@@ -4,6 +4,24 @@ test('PXCP-06: photos page shows the site backdrop behind the gallery', async ({
   const backgroundImage = await page.locator('#content').evaluate(el => getComputedStyle(el).backgroundImage);
   expect(backgroundImage).toContain('bodybg');
 });
+test('PXCP-01/02/04/07: featured carousel is wrapped in a cyber-panel', async ({page}) => {
+  await page.goto('/photos/');
+  await expect(page.locator('.cyber-zone-inner')).toHaveCount(1);
+  const carouselPanel = page.locator('.cyber-panel').first();
+  await expect(carouselPanel.locator('.cyber-panel-tab')).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');
+  const animationName = await carouselPanel.locator('.cyber-panel-body').evaluate(el => getComputedStyle(el).animationName);
+  expect(animationName).toContain('photos-panel-glow');
+});
+test('PXCP-14: reduced motion disables the root scanline and noise animations', async ({page}) => {
+  await page.emulateMedia({reducedMotion: 'reduce'});
+  await page.goto('/photos/');
+  const pseudoAnimations = await page.locator('.photos-shell').evaluate(el => ({
+    before: getComputedStyle(el, '::before').animationName,
+    after: getComputedStyle(el, '::after').animationName,
+  }));
+  expect(pseudoAnimations.before).toBe('none');
+  expect(pseudoAnimations.after).toBe('none');
+});
 for (const width of [320, 390, 768, 1440]) {
   test(`PHOTO-03/14: cyberpunk gallery fits ${width}px`, async ({page}) => {
     await page.setViewportSize({width, height: 900});

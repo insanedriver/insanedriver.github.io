@@ -107,21 +107,21 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 
 | Requirement ID | Story                                   | Phase  | Status  |
 | -------------- | ---------------------------------------- | ------ | ------- |
-| PXCP-01        | P1: Visual parity                        | Design | Pending |
-| PXCP-02        | P1: Visual parity                        | Design | Pending |
-| PXCP-03        | P1: Visual parity                        | Design | Pending |
-| PXCP-04        | P1: Visual parity                        | Design | Pending |
-| PXCP-05        | P1: Visual parity                        | Design | Pending |
+| PXCP-01        | P1: Visual parity                        | Execute | Implementing |
+| PXCP-02        | P1: Visual parity                        | Execute | Implementing |
+| PXCP-03        | P1: Visual parity                        | Execute | Implementing |
+| PXCP-04        | P1: Visual parity                        | Execute | Implementing |
+| PXCP-05        | P1: Visual parity                        | Execute | Implementing |
 | PXCP-06        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-07        | P1: Visual parity                        | Design | Pending |
-| PXCP-08        | P1: No regression                        | Design | Pending |
+| PXCP-07        | P1: Visual parity                        | Execute | Implementing |
+| PXCP-08        | P1: No regression                        | Execute | Implementing |
 | PXCP-09        | P1: No regression                        | Design | Pending |
 | PXCP-10        | P1: No regression                        | Design | Pending |
-| PXCP-11        | P1: No regression                        | Design | Pending |
-| PXCP-12        | P1: No regression                        | Design | Pending |
+| PXCP-11        | P1: No regression                        | Execute | Implementing |
+| PXCP-12        | P1: No regression                        | Execute | Implementing |
 | PXCP-13        | P1: No regression                        | Design | Pending |
-| PXCP-14        | P1: Accessibility & responsiveness       | Design | Pending |
-| PXCP-15        | P1: Accessibility & responsiveness       | Design | Pending |
+| PXCP-14        | P1: Accessibility & responsiveness       | Execute | Implementing |
+| PXCP-15        | P1: Accessibility & responsiveness       | Execute | Implementing |
 | PXCP-16        | P1: Accessibility & responsiveness       | Design | Pending |
 | PXCP-17        | P1: Accessibility & responsiveness       | Design | Pending |
 
@@ -129,7 +129,7 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 
 **Status values:** Pending → In Design → In Tasks → Implementing → Verified
 
-**Coverage:** 17 total, 0 mapped to tasks, 17 unmapped ⚠️ (expected pre-Design)
+**Coverage:** 17 total, 12 mapped to tasks (T1-T4 landed), 5 pending T5/T6 ⚠️
 
 ---
 

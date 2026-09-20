@@ -159,19 +159,21 @@ T5 → T6
 - Skill: NONE
 
 **Done when**:
-- [ ] Root element carries both `photos-shell` and `cyber-zone` classes; `.cyber-zone-inner` wraps all page content
-- [ ] `.photos-featured` section is nested inside one `.cyber-panel` with tab, body modifier, `data-hud`, and all four corner/accent elements
-- [ ] All existing `data-photo-*` attributes and their nesting relative to `[data-photo-carousel]` are byte-identical to before this task
-- [ ] New Playwright assertions added to `tests/photos/visual.e2e.cjs`: (a) `.cyber-zone-inner` exists, (b) the carousel's `.cyber-panel-tab` has the expected gradient/border color, (c) the carousel's `.cyber-panel-body` has a non-`'none'` `animationName` under normal motion, (d) under `prefers-reduced-motion: reduce`, `getComputedStyle(document.querySelector('.photos-shell'), '::before').animationName` and `('::after')` are both `'none'` - closing the pseudo-element gap
-- [ ] All pre-existing `visual.e2e.cjs` assertions (`.photos-stage` border color, `.photos-accent` color, `.photos-archive` display, focus/outline loop, real-element reduced-motion check) still pass unmodified
-- [ ] `assets/css/style.min.css` unchanged by this task (no `.less` edits) - only regenerate if a `.less` file was touched
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count did not decrease; new assertions listed above are present in addition to the existing ones
+- [x] Root element carries both `photos-shell` and `cyber-zone` classes; `.cyber-zone-inner` wraps all page content
+- [x] `.photos-featured` section is nested inside one `.cyber-panel` with tab, body modifier, `data-hud`, and all four corner/accent elements
+- [x] All existing `data-photo-*` attributes and their nesting relative to `[data-photo-carousel]` are byte-identical to before this task
+- [x] New Playwright assertions added to `tests/photos/visual.e2e.cjs`: (a) `.cyber-zone-inner` exists, (b) the carousel's `.cyber-panel-tab` has the expected gradient/border color, (c) the carousel's `.cyber-panel-body` has a non-`'none'` `animationName` under normal motion, (d) under `prefers-reduced-motion: reduce`, `getComputedStyle(document.querySelector('.photos-shell'), '::before').animationName` and `('::after')` are both `'none'` - closing the pseudo-element gap
+- [x] All pre-existing `visual.e2e.cjs` assertions (`.photos-stage` border color, `.photos-accent` color, `.photos-archive` display, focus/outline loop, real-element reduced-motion check) still pass unmodified
+- [x] `assets/css/style.min.css` unchanged by this task (no `.less` edits) - only regenerate if a `.less` file was touched
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count did not decrease; new assertions listed above are present in addition to the existing ones
 
 **Tests**: e2e
 **Gate**: full
 
 **Commit**: `feat(photos): wrap the featured carousel in a cyber-panel`
+
+**Status**: ✅ Complete - 3 unit + 24 e2e tests pass (was 22 e2e before this task). Visually confirmed via `/tmp/photos-1440.png`: carousel panel renders with tab/corners/glow and the `bodybg.jpg` backdrop is visible.
 
 ---
 
