@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 2,
+  "next_id": 5,
   "lessons": [
     {
       "id": "L-001",
@@ -22,6 +22,60 @@
       ],
       "created": "2026-09-18T03:03:43Z",
       "last_seen": "2026-09-18T03:03:43Z"
+    },
+    {
+      "id": "L-002",
+      "key": "ac_gap::when an ac lists multiple visual effects overlay animation background pattern add a test assertion for each one individually rather than only testing its reduced motion off state",
+      "text": "When an AC lists multiple visual effects (overlay, animation, background pattern), add a test assertion for each one individually rather than only testing its reduced-motion off-state.",
+      "signal": "ac_gap",
+      "scope": "photos",
+      "status": "candidate",
+      "features": [
+        "photos-cyberpunk-theme"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "PXCP-03; tests/photos/visual.e2e.cjs (photos)"
+      ],
+      "created": "2026-09-20T03:51:13Z",
+      "last_seen": "2026-09-20T03:51:13Z"
+    },
+    {
+      "id": "L-003",
+      "key": "ac_gap::assert computed font family directly when an ac specifies a required typeface instead of leaving font choice unverified by any test",
+      "text": "Assert computed font-family directly when an AC specifies a required typeface, instead of leaving font choice unverified by any test.",
+      "signal": "ac_gap",
+      "scope": "photos",
+      "status": "candidate",
+      "features": [
+        "photos-cyberpunk-theme"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "PXCP-05; tests/photos/visual.e2e.cjs (photos)"
+      ],
+      "created": "2026-09-20T03:51:14Z",
+      "last_seen": "2026-09-20T03:51:14Z"
+    },
+    {
+      "id": "L-004",
+      "key": "spec_precision_gap::when a design decision deliberately narrows or reinterprets an ac s literal wording update the ac text itself to match the confirmed decision instead of leaving the two in silent contradiction",
+      "text": "When a design decision deliberately narrows or reinterprets an AC's literal wording, update the AC text itself to match the confirmed decision instead of leaving the two in silent contradiction.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "photos-cyberpunk-theme"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "PXCP-04 vs spec.md Assumptions row 'Secondary accent color' (spec-writing)"
+      ],
+      "created": "2026-09-20T03:51:14Z",
+      "last_seen": "2026-09-20T03:51:14Z"
     }
   ]
 }
