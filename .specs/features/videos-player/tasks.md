@@ -232,6 +232,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `less/videos.less` (tests in `tests/videos/theme.e2e.cjs`; rebuilt `assets/css/style.min.css`)
 **Depends on**: T6
 **Reuses**: `less/band.less` chrome, `less/photos.less` reduced-motion rule
+**Status**: ✅ Done
 **Requirement**: VPLR-18, VPLR-20, VPLR-21, VPLR-22, VPLR-23, VPLR-24
 
 **Tools**:
@@ -241,13 +242,13 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] `#content` background contains `bodybg`; panel tab border is `rgb(0, 243, 255)`; body font is Rajdhani
-- [ ] Feed has `scroll-snap-type` x and `overflow-x: auto`
-- [ ] Under `prefers-reduced-motion: reduce`, computed `animation-name` is `none` on cyber-zone/panel elements
-- [ ] No scanline/noise/glow pseudo-element overlays the stage area
-- [ ] `document.documentElement.scrollWidth <= innerWidth` at 375 and 1280 px
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] `#content` background contains `bodybg`; panel tab border is `rgb(0, 243, 255)`; body font is Rajdhani
+- [x] Feed has `scroll-snap-type` x and `overflow-x: auto`
+- [x] Under `prefers-reduced-motion: reduce`, computed `animation-name` is `none` on cyber-zone/panel elements
+- [x] No scanline/noise/glow pseudo-element overlays the stage area
+- [x] `document.documentElement.scrollWidth <= innerWidth` at 375 and 1280 px
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full

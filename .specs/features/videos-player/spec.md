@@ -189,13 +189,13 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-15 | P2: Failure | Design | Pending |
 | VPLR-16 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-17 | P1: Stage and feed | Design | Pending |
-| VPLR-18 | P1: Stage and feed | Design | Pending |
+| VPLR-18 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-19 | P1: Theme parity | Tasks | Implementing |
-| VPLR-20 | P1: Theme parity | Design | Pending |
-| VPLR-21 | P1: Theme parity | Design | Pending |
-| VPLR-22 | P1: Theme parity | Design | Pending |
-| VPLR-23 | P1: Theme parity | Design | Pending |
-| VPLR-24 | P1: Theme parity | Design | Pending |
+| VPLR-20 | P1: Theme parity | Tasks | Implementing |
+| VPLR-21 | P1: Theme parity | Tasks | Implementing |
+| VPLR-22 | P1: Theme parity | Tasks | Implementing |
+| VPLR-23 | P1: Theme parity | Tasks | Implementing |
+| VPLR-24 | P1: Theme parity | Tasks | Implementing |
 | VPLR-25 | P2: Navigation | Design | Pending |
 | VPLR-26 | P2: Navigation | Design | Pending |
 | VPLR-27 | P2: Navigation | Design | Pending |
