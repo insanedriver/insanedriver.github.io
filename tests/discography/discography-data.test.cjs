@@ -84,3 +84,25 @@ test('DISC-21: an album exposes a Spotify id exactly when it links to Spotify', 
     if (a.spotifyId) assert.ok(a.links.spotify.endsWith(a.spotifyId), a.slug);
   }
 });
+
+test('DISC-15: the catalog holds the eighteen singles sorted newest first', () => {
+  assert.equal(catalog.singles.length, 18);
+  const dates = catalog.singles.map(s => s.releaseDate);
+  assert.deepEqual(dates, [...dates].sort().reverse());
+  for (const s of catalog.singles) assert.equal(s.type, 'SINGLE', s.slug);
+});
+
+test('DISC-16: the 2024-2025 releases are among the six singles shown by default', () => {
+  const visible = catalog.singles.slice(0, 6).map(s => s.slug);
+  for (const slug of ['keep-away-acoustic', 'waiting-for-you', 'the-sun-will-rise']) {
+    assert.ok(visible.includes(slug), `${slug} is not in the first six`);
+  }
+});
+
+test('DISC-19: every single links to at least one platform and carries no tracklist or preview', () => {
+  for (const s of catalog.singles) {
+    assert.ok(Object.values(s.links).some(url => url !== null), s.slug);
+    assert.deepEqual(s.tracks, [], s.slug);
+    assert.equal(s.spotifyId, null, s.slug);
+  }
+});

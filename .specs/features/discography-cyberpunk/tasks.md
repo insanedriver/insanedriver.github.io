@@ -205,6 +205,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add singles to the catalog`
 
+**Status**: ✅ Done
+
 ---
 
 ### T5: Rewrite the page with the index panel and album cards

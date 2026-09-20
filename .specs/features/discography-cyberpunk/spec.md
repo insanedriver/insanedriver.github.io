@@ -220,11 +220,11 @@
 | DISC-12 | P1: One system, one look | Design | Pending |
 | DISC-13 | P1: One system, one look | Design | Pending |
 | DISC-14 | P1: One system, one look | Design | Pending |
-| DISC-15 | P2: See the whole catalog | Design | Pending |
+| DISC-15 | P2: See the whole catalog | Execute | Implementing |
 | DISC-16 | P2: See the whole catalog | Design | Pending |
 | DISC-17 | P2: See the whole catalog | Design | Pending |
 | DISC-18 | P2: See the whole catalog | Design | Pending |
-| DISC-19 | P2: See the whole catalog | Design | Pending |
+| DISC-19 | P2: See the whole catalog | Execute | Implementing |
 | DISC-20 | P2: See the whole catalog | Design | Pending |
 | DISC-21 | P2: Preview before leaving | Design | Pending |
 | DISC-22 | P2: Preview before leaving | Design | Pending |
