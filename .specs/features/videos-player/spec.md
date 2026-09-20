@@ -78,7 +78,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 1. The Videos page SHALL render one card per entry of `_data/videos.json` in file order, 10 cards. (VPLR-01)
 2. Each card SHALL show the entry's thumbnail from `https://i.ytimg.com/vi/<id>/hqdefault.jpg`, its title with the `Insane Driver - ` prefix removed, and its type label. (VPLR-02)
 3. Each card SHALL be an `<a>` whose `href` is `https://www.youtube.com/watch?v=<id>`, so it works without JavaScript. (VPLR-03)
-4. The Videos page SHALL contain no `<iframe>` in the server-rendered HTML. (VPLR-04)
+4. The Videos page content (everything inside `.videos-shell`) SHALL contain no `<iframe>` in the server-rendered HTML. The site layout's Google Tag Manager `<noscript>` iframe is outside this scope. (VPLR-04)
 5. The `_data/videos.json` SHALL contain 10 entries with unique `id` and unique kebab-case `slug`, and the order Keep Away, Ghosts, Distant Hearts, Desperate Prayer, Imagined Realities, Silicon Fortress, Today Is Sunday, Buried Thoughts, Tide Of Fears, Change. (VPLR-05)
 
 **Independent Test**: Disable JavaScript, open `/videos/`, see 10 cards with titles; each opens YouTube.
@@ -93,7 +93,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 
 **Acceptance Criteria**:
 
-1. WHEN the page loads with JavaScript enabled THEN the stage SHALL show the selected video's poster with a play button, and the page SHALL create 0 iframes and request no `youtube.com` script. (VPLR-06)
+1. WHEN the page loads with JavaScript enabled THEN the stage SHALL show the selected video's poster with a play button, and the `.videos-shell` SHALL contain 0 iframes and the page SHALL request no `youtube.com` script. (VPLR-06)
 2. WHEN the visitor activates the play button THEN the stage SHALL load one YouTube iframe from `youtube-nocookie.com` for the selected video and start playback. (VPLR-07)
 3. WHEN the visitor clicks a card THEN the stage SHALL switch to that video and start playing it, the card SHALL get `aria-current="true"`, and all other cards SHALL not. (VPLR-08)
 4. WHEN the visitor clicks the card of the video that is already active THEN the stage SHALL keep the current playback without restarting it. (VPLR-09)
@@ -174,8 +174,8 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | --- | --- | --- | --- |
 | VPLR-01 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-02 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-03 | P1: Data-driven feed | Design | Pending |
-| VPLR-04 | P1: Data-driven feed | Design | Pending |
+| VPLR-03 | P1: Data-driven feed | Tasks | Implementing |
+| VPLR-04 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-05 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-06 | P1: Stage and feed | Design | Pending |
 | VPLR-07 | P1: Stage and feed | Design | Pending |
@@ -190,7 +190,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-16 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-17 | P1: Stage and feed | Design | Pending |
 | VPLR-18 | P1: Stage and feed | Design | Pending |
-| VPLR-19 | P1: Theme parity | Design | Pending |
+| VPLR-19 | P1: Theme parity | Tasks | Implementing |
 | VPLR-20 | P1: Theme parity | Design | Pending |
 | VPLR-21 | P1: Theme parity | Design | Pending |
 | VPLR-22 | P1: Theme parity | Design | Pending |

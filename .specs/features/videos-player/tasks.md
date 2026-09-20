@@ -177,6 +177,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `videos/index.html` (tests in `tests/videos/markup.e2e.cjs`)
 **Depends on**: T4
 **Reuses**: `photos/index.html` markup pattern and data hooks
+**Status**: ✅ Done
 **Requirement**: VPLR-01, VPLR-02, VPLR-03, VPLR-04, VPLR-19
 
 **Tools**:
@@ -186,11 +187,11 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] With JavaScript disabled: 10 cards in file order, each an `<a>` to `https://www.youtube.com/watch?v=<id>`, short title and type visible, thumbnail from `i.ytimg.com`
-- [ ] Zero `<iframe>` in the served HTML
-- [ ] `.cyber-zone > .cyber-zone-inner` with `.cyber-panel`, `.cyber-panel-tab` and corner spans
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] With JavaScript disabled: 10 cards in file order, each an `<a>` to `https://www.youtube.com/watch?v=<id>`, short title and type visible, thumbnail from `i.ytimg.com`
+- [x] Zero `<iframe>` in the served HTML
+- [x] `.cyber-zone > .cyber-zone-inner` with `.cyber-panel`, `.cyber-panel-tab` and corner spans
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full
