@@ -206,7 +206,7 @@
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| DISC-01 | P1: Listen on your own platform | Design | Pending |
+| DISC-01 | P1: Listen on your own platform | Execute | Implementing |
 | DISC-02 | P1: Listen on your own platform | Execute | Implementing |
 | DISC-03 | P1: Listen on your own platform | Design | Pending |
 | DISC-04 | P1: Listen on your own platform | Execute | Implementing |
@@ -235,7 +235,7 @@
 | DISC-27 | P2: Preview before leaving | Design | Pending |
 | DISC-28 | P2: Preview before leaving | Design | Pending |
 | DISC-29 | P2: Tracklist and structured data | Design | Pending |
-| DISC-30 | P2: Tracklist and structured data | Design | Pending |
+| DISC-30 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-31 | P2: Tracklist and structured data | Design | Pending |
 | DISC-32 | P2: Tracklist and structured data | Design | Pending |
 | DISC-33 | P2: Tracklist and structured data | Execute | Implementing |
@@ -248,10 +248,10 @@
 | DISC-40 | P3: Know what converts | Design | Pending |
 | DISC-41 | P3: Know what converts | Design | Pending |
 | DISC-42 | P3: Know what converts | Design | Pending |
-| DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Design | Pending |
+| DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Execute | Implementing |
 | DISC-44 | Edge: embed failure leaves links usable | Design | Pending |
 | DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | Design | Pending |
-| DISC-46 | Edge: authoring-time link check nulls non-2xx/3xx URLs | Design | Pending |
+| DISC-46 | Edge: authoring-time link check nulls non-2xx/3xx URLs | Execute | Implementing |
 
 **ID mapping:** DISC-01..07 = P1 "Listen on your own platform" ACs 1-7; DISC-08..14 = P1 "One system, one look" ACs 1-7; DISC-15..20 = P2 "See the whole catalog" ACs 1-6; DISC-21..28 = P2 "Preview before leaving" ACs 1-8; DISC-29..34 = P2 "Tracklist and structured data" ACs 1-6; DISC-35..38 = P2 "Buy the physical record" ACs 1-4; DISC-39..42 = P3 "Know what converts" ACs 1-4; DISC-43..46 = Edge Cases.
 

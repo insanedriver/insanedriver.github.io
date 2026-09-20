@@ -174,6 +174,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add album catalog with verified platform links`
 
+**Status**: ✅ Done
+
 ---
 
 ### T4: Add the singles to the catalog
