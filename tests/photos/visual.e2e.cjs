@@ -6,9 +6,13 @@ test('PXCP-06: photos page shows the site backdrop behind the gallery', async ({
 });
 test('PXCP-01/02/04/07: featured carousel is wrapped in a cyber-panel', async ({page}) => {
   await page.goto('/photos/');
+  await expect(page.locator('.photos-shell.cyber-zone')).toHaveCount(1);
   await expect(page.locator('.cyber-zone-inner')).toHaveCount(1);
   const carouselPanel = page.locator('.cyber-panel').first();
   await expect(carouselPanel.locator('.cyber-panel-tab')).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');
+  await expect(carouselPanel.locator('.corner-tl')).toHaveCount(1);
+  await expect(carouselPanel.locator('.corner-tr')).toHaveCount(1);
+  await expect(carouselPanel.locator('.corner-bl')).toHaveCSS('background-color', 'rgb(0, 95, 140)');
   const animationName = await carouselPanel.locator('.cyber-panel-body').evaluate(el => getComputedStyle(el).animationName);
   expect(animationName).toContain('photos-panel-glow');
 });
@@ -18,7 +22,31 @@ test('PXCP-01/02/04/07: archive grid is wrapped in its own cyber-panel with a se
   await expect(page.locator('.cyber-separator')).toHaveCount(1);
   const archivePanel = page.locator('.cyber-panel').nth(1);
   await expect(archivePanel.locator('.cyber-panel-tab')).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');
+  await expect(archivePanel.locator('.corner-tl')).toHaveCount(1);
+  await expect(archivePanel.locator('.corner-tr')).toHaveCount(1);
   await expect(archivePanel.locator('.corner-bl')).toHaveCSS('background-color', 'rgb(0, 95, 140)');
+});
+test('PXCP-03: cyber-zone scanline, noise and panel grid are live under normal motion', async ({page}) => {
+  await page.goto('/photos/');
+  const pseudo = await page.locator('.photos-shell').evaluate(el => ({
+    noiseAnimation: getComputedStyle(el, '::before').animationName,
+    scanlineImage: getComputedStyle(el, '::after').backgroundImage,
+  }));
+  expect(pseudo.noiseAnimation).toContain('photos-noise-drift');
+  expect(pseudo.scanlineImage).toContain('repeating-linear-gradient');
+  const panelGrid = await page.locator('.cyber-panel-body').first().evaluate(el => ({
+    backgroundImage: getComputedStyle(el).backgroundImage,
+    backgroundSize: getComputedStyle(el).backgroundSize,
+  }));
+  expect(panelGrid.backgroundImage).toContain('linear-gradient');
+  expect(panelGrid.backgroundSize).toBe('25px 25px, 25px 25px');
+});
+test('PXCP-05: cyber-panel uses the shared Rajdhani and Share Tech Mono fonts', async ({page}) => {
+  await page.goto('/photos/');
+  const tabFont = await page.locator('.cyber-panel-tab').first().evaluate(el => getComputedStyle(el).fontFamily);
+  expect(tabFont).toContain('Rajdhani');
+  const hudFont = await page.locator('.cyber-panel-body').first().evaluate(el => getComputedStyle(el, '::after').fontFamily);
+  expect(hudFont).toContain('Share Tech Mono');
 });
 test('PXCP-14: reduced motion disables the root scanline and noise animations', async ({page}) => {
   await page.emulateMedia({reducedMotion: 'reduce'});

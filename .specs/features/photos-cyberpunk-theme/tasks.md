@@ -290,6 +290,58 @@ Execution is strictly sequential - there is no intra-phase parallelism. A single
 
 ---
 
+## Fix Tasks (Verifier Round 1 - FAIL, 4 ranked gaps)
+
+The independent Verifier (`.specs/features/photos-cyberpunk-theme/validation.md`, round 1) found 12/17 ACs fully covered and flagged 4 gaps. Routed as fix tasks below, all Minor priority (no behavior defect - the implementation already matched the design; only test evidence or spec wording needed correcting).
+
+### FT1: Close PXCP-01/02 partial coverage
+
+**What**: Add assertions for the root's `.cyber-zone` class itself (not just `.cyber-zone-inner`) and for `.corner-tl`/`.corner-tr` on both panels (only `.corner-bl` was checked before).
+**Where**: `tests/photos/visual.e2e.cjs`
+**Depends on**: T5 (extends its tests)
+**Tests**: e2e
+**Gate**: full
+**Commit**: bundled with FT2/FT3, see below
+
+### FT2: Close PXCP-03 gap (scanline/noise/grid had zero test evidence)
+
+**What**: Add a normal-motion (no `reducedMotion` emulation) assertion that the root's noise `::before` carries `photos-noise-drift`, the scanline `::after` has a `repeating-linear-gradient` background-image, and `.cyber-panel-body`'s grid background-image/size are present.
+**Where**: `tests/photos/visual.e2e.cjs`
+**Depends on**: T5
+**Tests**: e2e
+**Gate**: full
+
+### FT3: Close PXCP-05 gap (fonts had zero test evidence)
+
+**What**: Add an assertion that `.cyber-panel-tab`'s computed `font-family` contains `Rajdhani` and `.cyber-panel-body::after`'s (the `data-hud` pseudo-element) computed `font-family` contains `Share Tech Mono`.
+**Where**: `tests/photos/visual.e2e.cjs`
+**Depends on**: T5
+**Tests**: e2e
+**Gate**: full
+
+**Done when (FT1-FT3, one commit)**:
+- [x] All new assertions added to `tests/photos/visual.e2e.cjs`
+- [x] Gate check passes: `npm run test:unit && npm run test:photos` (27 e2e, up from 25)
+- [x] No existing assertion weakened or removed
+
+**Commit**: `test(photos): close PXCP-01/02/03/05 coverage gaps found by the verifier`
+
+### FT4: Fix PXCP-04 spec-text/design contradiction on magenta
+
+**What**: Correct `spec.md`'s PXCP-04 acceptance criterion text - it listed magenta as part of the shared panel-chrome palette, contradicting `spec.md`'s own confirmed Assumptions row and `design.md`'s Tech Decision (magenta stays off the shared chrome, reserved for Photos' own pre-existing accent elements). No code change - the implementation already matched the design/assumption, only the AC wording was wrong.
+**Where**: `.specs/features/photos-cyberpunk-theme/spec.md`
+**Depends on**: None
+**Tests**: none (docs-only correction)
+**Gate**: build
+
+**Done when**:
+- [x] PXCP-04 wording corrected to name only cyan/deep-blue for shared chrome, with a note that magenta stays Photos' own accent
+- [x] `validate_spec.py` still passes
+
+**Commit**: `docs(photos): fix PXCP-04 wording to match the confirmed magenta-placement decision`
+
+---
+
 ## Tips
 
 - Every task that touches a `.less` file regenerates and commits `assets/css/style.min.css` in the same commit (`README.md:67`).
