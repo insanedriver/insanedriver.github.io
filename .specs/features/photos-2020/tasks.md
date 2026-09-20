@@ -81,7 +81,7 @@ Done when:
 
 ### Phase 3: Test Suite Updates & Validation
 
-### T4: Update test suite for 23 photos and random highlights
+### T4: Update test suite for 23 photos and random highlights [x]
 Where: `tests/photos/gallery.test.cjs`
 Tests: unit + e2e
 Gate: Full

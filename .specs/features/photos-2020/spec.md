@@ -89,15 +89,15 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| P2020-01 | P1: 2020 Photoshoot Archive Display | Tasks | Pending |
-| P2020-02 | P1: 2020 Photoshoot Archive Display | Tasks | Pending |
-| P2020-03 | P1: 2020 Photoshoot Archive Display | Tasks | Pending |
-| P2020-04 | P1: 2020 Photoshoot Archive Display | Tasks | Pending |
-| P2020-05 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Pending |
-| P2020-06 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Pending |
-| P2020-07 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Pending |
-| P2020-08 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Pending |
-| P2020-09 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Pending |
+| P2020-01 | P1: 2020 Photoshoot Archive Display | Tasks | Verified |
+| P2020-02 | P1: 2020 Photoshoot Archive Display | Tasks | Verified |
+| P2020-03 | P1: 2020 Photoshoot Archive Display | Tasks | Verified |
+| P2020-04 | P1: 2020 Photoshoot Archive Display | Tasks | Verified |
+| P2020-05 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Verified |
+| P2020-06 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Verified |
+| P2020-07 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Verified |
+| P2020-08 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Verified |
+| P2020-09 | P1: Static Fallback and Dynamic Carousel Randomization | Tasks | Verified |
 
 **Coverage:** 9 total, 9 mapped to tasks, 0 unmapped ⚠️
 
@@ -105,8 +105,8 @@ Every ambiguity is resolved or recorded here - nothing is left silently unclear.
 
 ## Success Criteria
 
-- [ ] All 6 photoshoot photos from `~/Downloads/2020-photoshoot-insane` are integrated with generated thumbnails in `assets/gallery/promo2020/`.
-- [ ] Archive contains 23 photos total with 2020 photos first starting with 274.
-- [ ] Static HTML builds with 6 2020 highlights starting with 274.
-- [ ] Client-side carousel randomizes 6 distinct PROMO/LIVE photos on page load.
-- [ ] 100% test pass on unit tests and Playwright e2e suite.
+- [x] All 6 photoshoot photos from `~/Downloads/2020-photoshoot-insane` are integrated with generated thumbnails in `assets/gallery/promo2020/`.
+- [x] Archive contains 23 photos total with 2020 photos first starting with 274.
+- [x] Static HTML builds with 6 2020 highlights starting with 274.
+- [x] Client-side carousel randomizes 6 distinct PROMO/LIVE photos on page load.
+- [x] 100% test pass on unit tests and Playwright e2e suite.
