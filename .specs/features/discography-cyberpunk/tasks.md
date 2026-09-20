@@ -298,6 +298,8 @@ T12 → T13
 
 **Commit**: `feat(discography): emit MusicAlbum structured data`
 
+**Status**: ✅ Done
+
 ---
 
 ### T8: Add the singles panel

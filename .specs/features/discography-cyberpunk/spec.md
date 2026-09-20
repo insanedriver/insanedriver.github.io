@@ -236,10 +236,10 @@
 | DISC-28 | P2: Preview before leaving | Design | Pending |
 | DISC-29 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-30 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-31 | P2: Tracklist and structured data | Design | Pending |
-| DISC-32 | P2: Tracklist and structured data | Design | Pending |
+| DISC-31 | P2: Tracklist and structured data | Execute | Implementing |
+| DISC-32 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-33 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-34 | P2: Tracklist and structured data | Design | Pending |
+| DISC-34 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-35 | P2: Buy the physical record | Execute | Implementing |
 | DISC-36 | P2: Buy the physical record | Execute | Implementing |
 | DISC-37 | P2: Buy the physical record | Execute | Implementing |

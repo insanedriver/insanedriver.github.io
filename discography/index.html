@@ -91,6 +91,22 @@ header_img_path: header_4.jpg
             </details>
         </div>
     </article>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicAlbum",
+      "name": "{{ album.title | replace: '"', '\"' }}",
+      "datePublished": "{{ album.releaseDate }}",
+      "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
+      "numTracks": {{ album.tracks.size }},
+      "image": "https://insanedriver.com.br/assets/images/releases/{{ album.cover }}",
+      "url": "https://insanedriver.com.br/discography/#{{ album.slug }}",
+      "sameAs": [{% assign sep = '' %}{% for p in platforms %}{% assign url = album.links[p.key] %}{% if url %}{{ sep }}"{{ url }}"{% assign sep = ',' %}{% endif %}{% endfor %}],
+      "track": [{% for track in album.tracks %}{% unless forloop.first %},{% endunless %}
+        { "@type": "MusicRecording", "name": "{{ track.title | replace: '"', '\"' }}", "position": {{ track.position }}, "duration": "PT{{ track.duration | divided_by: 60 | floor }}M{{ track.duration | modulo: 60 }}S" }{% endfor %}
+      ]
+    }
+    </script>
         </div>
     </div>
     {% endfor %}
