@@ -20,12 +20,12 @@
 
 ## Handoff
 
-- **Feature**: photos-2020
-- **Phase / Task**: Validation complete - PASS
-- **Completed**: T1, T2, T3, T4
+- **Feature**: photos-cyberpunk-theme
+- **Phase / Task**: Validation complete - PASS (round 2, after 1 fix→re-verify iteration)
+- **Completed**: T1, T2, T3, T4, T5, T6, FT1-FT3, FT4
 - **In-progress**: none (feature complete and verified)
-- **Next step**: Ready for user review / branch merge
+- **Next step**: Ready for user review / branch merge (local commits only, no push done)
 - **Blockers**: none
 - **Uncommitted files**: none
-- **Branch**: feature/photos-2020
+- **Branch**: feature/photos-cyberpunk-theme
 
