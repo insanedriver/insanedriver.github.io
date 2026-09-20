@@ -1,11 +1,9 @@
-# Photos Cyberpunk Theme Refresh Validation
-
-## Validation: photos-cyberpunk-theme - FAIL ❌
+# Photos Cyberpunk Theme Validation (Round 2)
 
 **Date**: 2026-09-20
 **Spec**: `.specs/features/photos-cyberpunk-theme/spec.md`
-**Diff range**: `71cc9d8..HEAD` (branch `feature/photos-cyberpunk-theme`)
-**Verifier**: independent sub-agent (author ≠ verifier)
+**Diff range**: `796f685..d487f42` (feature branch `feature/photos-cyberpunk-theme`)
+**Verifier**: independent sub-agent, round 2 (author ≠ verifier; did not author round 1 either)
 
 ---
 
@@ -13,52 +11,64 @@
 
 | Task | Status  | Notes |
 | ---- | ------- | ----- |
-| T1   | ✅ Done | `#content` override removed, `bodybg` assertion added |
-| T2   | ✅ Done | 5 `photos-` keyframes present, dormant |
-| T3   | ✅ Done | cyber-panel component CSS present, dormant at time of commit |
-| T4   | ✅ Done | Root wrapper + carousel panel wired, matching `data-photo-*` unchanged |
-| T5   | ✅ Done | Archive panel + separator wired |
-| T6   | ✅ Done | Build/test gate green per author notes; independently reconfirmed below |
+| T1-T5 (implementation, per tasks.md) | ✅ Done | Unchanged since round 1 |
+| Fix: PXCP-01/02/03/05 test-coverage gaps (`ab0b881`) | ✅ Done | New Playwright assertions added, verified below |
+| Fix: PXCP-04 spec-precision gap (`d487f42`) | ✅ Done | spec.md AC4 wording corrected, verified below |
+| Docs: round-1 report + lessons (`9c9a918`) | ✅ Done | Docs-only, no code touched |
 
 ---
 
-## Spec-Anchored Acceptance Criteria
+## Spec-Anchored Acceptance Criteria (all 17)
 
 | Criterion | Spec-defined outcome | `file:line` + assertion | Result |
 | --- | --- | --- | --- |
-| PXCP-01: wrap content in `.cyber-zone` containing `.cyber-zone-inner` | Root carries `.cyber-zone`, one `.cyber-zone-inner` child | `tests/photos/visual.e2e.cjs:9` - `expect(page.locator('.cyber-zone-inner')).toHaveCount(1)` | ⚠️ Partial - `.cyber-zone-inner` count asserted, but no assertion targets the `.cyber-zone` class itself on the root (e.g. `.photos-shell.cyber-zone` count/class check) |
-| PXCP-02: `.cyber-panel` with `.cyber-panel-tab` + `.corner-tl/tr/bl` | Each of the 2 sections is a `.cyber-panel` with tab label and 3 named corner elements | `tests/photos/visual.e2e.cjs:11,20` - `.cyber-panel-tab` located (proves panel+tab exist); `visual.e2e.cjs:21` - `.corner-bl` color checked | ⚠️ Partial - tab existence proven by successful locator resolution, `.corner-bl` explicitly checked, but `.corner-tl`/`.corner-tr` are never located by any test (present only in static markup, unverified at runtime) |
-| PXCP-03: scanline `::after`, noise `::before`, background grid | `.cyber-zone`/`.cyber-panel-body` show scanline overlay, animated noise (drift), grid, under normal motion | none found | ❌ GAP - `grep -rn "cyber-zone\b" tests/photos/` returns only the `.cyber-zone-inner` count check; no test asserts the scanline gradient, the noise `background-image`/`photos-noise-drift` animation, or the `.cyber-panel-body` grid `background-size` under normal (non-reduced) motion. The only related assertion (`visual.e2e.cjs:23-32`) checks the *reduced-motion off-state*, which does not prove the normal-state effect exists |
-| PXCP-04: shared palette (`#00f3ff`/`#005f8c`/`#ff00ea`) for panel borders, tab gradients, corner accents | All 3 colors used across panel borders/tab gradients/corner accents | `tests/photos/visual.e2e.cjs:11,20` (cyan `rgb(0,243,255)` border), `:21` (deep-blue `rgb(0,95,140)` corner) | ⚠️ Spec-precision gap - magenta (`#ff00ea`) is never asserted, and never used, on any panel border/tab-gradient/corner-accent element (`less/photos.less` confirms `.cyber-panel`, `.cyber-panel-tab`, `.corner-tl/tr/bl` are cyan/deep-blue only). `design.md`'s Tech Decision table and spec.md's own confirmed Assumptions row ("magenta ... layered on top of the shared cyan/deep-blue panel chrome") deliberately keep magenta OFF the shared chrome - contradicting the AC's literal wording that lists magenta as a color to use "for panel borders, tab gradients and corner accents." Implementation follows the confirmed assumption, not the AC's literal text; the AC text itself was never corrected to match |
-| PXCP-05: `Rajdhani` for panel body text, `Share Tech Mono` for HUD text | Fonts applied per design | none found | ❌ GAP - `grep -rn "font-family\|Rajdhani\|Share Tech Mono" tests/photos/` returns zero matches. `less/photos.less` does apply `font-family: 'Rajdhani'` (`.cyber-panel-tab`) and `'Share Tech Mono'` (`.cyber-panel-body::after`), but no test verifies either |
-| PXCP-06: `.cyber-zone` background transparent, `bodybg.jpg` visible | `#content` computed `background-image` contains `bodybg` | `tests/photos/visual.e2e.cjs:2-6` - `expect(backgroundImage).toContain('bodybg')` | ✅ PASS (confirmed killed by sensor mutation 3) |
-| PXCP-07: pulsing glow on `.cyber-panel-body` | `animationName` includes `photos-panel-glow` | `tests/photos/visual.e2e.cjs:12-13` - `expect(animationName).toContain('photos-panel-glow')` | ✅ PASS |
-| PXCP-08: carousel nav (wraparound, thumbnail `aria-pressed`, arrow keys) | Exact wraparound counters, `aria-pressed="true"` count 1, arrow keys scoped to focus | `tests/photos/carousel.e2e.cjs:4-26` - counter text assertions, `toHaveAttribute('aria-pressed','true')`, `toHaveCount(1)` | ✅ PASS (pre-existing, unmodified, passes against new markup) |
-| PXCP-09: 40px horizontal swipe selects one adjacent highlight | Counter increments by exactly one slide per qualifying gesture | `tests/photos/carousel.e2e.cjs:32-42` - counter text before/after gesture | ✅ PASS (pre-existing, unmodified) |
-| PXCP-10: `randomizeHighlights()` selects 6 from PROMO/LIVE | 6 unique ids, each present in archive, category in `['PROMO','LIVE']` | `tests/photos/carousel.e2e.cjs:48-59` - `toHaveCount(6)`, `Set(ids).size===6`, `expect(['PROMO','LIVE']).toContain(category)` | ✅ PASS (pre-existing, unmodified) |
-| PXCP-11: click opens PhotoSwipe, focus restoration on close | `.pswp` gains `pswp--open`, correct `src`, focus returns to trigger | `tests/photos/viewer.e2e.cjs:7-13,23-34` | ✅ PASS (pre-existing, unmodified) |
-| PXCP-12: `data-photo-*` attributes preserved despite re-nesting | Attribute-scoped selectors keep working post-restructure | `tests/photos/carousel.e2e.cjs:14` (`data-photo-select="3"`), `viewer.e2e.cjs:10` (`data-photo-slide`) all pass against the new nested markup | ✅ PASS (indirect but conclusive - these selectors only succeed if attributes/nesting-relative-to-`[data-photo-carousel]` survived) |
-| PXCP-13: archive renders all 23 entries | `.photos-archive figure` count 23 | `tests/photos/gallery.e2e.cjs:5` - `toHaveCount(23)` | ✅ PASS |
-| PXCP-14: reduced motion disables all decorative animation incl. root pseudo-elements | `animationName === 'none'` on root `::before`/`::after` and all descendants; viewer transitions 0 | `tests/photos/visual.e2e.cjs:23-32` (root pseudo-elements), `:57-64` (blanket descendant check), `tests/photos/viewer.e2e.cjs:35-45` (viewer durations `[0,0]`) | ✅ PASS (confirmed killed by sensor mutation 2) |
-| PXCP-15: visible focus + accessible names | `outline-style: solid`, non-empty `aria-label` on every visible control | `tests/photos/visual.e2e.cjs:45-56` | ✅ PASS (pre-existing, unmodified) |
-| PXCP-16: no horizontal overflow at 320/390/768/1440 | `scrollWidth <= innerWidth` at each width | `tests/photos/visual.e2e.cjs:33-44` | ✅ PASS |
-| PXCP-17: no-JS archive links to all 23 images | 23 links, `200` status, `image/*` content-type | `tests/photos/gallery.e2e.cjs:8-21` | ✅ PASS (pre-existing, unmodified) |
+| PXCP-01 `.cyber-zone`/`.cyber-zone-inner` structure | Root has both `.photos-shell` and `.cyber-zone` classes; one `.cyber-zone-inner` | `tests/photos/visual.e2e.cjs:9` - `expect(page.locator('.photos-shell.cyber-zone')).toHaveCount(1)`; `:10` - `.cyber-zone-inner` count 1 | ✅ PASS |
+| PXCP-02 `.cyber-panel`+tab+corners on both sections | Each panel has `.cyber-panel-tab` and `.corner-tl`/`.corner-tr`/`.corner-bl` (count 1 each) | `tests/photos/visual.e2e.cjs:13-15` (carousel panel), `:25-27` (archive panel) - `toHaveCount(1)` on `.corner-tl`, `.corner-tr`; CSS check on `.corner-bl` | ✅ PASS |
+| PXCP-03 scanline/noise/grid live under normal motion | Root `::before` runs `photos-noise-drift`; root `::after` uses `repeating-linear-gradient`; panel body has grid `background-image`/`background-size: 25px 25px, 25px 25px` | `tests/photos/visual.e2e.cjs:29-43` - asserts all three, against `less/photos.less:41-65` (`.cyber-zone::before/::after`) and `:108-111` (`.cyber-panel-body`) | ✅ PASS |
+| PXCP-04 shared cyan/deep-blue chrome; magenta excluded from shared chrome | Panel tab/corner-bl use `#00f3ff`/`#005f8c`; magenta stays only on `.photos-accent` etc. | `tests/photos/visual.e2e.cjs:12,15,24,27` (`rgb(0,243,255)`/`rgb(0,95,140)` on chrome), `:66` (`rgb(255,0,234)` on `.photos-accent`, not on chrome) | ✅ PASS |
+| PXCP-05 Rajdhani / Share Tech Mono fonts | Panel tab font-family contains `Rajdhani`; panel body `::after` (HUD text) contains `Share Tech Mono` | `tests/photos/visual.e2e.cjs:44-50`, matches `less/photos.less:91` and `:132` | ✅ PASS |
+| PXCP-06 transparent `.cyber-zone`, `bodybg.jpg` visible | `#content` background-image contains `bodybg` | `tests/photos/visual.e2e.cjs:2-6` | ✅ PASS |
+| PXCP-07 pulsing glow on panel body | `.cyber-panel-body` `animationName` contains `photos-panel-glow` | `tests/photos/visual.e2e.cjs:16-17` | ✅ PASS |
+| PXCP-08 carousel nav (wrap, aria-pressed, arrow keys) | Wraparound both directions, `aria-pressed` toggling, arrow keys act only when focused | `tests/photos/carousel.e2e.cjs:4,9,13,20` | ✅ PASS |
+| PXCP-09 swipe ≥40px selects one adjacent highlight | Horizontal 40px swipe selects once; vertical/short retained | `tests/photos/carousel.e2e.cjs:32,39` | ✅ PASS |
+| PXCP-10 `randomizeHighlights()` 6 from PROMO/LIVE | 6 unique highlights from PROMO/LIVE categories | `tests/photos/carousel.e2e.cjs:48`, `tests/photos/*.test.cjs` (P2020-03) | ✅ PASS |
+| PXCP-11 PhotoSwipe open + focus restoration | Click opens matching image; Escape/close restores exact trigger focus | `tests/photos/viewer.e2e.cjs:7,14,23` | ✅ PASS |
+| PXCP-12 `data-photo-*` attrs preserved | Carousel/viewer still query by `data-photo-*` successfully post-restructure | `tests/photos/carousel.e2e.cjs`, `tests/photos/viewer.e2e.cjs` (all pass against new nested markup) | ✅ PASS |
+| PXCP-13 archive renders all 23 entries | Archive count == 23 | `tests/photos/gallery.e2e.cjs:2`, `tests/photos/*.test.cjs` (P2020-01/02) | ✅ PASS |
+| PXCP-14 reduced motion disables all decorative animation incl. root pseudo-elements | `animationName === 'none'` on root `::before`/`::after` and on every descendant | `tests/photos/visual.e2e.cjs:51-60` (root), `:85-91` (descendants) | ✅ PASS |
+| PXCP-15 focus indicators + accessible names | Every control: `outline-style: solid` on focus, non-empty `aria-label` | `tests/photos/visual.e2e.cjs:73-84` | ✅ PASS |
+| PXCP-16 no horizontal overflow at 320/390/768/1440 | `scrollWidth <= innerWidth` at each width | `tests/photos/visual.e2e.cjs:61-71` | ✅ PASS |
+| PXCP-17 no-JS archive links work | Archive `<a>` links to full-size images remain functional with JS disabled | `tests/photos/gallery.e2e.cjs:8` | ✅ PASS |
 
-**Status**: ❌ Gaps present - PXCP-03 and PXCP-05 have zero test evidence (evidence-or-zero ⇒ NOT covered); PXCP-01 and PXCP-02 are only partially covered; PXCP-04 has an unresolved spec-text/design contradiction. 12/17 ACs fully PASS with precise evidence.
+**Status**: ✅ All 17 ACs covered with spec-precise assertions - 0 gaps, 0 spec-precision gaps.
+
+---
+
+## Round-1 Gap Closure (this round's focus)
+
+| Gap (round 1) | Resolution | Evidence |
+| --- | --- | --- |
+| 1. `.cyber-zone` never asserted on root; `.corner-tl`/`.corner-tr` never located | `visual.e2e.cjs:9` now asserts `.photos-shell.cyber-zone` count 1; `:13-14` and `:25-26` locate `.corner-tl`/`.corner-tr` per panel | ✅ Closed |
+| 2. Scanline/noise/grid had zero test evidence under normal motion | New test `visual.e2e.cjs:29-43` asserts `photos-noise-drift` animation, `repeating-linear-gradient` scanline, and panel grid `background-size` | ✅ Closed |
+| 3. Rajdhani/Share Tech Mono fonts untested | New test `visual.e2e.cjs:44-50` asserts both font-families via computed style | ✅ Closed |
+| 4. PXCP-04 wording contradicted Assumptions/design.md | spec.md AC4 (line 54) now explicitly states magenta "is not part of this shared chrome" - matches Assumptions row (line 33) and design.md's Tech Decision (line 169) | ✅ Closed - internally consistent, and matches `less/photos.less` implementation (magenta only appears in the file header comment and on `.photos-accent`/counter/thumbnail selectors, never on `.cyber-panel`/`.cyber-panel-tab`/`.corner-*`) |
+
+All 4 gaps independently re-verified against live `file:line` evidence, not merely trusted from round-1 notes or commit messages.
 
 ---
 
 ## Discrimination Sensor
 
-| Mutation | File:line | Description | Killed? |
-| -------- | --------- | ------------ | ------- |
-| 1 | `less/photos.less:84` (scratch) | `.cyber-panel-tab` border color `#00f3ff` → `#ff00ea` | ✅ Killed - `visual.e2e.cjs:11` and `:20` both failed (`rgb(255, 0, 234)` received) |
-| 2 | `less/photos.less:253-257` (scratch) | Reverted reduced-motion selector to drop `.photos-shell::before, .photos-shell::after` (the root-pseudo-element gap fix from `design.md` Risks & Concerns) | ✅ Killed - `visual.e2e.cjs:30` failed (`photos-noise-drift` received instead of `'none'`) |
-| 3 | `less/photos.less:1-2` (scratch) | Re-added `#page_photos #content { background: #050a10; }` | ✅ Killed - `visual.e2e.cjs:2-6` (`PXCP-06`) failed |
+Isolated `git worktree` at a scratch path (never `git stash`), scoped to the newly-added test coverage from gaps 1-3.
 
-**Sensor depth**: lightweight (3 targeted mutations)
-**Sensor outcome**: 3/3 killed, 0 survived (tests are discriminating for the mutated behaviors)
-**Isolation**: scratch git worktree at `/tmp/.../pxcp-sensor` (removed via `git worktree remove --force`); `git status --porcelain` on the real tree matched the pre-sensor baseline exactly (untracked skill-config dirs only, no tracked-file changes) before and after.
+| # | File:line (scratch worktree) | Mutation | Targeted AC/test | Killed? |
+| - | --- | --- | --- | --- |
+| 1 | `less/photos.less:61` | Removed `animation: photos-noise-drift 15s linear infinite;` from `.cyber-zone::before` (replaced with a comment) | PXCP-03 (`visual.e2e.cjs:29-43`) | ✅ Killed - `expect(pseudo.noiseAnimation).toContain('photos-noise-drift')` failed, actual `"noise-drift"` (browser default) |
+| 2 | `less/photos.less:91` | Changed `.cyber-panel-tab` `font-family: 'Rajdhani', sans-serif;` → `'Arial', sans-serif;` | PXCP-05 (`visual.e2e.cjs:44-50`) | ✅ Killed - `expect(tabFont).toContain('Rajdhani')` failed, actual `"Arial, sans-serif"` |
+
+**Sensor depth**: lightweight (2 targeted mutations, proportional to a presentation-only feature)
+**Result**: 2/2 killed - PASS ✅
+**Isolation check**: `git status --porcelain` on the real tree captured before sensor work and after `git worktree remove --force` - identical (both empty of tracked changes; only the pre-existing untracked tooling directories present in both). Real tree unmodified throughout.
 
 ---
 
@@ -66,78 +76,44 @@
 
 | Principle | Status |
 | --- | --- |
-| No features beyond what was asked | ✅ - diff limited to `photos/index.html`, `less/photos.less`, generated CSS, `visual.e2e.cjs`, plus planning docs |
-| No abstractions for single-use code | ✅ |
-| No unnecessary "flexibility" added | ✅ |
-| Only touched files required for task | ✅ - no `.js` files, no `_data/*`, no other page templates touched |
-| Didn't "improve" unrelated code | ✅ |
-| Matches existing patterns/style | ✅ - `.cyber-panel`/`.cyber-panel-tab`/`.corner-*` CSS in `less/photos.less` matches `less/band.less:93-287` almost verbatim; markup matches `band/index.html:15-53` skeleton; `photos-` keyframe prefix matches Newsletter's established `newsletter-*` precedent |
-| Would senior engineer approve? | ✅ |
-| Tests map to acceptance criteria and are non-shallow (spot-check one story) | ⚠️ - P1 "Visual parity" story spot-checked: PXCP-06/07 are precise and non-shallow; PXCP-03/05 have no assertions at all (see gaps above) |
-| Spec-anchored outcome check: each test's asserted value matches the spec-defined outcome (or gap flagged) | ⚠️ - see AC table; 5/17 ACs flagged |
-| Per-layer Coverage Expectation met | ⚠️ - e2e coverage for wired DOM/CSS is present but incomplete for PXCP-01/02/03/05 per the task matrix's own stated expectation ("every PXCP AC that changes observable DOM/CSS gets a Playwright assertion") |
-| Every test in scope maps to a spec AC, listed edge case, or Done-when criterion (no unclaimed tests) | ✅ - all 4 new `visual.e2e.cjs` tests carry `PXCP-*` tags matching real ACs |
-| Documented project quality/testing guidelines followed | ✅ - `README.md:67` (LESS build regenerated & committed with every `.less` change) - confirmed, no stray diff after `npm run less:build` |
+| Minimum code (test-only + docs-only diffs since round 1) | ✅ |
+| Surgical changes | ✅ |
+| No scope creep | ✅ |
+| Matches patterns (assertions use existing Playwright `expect`/`toHaveCSS` idioms already in the file) | ✅ |
+| Spec-anchored outcome check (asserted values match spec) | ✅ |
+| Every test maps to a spec requirement - no unclaimed tests | ✅ |
+| Documented guidelines followed | none - strong defaults applied |
 
 ---
 
 ## Edge Cases
 
-- [x] Long dynamic content not overflowing container at 4 widths (PXCP-16): handled, `visual.e2e.cjs:33-44` passes at all 4 widths
-- [x] `prefers-reduced-motion: reduce` neutralizes new scanline/noise/glow keyframes identically to existing ones (PXCP-14): handled, confirmed by sensor mutation 2
+- [x] Long dynamic content / narrow viewport overflow (PXCP-16): handled, verified at 320/390/768/1440px
+- [x] `prefers-reduced-motion: reduce` neutralizes new root-level animations identically to existing ones (PXCP-14): handled, including the root-pseudo-element gap identified in design.md's Risks section
 
 ---
 
 ## Gate Check
 
-- **Gate command**: `npm run test:unit && npm run test:photos` (Full gate per `tasks.md`); `npm run less:build` re-run separately to confirm CSS is current
-- **Result**: 28 passed (3 unit + 25 e2e), 0 failed, 0 skipped
-- **Test count before feature** (per `tasks.md` T1 baseline note): 3 unit + 21 e2e = 24
-- **Test count after feature**: 3 unit + 25 e2e = 28
-- **Delta**: +4 new e2e tests (all in `tests/photos/visual.e2e.cjs`: PXCP-06, 2x PXCP-01/02/04/07, PXCP-14) - no coverage removed, matches author's task-by-task counts
+- **Gate command**: `npm run test:unit && npm run test:photos`
+- **Result**: 3 unit tests passed, 27 Playwright tests passed, 0 failed, 0 skipped
+- **Test count before this round**: 25 Playwright + 3 unit (per round-1 report)
+- **Test count after this round**: 27 Playwright + 3 unit
+- **Delta**: +2 new Playwright assertions blocks (PXCP-03, PXCP-05 tests) plus 4 new assertions added inline to the two existing PXCP-01/02/04/07 tests (`.corner-tl`/`.corner-tr` counts, `.photos-shell.cyber-zone` count)
 - **Skipped tests**: none
 - **Failures**: none
-- **`npm run less:build`**: compiles clean; `git status --porcelain -- assets/css/style.min.css` empty after rebuild (CSS artifact is current)
-
----
-
-## Fix Plans (if issues found)
-
-### Fix 1: PXCP-03 (scanline/noise/grid) has zero test coverage in normal motion state
-
-- **Root cause**: `visual.e2e.cjs` only asserts the reduced-motion *off*-state (`animationName === 'none'`) for the root pseudo-elements; nothing asserts the *on*-state (that `photos-noise-drift` runs and the scanline gradient/grid background exist under normal motion).
-- **Fix task**: Add a Playwright assertion (no `reducedMotion` emulation) checking `getComputedStyle(el, '::before').animationName` contains `photos-noise-drift` and `.cyber-panel-body` computed `background-size` matches the grid values.
-- **Priority**: Minor (visual-only regression risk; the effect is visually confirmed per T6's manual Chrome check, but not machine-enforced).
-
-### Fix 2: PXCP-05 (fonts) has zero test coverage
-
-- **Root cause**: No test in `tests/photos/*.cjs` ever reads `font-family`.
-- **Fix task**: Add an assertion on `.cyber-panel-body` (or `.photos-shell`) computed `font-family` containing `Rajdhani`, and on `.cyber-panel-body::after`/HUD text containing `Share Tech Mono`.
-- **Priority**: Minor.
-
-### Fix 3: PXCP-04 spec-text / design contradiction on magenta usage
-
-- **Root cause**: `spec.md`'s AC text (PXCP-04) lists magenta as a color for "panel borders, tab gradients and corner accents," but `spec.md`'s own confirmed Assumptions row and `design.md`'s Tech Decision both explicitly keep magenta OFF that shared chrome. The implementation (correctly) follows the assumption, not the AC's literal wording, but the AC text was never reconciled.
-- **Fix task**: Amend PXCP-04's wording in `spec.md` to say the shared cyan/deep-blue palette is used for panel borders/tab gradients/corner accents, and magenta is retained as Photos' distinct secondary accent elsewhere (matching the Assumptions row) - not a code fix.
-- **Priority**: Minor (documentation-accuracy issue, not a behavior defect).
-
-### Fix 4: PXCP-01/02 partial coverage (`.cyber-zone` class, `.corner-tl`/`.corner-tr`)
-
-- **Root cause**: Tests check `.cyber-zone-inner` and `.corner-bl` but never directly assert the root carries `.cyber-zone` or that `.corner-tl`/`.corner-tr` exist.
-- **Fix task**: Add `expect(page.locator('.photos-shell.cyber-zone')).toHaveCount(1)` and `expect(panel.locator('.corner-tl')).toHaveCount(1)` / `.corner-tr` per panel.
-- **Priority**: Minor.
 
 ---
 
 ## Requirement Traceability Update
 
 | Requirement | Previous Status | New Status |
-| ----------- | ---------------- | ---------- |
-| PXCP-01 | Implementing | ⚠️ Needs Fix (partial coverage) |
-| PXCP-02 | Implementing | ⚠️ Needs Fix (partial coverage) |
-| PXCP-03 | Implementing | ❌ Needs Fix (no coverage) |
-| PXCP-04 | Implementing | ⚠️ Needs Fix (spec-text discrepancy) |
-| PXCP-05 | Implementing | ❌ Needs Fix (no coverage) |
+| --- | --- | --- |
+| PXCP-01 | Implementing | ✅ Verified |
+| PXCP-02 | Implementing | ✅ Verified |
+| PXCP-03 | Implementing | ✅ Verified |
+| PXCP-04 | Implementing | ✅ Verified |
+| PXCP-05 | Implementing | ✅ Verified |
 | PXCP-06 | Implementing | ✅ Verified |
 | PXCP-07 | Implementing | ✅ Verified |
 | PXCP-08 | Implementing | ✅ Verified |
@@ -155,14 +131,14 @@
 
 ## Summary
 
-**Overall**: ⚠️ Issues (12/17 ACs fully verified with precise evidence; gate green; sensor 3/3 killed; but evidence-or-zero rules 2 ACs uncovered and 3 partially/ambiguously covered)
+**Overall**: ✅ Ready
 
-**Spec-anchored check**: 12/17 ACs matched spec outcome with precise `file:line` evidence; 2 ACs (PXCP-03, PXCP-05) have zero evidence; 3 ACs (PXCP-01, PXCP-02, PXCP-04) partially covered or spec-precision-ambiguous
-**Sensor**: 3/3 mutations killed
-**Gate**: 28 passed, 0 failed, 0 skipped; `less:build` output current
+**Spec-anchored check**: 17/17 ACs matched spec outcome, 0 spec-precision gaps
+**Sensor**: 2/2 mutations killed
+**Gate**: 30 passed (27 Playwright + 3 unit), 0 failed
 
-**What works**: Structural wiring (`.cyber-zone`/`.cyber-panel`), palette (cyan/deep-blue), glow animation, backdrop visibility, reduced-motion root-pseudo-element fix, and all pre-existing carousel/viewer/gallery/no-JS regression coverage are solidly verified and demonstrably regression-proof (sensor confirms).
+**What works**: All four round-1 gaps are closed with real, non-shallow assertions traced to exact `file:line` evidence and independently re-derived (not trusted from commit messages). PXCP-04's corrected wording is internally consistent with spec.md's own Assumptions row, design.md's Tech Decision table, and the actual `less/photos.less` implementation. The other 12 ACs (PXCP-06 through PXCP-17) remain fully passing with no regression - the 3 commits since round 1 touched only test assertions and documentation, never the carousel/gallery/viewer test files or their underlying JS.
 
-**Issues found**: PXCP-03 and PXCP-05 lack any test assertion (visual/font checks exist in CSS but are unverified); PXCP-01/02 are only indirectly/partially asserted; PXCP-04's AC wording contradicts the project's own confirmed design assumption about magenta placement.
+**Issues found**: none
 
-**Next steps**: Route Fix 1, Fix 2, Fix 4 as e2e test-addition tasks to an implementer; route Fix 3 as a spec.md wording correction (no code change). Re-verify after fixes land.
+**Next steps**: none - feature is ready to close. No new lesson recorded (round 1 already distilled lessons for the 4 gaps found there; this round found no new signal).

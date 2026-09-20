@@ -6,10 +6,10 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 
 ## Goals
 
-- [ ] Photos page renders the shared `.cyber-zone`/`.cyber-panel` structure, palette, typography and animated effects used by Band, Contact and Newsletter.
-- [ ] Photos page shows the site's `bodybg.jpg` backdrop behind its panels instead of a solid dark override.
-- [ ] Existing carousel, highlight-randomization, PhotoSwipe viewer and no-JS fallback behavior is unchanged.
-- [ ] `tests/photos/*.cjs` pass, with only the CSS-value/structural assertions updated to match the new markup - no coverage removed or weakened.
+- [x] Photos page renders the shared `.cyber-zone`/`.cyber-panel` structure, palette, typography and animated effects used by Band, Contact and Newsletter.
+- [x] Photos page shows the site's `bodybg.jpg` backdrop behind its panels instead of a solid dark override.
+- [x] Existing carousel, highlight-randomization, PhotoSwipe viewer and no-JS fallback behavior is unchanged.
+- [x] `tests/photos/*.cjs` pass, with only the CSS-value/structural assertions updated to match the new markup - no coverage removed or weakened.
 
 ## Out of Scope
 
@@ -107,29 +107,29 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 
 | Requirement ID | Story                                   | Phase  | Status  |
 | -------------- | ---------------------------------------- | ------ | ------- |
-| PXCP-01        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-02        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-03        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-04        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-05        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-06        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-07        | P1: Visual parity                        | Execute | Implementing |
-| PXCP-08        | P1: No regression                        | Execute | Implementing |
-| PXCP-09        | P1: No regression                        | Execute | Implementing |
-| PXCP-10        | P1: No regression                        | Execute | Implementing |
-| PXCP-11        | P1: No regression                        | Execute | Implementing |
-| PXCP-12        | P1: No regression                        | Execute | Implementing |
-| PXCP-13        | P1: No regression                        | Execute | Implementing |
-| PXCP-14        | P1: Accessibility & responsiveness       | Execute | Implementing |
-| PXCP-15        | P1: Accessibility & responsiveness       | Execute | Implementing |
-| PXCP-16        | P1: Accessibility & responsiveness       | Execute | Implementing |
-| PXCP-17        | P1: Accessibility & responsiveness       | Execute | Implementing |
+| PXCP-01        | P1: Visual parity                        | Execute | Verified |
+| PXCP-02        | P1: Visual parity                        | Execute | Verified |
+| PXCP-03        | P1: Visual parity                        | Execute | Verified |
+| PXCP-04        | P1: Visual parity                        | Execute | Verified |
+| PXCP-05        | P1: Visual parity                        | Execute | Verified |
+| PXCP-06        | P1: Visual parity                        | Execute | Verified |
+| PXCP-07        | P1: Visual parity                        | Execute | Verified |
+| PXCP-08        | P1: No regression                        | Execute | Verified |
+| PXCP-09        | P1: No regression                        | Execute | Verified |
+| PXCP-10        | P1: No regression                        | Execute | Verified |
+| PXCP-11        | P1: No regression                        | Execute | Verified |
+| PXCP-12        | P1: No regression                        | Execute | Verified |
+| PXCP-13        | P1: No regression                        | Execute | Verified |
+| PXCP-14        | P1: Accessibility & responsiveness       | Execute | Verified |
+| PXCP-15        | P1: Accessibility & responsiveness       | Execute | Verified |
+| PXCP-16        | P1: Accessibility & responsiveness       | Execute | Verified |
+| PXCP-17        | P1: Accessibility & responsiveness       | Execute | Verified |
 
 **ID format:** `PXCP-[NUMBER]` (Photos Cyber Panel)
 
 **Status values:** Pending → In Design → In Tasks → Implementing → Verified
 
-**Coverage:** 17 total, 17 mapped to tasks (T1-T5 landed), closing verification pending T6 ⚠️
+**Coverage:** 17 total, 17 verified with independent Verifier evidence (round 2 PASS) ✅
 
 ---
 
