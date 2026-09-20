@@ -68,6 +68,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `package.json`
 **Depends on**: None
 **Reuses**: existing `test:unit` script
+**Status**: ✅ Done
 **Requirement**: VPLR-05
 
 **Tools**:
@@ -77,8 +78,8 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] `npm run test:unit` still runs the existing photos tests with the same count
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `npm run test:unit` still runs the existing photos tests with the same count
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build
