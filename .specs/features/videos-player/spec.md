@@ -172,35 +172,35 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| VPLR-01 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-02 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-03 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-04 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-05 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-06 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-07 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-08 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-09 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-10 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-11 | P2: Navigation | Tasks | Implementing |
-| VPLR-12 | P2: Navigation | Tasks | Implementing |
-| VPLR-13 | P2: Navigation | Tasks | Implementing |
-| VPLR-14 | P2: Failure | Tasks | Implementing |
-| VPLR-15 | P2: Failure | Tasks | Implementing |
-| VPLR-16 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-17 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-18 | P1: Stage and feed | Tasks | Implementing |
-| VPLR-19 | P1: Theme parity | Tasks | Implementing |
-| VPLR-20 | P1: Theme parity | Tasks | Implementing |
-| VPLR-21 | P1: Theme parity | Tasks | Implementing |
-| VPLR-22 | P1: Theme parity | Tasks | Implementing |
-| VPLR-23 | P1: Theme parity | Tasks | Implementing |
-| VPLR-24 | P1: Theme parity | Tasks | Implementing |
-| VPLR-25 | P2: Navigation | Tasks | Implementing |
-| VPLR-26 | P2: Navigation | Tasks | Implementing |
-| VPLR-27 | P2: Navigation | Tasks | Implementing |
-| VPLR-28 | P2: Navigation | Tasks | Implementing |
-| VPLR-29 | P2: Navigation | Tasks | Implementing |
+| VPLR-01 | P1: Data-driven feed | Tasks | Verified |
+| VPLR-02 | P1: Data-driven feed | Tasks | Verified |
+| VPLR-03 | P1: Data-driven feed | Tasks | Verified |
+| VPLR-04 | P1: Data-driven feed | Tasks | Verified |
+| VPLR-05 | P1: Data-driven feed | Tasks | Verified |
+| VPLR-06 | P1: Stage and feed | Tasks | Verified |
+| VPLR-07 | P1: Stage and feed | Tasks | Verified |
+| VPLR-08 | P1: Stage and feed | Tasks | Verified |
+| VPLR-09 | P1: Stage and feed | Tasks | Verified |
+| VPLR-10 | P1: Stage and feed | Tasks | Verified |
+| VPLR-11 | P2: Navigation | Tasks | Verified |
+| VPLR-12 | P2: Navigation | Tasks | Verified |
+| VPLR-13 | P2: Navigation | Tasks | Verified |
+| VPLR-14 | P2: Failure | Tasks | Verified |
+| VPLR-15 | P2: Failure | Tasks | Verified |
+| VPLR-16 | P1: Stage and feed | Tasks | Verified |
+| VPLR-17 | P1: Stage and feed | Tasks | Verified |
+| VPLR-18 | P1: Stage and feed | Tasks | Verified |
+| VPLR-19 | P1: Theme parity | Tasks | Verified |
+| VPLR-20 | P1: Theme parity | Tasks | Verified |
+| VPLR-21 | P1: Theme parity | Tasks | Verified |
+| VPLR-22 | P1: Theme parity | Tasks | Verified |
+| VPLR-23 | P1: Theme parity | Tasks | Verified |
+| VPLR-24 | P1: Theme parity | Tasks | Verified |
+| VPLR-25 | P2: Navigation | Tasks | Verified |
+| VPLR-26 | P2: Navigation | Tasks | Verified |
+| VPLR-27 | P2: Navigation | Tasks | Verified |
+| VPLR-28 | P2: Navigation | Tasks | Verified |
+| VPLR-29 | P2: Navigation | Tasks | Verified |
 
 **Coverage:** 29 total, 0 mapped to tasks, 29 unmapped ⚠️
 
