@@ -120,6 +120,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `_data/videos.json` (test in `tests/videos/videos-data.test.cjs`)
 **Depends on**: T2
 **Reuses**: `_data/photos.json` convention, `tests/photos/gallery.test.cjs` style
+**Status**: ✅ Done
 **Requirement**: VPLR-05
 
 **Tools**:
@@ -129,10 +130,10 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] 10 entries, unique `id`, unique lowercase kebab-case `slug`, `type` in the allowed set
-- [ ] Order is Keep Away, Ghosts, Distant Hearts, Desperate Prayer, Imagined Realities, Silicon Fortress, Today Is Sunday, Buried Thoughts, Tide Of Fears, Change with ids from `videos.js`
-- [ ] Gate check passes: `npm run test:unit`
-- [ ] Test count: photos tests plus the new ones, none removed
+- [x] 10 entries, unique `id`, unique lowercase kebab-case `slug`, `type` in the allowed set
+- [x] Order is Keep Away, Ghosts, Distant Hearts, Desperate Prayer, Imagined Realities, Silicon Fortress, Today Is Sunday, Buried Thoughts, Tide Of Fears, Change with ids from `videos.js`
+- [x] Gate check passes: `npm run test:unit`
+- [x] Test count: photos tests plus the new ones, none removed
 
 **Tests**: unit
 **Gate**: quick
