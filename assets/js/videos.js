@@ -12,13 +12,17 @@
     var counter = root.querySelector('[data-idtv-counter]');
     var poster = root.querySelector('[data-idtv-poster]');
     var screen = root.querySelector('[data-idtv-screen]');
+    var controls = root.querySelector('[data-idtv-controls]');
+    var prevButton = root.querySelector('[data-idtv-prev]');
+    var nextButton = root.querySelector('[data-idtv-next]');
+    var autoButton = root.querySelector('[data-idtv-auto]');
 
     var API_URL = 'https://www.youtube.com/iframe_api';
     var EMBED_HOST = 'https://www.youtube-nocookie.com';
 
     // api: idle -> loading -> ready. One YT.Player is created on the first play and reused;
     // loadedId is the video the player was last told to load.
-    var state = { index: 0, started: false, api: 'idle', player: null, playerReady: false, loadedId: null };
+    var state = { index: 0, auto: true, started: false, api: 'idle', player: null, playerReady: false, loadedId: null };
 
     function currentId() {
         return cards[state.index].getAttribute('data-video-id');
@@ -44,6 +48,11 @@
                 onReady: function () {
                     state.playerReady = true;
                     syncPlayer();
+                },
+                onStateChange: function (event) {
+                    if (event.data === window.YT.PlayerState.ENDED && state.auto) {
+                        select(core.step(state.index, 1, cards.length), { play: true });
+                    }
                 }
             }
         });
@@ -108,6 +117,13 @@
         });
     });
 
+    prevButton.addEventListener('click', function () { select(core.step(state.index, -1, cards.length), { play: true }); });
+    nextButton.addEventListener('click', function () { select(core.step(state.index, 1, cards.length), { play: true }); });
+    autoButton.addEventListener('click', function () {
+        state.auto = !state.auto;
+        autoButton.setAttribute('aria-pressed', String(state.auto));
+    });
+    controls.hidden = false;
     playButton.addEventListener('click', play);
     playButton.hidden = false;
     watchLink.hidden = true;

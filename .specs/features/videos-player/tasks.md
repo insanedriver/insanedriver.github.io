@@ -322,6 +322,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos.js` (tests in `tests/videos/advance.e2e.cjs`)
 **Depends on**: T9
 **Reuses**: `step()` from `videos-core.js`, stub `ended` trigger
+**Status**: ✅ Done
 **Requirement**: VPLR-12, VPLR-13, VPLR-25, VPLR-26
 
 **Tools**:
@@ -331,12 +332,12 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] NEXT from 10 selects 01; PREV from 01 selects 10, both start playback
-- [ ] Ended with AUTO on selects the next (wrapping) and plays it
-- [ ] Ended with AUTO off changes nothing and starts nothing
-- [ ] AUTO has `aria-pressed="true"` on load and flips on each click
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] NEXT from 10 selects 01; PREV from 01 selects 10, both start playback
+- [x] Ended with AUTO on selects the next (wrapping) and plays it
+- [x] Ended with AUTO off changes nothing and starts nothing
+- [x] AUTO has `aria-pressed="true"` on load and flips on each click
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full
