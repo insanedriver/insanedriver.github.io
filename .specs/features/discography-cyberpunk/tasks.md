@@ -143,6 +143,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add platform registry data`
 
+**Status**: ✅ Done
+
 ---
 
 ### T3: Create the album catalog

@@ -207,9 +207,9 @@
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | DISC-01 | P1: Listen on your own platform | Design | Pending |
-| DISC-02 | P1: Listen on your own platform | Design | Pending |
+| DISC-02 | P1: Listen on your own platform | Execute | Implementing |
 | DISC-03 | P1: Listen on your own platform | Design | Pending |
-| DISC-04 | P1: Listen on your own platform | Design | Pending |
+| DISC-04 | P1: Listen on your own platform | Execute | Implementing |
 | DISC-05 | P1: Listen on your own platform | Design | Pending |
 | DISC-06 | P1: Listen on your own platform | Design | Pending |
 | DISC-07 | P1: Listen on your own platform | Design | Pending |
