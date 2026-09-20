@@ -21,11 +21,11 @@
 ## Handoff
 
 - **Feature**: photos-2020
-- **Phase / Task**: Phase 1 / T1 - Ingestão de assets e miniaturas do photoshoot 2020
-- **Completed**: None
-- **In-progress** (file:line): Preparando ingestão de imagens de ~/Downloads/2020-photoshoot-insane para assets/gallery/promo2020/
-- **Next step**: Executar T1 (copiar imagens e gerar miniaturas proporcionais de 285px de largura).
+- **Phase / Task**: Validation complete - PASS
+- **Completed**: T1, T2, T3, T4
+- **In-progress**: none (feature complete and verified)
+- **Next step**: Ready for user review / branch merge
 - **Blockers**: none
-- **Uncommitted files**: `.specs/features/photos-2020/spec.md`, `.specs/features/photos-2020/tasks.md`
-- **Branch**: master
+- **Uncommitted files**: none
+- **Branch**: feature/photos-2020
 
