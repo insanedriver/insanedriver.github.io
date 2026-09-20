@@ -56,7 +56,7 @@ Done when:
 - The 6 original photos from `/home/deivid/Downloads/2020-photoshoot-insane` are copied as `274.jpg`, `113.jpg`, `133.jpg`, `36.jpg`, `140.jpg`, and `20.jpg`.
 - Proportional thumbnails are generated as `tn_274.jpg`, `tn_113.jpg`, `tn_133.jpg`, `tn_36.jpg`, `tn_140.jpg`, and `tn_20.jpg` with standard width 285px.
 
-### T2: Register 2020 photos in data catalog
+### T2: Register 2020 photos in data catalog [x]
 Where: `_data/photos.json`
 Tests: unit
 Gate: Quick

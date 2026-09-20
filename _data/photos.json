@@ -1,5 +1,77 @@
 [
   {
+    "id": "photo-2020-274",
+    "src": "/assets/gallery/promo2020/274.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_274.jpg",
+    "width": 2440,
+    "height": 1627,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 274",
+    "featured": true,
+    "highlightOrder": 1
+  },
+  {
+    "id": "photo-2020-113",
+    "src": "/assets/gallery/promo2020/113.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_113.jpg",
+    "width": 3648,
+    "height": 5472,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 113",
+    "featured": true,
+    "highlightOrder": 2
+  },
+  {
+    "id": "photo-2020-133",
+    "src": "/assets/gallery/promo2020/133.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_133.jpg",
+    "width": 5472,
+    "height": 3648,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 133",
+    "featured": true,
+    "highlightOrder": 3
+  },
+  {
+    "id": "photo-2020-36",
+    "src": "/assets/gallery/promo2020/36.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_36.jpg",
+    "width": 3648,
+    "height": 5472,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 36",
+    "featured": true,
+    "highlightOrder": 4
+  },
+  {
+    "id": "photo-2020-140",
+    "src": "/assets/gallery/promo2020/140.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_140.jpg",
+    "width": 5472,
+    "height": 3648,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 140",
+    "featured": true,
+    "highlightOrder": 5
+  },
+  {
+    "id": "photo-2020-20",
+    "src": "/assets/gallery/promo2020/20.jpg",
+    "thumbnail": "/assets/gallery/promo2020/tn_20.jpg",
+    "width": 5472,
+    "height": 3648,
+    "caption": "Promo Picture 2020",
+    "category": "PROMO",
+    "alt": "Insane Driver — Promo Picture 2020, photograph 20",
+    "featured": true,
+    "highlightOrder": 6
+  },
+  {
     "id": "photo-1",
     "src": "/assets/gallery/promo2017/1.JPG",
     "thumbnail": "/assets/gallery/promo2017/1_tn.jpg",
@@ -8,8 +80,8 @@
     "caption": "Promo Picture 2017",
     "category": "PROMO",
     "alt": "Insane Driver — Promo Picture 2017, photograph 1",
-    "featured": true,
-    "highlightOrder": 1
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-2",
@@ -32,8 +104,8 @@
     "caption": "Promo Picture 2017",
     "category": "PROMO",
     "alt": "Insane Driver — Promo Picture 2017, photograph 3",
-    "featured": true,
-    "highlightOrder": 4
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-4",
@@ -68,8 +140,8 @@
     "caption": "Acoustic",
     "category": "ACOUSTIC",
     "alt": "Insane Driver — Acoustic, photograph 6",
-    "featured": true,
-    "highlightOrder": 3
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-7",
@@ -80,8 +152,8 @@
     "caption": "Live 2017",
     "category": "LIVE",
     "alt": "Insane Driver — Live 2017, photograph 7",
-    "featured": true,
-    "highlightOrder": 2
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-8",
@@ -116,8 +188,8 @@
     "caption": "Live 2017",
     "category": "LIVE",
     "alt": "Insane Driver — Live 2017, photograph 10",
-    "featured": true,
-    "highlightOrder": 5
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-11",
@@ -176,8 +248,8 @@
     "caption": "Vitão Bonesso's Backstage - Kiss FM",
     "category": "BACKSTAGE",
     "alt": "Insane Driver — Vitão Bonesso's Backstage - Kiss FM, photograph 15",
-    "featured": true,
-    "highlightOrder": 6
+    "featured": false,
+    "highlightOrder": 0
   },
   {
     "id": "photo-16",
