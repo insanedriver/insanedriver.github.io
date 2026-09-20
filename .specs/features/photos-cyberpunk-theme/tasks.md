@@ -221,16 +221,18 @@ T5 → T6
 - Skill: `claude-in-chrome`
 
 **Done when**:
-- [ ] `npm run build` completes with no errors (Eleventy + LESS)
-- [ ] `npm test` (`test:unit` + `test:photos`) passes in full
-- [ ] Photos page opened in Chrome side by side with Band, Contact and Newsletter; panel chrome, palette, fonts, scanline/noise/grid/glow language and the `bodybg.jpg` backdrop confirmed consistent across all four pages
-- [ ] Any fix found during the visual check is committed with its own gate-passing verification before this task is marked done
-- [ ] `docs/` output left untouched (not committed - it's Eleventy-generated, per `README.md:67`)
+- [x] `npm run build` completes with no errors (Eleventy + LESS)
+- [x] `npm test` (`test:unit` + `test:photos`) passes in full (3 + 25)
+- [x] Photos page opened in Chrome side by side with Band, Contact and Newsletter; panel chrome, palette, fonts, scanline/noise/grid/glow language and the `bodybg.jpg` backdrop confirmed consistent across all four pages
+- [x] Any fix found during the visual check is committed with its own gate-passing verification before this task is marked done - none was needed
+- [x] `docs/` output left untouched (not committed - it's Eleventy-generated, per `README.md:67`)
 
 **Tests**: none (verification of existing coverage; any fix task reuses the `Full` gate above)
 **Gate**: build
 
 **Commit**: `test(photos): confirm cyberpunk parity with band/contact/newsletter` (only if a fix was needed - otherwise no commit, report done)
+
+**Status**: ✅ Complete - `npm run build` and `npm test` both green. Live comparison in Chrome (local Eleventy server) across `/photos/`, `/band/`, `/contact/`, `/newsletter/` confirmed consistent panel chrome, cyan/deep-blue palette, tab labels, corner accents, scanlines and the `bodybg.jpg` backdrop. No fix needed; no diff produced by this task beyond this status update.
 
 ---
 

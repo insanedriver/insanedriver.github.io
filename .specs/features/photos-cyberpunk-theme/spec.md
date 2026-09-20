@@ -135,7 +135,7 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 
 ## Success Criteria
 
-- [ ] Side-by-side visual check (Chrome) shows Photos sharing panel chrome, palette, fonts, scanline/noise/grid/glow language, and the `bodybg.jpg` backdrop with Band, Contact and Newsletter.
-- [ ] `npm run less:build` compiles without error and the generated CSS is included in the diff.
-- [ ] `npm run test:unit` (gallery data test) and `npm run test:photos` (Playwright: gallery, carousel, viewer, visual) pass.
-- [ ] No `data-photo-*` attribute, PhotoSwipe hook, or `randomizeHighlights()` behavior changed.
+- [x] Side-by-side visual check (Chrome) shows Photos sharing panel chrome, palette, fonts, scanline/noise/grid/glow language, and the `bodybg.jpg` backdrop with Band, Contact and Newsletter.
+- [x] `npm run less:build` compiles without error and the generated CSS is included in the diff.
+- [x] `npm run test:unit` (gallery data test) and `npm run test:photos` (Playwright: gallery, carousel, viewer, visual) pass.
+- [x] No `data-photo-*` attribute, PhotoSwipe hook, or `randomizeHighlights()` behavior changed.
