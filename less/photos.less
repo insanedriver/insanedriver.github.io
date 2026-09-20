@@ -1,4 +1,41 @@
 #page_photos {
+    /* ═══════════════════════════════════════════════════════════
+       CYBERPUNK PHOTOS PANELS
+       Palette: #00f3ff (cyan neon), #005f8c (deep blue), #ff00ea (magenta)
+    ═══════════════════════════════════════════════════════════ */
+
+    @keyframes photos-noise-drift {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+
+    @keyframes photos-border-flicker {
+        0%   { border-color: #00f3ff; }
+        5%   { border-color: transparent; }
+        10%  { border-color: #00f3ff; }
+        15%  { border-color: transparent; }
+        20%  { border-color: #00f3ff; }
+        100% { border-color: #00f3ff; }
+    }
+
+    @keyframes photos-panel-glow {
+        0%   { box-shadow: 0 0 5px rgba(0,243,255,0.15), inset 0 0 5px rgba(0,243,255,0.05); }
+        50%  { box-shadow: 0 0 20px rgba(0,243,255,0.4), inset 0 0 15px rgba(0,243,255,0.1); }
+        100% { box-shadow: 0 0 5px rgba(0,243,255,0.15), inset 0 0 5px rgba(0,243,255,0.05); }
+    }
+
+    @keyframes photos-blink-dot {
+        0%, 100% { opacity: 1; background: #ffffff; }
+        50%       { opacity: 0.3; background: #00f3ff; }
+    }
+
+    @keyframes photos-blink-text {
+        0%   { opacity: 1; }
+        33%  { opacity: 0.2; }
+        66%  { opacity: 0.8; }
+        100% { opacity: 1; }
+    }
+
     .photos-shell {
         max-width: 1180px; margin: 0 auto; padding: 20px 16px 60px;
         color: #e9edf2; font: 18px/1.5 Rajdhani, sans-serif;

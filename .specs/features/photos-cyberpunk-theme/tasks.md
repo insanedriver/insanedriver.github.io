@@ -104,14 +104,16 @@ T5 → T6
 - Skill: NONE
 
 **Done when**:
-- [ ] All 5 keyframes present in `less/photos.less` with `photos-` prefix and values matching `band.less`
-- [ ] `npm run less:build` compiles with no errors and `assets/css/style.min.css` is regenerated and included in the commit
-- [ ] No existing selector references these keyframes yet (verified inert - grep shows zero usages outside the `@keyframes` blocks themselves)
+- [x] All 5 keyframes present in `less/photos.less` with `photos-` prefix and values matching `band.less`
+- [x] `npm run less:build` compiles with no errors and `assets/css/style.min.css` is regenerated and included in the commit
+- [x] No existing selector references these keyframes yet (verified inert - grep shows zero usages outside the `@keyframes` blocks themselves)
 
 **Tests**: none
 **Gate**: quick
 
 **Commit**: `feat(photos): add cyberpunk keyframe animations`
+
+**Status**: ✅ Complete - `npm run less:build` compiled clean; `grep` for the new keyframe names in `photos/index.html` returned nothing.
 
 ---
 
