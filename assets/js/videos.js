@@ -93,6 +93,7 @@
     }
 
     function select(index, opts) {
+        var previous = state.index;
         if (index !== state.index) {
             var card = cards[index];
             state.index = index;
@@ -105,6 +106,9 @@
             nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
             counter.textContent = core.formatCounter(index, cards.length);
             scrollCardIntoView(card);
+        }
+        if (index !== previous && !(opts && opts.silent)) {
+            history.replaceState(null, '', '#' + cards[index].getAttribute('data-slug'));
         }
         if (opts && opts.play) { play(); } else { ensurePlaying(); }
     }
@@ -124,6 +128,20 @@
         autoButton.setAttribute('aria-pressed', String(state.auto));
     });
     controls.hidden = false;
+    root.addEventListener('keydown', function (event) {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) { return; }
+        if (event.target.tagName === 'IFRAME') { return; }
+        if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            select(core.step(state.index, 1, cards.length), { play: true });
+        } else if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            select(core.step(state.index, -1, cards.length), { play: true });
+        }
+    });
+
+    select(core.indexFromHash(window.location.hash, cards.map(function (c) { return c.getAttribute('data-slug'); })), { silent: true });
+
     playButton.addEventListener('click', play);
     playButton.hidden = false;
     watchLink.hidden = true;

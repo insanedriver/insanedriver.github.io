@@ -352,6 +352,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos.js` (tests in `tests/videos/nav.e2e.cjs`)
 **Depends on**: T10
 **Reuses**: `indexFromHash()` from `videos-core.js`
+**Status**: ✅ Done
 **Requirement**: VPLR-11, VPLR-27, VPLR-28, VPLR-29
 
 **Tools**:
@@ -361,12 +362,12 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] `/videos/#tide-of-fears` shows `09 / 10` poster and creates no iframe
-- [ ] Selecting a video sets `location.hash` to its slug and `history.length` is unchanged
-- [ ] Empty, unknown and `#Ghosts` hashes show `01 / 10` and leave the URL as loaded
-- [ ] ArrowRight/ArrowLeft act as NEXT/PREV with focus on a player control, and do nothing with focus outside the section
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] `/videos/#tide-of-fears` shows `09 / 10` poster and creates no iframe
+- [x] Selecting a video sets `location.hash` to its slug and `history.length` is unchanged
+- [x] Empty, unknown and `#Ghosts` hashes show `01 / 10` and leave the URL as loaded
+- [x] ArrowRight/ArrowLeft act as NEXT/PREV with focus on a player control, and do nothing with focus outside the section
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: e2e
 **Gate**: full

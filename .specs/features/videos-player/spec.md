@@ -198,9 +198,9 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-24 | P1: Theme parity | Tasks | Implementing |
 | VPLR-25 | P2: Navigation | Tasks | Implementing |
 | VPLR-26 | P2: Navigation | Tasks | Implementing |
-| VPLR-27 | P2: Navigation | Design | Pending |
+| VPLR-27 | P2: Navigation | Tasks | Implementing |
 | VPLR-28 | P2: Navigation | Tasks | Implementing |
-| VPLR-29 | P2: Navigation | Design | Pending |
+| VPLR-29 | P2: Navigation | Tasks | Implementing |
 
 **Coverage:** 29 total, 0 mapped to tasks, 29 unmapped ⚠️
 
