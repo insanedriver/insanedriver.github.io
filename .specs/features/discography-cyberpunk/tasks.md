@@ -237,6 +237,8 @@ T12 → T13
 
 **Commit**: `feat(discography): render release cards with multi-platform links`
 
+**Status**: ✅ Done
+
 ---
 
 ### T6: Add collapsed tracklists
