@@ -172,7 +172,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| VPLR-01 | P1: Data-driven feed | Design | Pending |
+| VPLR-01 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-02 | P1: Data-driven feed | Design | Pending |
 | VPLR-03 | P1: Data-driven feed | Design | Pending |
 | VPLR-04 | P1: Data-driven feed | Design | Pending |

@@ -94,6 +94,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `playwright.config.cjs`
 **Depends on**: T1
 **Reuses**: existing config
+**Status**: ✅ Done
 **Requirement**: VPLR-01
 
 **Tools**:
@@ -103,8 +104,8 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] Existing photos e2e tests still run with the same count
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Existing photos e2e tests still run with the same count
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build
