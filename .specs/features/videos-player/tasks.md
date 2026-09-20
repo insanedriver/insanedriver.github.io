@@ -206,6 +206,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `_includes/js/videos.liquid`
 **Depends on**: T5
 **Reuses**: `_includes/js/photos.liquid` pattern
+**Status**: ✅ Done
 **Requirement**: VPLR-06
 
 **Tools**:
@@ -215,8 +216,8 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] Page source contains both script tags in that order, after `pack`
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Page source contains both script tags in that order, after `pack`
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build
