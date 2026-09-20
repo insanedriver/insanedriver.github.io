@@ -234,7 +234,7 @@
 | DISC-26 | P2: Preview before leaving | Design | Pending |
 | DISC-27 | P2: Preview before leaving | Design | Pending |
 | DISC-28 | P2: Preview before leaving | Design | Pending |
-| DISC-29 | P2: Tracklist and structured data | Design | Pending |
+| DISC-29 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-30 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-31 | P2: Tracklist and structured data | Design | Pending |
 | DISC-32 | P2: Tracklist and structured data | Design | Pending |

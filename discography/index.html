@@ -76,6 +76,19 @@ header_img_path: header_4.jpg
             {% if album.buyCd %}
             <a class="disc-buy" href="{{ album.buyCd }}" data-disc-buy="{{ album.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>
             {% endif %}
+
+            <details class="disc-tracklist" data-disc-tracklist="{{ album.slug }}">
+                <summary><span class="disc-eyebrow">TRACKLIST</span> <span class="disc-tracklist-count">// {{ album.tracks.size }} FILES</span></summary>
+                <ol class="disc-tracks">
+                    {% for track in album.tracks %}
+                    <li class="disc-track" data-disc-track>
+                        <span class="disc-track-pos">{% if track.position < 10 %}0{% endif %}{{ track.position }}</span>
+                        <span class="disc-track-title">{{ track.title | escape }}</span>
+                        <span class="disc-track-time" data-disc-duration="{{ track.duration }}">{{ track.duration | divided_by: 60 | floor }}:{% assign secs = track.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</span>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </details>
         </div>
     </article>
         </div>

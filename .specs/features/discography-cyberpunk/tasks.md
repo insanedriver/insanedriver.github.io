@@ -267,6 +267,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add collapsed tracklists to album cards`
 
+**Status**: ✅ Done
+
 ---
 
 ### T7: Emit MusicAlbum JSON-LD
