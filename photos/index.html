@@ -47,7 +47,7 @@ header_img_path: header_6.jpg
         </div>
         <div class="my-gallery photos-archive" itemscope itemtype="https://schema.org/ImageGallery">
             {% for photo in photos %}
-            <figure itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject" data-photo-id="{{ photo.id }}">
+            <figure itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject" data-photo-id="{{ photo.id }}" data-category="{{ photo.category }}">
                 <a href="{{ photo.src }}" itemprop="contentUrl" data-size="{{ photo.width }}x{{ photo.height }}" data-photo-open="{{ photo.id }}" aria-label="Enlarge: {{ photo.alt | escape }}">
                     <img src="{{ photo.thumbnail }}" width="{{ photo.width }}" height="{{ photo.height }}" itemprop="thumbnail" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
                     <span class="photos-expand" aria-hidden="true">&#8599;</span>

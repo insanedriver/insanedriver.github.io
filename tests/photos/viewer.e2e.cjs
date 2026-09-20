@@ -15,7 +15,7 @@ test('PHOTO-09: archive opens matching photo, keeps navigation and zoom', async 
   await page.goto('/photos/');
   await page.locator('.photos-archive a').nth(7).click(); await current(page,photos[7].src);
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('.pswp__counter')).toHaveText('9 / 17');
+  await expect(page.locator('.pswp__counter')).toHaveText('9 / 23');
   await expect(page.locator('.pswp__button--zoom')).toBeVisible();
   await page.locator('.pswp__button--zoom').click();
   await expect(page.locator('.pswp')).toHaveClass(/pswp--zoomed-in/);
