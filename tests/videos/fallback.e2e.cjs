@@ -51,6 +51,7 @@ test('VPLR-14/15: a player error shows the message for that video and selecting 
   await expect(page.locator('.videos-shell iframe')).toHaveCount(1);
   await page.evaluate(() => window.__ytError());
   await expect(fallback(page)).toBeVisible();
+  await expect(page.locator('[data-idtv-poster]')).toBeVisible();
   await expect(link(page)).toHaveAttribute('href', `https://www.youtube.com/watch?v=${videos[0].id}`);
   await cardAt(page, 2).click();
   await expect(fallback(page)).toBeHidden();

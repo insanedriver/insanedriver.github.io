@@ -126,7 +126,6 @@
             watchLink.href = core.watchUrl(id);
             nowTitle.textContent = core.shortTitle(card.getAttribute('data-title'));
             counter.textContent = core.formatCounter(index, cards.length);
-            fallbackLink.href = core.watchUrl(id);
             scrollCardIntoView(card);
         }
         if (index !== previous && !(opts && opts.silent)) {
