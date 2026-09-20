@@ -38,6 +38,36 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: PXCP-04 vs spec.md Assumptions row 'Secondary accent color' (spec-writing)
 - last seen: 2026-09-20T03:51:14Z
 
+### L-005 - Assert the literal label text a spec quotes, not only the dynamic value rendered beside it
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: videos-player
+- evidence: .specs/features/videos-player/validation.md:M13 (videos/index.html:42) (tests)
+- last seen: 2026-09-20T22:03:29Z
+
+### L-006 - When a spec forbids a behavior, assert its absence directly instead of asserting only the allowed behavior
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: videos-player
+- evidence: .specs/features/videos-player/validation.md:M14 (assets/js/videos.js:152) (tests)
+- last seen: 2026-09-20T22:03:29Z
+
+### L-007 - Give each acceptance criterion's own test the stubs it needs to observe that criterion's outcome, not just adjacent state
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: videos-player
+- evidence: .specs/features/videos-player/validation.md:M12 (tests/videos/select.e2e.cjs:45) (tests)
+- last seen: 2026-09-20T22:03:29Z
+
+### L-008 - State visual-layering requirements as a checkable property such as stacking order or element absence, never as a visual description
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec` · harmful: 0
+- features: videos-player
+- evidence: .specs/features/videos-player/validation.md:VPLR-23 (spec)
+- last seen: 2026-09-20T22:03:29Z
+
+### L-009 - Place an assertion on the code path where the behavior can actually fail, not on a path where it holds trivially
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: videos-player
+- evidence: .specs/features/videos-player/validation.md:M18 (assets/js/videos.js:44) (tests)
+- last seen: 2026-09-20T22:15:16Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

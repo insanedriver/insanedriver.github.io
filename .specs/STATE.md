@@ -20,12 +20,11 @@
 
 ## Handoff
 
-- **Feature**: photos-cyberpunk-theme
-- **Phase / Task**: Validation complete - PASS (round 2, after 1 fix→re-verify iteration)
-- **Completed**: T1, T2, T3, T4, T5, T6, FT1-FT3, FT4
-- **In-progress**: none (feature complete and verified)
-- **Next step**: Ready for user review / branch merge (local commits only, no push done)
+- **Feature**: videos-player (ID-TV // Transmission Feed)
+- **Phase / Task**: Validation complete - PASS (round 2, after 1 fix->re-verify iteration)
+- **Completed**: T1-T12, FT1-FT3, plus two follow-up tidy-ups from the round-2 report
+- **In-progress**: none
+- **Next step**: real-device UAT (iOS Safari autoplay after async API load, see validation.md open risk); then user review / merge (local commits only, no push done)
 - **Blockers**: none
 - **Uncommitted files**: none
-- **Branch**: feature/photos-cyberpunk-theme
-
+- **Branch**: feature/videos-player

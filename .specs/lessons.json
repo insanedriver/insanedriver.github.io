@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 5,
+  "next_id": 10,
   "lessons": [
     {
       "id": "L-001",
@@ -76,6 +76,96 @@
       ],
       "created": "2026-09-20T03:51:14Z",
       "last_seen": "2026-09-20T03:51:14Z"
+    },
+    {
+      "id": "L-005",
+      "key": "surviving_mutant::assert the literal label text a spec quotes not only the dynamic value rendered beside it",
+      "text": "Assert the literal label text a spec quotes, not only the dynamic value rendered beside it",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "videos-player"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/videos-player/validation.md:M13 (videos/index.html:42) (tests)"
+      ],
+      "created": "2026-09-20T22:03:29Z",
+      "last_seen": "2026-09-20T22:03:29Z"
+    },
+    {
+      "id": "L-006",
+      "key": "surviving_mutant::when a spec forbids a behavior assert its absence directly instead of asserting only the allowed behavior",
+      "text": "When a spec forbids a behavior, assert its absence directly instead of asserting only the allowed behavior",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "videos-player"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/videos-player/validation.md:M14 (assets/js/videos.js:152) (tests)"
+      ],
+      "created": "2026-09-20T22:03:29Z",
+      "last_seen": "2026-09-20T22:03:29Z"
+    },
+    {
+      "id": "L-007",
+      "key": "surviving_mutant::give each acceptance criterion s own test the stubs it needs to observe that criterion s outcome not just adjacent state",
+      "text": "Give each acceptance criterion's own test the stubs it needs to observe that criterion's outcome, not just adjacent state",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "videos-player"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/videos-player/validation.md:M12 (tests/videos/select.e2e.cjs:45) (tests)"
+      ],
+      "created": "2026-09-20T22:03:29Z",
+      "last_seen": "2026-09-20T22:03:29Z"
+    },
+    {
+      "id": "L-008",
+      "key": "spec_precision_gap::state visual layering requirements as a checkable property such as stacking order or element absence never as a visual description",
+      "text": "State visual-layering requirements as a checkable property such as stacking order or element absence, never as a visual description",
+      "signal": "spec_precision_gap",
+      "scope": "spec",
+      "status": "candidate",
+      "features": [
+        "videos-player"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/videos-player/validation.md:VPLR-23 (spec)"
+      ],
+      "created": "2026-09-20T22:03:29Z",
+      "last_seen": "2026-09-20T22:03:29Z"
+    },
+    {
+      "id": "L-009",
+      "key": "surviving_mutant::place an assertion on the code path where the behavior can actually fail not on a path where it holds trivially",
+      "text": "Place an assertion on the code path where the behavior can actually fail, not on a path where it holds trivially",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "videos-player"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".specs/features/videos-player/validation.md:M18 (assets/js/videos.js:44) (tests)"
+      ],
+      "created": "2026-09-20T22:15:16Z",
+      "last_seen": "2026-09-20T22:15:16Z"
     }
   ]
 }

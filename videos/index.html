@@ -8,44 +8,71 @@ page_id: videos
 jspath: js/videos
 header_img_path: header_1.jpg
 ---
-<div class="container">
-        <div class="row-fluid">
-                <div id="playerKeepAway" class="video-container"></div>
-        </div>
+{% assign first = videos[0] %}
+<div class="videos-shell cyber-zone" data-idtv>
+    <div class="cyber-zone-inner">
 
-        <div class="row-fluid">
-                <div id="playerGhostsLyric" class="video-container"></div>
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> VIDEO::ID-TV</div>
+        <div class="cyber-panel-body cyber-panel-body--videos-stage" data-hud="TRANSMISSION.FEED // LIVE_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="videos-player" aria-labelledby="videos-title">
+        <div class="videos-section-heading">
+            <div><span class="videos-eyebrow">TRANSMISSION FEED</span><h2 id="videos-title">ID-TV<span class="videos-accent">.</span></h2></div>
+            <span class="videos-counter" aria-live="polite" aria-atomic="true" data-idtv-counter>01 / {% if videos.size < 10 %}0{% endif %}{{ videos.size }}</span>
         </div>
+        <div class="videos-stage" data-idtv-stage>
+            <div class="videos-screen" data-idtv-screen>
+                <div class="videos-poster" data-idtv-poster>
+                    <img src="https://i.ytimg.com/vi/{{ first.id }}/hqdefault.jpg" width="480" height="360" alt="" data-idtv-poster-img decoding="async">
+                    <a class="videos-watch" href="https://www.youtube.com/watch?v={{ first.id }}" data-idtv-watch>Watch on YouTube</a>
+                    <button type="button" class="videos-play" data-idtv-play aria-label="Play video" hidden><span aria-hidden="true">&#9654;</span></button>
+                </div>
+                <div class="videos-fallback" data-idtv-fallback role="status" hidden>
+                    <span>YouTube unavailable</span>
+                    <a href="https://www.youtube.com/watch?v={{ first.id }}" data-idtv-fallback-link>Watch on YouTube</a>
+                </div>
+            </div>
+            <span class="videos-frame-corner" aria-hidden="true"></span>
+        </div>
+        <div class="videos-hud">
+            <p class="videos-now"><span class="videos-eyebrow">NOW PLAYING</span><span class="videos-now-title" data-idtv-now>{{ first.title | remove_first: 'Insane Driver - ' | escape }}</span></p>
+            <div class="videos-controls" data-idtv-controls hidden>
+                <button type="button" class="videos-arrow" data-idtv-prev aria-label="Previous video"><span aria-hidden="true">&#8592;</span></button>
+                <button type="button" class="videos-arrow" data-idtv-next aria-label="Next video"><span aria-hidden="true">&#8594;</span></button>
+                <button type="button" class="videos-auto" data-idtv-auto aria-pressed="true">AUTO</button>
+            </div>
+        </div>
+    </section>
+        </div>
+    </div>
 
-        <div class="row-fluid">
-                <div id="playerDistantLyric" class="video-container"></div>
-        </div>
+    <div class="cyber-separator"></div>
 
-        <div class="row-fluid">
-                <div id="playerDesperateLyric" class="video-container"></div>
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> VIDEO::FEED</div>
+        <div class="cyber-panel-body cyber-panel-body--videos-feed" data-hud="FEED.INDEX // {{ videos.size }}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="videos-feed-section" aria-label="Video feed">
+        <ul class="videos-feed" data-idtv-feed>
+            {% for video in videos %}
+            <li class="videos-feed-item">
+                <a class="videos-card" href="https://www.youtube.com/watch?v={{ video.id }}" data-idtv-card="{{ forloop.index0 }}" data-slug="{{ video.slug | escape }}" data-video-id="{{ video.id | escape }}" data-title="{{ video.title | escape }}"{% if forloop.first %} aria-current="true"{% endif %}>
+                    <span class="videos-card-thumb"><img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" {% unless forloop.first %}loading="lazy"{% endunless %} decoding="async"><span class="videos-card-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span></span>
+                    <span class="videos-card-meta"><span class="videos-eyebrow">{{ video.type | escape }}</span><span class="videos-card-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span></span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
         </div>
+    </div>
 
-        <div class="row-fluid">
-                <div id="playerImaginedLyric" class="video-container"></div>
-        </div>
-
-        <div class="row-fluid">
-                <div id="playerSiliconLyric" class="video-container"></div>
-        </div>
-
-        <div class="row-fluid">
-                <div id="playerToday" class="video-container"></div>
-        </div>
-
-        <div class="row-fluid">
-                <div id="playerBuried" class="video-container"></div>
-        </div>
-
-        <div class="row-fluid">
-                <div id="playerTide" class="video-container"></div>
-        </div>
-
-        <div class="row-fluid">
-                <div id="playerChange" class="video-container"></div>
-        </div>
+    </div>
 </div>
