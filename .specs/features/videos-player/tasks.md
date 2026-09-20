@@ -405,6 +405,38 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 ---
 
+## Fix Tasks (Verifier round 1)
+
+### FT1: Cover the three unasserted AC clauses
+
+**What**: Assert the `NOW PLAYING` literal, that the page never cancels a `wheel` event on the feed, and that re-clicking the active card does not reload the player.
+**Where**: `tests/videos/markup.e2e.cjs`, `tests/videos/theme.e2e.cjs`, `tests/videos/select.e2e.cjs`
+**Status**: ✅ Done
+**Requirement**: VPLR-16, VPLR-18, VPLR-09
+
+**Tests**: e2e
+**Gate**: full
+
+### FT2: Escape catalog attributes, constrain ids, drop unreachable code
+
+**What**: Add `| escape` to `slug`, `id`, `type` in the feed markup, an id-format assertion in the catalog test, and remove the unreachable IFRAME check in the keydown handler.
+**Where**: `videos/index.html`, `tests/videos/videos-data.test.cjs`, `assets/js/videos.js`
+**Requirement**: VPLR-05, VPLR-27
+
+**Tests**: unit, e2e
+**Gate**: full
+
+### FT3: State VPLR-23 as a stacking-order requirement
+
+**What**: Reword VPLR-23 so the verified outcome is precise.
+**Where**: `.specs/features/videos-player/spec.md`
+**Requirement**: VPLR-23
+
+**Tests**: none
+**Gate**: build
+
+---
+
 ## Phase Execution Map
 
 ```

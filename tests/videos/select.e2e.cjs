@@ -1,4 +1,5 @@
 const { test, expect } = require('../photos/browser.cjs');
+const { stubYouTube } = require('./yt-stub.cjs');
 const videos = require('../../_data/videos.json');
 
 const counter = page => page.locator('[data-idtv-counter]');
@@ -49,6 +50,19 @@ test('VPLR-09: selecting the already-active card leaves the stage state unchange
   await expect(counter(page)).toHaveText('04 / 10');
   await expect(page.locator('[data-idtv-card][aria-current="true"]')).toHaveCount(1);
   expect(new URL(page.url()).pathname).toBe('/videos/');
+});
+
+test('VPLR-09: clicking the active card while its video plays does not reload the player', async ({ page }) => {
+  await stubYouTube(page);
+  await page.goto('/videos/');
+  await cardAt(page, 3).click();
+  await expect(page.locator('.videos-shell iframe')).toHaveAttribute('data-video-id', videos[3].id);
+  await cardAt(page, 3).click();
+  await cardAt(page, 3).click();
+  await page.waitForTimeout(200);
+  expect(await page.evaluate(() => window.__yt.loads)).toEqual([]);
+  expect(await page.evaluate(() => window.__yt.players.length)).toBe(1);
+  await expect(page.locator('.videos-shell iframe')).toHaveAttribute('data-video-id', videos[3].id);
 });
 
 test('VPLR-08: a card also activates from the keyboard', async ({ page }) => {

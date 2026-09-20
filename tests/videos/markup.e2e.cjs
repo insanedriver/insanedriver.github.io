@@ -41,6 +41,12 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('.videos-shell iframe')).toHaveCount(0);
   });
 
+  test('VPLR-16: the stage labels the active video NOW PLAYING with its title', async ({ page }) => {
+    await page.goto('/videos/');
+    await expect(page.locator('.videos-now .videos-eyebrow')).toHaveText('NOW PLAYING');
+    await expect(page.locator('[data-idtv-now]')).toHaveText('Keep Away [Official Music Video]');
+  });
+
   test('VPLR-16: server-rendered counter and card indexes are zero-padded', async ({ page }) => {
     await page.goto('/videos/');
     await expect(page.locator('[data-idtv-counter]')).toHaveText('01 / 10');

@@ -24,6 +24,16 @@ test('VPLR-18: the feed scrolls horizontally with scroll-snap', async ({ page })
   expect(await feed.evaluate(el => el.scrollWidth > el.clientWidth)).toBe(true);
 });
 
+test('VPLR-18: a wheel event over the feed is never cancelled by the page', async ({ page }) => {
+  await page.goto('/videos/');
+  const cancelled = await page.locator('[data-idtv-feed]').evaluate(el => {
+    const event = new WheelEvent('wheel', { deltaY: 120, deltaX: 0, cancelable: true, bubbles: true });
+    el.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  expect(cancelled).toBe(false);
+});
+
 test('VPLR-22: reduced motion removes animation and transitions from cyber-zone and video elements', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/videos/');
