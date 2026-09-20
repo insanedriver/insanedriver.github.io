@@ -12,6 +12,14 @@ test('PXCP-01/02/04/07: featured carousel is wrapped in a cyber-panel', async ({
   const animationName = await carouselPanel.locator('.cyber-panel-body').evaluate(el => getComputedStyle(el).animationName);
   expect(animationName).toContain('photos-panel-glow');
 });
+test('PXCP-01/02/04/07: archive grid is wrapped in its own cyber-panel with a separator', async ({page}) => {
+  await page.goto('/photos/');
+  await expect(page.locator('.cyber-panel')).toHaveCount(2);
+  await expect(page.locator('.cyber-separator')).toHaveCount(1);
+  const archivePanel = page.locator('.cyber-panel').nth(1);
+  await expect(archivePanel.locator('.cyber-panel-tab')).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');
+  await expect(archivePanel.locator('.corner-bl')).toHaveCSS('background-color', 'rgb(0, 95, 140)');
+});
 test('PXCP-14: reduced motion disables the root scanline and noise animations', async ({page}) => {
   await page.emulateMedia({reducedMotion: 'reduce'});
   await page.goto('/photos/');

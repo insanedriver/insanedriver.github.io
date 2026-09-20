@@ -190,19 +190,21 @@ T5 → T6
 - Skill: NONE
 
 **Done when**:
-- [ ] `.cyber-separator` present between the two panels; `.photos-archive-section` nested inside its own `.cyber-panel` with tab, body modifier, `data-hud`, and all four corner/accent elements
-- [ ] Exactly 2 `.cyber-panel` elements exist on the page (verified by a new Playwright assertion)
-- [ ] All existing `data-photo-id`/`data-category`/`data-photo-open` attributes on archive figures are byte-identical to before this task
-- [ ] New Playwright assertion added confirming the archive panel's `.cyber-panel-tab` and corner colors match the shared palette
-- [ ] Full 4-width overflow check (320/390/768/1440, `PHOTO-03/14` test) re-run and passing with the complete two-panel layout - if clip-path corners cause clipping at any width, adjust `.cyber-panel-body`'s padding/clip size in `less/photos.less` for `#page_photos` (regenerate `assets/css/style.min.css` if so) until it passes
-- [ ] All pre-existing `visual.e2e.cjs` and other `tests/photos/*.e2e.cjs`/`*.test.cjs` assertions still pass unmodified
-- [ ] Gate check passes: `npm run test:unit && npm run test:photos`
-- [ ] Test count did not decrease; new assertions listed above are present in addition to the existing ones
+- [x] `.cyber-separator` present between the two panels; `.photos-archive-section` nested inside its own `.cyber-panel` with tab, body modifier, `data-hud`, and all four corner/accent elements
+- [x] Exactly 2 `.cyber-panel` elements exist on the page (verified by a new Playwright assertion)
+- [x] All existing `data-photo-id`/`data-category`/`data-photo-open` attributes on archive figures are byte-identical to before this task
+- [x] New Playwright assertion added confirming the archive panel's `.cyber-panel-tab` and corner colors match the shared palette
+- [x] Full 4-width overflow check (320/390/768/1440, `PHOTO-03/14` test) re-run and passing with the complete two-panel layout - no clipping observed, no CSS adjustment needed
+- [x] All pre-existing `visual.e2e.cjs` and other `tests/photos/*.e2e.cjs`/`*.test.cjs` assertions still pass unmodified
+- [x] Gate check passes: `npm run test:unit && npm run test:photos`
+- [x] Test count did not decrease; new assertions listed above are present in addition to the existing ones
 
 **Tests**: e2e
 **Gate**: full
 
 **Commit**: `feat(photos): wrap the archive grid in a cyber-panel`
+
+**Status**: ✅ Complete - 3 unit + 25 e2e tests pass (was 24 e2e before this task). Visually confirmed via `/tmp/photos-1440.png`: both panels render with tab/corners/glow, separator between them, backdrop visible throughout, no clipping at any tested width.
 
 ---
 

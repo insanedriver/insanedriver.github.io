@@ -115,21 +115,21 @@ The Photos page shipped its cyberpunk styling before Band, Contact and Newslette
 | PXCP-06        | P1: Visual parity                        | Execute | Implementing |
 | PXCP-07        | P1: Visual parity                        | Execute | Implementing |
 | PXCP-08        | P1: No regression                        | Execute | Implementing |
-| PXCP-09        | P1: No regression                        | Design | Pending |
-| PXCP-10        | P1: No regression                        | Design | Pending |
+| PXCP-09        | P1: No regression                        | Execute | Implementing |
+| PXCP-10        | P1: No regression                        | Execute | Implementing |
 | PXCP-11        | P1: No regression                        | Execute | Implementing |
 | PXCP-12        | P1: No regression                        | Execute | Implementing |
-| PXCP-13        | P1: No regression                        | Design | Pending |
+| PXCP-13        | P1: No regression                        | Execute | Implementing |
 | PXCP-14        | P1: Accessibility & responsiveness       | Execute | Implementing |
 | PXCP-15        | P1: Accessibility & responsiveness       | Execute | Implementing |
-| PXCP-16        | P1: Accessibility & responsiveness       | Design | Pending |
-| PXCP-17        | P1: Accessibility & responsiveness       | Design | Pending |
+| PXCP-16        | P1: Accessibility & responsiveness       | Execute | Implementing |
+| PXCP-17        | P1: Accessibility & responsiveness       | Execute | Implementing |
 
 **ID format:** `PXCP-[NUMBER]` (Photos Cyber Panel)
 
 **Status values:** Pending → In Design → In Tasks → Implementing → Verified
 
-**Coverage:** 17 total, 12 mapped to tasks (T1-T4 landed), 5 pending T5/T6 ⚠️
+**Coverage:** 17 total, 17 mapped to tasks (T1-T5 landed), closing verification pending T6 ⚠️
 
 ---
 
