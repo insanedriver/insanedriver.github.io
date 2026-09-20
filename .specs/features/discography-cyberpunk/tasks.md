@@ -111,7 +111,9 @@ T12 → T13
 **Tests**: none
 **Gate**: build
 
-**Commit**: `assets(discography): add 600px release covers`
+**Commit**: `feat(discography): add 600px release covers`
+
+**Status**: ✅ Done
 
 ---
 

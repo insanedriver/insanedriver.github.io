@@ -238,7 +238,7 @@
 | DISC-30 | P2: Tracklist and structured data | Design | Pending |
 | DISC-31 | P2: Tracklist and structured data | Design | Pending |
 | DISC-32 | P2: Tracklist and structured data | Design | Pending |
-| DISC-33 | P2: Tracklist and structured data | Design | Pending |
+| DISC-33 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-34 | P2: Tracklist and structured data | Design | Pending |
 | DISC-35 | P2: Buy the physical record | Design | Pending |
 | DISC-36 | P2: Buy the physical record | Design | Pending |
