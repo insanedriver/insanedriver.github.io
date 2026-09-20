@@ -45,3 +45,16 @@ test('PHOTO-08: no automatic advancement while idle', async ({page}) => {
   await page.clock.fastForward(120000);
   await expect(counter(page)).toHaveText('01 / 06');
 });
+test('P2020-04: carousel dynamically populates 6 unique PROMO or LIVE highlights on load', async ({page}) => {
+  const slides = page.locator('[data-photo-slide]');
+  await expect(slides).toHaveCount(6);
+  const ids = await slides.evaluateAll(nodes => nodes.map(n => n.getAttribute('data-photo-id')));
+  expect(new Set(ids).size).toBe(6);
+  for (const id of ids) {
+    const archiveFigure = page.locator(`.photos-archive figure[data-photo-id="${id}"]`);
+    await expect(archiveFigure).toHaveCount(1);
+    const category = await archiveFigure.getAttribute('data-category');
+    expect(['PROMO', 'LIVE']).toContain(category);
+  }
+});
+

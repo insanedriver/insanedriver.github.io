@@ -69,7 +69,7 @@ Done when:
 
 ### Phase 2: Client-side Dynamic Randomization
 
-### T3: Implement client-side carousel randomization
+### T3: Implement client-side carousel randomization [x]
 Where: `assets/js/photos.js`
 Tests: e2e
 Gate: Full
