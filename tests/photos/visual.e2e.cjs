@@ -58,7 +58,7 @@ test('PXCP-14: reduced motion disables the root scanline and noise animations', 
   expect(pseudoAnimations.before).toBe('none');
   expect(pseudoAnimations.after).toBe('none');
 });
-for (const width of [320, 390, 768, 1440]) {
+for (const width of [320, 390, 768, 1440, 1920]) {
   test(`PHOTO-03/14: cyberpunk gallery fits ${width}px`, async ({page}) => {
     await page.setViewportSize({width, height: 900});
     await page.goto('/photos/');
@@ -70,6 +70,33 @@ for (const width of [320, 390, 768, 1440]) {
     await page.screenshot({path: `/tmp/photos-${width}.png`, fullPage: true});
   });
 }
+test('PXCP-18: at wide viewports the panel actually fills the widened shell (no leaked 56rem cap)', async ({page}) => {
+  await page.setViewportSize({width: 1920, height: 1080});
+  await page.goto('/photos/');
+  const widths = await page.evaluate(() => {
+    const shell = document.querySelector('.photos-shell');
+    const shellStyle = getComputedStyle(shell);
+    const shellContentWidth = shell.getBoundingClientRect().width
+      - parseFloat(shellStyle.paddingLeft) - parseFloat(shellStyle.paddingRight);
+    return {
+      shell: shell.getBoundingClientRect().width,
+      shellContentWidth,
+      zoneInner: document.querySelector('.cyber-zone-inner').getBoundingClientRect().width,
+    };
+  });
+  expect(widths.shell).toBeGreaterThan(1500);
+  expect(Math.abs(widths.zoneInner - widths.shellContentWidth)).toBeLessThan(2);
+  await expect(page.locator('.photos-archive')).toHaveCSS('grid-template-columns', /^(\S+ ){3}\S+$/);
+});
+test('PXCP-19: photo previews are not tinted by the scanline overlay', async ({page}) => {
+  await page.goto('/photos/');
+  const stacking = await page.evaluate(() => {
+    const zoneInnerZ = Number(getComputedStyle(document.querySelector('.cyber-zone-inner')).zIndex);
+    const scanlineZ = Number(getComputedStyle(document.querySelector('.photos-shell'), '::after').zIndex);
+    return {zoneInnerZ, scanlineZ};
+  });
+  expect(stacking.zoneInnerZ).toBeGreaterThan(stacking.scanlineZ);
+});
 test('PHOTO-11: gallery links and controls expose visible keyboard focus and names', async ({page}) => {
   await page.goto('/photos/');
   // Check control styling before T3 adds initialization.
