@@ -173,7 +173,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | VPLR-01 | P1: Data-driven feed | Tasks | Implementing |
-| VPLR-02 | P1: Data-driven feed | Design | Pending |
+| VPLR-02 | P1: Data-driven feed | Tasks | Implementing |
 | VPLR-03 | P1: Data-driven feed | Design | Pending |
 | VPLR-04 | P1: Data-driven feed | Design | Pending |
 | VPLR-05 | P1: Data-driven feed | Tasks | Implementing |
@@ -182,12 +182,12 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-08 | P1: Stage and feed | Design | Pending |
 | VPLR-09 | P1: Stage and feed | Design | Pending |
 | VPLR-10 | P1: Stage and feed | Design | Pending |
-| VPLR-11 | P2: Navigation | Design | Pending |
-| VPLR-12 | P2: Navigation | Design | Pending |
-| VPLR-13 | P2: Navigation | Design | Pending |
+| VPLR-11 | P2: Navigation | Tasks | Implementing |
+| VPLR-12 | P2: Navigation | Tasks | Implementing |
+| VPLR-13 | P2: Navigation | Tasks | Implementing |
 | VPLR-14 | P2: Failure | Design | Pending |
 | VPLR-15 | P2: Failure | Design | Pending |
-| VPLR-16 | P1: Stage and feed | Design | Pending |
+| VPLR-16 | P1: Stage and feed | Tasks | Implementing |
 | VPLR-17 | P1: Stage and feed | Design | Pending |
 | VPLR-18 | P1: Stage and feed | Design | Pending |
 | VPLR-19 | P1: Theme parity | Design | Pending |
@@ -199,7 +199,7 @@ The Videos page stacks 10 YouTube iframes one after another with no titles, no c
 | VPLR-25 | P2: Navigation | Design | Pending |
 | VPLR-26 | P2: Navigation | Design | Pending |
 | VPLR-27 | P2: Navigation | Design | Pending |
-| VPLR-28 | P2: Navigation | Design | Pending |
+| VPLR-28 | P2: Navigation | Tasks | Implementing |
 | VPLR-29 | P2: Navigation | Design | Pending |
 
 **Coverage:** 29 total, 0 mapped to tasks, 29 unmapped ⚠️

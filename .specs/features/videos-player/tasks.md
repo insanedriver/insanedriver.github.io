@@ -148,6 +148,7 @@ T7 → T8 → T9 → T10 → T11 → T12
 **Where**: `assets/js/videos-core.js` (tests in `tests/videos/videos-core.test.cjs`)
 **Depends on**: T3
 **Reuses**: none (new pure module)
+**Status**: ✅ Done
 **Requirement**: VPLR-02, VPLR-11, VPLR-12, VPLR-13, VPLR-16, VPLR-28
 
 **Tools**:
@@ -157,11 +158,11 @@ T7 → T8 → T9 → T10 → T11 → T12
 
 **Done when**:
 
-- [ ] `step` wraps last to first and first to last
-- [ ] `indexFromHash` returns 0 for empty, unknown and wrong-case hashes and the exact index otherwise (with or without leading `#`)
-- [ ] `formatCounter(2, 10)` returns `03 / 10`; `shortTitle` strips only the `Insane Driver - ` prefix
-- [ ] Gate check passes: `npm run test:unit`
-- [ ] Test count: all previous plus the new ones, none removed
+- [x] `step` wraps last to first and first to last
+- [x] `indexFromHash` returns 0 for empty, unknown and wrong-case hashes and the exact index otherwise (with or without leading `#`)
+- [x] `formatCounter(2, 10)` returns `03 / 10`; `shortTitle` strips only the `Insane Driver - ` prefix
+- [x] Gate check passes: `npm run test:unit`
+- [x] Test count: all previous plus the new ones, none removed
 
 **Tests**: unit
 **Gate**: quick
