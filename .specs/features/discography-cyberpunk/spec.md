@@ -218,8 +218,8 @@
 | DISC-10 | P1: One system, one look | Execute | Implementing |
 | DISC-11 | P1: One system, one look | Execute | Implementing |
 | DISC-12 | P1: One system, one look | Execute | Implementing |
-| DISC-13 | P1: One system, one look | Design | Pending |
-| DISC-14 | P1: One system, one look | Design | Pending |
+| DISC-13 | P1: One system, one look | Execute | Implementing |
+| DISC-14 | P1: One system, one look | Execute | Implementing |
 | DISC-15 | P2: See the whole catalog | Execute | Implementing |
 | DISC-16 | P2: See the whole catalog | Execute | Implementing |
 | DISC-17 | P2: See the whole catalog | Execute | Implementing |
@@ -243,7 +243,7 @@
 | DISC-35 | P2: Buy the physical record | Execute | Implementing |
 | DISC-36 | P2: Buy the physical record | Execute | Implementing |
 | DISC-37 | P2: Buy the physical record | Execute | Implementing |
-| DISC-38 | P2: Buy the physical record | Design | Pending |
+| DISC-38 | P2: Buy the physical record | Execute | Implementing |
 | DISC-39 | P3: Know what converts | Execute | Implementing |
 | DISC-40 | P3: Know what converts | Execute | Implementing |
 | DISC-41 | P3: Know what converts | Execute | Implementing |
