@@ -20,11 +20,12 @@
 
 ## Handoff
 
-- **Feature**: videos-player (ID-TV // Transmission Feed)
-- **Phase / Task**: Validation complete - PASS (round 2, after 1 fix->re-verify iteration)
-- **Completed**: T1-T12, FT1-FT3, plus two follow-up tidy-ups from the round-2 report
+- **Feature**: discography-cyberpunk (multi-platform discography, cyberpunk theme)
+- **Phase / Task**: Complete - Verifier PASS, gaps G1/G2 closed, spec amended (A1, A2)
+- **Completed**: T1-T13 plus two follow-ups (gap tests, spec amendments); 16 commits on the branch
 - **In-progress**: none
-- **Next step**: real-device UAT (iOS Safari autoplay after async API load, see validation.md open risk); then user review / merge (local commits only, no push done)
+- **Next step**: user review of the branch, then open the PR. Nothing has been pushed
 - **Blockers**: none
-- **Uncommitted files**: none
-- **Branch**: feature/videos-player
+- **Uncommitted files**: none tracked
+- **Branch**: feature/discography-cyberpunk
+- **Open follow-ups, not part of this feature**: band page asks for `fa fa-bandcamp`, a glyph the bundled Font Awesome 4.4 does not have, so that button renders empty (`band/index.html:158`); `.cyber-zone` / `.cyber-panel` remain copy-pasted across page stylesheets; `less/contact.less:328` leaks an unscoped `.cyber-zone-inner` max-width site-wide; the home page still carries the pre-cyberpunk player block; Universal Analytics (`UA-60390716-1`) has not processed data since 2023
