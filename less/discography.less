@@ -1,5 +1,10 @@
-@media (min-width: 992px) {
-    #page_discography .player {
-        padding-top: 39px;
+#page_discography {
+    // Platform buttons come from the shared system in less/cyber-links.less.
+    .cyber-links-system();
+
+    .player {
+        @media (min-width: 992px) {
+            padding-top: 39px;
+        }
     }
 }

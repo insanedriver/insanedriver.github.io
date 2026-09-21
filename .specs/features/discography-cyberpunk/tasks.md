@@ -427,6 +427,8 @@ T12 → T13
 
 ### T12: Extract the shared platform-button system
 
+> **Executed out of plan order, before T11.** T12 declares `Depends on: None`, so nothing blocked it. T11's click test could not pass first: with no CSS, `.cyber-link-btn` is still an inline anchor whose bounding box has a hole in the middle, and the click hit-tests onto the shell. Styling the button removed the obstacle. No dependency was violated; only the phase sequence written in this file.
+
 **What**: Move `.cyber-link-btn` and the per-platform hover rules out of `less/band.less` into a new `less/cyber-links.less` as a `.cyber-links-system()` mixin, import it from `less/style.less`, invoke it inside `#page_band`, recompile `assets/css/style.min.css`, and add `tests/band/cyber-links.e2e.cjs` asserting the band buttons' computed styles.
 **Where**: `less/cyber-links.less`, `less/band.less`, `less/style.less`, `assets/css/style.min.css`
 **Depends on**: None
@@ -450,6 +452,8 @@ T12 → T13
 **Gate**: full
 
 **Commit**: `refactor(css): extract the cyber link button system`
+
+**Status**: ✅ Done
 
 ---
 

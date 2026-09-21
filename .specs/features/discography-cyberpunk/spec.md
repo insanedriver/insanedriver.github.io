@@ -216,8 +216,8 @@
 | DISC-08 | P1: One system, one look | Execute | Implementing |
 | DISC-09 | P1: One system, one look | Execute | Implementing |
 | DISC-10 | P1: One system, one look | Execute | Implementing |
-| DISC-11 | P1: One system, one look | Design | Pending |
-| DISC-12 | P1: One system, one look | Design | Pending |
+| DISC-11 | P1: One system, one look | Execute | Implementing |
+| DISC-12 | P1: One system, one look | Execute | Implementing |
 | DISC-13 | P1: One system, one look | Design | Pending |
 | DISC-14 | P1: One system, one look | Design | Pending |
 | DISC-15 | P2: See the whole catalog | Execute | Implementing |
