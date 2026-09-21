@@ -51,6 +51,28 @@ test.describe('without JavaScript', () => {
     }
   });
 
+  test('DISC-34: single covers declare their intrinsic size and lazy-load', async ({ page }) => {
+    await page.goto('/discography/');
+    const attrs = await page.locator('.disc-single-art')
+      .evaluateAll(els => els.map(el => [el.getAttribute('width'), el.getAttribute('height'), el.getAttribute('loading')]));
+    expect(attrs).toHaveLength(singles.length);
+    for (const a of attrs) expect(a).toEqual(['600', '600', 'lazy']);
+  });
+
+  test('DISC-45: the overflow disclosure appears only when the catalog overflows six', async ({ page }) => {
+    await page.goto('/discography/');
+    const more = page.locator('[data-disc-singles-more]');
+    if (singles.length > VISIBLE) {
+      await expect(more).toHaveCount(1);
+      await expect(more.locator('[data-disc-single]')).toHaveCount(singles.length - VISIBLE);
+    } else {
+      // Not exercised while the catalog holds 18 singles; this branch guards the
+      // day it shrinks, so the empty container can never ship.
+      await expect(more).toHaveCount(0);
+      await expect(page.locator('[data-disc-single]')).toHaveCount(singles.length);
+    }
+  });
+
   test('DISC-20: a single never carries a preview button or an embed', async ({ page }) => {
     await page.goto('/discography/');
     await expect(page.locator('[data-disc-single] [data-disc-preview-btn]')).toHaveCount(0);
