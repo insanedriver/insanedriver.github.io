@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 10,
+  "next_id": 16,
   "lessons": [
     {
       "id": "L-001",
@@ -166,6 +166,114 @@
       ],
       "created": "2026-09-20T22:15:16Z",
       "last_seen": "2026-09-20T22:15:16Z"
+    },
+    {
+      "id": "L-010",
+      "key": "ac_gap::when a liquid template guards a section with a count condition assert both sides of the guard from the data or the branch that today s data never reaches ships unverified",
+      "text": "When a Liquid template guards a section with a count condition, assert both sides of the guard from the data, or the branch that today's data never reaches ships unverified.",
+      "signal": "ac_gap",
+      "scope": "templates/liquid",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "DISC-45 / discography/index.html:142 (templates/liquid)"
+      ],
+      "created": "2026-09-21T02:52:24Z",
+      "last_seen": "2026-09-21T02:52:24Z"
+    },
+    {
+      "id": "L-011",
+      "key": "spec_precision_gap::an acceptance criterion that says for each release while the out of scope table carves out a release type is ambiguous state the rule per type and add a data assertion or nothing catches the divergence",
+      "text": "An acceptance criterion that says 'for each release' while the Out of Scope table carves out a release type is ambiguous: state the rule per type, and add a data assertion, or nothing catches the divergence.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "DISC-02 (spec-writing)"
+      ],
+      "created": "2026-09-21T02:52:24Z",
+      "last_seen": "2026-09-21T02:52:24Z"
+    },
+    {
+      "id": "L-012",
+      "key": "spec_precision_gap::write external link verification rules to cover could not be checked and not only returned an error status a geo blocked or unreachable service is the common case and needs the same null treatment",
+      "text": "Write external-link verification rules to cover 'could not be checked' and not only 'returned an error status'; a geo-blocked or unreachable service is the common case and needs the same null treatment.",
+      "signal": "spec_precision_gap",
+      "scope": "external-links",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "DISC-46 (external-links)"
+      ],
+      "created": "2026-09-21T02:52:24Z",
+      "last_seen": "2026-09-21T02:52:24Z"
+    },
+    {
+      "id": "L-013",
+      "key": "ac_gap::in a stylesheet last task order browser click tests fail on unstyled inline anchors whose bounding box centre misses the element land the layout css before the interaction tests that depend on clicking",
+      "text": "In a stylesheet-last task order, browser click tests fail on unstyled inline anchors whose bounding box centre misses the element; land the layout CSS before the interaction tests that depend on clicking.",
+      "signal": "ac_gap",
+      "scope": "e2e/playwright",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/discography/tracking.e2e.cjs / T11 (e2e/playwright)"
+      ],
+      "created": "2026-09-21T02:52:24Z",
+      "last_seen": "2026-09-21T02:52:24Z"
+    },
+    {
+      "id": "L-014",
+      "key": "ac_gap::a container with overflow hidden becomes a scroll container so an in page anchor inside it scrolls the container with no scrollbar to undo it use overflow clip when the box only needs to clip decorative layers",
+      "text": "A container with overflow:hidden becomes a scroll container, so an in-page anchor inside it scrolls the container with no scrollbar to undo it; use overflow:clip when the box only needs to clip decorative layers.",
+      "signal": "ac_gap",
+      "scope": "css/layout",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "DISC-48 / less/discography.less (css/layout)"
+      ],
+      "created": "2026-09-21T03:09:57Z",
+      "last_seen": "2026-09-21T03:09:57Z"
+    },
+    {
+      "id": "L-015",
+      "key": "ac_gap::copying a page shell from another page copies its width constraints too check the reference page the user actually named before inheriting a max width",
+      "text": "Copying a page shell from another page copies its width constraints too: check the reference page the user actually named before inheriting a max-width.",
+      "signal": "ac_gap",
+      "scope": "css/layout",
+      "status": "candidate",
+      "features": [
+        "discography-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "DISC-47 (css/layout)"
+      ],
+      "created": "2026-09-21T03:09:57Z",
+      "last_seen": "2026-09-21T03:09:57Z"
     }
   ]
 }

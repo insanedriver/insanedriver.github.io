@@ -1,0 +1,677 @@
+{
+  "albums": [
+    {
+      "slug": "silicon-fortress",
+      "title": "Silicon Fortress",
+      "year": 2021,
+      "releaseDate": "2021-08-27",
+      "cover": "silicon-fortress.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "ALBUM",
+      "spotifyId": "0PCziCYnitLM17g75Vpvba",
+      "links": {
+        "spotify": "https://open.spotify.com/album/0PCziCYnitLM17g75Vpvba",
+        "apple": "https://music.apple.com/us/album/silicon-fortress/1563399511",
+        "ytmusic": "https://music.youtube.com/playlist?list=OLAK5uy_mgx8ZzV5iFPCkBKerEup7BmW5pcqoLEVo",
+        "deezer": "https://www.deezer.com/album/222039812",
+        "tidal": "https://tidal.com/browse/album/180144120",
+        "amazon": "https://music.amazon.com/albums/B092577QQ9",
+        "pandora": null,
+        "bandcamp": "https://insanedriverid.bandcamp.com/album/silicon-fortress"
+      },
+      "buyCd": "/preorder/",
+      "tracks": [
+        {
+          "position": 1,
+          "title": "Back To 1994",
+          "duration": 85
+        },
+        {
+          "position": 2,
+          "title": "Faceless Demons",
+          "duration": 320
+        },
+        {
+          "position": 3,
+          "title": "Keep Away",
+          "duration": 238
+        },
+        {
+          "position": 4,
+          "title": "Silicon Fortress",
+          "duration": 353
+        },
+        {
+          "position": 5,
+          "title": "Age of Lies",
+          "duration": 238
+        },
+        {
+          "position": 6,
+          "title": "Insane Driver",
+          "duration": 238
+        },
+        {
+          "position": 7,
+          "title": "Desperate Prayer",
+          "duration": 372
+        },
+        {
+          "position": 8,
+          "title": "Ghosts",
+          "duration": 344
+        },
+        {
+          "position": 9,
+          "title": "Imagined Realities",
+          "duration": 301
+        },
+        {
+          "position": 10,
+          "title": "Invisible Chains",
+          "duration": 277
+        },
+        {
+          "position": 11,
+          "title": "Distant Hearts",
+          "duration": 264
+        }
+      ]
+    },
+    {
+      "slug": "insane-driver-deluxe",
+      "title": "Insane Driver (Deluxe Edition)",
+      "year": 2018,
+      "releaseDate": "2018-03-06",
+      "cover": "insane-driver-deluxe.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "DELUXE",
+      "spotifyId": "2neL9B7Ljt6NELsvXsVWJ6",
+      "links": {
+        "spotify": "https://open.spotify.com/album/2neL9B7Ljt6NELsvXsVWJ6",
+        "apple": "https://music.apple.com/us/album/insane-driver-deluxe-edition/1353578399",
+        "ytmusic": null,
+        "deezer": "https://www.deezer.com/album/58057512",
+        "tidal": "https://tidal.com/browse/album/85271729",
+        "amazon": "https://music.amazon.com/albums/B07B519J17",
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": [
+        {
+          "position": 1,
+          "title": "Endless Path",
+          "duration": 68
+        },
+        {
+          "position": 2,
+          "title": "The Edge of Life",
+          "duration": 306
+        },
+        {
+          "position": 3,
+          "title": "Firstly My Breakfast",
+          "duration": 316
+        },
+        {
+          "position": 4,
+          "title": "Tide of Fears",
+          "duration": 412
+        },
+        {
+          "position": 5,
+          "title": "Buried Thoughts",
+          "duration": 303
+        },
+        {
+          "position": 6,
+          "title": "Fallen Dreams",
+          "duration": 377
+        },
+        {
+          "position": 7,
+          "title": "Change",
+          "duration": 292
+        },
+        {
+          "position": 8,
+          "title": "Today Is Sunday",
+          "duration": 261
+        },
+        {
+          "position": 9,
+          "title": "Faithless Breath",
+          "duration": 386
+        },
+        {
+          "position": 10,
+          "title": "Make Decisions",
+          "duration": 387
+        },
+        {
+          "position": 11,
+          "title": "Tears of Blood",
+          "duration": 359
+        },
+        {
+          "position": 12,
+          "title": "Firstly My Breakfast (Deluxe Version)",
+          "duration": 316
+        },
+        {
+          "position": 13,
+          "title": "Buried Thoughts (Deluxe Version)",
+          "duration": 302
+        },
+        {
+          "position": 14,
+          "title": "Today Is Sunday (Deluxe Version)",
+          "duration": 261
+        },
+        {
+          "position": 15,
+          "title": "Tide of Fears (Acoustic Version)",
+          "duration": 358
+        }
+      ]
+    },
+    {
+      "slug": "insane-driver",
+      "title": "Insane Driver",
+      "year": 2016,
+      "releaseDate": "2016-02-02",
+      "cover": "insane-driver.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "ALBUM",
+      "spotifyId": "6bOxFlwJsILoy1Xv3ByR0d",
+      "links": {
+        "spotify": "https://open.spotify.com/album/6bOxFlwJsILoy1Xv3ByR0d",
+        "apple": "https://music.apple.com/us/album/insane-driver/1079088791",
+        "ytmusic": "https://music.youtube.com/playlist?list=OLAK5uy_lDX4QFHF47MlKQz4ABkFDZC9I3fEAcXho",
+        "deezer": "https://www.deezer.com/album/12287836",
+        "tidal": "https://tidal.com/browse/album/56687439",
+        "amazon": "https://music.amazon.com/albums/B01B740PES",
+        "pandora": null,
+        "bandcamp": "https://insanedriverid.bandcamp.com/album/insane-driver"
+      },
+      "buyCd": "/store/",
+      "tracks": [
+        {
+          "position": 1,
+          "title": "Endless Path",
+          "duration": 68
+        },
+        {
+          "position": 2,
+          "title": "The Edge of Life",
+          "duration": 306
+        },
+        {
+          "position": 3,
+          "title": "Firstly My Breakfast",
+          "duration": 316
+        },
+        {
+          "position": 4,
+          "title": "Tide of Fears",
+          "duration": 412
+        },
+        {
+          "position": 5,
+          "title": "Buried Thoughts",
+          "duration": 303
+        },
+        {
+          "position": 6,
+          "title": "Fallen Dreams",
+          "duration": 377
+        },
+        {
+          "position": 7,
+          "title": "Change",
+          "duration": 292
+        },
+        {
+          "position": 8,
+          "title": "Today Is Sunday",
+          "duration": 261
+        },
+        {
+          "position": 9,
+          "title": "Faithless Breath",
+          "duration": 386
+        },
+        {
+          "position": 10,
+          "title": "Make Decisions",
+          "duration": 387
+        },
+        {
+          "position": 11,
+          "title": "Tears of Blood",
+          "duration": 359
+        }
+      ]
+    }
+  ],
+  "singles": [
+    {
+      "slug": "keep-away-acoustic",
+      "title": "Keep Away (Acoustic)",
+      "year": 2025,
+      "releaseDate": "2025-05-09",
+      "cover": "keep-away-acoustic.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/14HkhB5FwTGesQECbSBSML",
+        "apple": "https://music.apple.com/us/album/keep-away-acoustic-single/1810153511",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "waiting-for-you",
+      "title": "Waiting for You",
+      "year": 2025,
+      "releaseDate": "2025-02-21",
+      "cover": "waiting-for-you.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/33TY4424uWL5jgwvlMPn2S",
+        "apple": "https://music.apple.com/us/album/waiting-for-you-single/1793471043",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "the-sun-will-rise",
+      "title": "The Sun Will Rise",
+      "year": 2024,
+      "releaseDate": "2024-11-15",
+      "cover": "the-sun-will-rise.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/6ktUilpGxgR8CGrNTuQ8Y7",
+        "apple": "https://music.apple.com/us/album/the-sun-will-rise-single/1775076726",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "keep-away",
+      "title": "Keep Away",
+      "year": 2021,
+      "releaseDate": "2021-07-31",
+      "cover": "keep-away.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1TZPtvCVLEB6QSVlR1rUbr",
+        "apple": "https://music.apple.com/us/album/keep-away-single/1570758289",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "invisible-chains",
+      "title": "Invisible Chains",
+      "year": 2021,
+      "releaseDate": "2021-06-25",
+      "cover": "invisible-chains.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1ohFZjv3OQSrD6rPQBSRW0",
+        "apple": "https://music.apple.com/us/album/invisible-chains-single/1570779772",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "age-of-lies",
+      "title": "Age of Lies",
+      "year": 2021,
+      "releaseDate": "2021-05-28",
+      "cover": "age-of-lies.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1LwkYnOx4a3N2c7qE7cMG2",
+        "apple": "https://music.apple.com/us/album/age-of-lies-single/1567271049",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "ghosts",
+      "title": "Ghosts",
+      "year": 2021,
+      "releaseDate": "2021-04-30",
+      "cover": "ghosts.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/0JYdvJlGdJVn64u1AYwieN",
+        "apple": "https://music.apple.com/us/album/ghosts-single/1563491040",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "insane-driver-single",
+      "title": "Insane Driver",
+      "year": 2021,
+      "releaseDate": "2021-03-26",
+      "cover": "insane-driver-single.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/6QL8LiBwOURmyPriBR73tN",
+        "apple": "https://music.apple.com/us/album/insane-driver-single/1552772687",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "distant-hearts",
+      "title": "Distant Hearts",
+      "year": 2021,
+      "releaseDate": "2021-02-26",
+      "cover": "distant-hearts.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/3UslbpSPwPnOjHpsf2Ze0p",
+        "apple": "https://music.apple.com/us/album/distant-hearts-single/1550243809",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "desperate-prayer",
+      "title": "Desperate Prayer",
+      "year": 2021,
+      "releaseDate": "2021-01-29",
+      "cover": "desperate-prayer.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/07f7mam5cKYTHyznYRXAjB",
+        "apple": "https://music.apple.com/us/album/desperate-prayer-single/1546005173",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "imagined-realities",
+      "title": "Imagined Realities",
+      "year": 2020,
+      "releaseDate": "2020-12-18",
+      "cover": "imagined-realities.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/3W07Hs89VVS3y9148e6RAf",
+        "apple": "https://music.apple.com/us/album/imagined-realities-single/1541010238",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "silicon-fortress-single",
+      "title": "Silicon Fortress",
+      "year": 2020,
+      "releaseDate": "2020-11-20",
+      "cover": "silicon-fortress-single.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1nFGhQj61E7u7HWLuI52jn",
+        "apple": "https://music.apple.com/us/album/silicon-fortress-single/1537732166",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "fallen-dreams-acoustic",
+      "title": "Fallen Dreams (Acoustic)",
+      "year": 2019,
+      "releaseDate": "2019-03-11",
+      "cover": "fallen-dreams-acoustic.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/5ZCW0osQwBltOWOuOUIqKe",
+        "apple": "https://music.apple.com/us/album/fallen-dreams-acoustic-single/1452674085",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "tide-of-fears-acoustic",
+      "title": "Tide of Fears (Acoustic)",
+      "year": 2017,
+      "releaseDate": "2017-08-22",
+      "cover": "tide-of-fears-acoustic.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1sLLh7CU8LjrWFzoF6cxxy",
+        "apple": "https://music.apple.com/us/album/tide-of-fears-acoustic-single/1282111166",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "today-is-sunday-eder-franco",
+      "title": "Today Is Sunday (Eder Franco)",
+      "year": 2017,
+      "releaseDate": "2017-04-11",
+      "cover": "today-is-sunday-eder-franco.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/3gdGuPsLIffmz7AQAIKzLU",
+        "apple": "https://music.apple.com/us/album/today-is-sunday-eder-franco-single/1224256993",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "change-live",
+      "title": "Change (Live)",
+      "year": 2015,
+      "releaseDate": "2015-12-17",
+      "cover": "change-live.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/5vG8dh2UrkeTt7E3iuhTeC",
+        "apple": "https://music.apple.com/us/album/change-live-single/1068043016",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "firstly-my-breakfast",
+      "title": "Firstly My Breakfast",
+      "year": 2015,
+      "releaseDate": "2015-04-15",
+      "cover": "firstly-my-breakfast.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/1losBWQ5IQ7dH2rWhQEgiX",
+        "apple": "https://music.apple.com/us/album/firstly-my-breakfast-single/1061769902",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    },
+    {
+      "slug": "tide-of-fears",
+      "title": "Tide of Fears",
+      "year": 2015,
+      "releaseDate": "2015-03-06",
+      "cover": "tide-of-fears.jpg",
+      "coverWidth": 600,
+      "coverHeight": 600,
+      "type": "SINGLE",
+      "spotifyId": null,
+      "links": {
+        "spotify": "https://open.spotify.com/album/7KbmPolj7Dvii0yPeGUGWy",
+        "apple": "https://music.apple.com/us/album/tide-of-fears-single/1058331025",
+        "ytmusic": null,
+        "deezer": null,
+        "tidal": null,
+        "amazon": null,
+        "pandora": null,
+        "bandcamp": null
+      },
+      "buyCd": null,
+      "tracks": []
+    }
+  ]
+}

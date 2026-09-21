@@ -2,57 +2,156 @@
 layout: base.html
 
 page_title: Discography
-page_description: Information about contacts, news, the band and social networkings.
+page_description: Every Insane Driver album and single, with direct links to Spotify, Apple Music, Deezer, Tidal, Amazon Music and more.
 page_robots: index, follow
 page_id: discography
-jspath: js/pack
+jspath: js/discography
 header_img_path: header_4.jpg
 ---
-<div class="container-fluid" id="player-sf">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h4 class="text-center silicon-font" style="padding-top: 20px;">Silicon Fortress - 2021</h4>
+<div class="disc-shell cyber-zone" data-disc>
+    <div class="cyber-zone-inner">
 
-                <div class="row">
-                    <img src="/assets/images/player_sf.jpg" class="img-responsive text-center player-art"
-                        style="margin-bottom: 20px;">
-                </div>
-
-            </div>
-            <div class="col-md-6">
-
-                <div class="player text-center">
-                    <iframe src="https://open.spotify.com/embed?uri=spotify:album:0PCziCYnitLM17g75Vpvba"
-                        style="min-height: 400px;" width="100%" height="100%" frameborder="0" allowtransparency="true"
-                        class="iframe-spotify" allow="encrypted-media"></iframe>
-                </div>
-            </div>
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> DISC::INDEX</div>
+        <div class="cyber-panel-body cyber-panel-body--disc-index" data-hud="CATALOG.INDEX // ONLINE_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="disc-index" aria-labelledby="disc-index-title">
+        <div class="disc-section-heading">
+            <div><span class="disc-eyebrow">INSANE DRIVER / CATALOG</span><h2 id="disc-index-title">Discography<span class="disc-accent">.</span></h2></div>
+            <span class="disc-counter" data-disc-counter>{% if discography.albums.size < 10 %}0{% endif %}{{ discography.albums.size }} RELEASES // {{ discography.singles.size }} SINGLES</span>
+        </div>
+        <ul class="disc-index-list">
+            {% for album in discography.albums %}
+            <li><a class="disc-index-link" href="#{{ album.slug }}" data-disc-index-link="{{ album.slug }}"><span class="disc-index-year">{{ album.year }}</span><span class="disc-index-title">{{ album.title | escape }}</span></a></li>
+            {% endfor %}
+        </ul>
+    </section>
         </div>
     </div>
-</div>
 
-<div class="container-fluid" id="player-id">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h4 class="text-center insane-font" style="padding-top: 20px;">Insane Driver - 2016</h4>
+    {% for album in discography.albums %}
+    <div class="cyber-separator"></div>
 
-                <div class="row">
-                    <img src="/assets/images/player_ID.jpg" class="img-responsive text-center player-art"
-                        style="margin-bottom: 20px;">
-                </div>
-
-            </div>
-            <div class="col-md-6">
-
-                <div class="player text-center">
-                    <iframe src="https://open.spotify.com/embed?uri=spotify:album:6bOxFlwJsILoy1Xv3ByR0d"
-                        style="min-height: 400px;" width="100%" height="100%" frameborder="0" allowtransparency="true"
-                        class="iframe-spotify" allow="encrypted-media"></iframe>
-                </div>
-
-            </div>
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> REL::{{ album.year }}</div>
+        <div class="cyber-panel-body cyber-panel-body--disc-release" data-hud="RELEASE.{{ album.slug | upcase }} // {{ album.tracks.size }} TRACKS_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <article class="disc-release" id="{{ album.slug }}" data-disc-release="{{ album.slug }}" aria-labelledby="disc-title-{{ album.slug }}">
+        <div class="disc-release-art">
+            <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover"{% unless forloop.first %} loading="lazy"{% endunless %} decoding="async">
+            <span class="disc-art-corner" aria-hidden="true"></span>
         </div>
+        <div class="disc-release-body">
+            <div class="disc-release-heading">
+                <span class="disc-eyebrow">{% if album.type == 'DELUXE' %}DELUXE EDITION{% else %}ALBUM{% endif %} // {{ album.year }}</span>
+                <h3 id="disc-title-{{ album.slug }}">{{ album.title | escape }}</h3>
+                <p class="disc-release-meta">{{ album.tracks.size }} tracks</p>
+            </div>
+
+            <div class="disc-links">
+                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    <span class="cyber-link-sub">{{ p.sub }}</span>
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+
+            <div class="disc-links disc-links--secondary">
+                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary == false %}
+                <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+
+            {% if album.buyCd %}
+            <a class="disc-buy" href="{{ album.buyCd }}" data-disc-buy="{{ album.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>
+            {% endif %}
+
+            {% if album.spotifyId %}
+            <button type="button" class="disc-preview-btn" data-disc-preview-btn="{{ album.slug }}" data-disc-spotify-id="{{ album.spotifyId }}" aria-expanded="false" aria-controls="disc-preview-{{ album.slug }}" hidden>
+                <i class="fa fa-play-circle" aria-hidden="true"></i> PREVIEW
+            </button>
+            {% endif %}
+            <div class="disc-preview" id="disc-preview-{{ album.slug }}" data-disc-preview="{{ album.slug }}"></div>
+
+            <details class="disc-tracklist" data-disc-tracklist="{{ album.slug }}">
+                <summary><span class="disc-eyebrow">TRACKLIST</span> <span class="disc-tracklist-count">// {{ album.tracks.size }} FILES</span></summary>
+                <ol class="disc-tracks">
+                    {% for track in album.tracks %}
+                    <li class="disc-track" data-disc-track>
+                        <span class="disc-track-pos">{% if track.position < 10 %}0{% endif %}{{ track.position }}</span>
+                        <span class="disc-track-title">{{ track.title | escape }}</span>
+                        <span class="disc-track-time" data-disc-duration="{{ track.duration }}">{{ track.duration | divided_by: 60 | floor }}:{% assign secs = track.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</span>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </details>
+        </div>
+    </article>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicAlbum",
+      "name": "{{ album.title | replace: '"', '\"' }}",
+      "datePublished": "{{ album.releaseDate }}",
+      "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
+      "numTracks": {{ album.tracks.size }},
+      "image": "https://insanedriver.com.br/assets/images/releases/{{ album.cover }}",
+      "url": "https://insanedriver.com.br/discography/#{{ album.slug }}",
+      "sameAs": [{% assign sep = '' %}{% for p in platforms %}{% assign url = album.links[p.key] %}{% if url %}{{ sep }}"{{ url }}"{% assign sep = ',' %}{% endif %}{% endfor %}],
+      "track": [{% for track in album.tracks %}{% unless forloop.first %},{% endunless %}
+        { "@type": "MusicRecording", "name": "{{ track.title | replace: '"', '\"' }}", "position": {{ track.position }}, "duration": "PT{{ track.duration | divided_by: 60 | floor }}M{{ track.duration | modulo: 60 }}S" }{% endfor %}
+      ]
+    }
+    </script>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> DISC::SINGLES</div>
+        <div class="cyber-panel-body cyber-panel-body--disc-singles" data-hud="SINGLES.INDEX // {{ discography.singles.size }}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="disc-singles" aria-labelledby="disc-singles-title">
+        <div class="disc-section-heading">
+            <div><span class="disc-eyebrow">SINGLES & EPS</span><h2 id="disc-singles-title">Singles<span class="disc-accent">.</span></h2></div>
+            <span class="disc-counter">{{ discography.singles.size }} RELEASES</span>
+        </div>
+
+        <ul class="disc-single-grid">
+            {% for single in discography.singles limit: 6 %}
+            {% include 'discography/single-card' %}
+            {% endfor %}
+        </ul>
+
+        {% if discography.singles.size > 6 %}
+        <details class="disc-singles-more" data-disc-singles-more>
+            <summary><span class="disc-eyebrow">LOAD MORE</span> <span class="disc-tracklist-count">// {{ discography.singles.size | minus: 6 }} ARCHIVED</span></summary>
+            <ul class="disc-single-grid">
+                {% for single in discography.singles offset: 6 %}
+                {% include 'discography/single-card' %}
+                {% endfor %}
+            </ul>
+        </details>
+        {% endif %}
+    </section>
+        </div>
+    </div>
+
     </div>
 </div>

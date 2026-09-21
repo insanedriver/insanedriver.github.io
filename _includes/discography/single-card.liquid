@@ -1,0 +1,14 @@
+<li class="disc-single" data-disc-single="{{ single.slug }}">
+    <img class="disc-single-art" src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async">
+    <span class="disc-single-meta">
+        <span class="disc-single-title">{{ single.title | escape }}</span>
+        <span class="disc-single-year">{{ single.year }}</span>
+    </span>
+    <span class="disc-single-links">
+        {% for p in platforms %}{% assign url = single.links[p.key] %}{% if url and p.primary %}
+        <a class="disc-single-link cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ single.slug }}" aria-label="{{ single.title | escape }} on {{ p.name }}">
+            <i class="fa {{ p.icon }}" aria-hidden="true"></i>
+        </a>
+        {% endif %}{% endfor %}
+    </span>
+</li>

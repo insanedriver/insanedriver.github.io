@@ -1,0 +1,10 @@
+[
+  { "key": "spotify",  "name": "Spotify",      "sub": "Stream the album",  "icon": "fa-spotify",       "primary": true },
+  { "key": "apple",    "name": "Apple Music",  "sub": "Stream & download", "icon": "fa-apple",         "primary": true },
+  { "key": "ytmusic",  "name": "YT Music",     "sub": "Stream the album",  "icon": "fa-youtube",       "primary": false },
+  { "key": "deezer",   "name": "Deezer",       "sub": "Stream the album",  "icon": "fa-play-circle",   "primary": false },
+  { "key": "tidal",    "name": "Tidal",        "sub": "HiFi quality",      "icon": "fa-headphones",    "primary": false },
+  { "key": "amazon",   "name": "Amazon Music", "sub": "Buy & stream",      "icon": "fa-amazon",        "primary": false },
+  { "key": "pandora",  "name": "Pandora",      "sub": "Stream the album",  "icon": "fa-music",         "primary": false },
+  { "key": "bandcamp", "name": "Bandcamp",     "sub": "Support us direct", "icon": "fa-shopping-cart", "primary": false }
+]
