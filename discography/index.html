@@ -5,10 +5,10 @@ page_title: Discography
 page_description: Every Insane Driver album and single, with direct links to Spotify, Apple Music, Deezer, Tidal, Amazon Music and more.
 page_robots: index, follow
 page_id: discography
-jspath: js/pack
+jspath: js/discography
 header_img_path: header_4.jpg
 ---
-<div class="disc-shell cyber-zone">
+<div class="disc-shell cyber-zone" data-disc>
     <div class="cyber-zone-inner">
 
     <div class="cyber-panel">
@@ -76,6 +76,13 @@ header_img_path: header_4.jpg
             {% if album.buyCd %}
             <a class="disc-buy" href="{{ album.buyCd }}" data-disc-buy="{{ album.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>
             {% endif %}
+
+            {% if album.spotifyId %}
+            <button type="button" class="disc-preview-btn" data-disc-preview-btn="{{ album.slug }}" data-disc-spotify-id="{{ album.spotifyId }}" aria-expanded="false" aria-controls="disc-preview-{{ album.slug }}" hidden>
+                <i class="fa fa-play-circle" aria-hidden="true"></i> PREVIEW
+            </button>
+            {% endif %}
+            <div class="disc-preview" id="disc-preview-{{ album.slug }}" data-disc-preview="{{ album.slug }}"></div>
 
             <details class="disc-tracklist" data-disc-tracklist="{{ album.slug }}">
                 <summary><span class="disc-eyebrow">TRACKLIST</span> <span class="disc-tracklist-count">// {{ album.tracks.size }} FILES</span></summary>

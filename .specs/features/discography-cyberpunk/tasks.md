@@ -392,6 +392,8 @@ T12 → T13
 
 **Commit**: `feat(discography): load the Spotify preview on demand`
 
+**Status**: ✅ Done
+
 ---
 
 ### T11: Push platform clicks to the dataLayer

@@ -226,14 +226,14 @@
 | DISC-18 | P2: See the whole catalog | Execute | Implementing |
 | DISC-19 | P2: See the whole catalog | Execute | Implementing |
 | DISC-20 | P2: See the whole catalog | Execute | Implementing |
-| DISC-21 | P2: Preview before leaving | Design | Pending |
+| DISC-21 | P2: Preview before leaving | Execute | Implementing |
 | DISC-22 | P2: Preview before leaving | Execute | Implementing |
 | DISC-23 | P2: Preview before leaving | Execute | Implementing |
 | DISC-24 | P2: Preview before leaving | Execute | Implementing |
 | DISC-25 | P2: Preview before leaving | Execute | Implementing |
-| DISC-26 | P2: Preview before leaving | Design | Pending |
-| DISC-27 | P2: Preview before leaving | Design | Pending |
-| DISC-28 | P2: Preview before leaving | Design | Pending |
+| DISC-26 | P2: Preview before leaving | Execute | Implementing |
+| DISC-27 | P2: Preview before leaving | Execute | Implementing |
+| DISC-28 | P2: Preview before leaving | Execute | Implementing |
 | DISC-29 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-30 | P2: Tracklist and structured data | Execute | Implementing |
 | DISC-31 | P2: Tracklist and structured data | Execute | Implementing |
@@ -249,7 +249,7 @@
 | DISC-41 | P3: Know what converts | Design | Pending |
 | DISC-42 | P3: Know what converts | Design | Pending |
 | DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Execute | Implementing |
-| DISC-44 | Edge: embed failure leaves links usable | Design | Pending |
+| DISC-44 | Edge: embed failure leaves links usable | Execute | Implementing |
 | DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | Execute | Implementing |
 | DISC-46 | Edge: authoring-time link check nulls non-2xx/3xx URLs | Execute | Implementing |
 
