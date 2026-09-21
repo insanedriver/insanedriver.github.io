@@ -423,6 +423,8 @@ T12 → T13
 
 **Commit**: `feat(discography): track platform clicks in the dataLayer`
 
+**Status**: ✅ Done
+
 ---
 
 ### T12: Extract the shared platform-button system

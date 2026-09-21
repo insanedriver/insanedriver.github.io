@@ -244,10 +244,10 @@
 | DISC-36 | P2: Buy the physical record | Execute | Implementing |
 | DISC-37 | P2: Buy the physical record | Execute | Implementing |
 | DISC-38 | P2: Buy the physical record | Design | Pending |
-| DISC-39 | P3: Know what converts | Design | Pending |
-| DISC-40 | P3: Know what converts | Design | Pending |
-| DISC-41 | P3: Know what converts | Design | Pending |
-| DISC-42 | P3: Know what converts | Design | Pending |
+| DISC-39 | P3: Know what converts | Execute | Implementing |
+| DISC-40 | P3: Know what converts | Execute | Implementing |
+| DISC-41 | P3: Know what converts | Execute | Implementing |
+| DISC-42 | P3: Know what converts | Execute | Implementing |
 | DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Execute | Implementing |
 | DISC-44 | Edge: embed failure leaves links usable | Execute | Implementing |
 | DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | Execute | Implementing |

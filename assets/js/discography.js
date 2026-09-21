@@ -43,6 +43,17 @@
         if (button) { button.setAttribute('aria-expanded', 'true'); }
     }
 
+    // Click tracking: report the choice, never interfere with the navigation.
+    root.addEventListener('click', function (event) {
+        var anchor = event.target.closest ? event.target.closest('[data-disc-link]') : null;
+        if (!anchor) { return; }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(core.clickEvent(
+            anchor.getAttribute('data-disc-link'),
+            anchor.getAttribute('data-disc-slug')
+        ));
+    });
+
     buttons.forEach(function (button) {
         button.hidden = false;
         button.addEventListener('click', function () {
