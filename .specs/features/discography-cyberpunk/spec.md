@@ -227,10 +227,10 @@
 | DISC-19 | P2: See the whole catalog | Execute | Implementing |
 | DISC-20 | P2: See the whole catalog | Execute | Implementing |
 | DISC-21 | P2: Preview before leaving | Design | Pending |
-| DISC-22 | P2: Preview before leaving | Design | Pending |
-| DISC-23 | P2: Preview before leaving | Design | Pending |
-| DISC-24 | P2: Preview before leaving | Design | Pending |
-| DISC-25 | P2: Preview before leaving | Design | Pending |
+| DISC-22 | P2: Preview before leaving | Execute | Implementing |
+| DISC-23 | P2: Preview before leaving | Execute | Implementing |
+| DISC-24 | P2: Preview before leaving | Execute | Implementing |
+| DISC-25 | P2: Preview before leaving | Execute | Implementing |
 | DISC-26 | P2: Preview before leaving | Design | Pending |
 | DISC-27 | P2: Preview before leaving | Design | Pending |
 | DISC-28 | P2: Preview before leaving | Design | Pending |

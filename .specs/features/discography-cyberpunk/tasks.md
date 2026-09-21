@@ -359,6 +359,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add pure preview and tracking helpers`
 
+**Status**: ✅ Done
+
 ---
 
 ### T10: Wire the lazy Spotify preview
