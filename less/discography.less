@@ -205,12 +205,18 @@
 
     // ── Shell ──
 
+    // Full-bleed like the band page, which uses max-width: 100% on its inner
+    // wrapper rather than a fixed content cap.
     .disc-shell {
-        max-width: 1180px;
+        width: 100%;
+        max-width: 100%;
         margin: 0 auto;
         padding: 20px 16px 60px;
         color: #e9edf2;
         font: 18px/1.5 Rajdhani, sans-serif;
+
+        @media (min-width: 768px) { padding: 24px 32px 60px; }
+        @media (min-width: 1600px) { padding: 28px 48px 72px; }
     }
 
     .disc-shell [hidden] { display: none !important; }
@@ -304,6 +310,11 @@
             gap: 32px;
             align-items: start;
         }
+
+        @media (min-width: 1600px) {
+            grid-template-columns: minmax(320px, 440px) 1fr;
+            gap: 48px;
+        }
     }
 
     .disc-release-art {
@@ -360,6 +371,7 @@
         margin-bottom: 12px;
 
         @media (min-width: 560px) { grid-template-columns: 1fr 1fr; }
+        @media (min-width: 1600px) { gap: 16px; }
     }
 
     .disc-links--secondary {
@@ -367,6 +379,7 @@
         margin-bottom: 20px;
 
         @media (min-width: 560px) { grid-template-columns: repeat(3, 1fr); }
+        @media (min-width: 1600px) { grid-template-columns: repeat(6, 1fr); }
     }
 
     .cyber-link-btn--primary {
@@ -508,6 +521,7 @@
 
         @media (min-width: 620px) { grid-template-columns: repeat(3, 1fr); }
         @media (min-width: 960px) { grid-template-columns: repeat(6, 1fr); }
+        @media (min-width: 1600px) { grid-template-columns: repeat(9, 1fr); }
     }
 
     .disc-single {

@@ -104,3 +104,20 @@ test('DISC-10: following an index anchor scrolls the page and leaves the header 
   expect(backAtTop).toMatchObject({ pageY: 0, shellScrollTop: 0, navVisible: true });
   expect(backAtTop.indexTop).toBeGreaterThan(0);
 });
+
+test('DISC-14: the shell fills the viewport on a wide screen, like the band page', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1000 });
+
+  await page.goto('/band/');
+  const bandRatio = await page.locator('.band-shell, .cyber-zone').first()
+    .evaluate(el => el.getBoundingClientRect().width / window.innerWidth);
+
+  await page.goto('/discography/');
+  const discRatio = await page.locator('.disc-shell')
+    .evaluate(el => el.getBoundingClientRect().width / window.innerWidth);
+
+  expect(discRatio).toBeGreaterThan(0.95);
+  expect(Math.abs(discRatio - bandRatio)).toBeLessThan(0.1);
+  const panel = await page.locator('.cyber-panel-body').first().evaluate(el => el.getBoundingClientRect().width);
+  expect(panel).toBeGreaterThan(1600);
+});
