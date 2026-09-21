@@ -329,6 +329,8 @@ T12 → T13
 
 **Commit**: `feat(discography): add singles panel with native disclosure`
 
+**Status**: ✅ Done
+
 ---
 
 ### T9: Add the pure preview/tracking helpers

@@ -33,8 +33,10 @@ test.describe('without JavaScript', () => {
 
   test('DISC-03: the page renders exactly as many platform anchors as the catalog has links', async ({ page }) => {
     await page.goto('/discography/');
-    const expected = albums.reduce((n, a) => n + linked(a).length, 0);
-    await expect(page.locator('[data-disc-link]')).toHaveCount(expected);
+    const albumLinks = albums.reduce((n, a) => n + linked(a).length, 0);
+    const singleLinks = catalog.singles.reduce((n, s) => n + linked(s).filter(p => p.primary).length, 0);
+    await expect(page.locator('[data-disc-release] [data-disc-link]')).toHaveCount(albumLinks);
+    await expect(page.locator('[data-disc-link]')).toHaveCount(albumLinks + singleLinks);
   });
 
   test('DISC-04: Spotify and Apple Music come first and carry the primary modifier', async ({ page }) => {
@@ -81,12 +83,13 @@ test.describe('without JavaScript', () => {
   test('DISC-08: the shell uses the cyber panel vocabulary', async ({ page }) => {
     await page.goto('/discography/');
     await expect(page.locator('.disc-shell.cyber-zone > .cyber-zone-inner')).toHaveCount(1);
-    await expect(page.locator('.cyber-panel')).toHaveCount(albums.length + 1);
+    const panelCount = albums.length + 2; // index panel + one per album + singles panel
+    await expect(page.locator('.cyber-panel')).toHaveCount(panelCount);
     for (const sel of ['.cyber-panel-tab', '.top-accent', '.corner-tl', '.corner-tr', '.corner-bl']) {
-      await expect(page.locator(sel)).toHaveCount(albums.length + 1);
+      await expect(page.locator(sel)).toHaveCount(panelCount);
     }
     const tabs = await page.locator('.cyber-panel-tab').evaluateAll(els => els.map(el => el.textContent.trim()));
-    expect(tabs).toEqual(['DISC::INDEX', 'REL::2021', 'REL::2018', 'REL::2016']);
+    expect(tabs).toEqual(['DISC::INDEX', 'REL::2021', 'REL::2018', 'REL::2016', 'DISC::SINGLES']);
     const huds = await page.locator('.cyber-panel-body').evaluateAll(els => els.map(el => el.dataset.hud));
     expect(huds[1]).toBe('RELEASE.SILICON-FORTRESS // 11 TRACKS_');
   });
