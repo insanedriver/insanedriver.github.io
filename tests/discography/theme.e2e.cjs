@@ -66,3 +66,41 @@ test('DISC-38: BUY CD reads differently from the streaming buttons', async ({ pa
   expect(await buy.evaluate(el => getComputedStyle(el).backgroundColor))
     .not.toBe(await stream.evaluate(el => getComputedStyle(el).backgroundColor));
 });
+
+// Regression: `overflow: hidden` turned the shell into a scroll container, so
+// clicking a DISC::INDEX anchor scrolled the container instead of the page and
+// nothing could scroll it back - the header and the top of the catalog were
+// stranded off-screen for the rest of the visit.
+
+test('DISC-10: the shell is clipped, not scrollable', async ({ page }) => {
+  await page.goto('/discography/');
+  const shell = page.locator('.disc-shell');
+  await expect(shell).toHaveCSS('overflow', 'clip');
+  const scrollable = await shell.evaluate(el => el.scrollHeight > el.clientHeight + 1);
+  const canScroll = await shell.evaluate(el => { el.scrollTop = 500; return el.scrollTop; });
+  expect(scrollable && canScroll > 0).toBe(false);
+});
+
+test('DISC-10: following an index anchor scrolls the page and leaves the header reachable', async ({ page }) => {
+  await page.goto('/discography/');
+  await page.locator('[data-disc-index-link="insane-driver"]').click();
+
+  const afterJump = await page.evaluate(() => ({
+    pageY: Math.round(window.scrollY),
+    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
+    cardTop: Math.round(document.querySelector('#insane-driver').getBoundingClientRect().top),
+  }));
+  expect(afterJump.pageY).toBeGreaterThan(0);
+  expect(afterJump.shellScrollTop).toBe(0);
+  expect(Math.abs(afterJump.cardTop)).toBeLessThan(80);
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  const backAtTop = await page.evaluate(() => ({
+    pageY: Math.round(window.scrollY),
+    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
+    navVisible: document.querySelector('nav.navbar').getBoundingClientRect().bottom > 0,
+    indexTop: Math.round(document.querySelector('.disc-index').getBoundingClientRect().top),
+  }));
+  expect(backAtTop).toMatchObject({ pageY: 0, shellScrollTop: 0, navVisible: true });
+  expect(backAtTop.indexTop).toBeGreaterThan(0);
+});

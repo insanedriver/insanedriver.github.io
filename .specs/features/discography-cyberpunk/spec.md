@@ -90,6 +90,8 @@
 5. The system SHALL leave the rendered band page visually unchanged by that extraction.
 6. The system SHALL contain no `.player`, `.iframe-spotify` or `.player-art` markup on `/discography`, and SHALL leave `less/player.less` in place for the home page.
 7. WHILE the viewport is narrower than 768px the system SHALL stack each release card with the cover above the platform buttons.
+8. The system SHALL let the page shell span the full viewport width, as the band page does, rather than capping it at a fixed content width.
+9. WHEN the visitor follows an index anchor THEN the system SHALL scroll the page, and the shell SHALL NOT become a scroll container that strands content out of view.
 
 **Independent Test**: Side-by-side screenshots of `/videos` and `/discography` share the panel vocabulary; a screenshot of `/band` before and after the CSS extraction is identical.
 
@@ -209,6 +211,8 @@ Recorded after the independent verification of 2026-09-20, which found the spec 
 | # | AC | Change | Reason |
 | --- | --- | --- | --- |
 | A1 | DISC-02 | Split the rule: albums render all eight platforms, singles render Spotify and Apple Music only, and the catalog holds `null` for a single's other platforms | The original wording read as "all platforms for every release", contradicting the Out of Scope decision on per-single grids. Nothing would have caught a divergence; `discography-data.test.cjs` now asserts it |
+| A3 | DISC-47 (new) | The shell spans the full viewport instead of a 1180px cap | Copied from the videos page, whose content is a fixed-ratio player. The band page - the reference for this layout - is full-bleed, and on a wide monitor the cap wasted the space the user asked to use |
+| A4 | DISC-48 (new) | The shell is clipped rather than scroll-hidden, so an index anchor scrolls the page | `overflow: hidden` made the shell a scroll container: following a DISC::INDEX anchor scrolled the container, and with no scrollbar nothing could scroll it back, stranding the header and the top of the catalog for the rest of the visit |
 | A2 | DISC-46 | A URL that cannot be checked at all - not only one answering non-2xx/3xx - ships as `null` | Pandora is geo-blocked from Brazil, so its URLs were never verifiable. The broader rule is what was actually applied, and `design.md` already stated it |
 
 ---
@@ -262,11 +266,13 @@ Recorded after the independent verification of 2026-09-20, which found the spec 
 | DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Execute | Implementing |
 | DISC-44 | Edge: embed failure leaves links usable | Execute | Implementing |
 | DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | Execute | Implementing |
-| DISC-46 | Edge: authoring-time link check nulls non-2xx/3xx URLs | Execute | Implementing |
+| DISC-46 | Edge: authoring-time link check nulls unverifiable URLs | Execute | Implementing |
+| DISC-47 | P1: One system, one look (AC 8, full-bleed width) | Execute | Implementing |
+| DISC-48 | P1: One system, one look (AC 9, anchors scroll the page) | Execute | Implementing |
 
-**ID mapping:** DISC-01..07 = P1 "Listen on your own platform" ACs 1-7; DISC-08..14 = P1 "One system, one look" ACs 1-7; DISC-15..20 = P2 "See the whole catalog" ACs 1-6; DISC-21..28 = P2 "Preview before leaving" ACs 1-8; DISC-29..34 = P2 "Tracklist and structured data" ACs 1-6; DISC-35..38 = P2 "Buy the physical record" ACs 1-4; DISC-39..42 = P3 "Know what converts" ACs 1-4; DISC-43..46 = Edge Cases.
+**ID mapping:** DISC-01..07 = P1 "Listen on your own platform" ACs 1-7; DISC-08..14 = P1 "One system, one look" ACs 1-7; DISC-47..48 = that story's ACs 8-9; DISC-15..20 = P2 "See the whole catalog" ACs 1-6; DISC-21..28 = P2 "Preview before leaving" ACs 1-8; DISC-29..34 = P2 "Tracklist and structured data" ACs 1-6; DISC-35..38 = P2 "Buy the physical record" ACs 1-4; DISC-39..42 = P3 "Know what converts" ACs 1-4; DISC-43..46 = Edge Cases.
 
-**Coverage:** 46 total, 0 mapped to tasks, 46 unmapped (Tasks phase pending).
+**Coverage:** 48 total. DISC-01..46 delivered in T1-T13; DISC-47 and DISC-48 were added after the user reported two defects on a wide monitor, and are closed by the follow-up fixes.
 
 ---
 

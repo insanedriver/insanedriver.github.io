@@ -47,7 +47,14 @@
     .cyber-zone {
         position: relative;
         background-color: transparent;
+        // `hidden` would make this a scroll container, and an in-page anchor
+        // (the DISC::INDEX links) then scrolls the container instead of the
+        // page - with no scrollbar to ever scroll it back. `clip` clips the
+        // noise and scanline layers without creating that scroll container.
+        // The `hidden` line stays first as the fallback for browsers that do
+        // not know `clip`.
         overflow: hidden;
+        overflow: clip;
 
         &::after {
             content: "";
