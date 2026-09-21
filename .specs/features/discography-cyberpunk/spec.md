@@ -34,7 +34,7 @@
 | Link granularity | Deep link to the release on each platform | Landing on the record, not on an artist profile, is what "leva a pessoa fácil" means. | y |
 | Platform not carrying a release | Omit the button (JSON value `null`) | A button that promises the album and delivers a profile is friction. | y |
 | Platform set | Spotify, Apple Music, YouTube Music, Deezer, Tidal, Amazon Music, Pandora, Bandcamp (8) | Plain YouTube duplicates YT Music at album level and already lives on band/videos. | y |
-| Link verification | Each URL is fetched once during implementation and recorded with its HTTP status; only 2xx/3xx links ship | Dead deep links are worse than an omitted button. | y |
+| Link verification | Each URL is fetched once during implementation; only URLs confirmed 2xx/3xx ship. A platform that cannot be checked at all ships as `null` | Dead deep links are worse than an omitted button, and an unverifiable one is not better than a dead one. Pandora is geo-blocked from Brazil, so no Pandora URL could be confirmed and none ships. | y |
 | Spotify embed | Kept but lazy, below the link grid, albums only, one open at a time | The white iframe fights the theme and costs bandwidth; links are the primary CTA. | y |
 | Cover art | 1000px source downloaded into `assets/images/releases/`, served at ~600px | Repo art is ~325px; the shopfront should not depend on a third-party CDN. | y |
 | Tracklist detail | Number, title, duration; collapsed by default | Durations feed `MusicRecording.duration`; collapsing keeps the CTA high on the card. | y |
@@ -64,7 +64,7 @@
 **Acceptance Criteria**:
 
 1. The system SHALL render every release listed in `_data/discography.json` as a card on `/discography`.
-2. The system SHALL render, for each release, one anchor per platform whose URL is present in that release's data, drawn from Spotify, Apple Music, YouTube Music, Deezer, Tidal, Amazon Music, Pandora and Bandcamp.
+2. The system SHALL render, for each album, one anchor per platform whose URL is present in that album's data, drawn from Spotify, Apple Music, YouTube Music, Deezer, Tidal, Amazon Music, Pandora and Bandcamp; for a single it SHALL render only the Spotify and Apple Music anchors, and the catalog SHALL leave a single's other platform links null.
 3. IF a release has no URL for a platform THEN the system SHALL render no button for that platform on that release.
 4. The system SHALL render the Spotify and Apple Music buttons before the other platform buttons in DOM order, with the `cyber-link-btn--primary` modifier.
 5. The system SHALL give every platform anchor `target="_blank"` and `rel="noopener"`.
@@ -198,7 +198,18 @@
 - IF the Spotify embed fails to load or is blocked THEN the platform buttons and cover SHALL remain visible and functional, and the page SHALL show no broken-player state.
 - WHEN a release has fewer than three platform links THEN the link grid SHALL render without empty placeholder cells.
 - WHEN there are 6 or fewer singles in the data THEN the `<details>` overflow container SHALL NOT be rendered.
-- IF a platform URL returns a non-2xx/3xx status during the authoring-time link check THEN that URL SHALL be recorded as `null` rather than shipped.
+- IF a platform URL cannot be confirmed reachable at authoring time - it returns a non-2xx/3xx status, or it cannot be checked at all, for instance because the service is geo-blocked from here - THEN that URL SHALL be recorded as `null` rather than shipped.
+
+---
+
+## Amendments
+
+Recorded after the independent verification of 2026-09-20, which found the spec text imprecise in two places. Both amendments describe behavior that already shipped; neither changes the implementation.
+
+| # | AC | Change | Reason |
+| --- | --- | --- | --- |
+| A1 | DISC-02 | Split the rule: albums render all eight platforms, singles render Spotify and Apple Music only, and the catalog holds `null` for a single's other platforms | The original wording read as "all platforms for every release", contradicting the Out of Scope decision on per-single grids. Nothing would have caught a divergence; `discography-data.test.cjs` now asserts it |
+| A2 | DISC-46 | A URL that cannot be checked at all - not only one answering non-2xx/3xx - ships as `null` | Pandora is geo-blocked from Brazil, so its URLs were never verifiable. The broader rule is what was actually applied, and `design.md` already stated it |
 
 ---
 

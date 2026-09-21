@@ -106,3 +106,12 @@ test('DISC-19: every single links to at least one platform and carries no trackl
     assert.equal(s.spotifyId, null, s.slug);
   }
 });
+
+test('DISC-02: a single carries only the two primary platform links', () => {
+  const secondary = platforms.filter(p => !p.primary).map(p => p.key);
+  for (const s of catalog.singles) {
+    for (const key of secondary) {
+      assert.equal(s.links[key], null, `${s.slug}.${key} must be null: singles render primary platforms only`);
+    }
+  }
+});
