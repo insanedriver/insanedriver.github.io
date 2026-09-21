@@ -92,6 +92,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: tests/discography/tracking.e2e.cjs / T11 (e2e/playwright)
 - last seen: 2026-09-21T02:52:24Z
 
+### L-014 - A container with overflow:hidden becomes a scroll container, so an in-page anchor inside it scrolls the container with no scrollbar to undo it; use overflow:clip when the box only needs to clip decorative layers.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `css/layout` · harmful: 0
+- features: discography-cyberpunk
+- evidence: DISC-48 / less/discography.less (css/layout)
+- last seen: 2026-09-21T03:09:57Z
+
+### L-015 - Copying a page shell from another page copies its width constraints too: check the reference page the user actually named before inheriting a max-width.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `css/layout` · harmful: 0
+- features: discography-cyberpunk
+- evidence: DISC-47 (css/layout)
+- last seen: 2026-09-21T03:09:57Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

@@ -21,11 +21,11 @@
 ## Handoff
 
 - **Feature**: discography-cyberpunk (multi-platform discography, cyberpunk theme)
-- **Phase / Task**: Complete - Verifier PASS, gaps G1/G2 closed, spec amended (A1, A2)
-- **Completed**: T1-T13 plus two follow-ups (gap tests, spec amendments); 16 commits on the branch
+- **Phase / Task**: Complete - Verifier PASS, gaps G1/G2 closed, spec amended (A1-A4), two user-reported defects fixed (DISC-47 width, DISC-48 anchor scroll)
+- **Completed**: T1-T13 plus four follow-ups (gap tests, spec amendments, anchor-scroll fix, full-width layout); 19 commits on the branch
 - **In-progress**: none
 - **Next step**: user review of the branch, then open the PR. Nothing has been pushed
 - **Blockers**: none
 - **Uncommitted files**: none tracked
 - **Branch**: feature/discography-cyberpunk
-- **Open follow-ups, not part of this feature**: band page asks for `fa fa-bandcamp`, a glyph the bundled Font Awesome 4.4 does not have, so that button renders empty (`band/index.html:158`); `.cyber-zone` / `.cyber-panel` remain copy-pasted across page stylesheets; `less/contact.less:328` leaks an unscoped `.cyber-zone-inner` max-width site-wide; the home page still carries the pre-cyberpunk player block; Universal Analytics (`UA-60390716-1`) has not processed data since 2023
+- **Open follow-ups, not part of this feature**: band page asks for `fa fa-bandcamp`, a glyph the bundled Font Awesome 4.4 does not have, so that button renders empty (`band/index.html:158`); `.cyber-zone` / `.cyber-panel` remain copy-pasted across page stylesheets; `less/contact.less:328` leaks an unscoped `.cyber-zone-inner` max-width site-wide; band, photos, videos and newsletter still use `overflow: hidden` on their cyber zone, which would strand the page the day any of them gets an in-page anchor (see DISC-48); the home page still carries the pre-cyberpunk player block; Universal Analytics (`UA-60390716-1`) has not processed data since 2023
