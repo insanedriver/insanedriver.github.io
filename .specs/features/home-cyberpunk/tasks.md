@@ -385,12 +385,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: `/` loads `home-core.js` and `home.js`, not `insane.js` or `videos.js`; no console errors on load
-- [ ] E2E: the mobile navbar toggle still opens the menu (Bootstrap from `js/pack`)
-- [ ] Gate check passes: `npm test`
+- [x] E2E: `/` loads `home-core.js` and `home.js`, not `insane.js` or `videos.js`; no console errors on load
+- [x] E2E: the mobile navbar toggle still opens the menu (Bootstrap from `js/pack`)
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `refactor(home): load the new home scripts`
 
 ---

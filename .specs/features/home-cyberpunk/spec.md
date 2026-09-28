@@ -219,8 +219,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-02 | P1: Land on the flagship - single `h1` with logo | T6 | Implemented |
 | HOME-03 | P1: Land on the flagship - tagline | T6 | Implemented |
 | HOME-04 | P1: Land on the flagship - responsive hero photo | T3, T6 | Implemented |
-| HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6 | Implemented |
-| HOME-06 | P1: Land on the flagship - zero iframes on load | T6 | Implemented |
+| HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6, T11 | Implemented |
+| HOME-06 | P1: Land on the flagship - zero iframes on load | T6, T11 | Implemented |
 | HOME-07 | P1: Land on the flagship - decorative overlays layering | Design | Pending |
 | HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
 | HOME-09 | P1: Play the latest release - selection rule | T1, T2 | Implemented |
