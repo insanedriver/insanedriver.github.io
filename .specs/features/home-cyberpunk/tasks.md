@@ -247,15 +247,16 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: exactly one `h1`, accessible name "Insane Driver", img `alt="Insane Driver"`
-- [ ] E2E: tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero
-- [ ] E2E: `srcset` lists 768w, 1280w, 1920w for WebP and JPG; hero image has no `loading="lazy"`
-- [ ] E2E: card shows Keep Away (Acoustic), `SINGLE`, 2025, Spotify + Apple anchors with `target=_blank`, `rel=noopener`, primary modifier and the catalog hrefs
-- [ ] E2E: no `#player*`, `#player-sf`, `#player_spotify`; zero `iframe` after `load`
-- [ ] Gate check passes: `npm test`
+- [x] E2E: exactly one `h1`, accessible name "Insane Driver", img `alt="Insane Driver"`
+- [x] E2E: tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero
+- [x] E2E: `srcset` lists 768w, 1280w, 1920w for WebP and JPG; hero image has no `loading="lazy"`
+- [x] E2E: card shows Keep Away (Acoustic), `SINGLE`, 2025, Spotify + Apple anchors with `target=_blank`, `rel=noopener`, primary modifier and the catalog hrefs
+- [x] E2E: no `#player*`, `#player-sf`, `#player_spotify`; zero `iframe` after `load`
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): render the hero with the latest release`
 
 ---

@@ -7,52 +7,49 @@ page_robots: index, follow
 page_id: home
 jspath: js/home
 ---
-<!-- Content -->
-<div class="container-fluid">
-    <div class="container">
-        <h2 class="text-center subtitle-font">Videos</h2>
+{% assign release = homeRelease %}
+<section class="home-hero" data-home-hero aria-labelledby="home-title">
+    <picture class="home-hero-photo">
+        <source type="image/webp" sizes="100vw"
+            srcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w">
+        <img src="/assets/images/home/hero-1280.jpg" sizes="100vw"
+            srcset="/assets/images/home/hero-768.jpg 768w, /assets/images/home/hero-1280.jpg 1280w, /assets/images/home/hero-1920.jpg 1920w"
+            width="1920" height="1280" alt="" fetchpriority="high" decoding="async" data-home-hero-img>
+    </picture>
+    <div class="home-hero-vignette" aria-hidden="true"></div>
+    <div class="home-hero-grid" aria-hidden="true"></div>
+    <div class="home-hero-scan" aria-hidden="true"></div>
 
-        <div class="row text-center">
-            <div id="playerKeepAway"></div>
+    <div class="home-hero-content">
+        <div class="home-hero-id">
+            <span class="home-hero-hud" aria-hidden="true">ID::MAIN // SIGNAL ONLINE_</span>
+            <h1 class="home-title" id="home-title">
+                <img src="/assets/images/logo_loading.png" width="300" height="204" alt="Insane Driver">
+                <span class="home-title-glitch" aria-hidden="true"></span>
+            </h1>
+            <p class="home-tagline">BRAZILIAN METAL // SINCE 2013</p>
         </div>
 
-        <div class="row text-center">
-            <div id="playerGhostsLyric"></div>
-        </div>
-
-        <div class="row text-center">
-            <div id="playerDistantLyric"></div>
-        </div>
-
-        <div class="row text-center">
-            <div id="playerDesperateLyric"></div>
-        </div>
-
-        <div class="row text-center">
-            <div id="playerToday"></div>
-        </div>
-    </div>
-
-</div>
-
-<div class="container-fluid" id="player-sf">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-6">
-                <h4 class="text-center silicon-font" style="padding-top: 20px;">Silicon Fortress - 2021</h4>
-
-                <div class="row">
-                    <img src="/assets/images/player_sf.jpg" class="img-responsive text-center player-art" style="margin-bottom: 20px;">
+        {% if release %}
+        <article class="home-release-card" data-home-release="{{ release.slug }}" aria-labelledby="home-release-title">
+            <span class="home-release-flag" aria-hidden="true">NEW RELEASE</span>
+            <img class="home-release-cover" src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" decoding="async">
+            <div class="home-release-body">
+                <span class="home-release-meta">{{ release.typeLabel }} // {{ release.year }}</span>
+                <h2 class="home-release-title" id="home-release-title">{{ release.title | escape }}</h2>
+                <div class="home-release-links">
+                    {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary %}
+                    <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="hero">
+                        <i class="fa {{ p.icon }}"></i>
+                        <span class="cyber-link-name">{{ p.name }}</span>
+                        <span class="cyber-link-sub">Listen now</span>
+                    </a>
+                    {% endif %}{% endfor %}
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div id="player_spotify">
-                    <div class="player_container text-center"></div>
-                </div>
-            </div>
-
-        </div>
+        </article>
+        {% endif %}
     </div>
-</div>
+
+    <a class="home-hero-cue" href="#home-zone" aria-label="Scroll to content"><span aria-hidden="true"></span></a>
+</section>

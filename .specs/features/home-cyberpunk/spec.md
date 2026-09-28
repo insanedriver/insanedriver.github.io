@@ -216,17 +216,17 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | HOME-01 | P1: Land on the flagship - hero layout 100svh | Design | Pending |
-| HOME-02 | P1: Land on the flagship - single `h1` with logo | Design | Pending |
-| HOME-03 | P1: Land on the flagship - tagline | Design | Pending |
-| HOME-04 | P1: Land on the flagship - responsive hero photo | T3 | Implemented |
-| HOME-05 | P1: Land on the flagship - legacy markup removed | T5 | Implemented |
-| HOME-06 | P1: Land on the flagship - zero iframes on load | Design | Pending |
+| HOME-02 | P1: Land on the flagship - single `h1` with logo | T6 | Implemented |
+| HOME-03 | P1: Land on the flagship - tagline | T6 | Implemented |
+| HOME-04 | P1: Land on the flagship - responsive hero photo | T3, T6 | Implemented |
+| HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6 | Implemented |
+| HOME-06 | P1: Land on the flagship - zero iframes on load | T6 | Implemented |
 | HOME-07 | P1: Land on the flagship - decorative overlays layering | Design | Pending |
 | HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
 | HOME-09 | P1: Play the latest release - selection rule | T1, T2 | Implemented |
-| HOME-10 | P1: Play the latest release - hero card content | T2 | Implemented |
-| HOME-11 | P1: Play the latest release - primary platform anchors | Design | Pending |
-| HOME-12 | P1: Play the latest release - missing platform omitted | Design | Pending |
+| HOME-10 | P1: Play the latest release - hero card content | T2, T6 | Implemented |
+| HOME-11 | P1: Play the latest release - primary platform anchors | T6 | Implemented |
+| HOME-12 | P1: Play the latest release - missing platform omitted | T6 | Implemented |
 | HOME-13 | P1: Play the latest release - card above the fold on mobile | Design | Pending |
 | HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2 | Implemented |
 | HOME-15 | P1: Play the latest release - no iframe before PREVIEW | Design | Pending |
