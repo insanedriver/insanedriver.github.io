@@ -493,13 +493,14 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: boot lines use `Share Tech Mono`; loader covers the viewport while `home-loading` is set
-- [ ] E2E: with `home.js` blocked by route, the loader is hidden by 4.5s (failsafe)
-- [ ] E2E with reduced motion: loader animation names are `none`
-- [ ] Gate check passes: `npm test`
+- [x] E2E: boot lines use `Share Tech Mono`; loader covers the viewport while `home-loading` is set
+- [x] E2E: with `home.js` blocked by route, the loader is hidden by 4.5s (failsafe)
+- [x] E2E with reduced motion: loader animation names are `none`
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `style(home): add the cyberpunk boot loader`
 
 ---

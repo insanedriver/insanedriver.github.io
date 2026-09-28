@@ -138,7 +138,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 3. The system SHALL use `Rajdhani` for panel body text and `Share Tech Mono` for HUD text, with the palette `#00f3ff`, `#005f8c`, `#ff00ea`, `#fcee0a`.
 4. The system SHALL define the home's styles in `less/home.less` scoped under `#page_home`, with keyframe names prefixed `home-`.
 5. The system SHALL let the zone span the full viewport width and SHALL NOT make it a scroll container (`overflow` on the zone is neither `hidden`, `auto` nor `scroll` on the y axis).
-6. WHILE `prefers-reduced-motion: reduce` matches the system SHALL disable every `home-` animation on the page.
+6. WHILE `prefers-reduced-motion: reduce` matches the system SHALL disable every `home-` motion animation on the page; the zero-duration loader failsafe (HOME-23 safety net, no movement) stays active.
 7. WHILE the page scroll position is at most 40px the system SHALL render the navbar on `/` with a transparent background overlaying the hero.
 8. WHEN the page scroll position exceeds 40px THEN the system SHALL give the navbar on `/` an opaque background.
 9. The system SHALL leave the navbar on every page other than `/` unchanged.
@@ -234,8 +234,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-17 | P1: Play the latest release - PREVIEW closes | Design | Pending |
 | HOME-18 | P1: Play the latest release - no PREVIEW without id | T1, T7 | Implemented |
 | HOME-19 | P1: Play the latest release - no-JS behavior | T7 | Implemented |
-| HOME-20 | P1: Branded boot loader - overlay content | T5 | Implemented |
-| HOME-21 | P1: Branded boot loader - absent without JS | T5 | Implemented |
+| HOME-20 | P1: Branded boot loader - overlay content | T5, T15 | Implemented |
+| HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1 | Implemented |
 | HOME-23 | P1: Branded boot loader - 3.5s cap | T1 | Implemented |
 | HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1 | Implemented |
@@ -243,7 +243,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-26 | P1: Branded boot loader - skip by click/Esc | T1 | Implemented |
 | HOME-27 | P1: Branded boot loader - released after dismiss | Design | Pending |
 | HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
-| HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
+| HOME-29 | P1: Branded boot loader - reduced motion | T15 | Implemented |
 | HOME-30 | P1: One system, one look - cyber panel shell | T7, T13 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | T9 | Implemented |
 | HOME-32 | P1: One system, one look - fonts and palette | T12, T13, T14 | Implemented |
