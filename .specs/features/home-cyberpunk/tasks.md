@@ -219,14 +219,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: `/` has no `#owl-demo`, `.header-img`, `please-wait` script or `.page-header`; menu and footer present
-- [ ] E2E: `og:title`, `og:description`, `og:type=website`, `og:url`, absolute `og:image` ending `hero-1280.jpg`, `twitter:card=summary_large_image`
-- [ ] E2E with JS: `html` has `home-loading` at first paint and the loader contains the logo, >= 3 boot lines and a progress bar
-- [ ] E2E with JS disabled: `#home-loader` is not visible
-- [ ] Gate check passes: `npm test`
+- [x] E2E: `/` has no `#owl-demo`, `.header-img`, `please-wait` script or `.page-header`; menu and footer present
+- [x] E2E: `og:title`, `og:description`, `og:type=website`, `og:url`, absolute `og:image` ending `hero-1280.jpg`, `twitter:card=summary_large_image`
+- [x] E2E with JS: `html` has `home-loading` at first paint and the loader contains the logo, >= 3 boot lines and a progress bar
+- [x] E2E with JS disabled: `#home-loader` is not visible
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): rebuild the home layout with a cyber loader frame`
 
 ---

@@ -219,10 +219,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-02 | P1: Land on the flagship - single `h1` with logo | Design | Pending |
 | HOME-03 | P1: Land on the flagship - tagline | Design | Pending |
 | HOME-04 | P1: Land on the flagship - responsive hero photo | T3 | Implemented |
-| HOME-05 | P1: Land on the flagship - legacy markup removed | Design | Pending |
+| HOME-05 | P1: Land on the flagship - legacy markup removed | T5 | Implemented |
 | HOME-06 | P1: Land on the flagship - zero iframes on load | Design | Pending |
 | HOME-07 | P1: Land on the flagship - decorative overlays layering | Design | Pending |
-| HOME-08 | P1: Land on the flagship - shared menu and footer | Design | Pending |
+| HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
 | HOME-09 | P1: Play the latest release - selection rule | T1, T2 | Implemented |
 | HOME-10 | P1: Play the latest release - hero card content | T2 | Implemented |
 | HOME-11 | P1: Play the latest release - primary platform anchors | Design | Pending |
@@ -234,8 +234,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-17 | P1: Play the latest release - PREVIEW closes | Design | Pending |
 | HOME-18 | P1: Play the latest release - no PREVIEW without id | T1 | Implemented |
 | HOME-19 | P1: Play the latest release - no-JS behavior | Design | Pending |
-| HOME-20 | P1: Branded boot loader - overlay content | Design | Pending |
-| HOME-21 | P1: Branded boot loader - absent without JS | Design | Pending |
+| HOME-20 | P1: Branded boot loader - overlay content | T5 | Implemented |
+| HOME-21 | P1: Branded boot loader - absent without JS | T5 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1 | Implemented |
 | HOME-23 | P1: Branded boot loader - 3.5s cap | T1 | Implemented |
 | HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1 | Implemented |
@@ -267,7 +267,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-50 | P2: Measure and share - teaser click events | T1 | Implemented |
 | HOME-51 | P2: Measure and share - missing dataLayer | Design | Pending |
 | HOME-52 | P2: Measure and share - MusicGroup JSON-LD | Design | Pending |
-| HOME-53 | P2: Measure and share - Open Graph and Twitter card | Design | Pending |
+| HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 
 **Coverage:** 53 total, 0 mapped to tasks, 53 unmapped (Design pending).
 
