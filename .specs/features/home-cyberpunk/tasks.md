@@ -520,12 +520,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: home navbar background alpha is 0 without `.is-solid` and 1 > alpha >= 0.9 with it (class set by the test)
-- [ ] E2E: `/band/` navbar computed background stays `rgb(0, 0, 0)` and position stays `static`/`relative`
-- [ ] Gate check passes: `npm test`
+- [x] E2E: home navbar background alpha is 0 without `.is-solid` and 1 > alpha >= 0.9 with it (class set by the test)
+- [x] E2E: `/band/` navbar computed background stays `rgb(0, 0, 0)` and position stays `static`/`relative`
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `style(home): float the navbar over the hero`
 
 ---

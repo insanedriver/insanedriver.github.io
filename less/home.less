@@ -75,6 +75,59 @@
         .menu-center { width: auto; }
     }
 
+    // ── Navbar (home only) ──
+
+    // Floats over the hero, transparent at the top; home.js adds `.is-solid`
+    // once the page scrolls. A soft ink scrim keeps the links legible on the
+    // photo without giving the bar a colour.
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 -40px;
+            z-index: -1;
+            background: linear-gradient(to bottom, rgba(3, 8, 14, 0.8), rgba(3, 8, 14, 0));
+            pointer-events: none;
+            transition: opacity .3s ease;
+        }
+
+        &.is-solid {
+            background-color: rgba(3, 8, 14, 0.94);
+            border-bottom-color: rgba(0, 243, 255, 0.35);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+
+            &::before { opacity: 0; }
+        }
+
+        // The open mobile menu always sits on solid ink.
+        .navbar-collapse.in,
+        .navbar-collapse.collapsing {
+            background-color: rgba(3, 8, 14, 0.97);
+        }
+    }
+
+    .navbar-inverse .navbar-nav > .active > a,
+    .navbar-inverse .navbar-nav > .active > a:hover,
+    .navbar-inverse .navbar-nav > .active > a:focus {
+        background-color: transparent;
+        color: #00f3ff;
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+    }
+
+    #home-zone { scroll-margin-top: 60px; }
+
     // ── Hero ──
 
     .home-hero {

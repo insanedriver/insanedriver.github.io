@@ -250,9 +250,9 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | T12 | Implemented |
 | HOME-34 | P1: One system, one look - full width, not a scroll container | T13 | Implemented |
 | HOME-35 | P1: One system, one look - reduced motion page-wide | T12, T13 | Implemented |
-| HOME-36 | P1: One system, one look - transparent navbar at top | T1 | Implemented |
-| HOME-37 | P1: One system, one look - solid navbar after 40px | T1 | Implemented |
-| HOME-38 | P1: One system, one look - other pages' navbar unchanged | Design | Pending |
+| HOME-36 | P1: One system, one look - transparent navbar at top | T1, T16 | Implemented |
+| HOME-37 | P1: One system, one look - solid navbar after 40px | T1, T16 | Implemented |
+| HOME-38 | P1: One system, one look - other pages' navbar unchanged | T16 | Implemented |
 | HOME-39 | P1: One system, one look - no horizontal scroll | T13 | Implemented |
 | HOME-40 | P2: Discover - ID-TV teaser | T8 | Implemented |
 | HOME-41 | P2: Discover - album covers | T8 | Implemented |
