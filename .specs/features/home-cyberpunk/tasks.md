@@ -276,13 +276,14 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: panel carries tab `NOW::STREAMING`, `data-hud`, `top-accent` and three corner spans
-- [ ] E2E: anchors equal the non-null links of the latest release; detail link is `/discography/`
-- [ ] E2E with JS disabled: `PREVIEW` button hidden, all anchors present
-- [ ] Gate check passes: `npm test`
+- [x] E2E: panel carries tab `NOW::STREAMING`, `data-hud`, `top-accent` and three corner spans
+- [x] E2E: anchors equal the non-null links of the latest release; detail link is `/discography/`
+- [x] E2E with JS disabled: `PREVIEW` button hidden, all anchors present
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): add the now streaming panel`
 
 ---

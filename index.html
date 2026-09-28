@@ -53,3 +53,54 @@ jspath: js/home
 
     <a class="home-hero-cue" href="#home-zone" aria-label="Scroll to content"><span aria-hidden="true"></span></a>
 </section>
+
+<div id="content" class="home-content">
+<div class="home-shell cyber-zone" id="home-zone" data-home-zone>
+    <div class="cyber-zone-inner">
+
+    {% if release %}
+    <div class="cyber-panel cyber-panel--home-streaming">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> NOW::STREAMING</div>
+        <div class="cyber-panel-body" data-hud="SIGNAL.{{ release.slug | upcase }} // STREAMING_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-streaming" data-home-streaming aria-labelledby="home-streaming-title">
+        <div class="home-streaming-art">
+            <img src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" loading="lazy" decoding="async">
+            <span class="home-art-corner" aria-hidden="true"></span>
+        </div>
+        <div class="home-streaming-body">
+            <span class="home-eyebrow">LATEST {{ release.typeLabel }} // {{ release.releaseDate | replace: '-', '.' }}</span>
+            <h2 id="home-streaming-title">{{ release.title | escape }}<span class="home-accent">.</span></h2>
+            <p class="home-streaming-lead">Out now on every platform. Pick yours and turn it up.</p>
+
+            <div class="home-links">
+                {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url %}
+                <a class="cyber-link-btn {% if p.primary %}cyber-link-btn--primary{% else %}cyber-link-btn--compact{% endif %} cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="streaming">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    {% if p.primary %}<span class="cyber-link-sub">Listen now</span>{% endif %}
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+
+            <div class="home-streaming-actions">
+                {% if release.embedId %}
+                <button type="button" class="home-preview-btn" data-home-preview-btn="{{ release.embedId }}" aria-expanded="false" aria-controls="home-preview" hidden>
+                    <span class="home-preview-icon" aria-hidden="true"></span> PREVIEW
+                </button>
+                {% endif %}
+                <a class="home-more" href="{{ release.detailUrl }}">Full discography <span aria-hidden="true">&rarr;</span></a>
+            </div>
+            <div class="home-preview" id="home-preview" data-home-preview></div>
+        </div>
+    </section>
+        </div>
+    </div>
+    {% endif %}
+
+    </div>
+</div>
+</div>

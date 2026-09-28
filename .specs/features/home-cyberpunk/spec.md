@@ -228,12 +228,12 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-11 | P1: Play the latest release - primary platform anchors | T6 | Implemented |
 | HOME-12 | P1: Play the latest release - missing platform omitted | T6 | Implemented |
 | HOME-13 | P1: Play the latest release - card above the fold on mobile | Design | Pending |
-| HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2 | Implemented |
+| HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2, T7 | Implemented |
 | HOME-15 | P1: Play the latest release - no iframe before PREVIEW | Design | Pending |
 | HOME-16 | P1: Play the latest release - PREVIEW opens | Design | Pending |
 | HOME-17 | P1: Play the latest release - PREVIEW closes | Design | Pending |
-| HOME-18 | P1: Play the latest release - no PREVIEW without id | T1 | Implemented |
-| HOME-19 | P1: Play the latest release - no-JS behavior | Design | Pending |
+| HOME-18 | P1: Play the latest release - no PREVIEW without id | T1, T7 | Implemented |
+| HOME-19 | P1: Play the latest release - no-JS behavior | T7 | Implemented |
 | HOME-20 | P1: Branded boot loader - overlay content | T5 | Implemented |
 | HOME-21 | P1: Branded boot loader - absent without JS | T5 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1 | Implemented |
@@ -244,7 +244,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-27 | P1: Branded boot loader - released after dismiss | Design | Pending |
 | HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
-| HOME-30 | P1: One system, one look - cyber panel shell | Design | Pending |
+| HOME-30 | P1: One system, one look - cyber panel shell | T7 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | Design | Pending |
 | HOME-32 | P1: One system, one look - fonts and palette | Design | Pending |
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | Design | Pending |
