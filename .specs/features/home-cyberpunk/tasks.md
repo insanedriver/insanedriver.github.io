@@ -168,12 +168,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] Six files exist with widths 768/1280/1920 and 3:2 aspect
-- [ ] Each 1920 file is smaller than the 1920 source JPG
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Six files exist with widths 768/1280/1920 and 3:2 aspect
+- [x] Each 1920 file is smaller than the 1920 source JPG
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build
+**Status**: ✅ Done
 **Commit**: `feat(home): add responsive hero photo derivatives`
 
 ---
