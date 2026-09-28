@@ -303,14 +303,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: video anchor href `/videos/#keep-away`, poster `hqdefault.jpg` of `PTT5D9qFKcg`, `loading="lazy"`
-- [ ] E2E: album anchors in order silicon-fortress, insane-driver-deluxe, insane-driver with covers, titles, years
-- [ ] E2E: 6 thumbnails in `highlights.js` order with their `alt`, lazy; one anchor to `/photos/`
-- [ ] E2E with JS disabled: every teaser anchor present with its href
-- [ ] Gate check passes: `npm test`
+- [x] E2E: video anchor href `/videos/#keep-away`, poster `hqdefault.jpg` of `PTT5D9qFKcg`, `loading="lazy"`
+- [x] E2E: album anchors in order silicon-fortress, insane-driver-deluxe, insane-driver with covers, titles, years
+- [x] E2E: 6 thumbnails in `highlights.js` order with their `alt`, lazy; one anchor to `/photos/`
+- [x] E2E with JS disabled: every teaser anchor present with its href
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): add video, discography and photo teasers`
 
 ---

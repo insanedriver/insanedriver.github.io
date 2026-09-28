@@ -101,6 +101,92 @@ jspath: js/home
     </div>
     {% endif %}
 
+    {% assign video = videos[0] %}
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-video">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> ID-TV::LATEST</div>
+        <div class="cyber-panel-body" data-hud="TRANSMISSION.LATEST // {{ video.type }}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-video" aria-labelledby="home-video-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">TRANSMISSION FEED</span><h2 id="home-video-title">ID-TV<span class="home-accent">.</span></h2></div>
+            <a class="home-more" href="/videos/">All videos <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <a class="home-video-screen" href="/videos/#{{ video.slug }}" data-home-teaser="video" data-home-slug="{{ video.slug }}">
+            <img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy" decoding="async">
+            <span class="home-video-play" aria-hidden="true"></span>
+            <span class="home-video-caption">
+                <span class="home-video-type">{{ video.type }}</span>
+                <span class="home-video-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span>
+            </span>
+            <span class="home-frame-corner" aria-hidden="true"></span>
+        </a>
+    </section>
+        </div>
+    </div>
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-archive">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> DISC::ARCHIVE</div>
+        <div class="cyber-panel-body" data-hud="CATALOG // {% if discography.albums.size < 10 %}0{% endif %}{{ discography.albums.size }} ALBUMS_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-archive" aria-labelledby="home-archive-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">INSANE DRIVER / CATALOG</span><h2 id="home-archive-title">Discography<span class="home-accent">.</span></h2></div>
+            <a class="home-more" href="/discography/">Every release <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <ul class="home-archive-list">
+            {% for album in discography.albums %}
+            <li>
+                <a class="home-archive-item" href="/discography/#{{ album.slug }}" data-home-teaser="album" data-home-slug="{{ album.slug }}">
+                    <span class="home-archive-art">
+                        <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="" loading="lazy" decoding="async">
+                    </span>
+                    <span class="home-archive-year">{{ album.year }}</span>
+                    <span class="home-archive-title">{{ album.title | escape }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+        </div>
+    </div>
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-visual">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> VISUAL::FEED</div>
+        <div class="cyber-panel-body" data-hud="VISUAL.FEED // {% if highlights.size < 10 %}0{% endif %}{{ highlights.size }} FRAMES_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-visual" aria-labelledby="home-visual-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">PROMO // LIVE</span><h2 id="home-visual-title">Photos<span class="home-accent">.</span></h2></div>
+        </div>
+        <a class="home-visual-link" href="/photos/" data-home-teaser="photos">
+            <span class="home-visual-grid">
+                {% for photo in highlights %}
+                <span class="home-visual-frame">
+                    <img src="{{ photo.thumbnail }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
+                </span>
+                {% endfor %}
+            </span>
+            <span class="home-visual-cta">Open the gallery <span aria-hidden="true">&rarr;</span></span>
+        </a>
+    </section>
+        </div>
+    </div>
+
     </div>
 </div>
 </div>

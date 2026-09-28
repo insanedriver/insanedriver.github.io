@@ -254,10 +254,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-37 | P1: One system, one look - solid navbar after 40px | T1 | Implemented |
 | HOME-38 | P1: One system, one look - other pages' navbar unchanged | Design | Pending |
 | HOME-39 | P1: One system, one look - no horizontal scroll | Design | Pending |
-| HOME-40 | P2: Discover - ID-TV teaser | Design | Pending |
-| HOME-41 | P2: Discover - album covers | Design | Pending |
-| HOME-42 | P2: Discover - photo feed | Design | Pending |
-| HOME-43 | P2: Discover - plain anchors | Design | Pending |
+| HOME-40 | P2: Discover - ID-TV teaser | T8 | Implemented |
+| HOME-41 | P2: Discover - album covers | T8 | Implemented |
+| HOME-42 | P2: Discover - photo feed | T8 | Implemented |
+| HOME-43 | P2: Discover - plain anchors | T8 | Implemented |
 | HOME-44 | P2: Newsletter - form action | Design | Pending |
 | HOME-45 | P2: Newsletter - fields | Design | Pending |
 | HOME-46 | P2: Newsletter - shared country include | T4 | Implemented |
