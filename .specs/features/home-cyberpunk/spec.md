@@ -244,16 +244,16 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-27 | P1: Branded boot loader - released after dismiss | Design | Pending |
 | HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
-| HOME-30 | P1: One system, one look - cyber panel shell | T7 | Implemented |
+| HOME-30 | P1: One system, one look - cyber panel shell | T7, T13 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | T9 | Implemented |
-| HOME-32 | P1: One system, one look - fonts and palette | T12 | Implemented |
+| HOME-32 | P1: One system, one look - fonts and palette | T12, T13 | Implemented |
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | T12 | Implemented |
-| HOME-34 | P1: One system, one look - full width, not a scroll container | Design | Pending |
-| HOME-35 | P1: One system, one look - reduced motion page-wide | T12 | Implemented |
+| HOME-34 | P1: One system, one look - full width, not a scroll container | T13 | Implemented |
+| HOME-35 | P1: One system, one look - reduced motion page-wide | T12, T13 | Implemented |
 | HOME-36 | P1: One system, one look - transparent navbar at top | T1 | Implemented |
 | HOME-37 | P1: One system, one look - solid navbar after 40px | T1 | Implemented |
 | HOME-38 | P1: One system, one look - other pages' navbar unchanged | Design | Pending |
-| HOME-39 | P1: One system, one look - no horizontal scroll | Design | Pending |
+| HOME-39 | P1: One system, one look - no horizontal scroll | T13 | Implemented |
 | HOME-40 | P2: Discover - ID-TV teaser | T8 | Implemented |
 | HOME-41 | P2: Discover - album covers | T8 | Implemented |
 | HOME-42 | P2: Discover - photo feed | T8 | Implemented |

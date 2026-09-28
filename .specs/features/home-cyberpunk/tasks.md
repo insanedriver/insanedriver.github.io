@@ -439,14 +439,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: panel body font-family contains `Rajdhani`; `data-hud` / tab text uses `Share Tech Mono`
-- [ ] E2E: zone width equals viewport width; computed `overflow-y` is `clip` or `visible`
-- [ ] E2E: `scrollWidth <= clientWidth` at 375, 768 and 1440
-- [ ] E2E: panel animations disabled under reduced motion
-- [ ] Gate check passes: `npm test`
+- [x] E2E: panel body font-family contains `Rajdhani`; `data-hud` HUD text uses `Share Tech Mono`; palette colors present (cyan border, magenta accent, yellow flag)
+- [x] E2E: zone width equals viewport width; computed `overflow-y` is `clip` or `visible`
+- [x] E2E: `scrollWidth <= clientWidth` at 375, 768 and 1440
+- [x] E2E: panel animations disabled under reduced motion
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `style(home): theme the home panels`
 
 ---

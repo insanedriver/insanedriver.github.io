@@ -117,8 +117,10 @@ jspath: js/home
             <a class="home-more" href="/videos/">All videos <span aria-hidden="true">&rarr;</span></a>
         </div>
         <a class="home-video-screen" href="/videos/#{{ video.slug }}" data-home-teaser="video" data-home-slug="{{ video.slug }}">
-            <img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy" decoding="async">
-            <span class="home-video-play" aria-hidden="true"></span>
+            <span class="home-video-media">
+                <img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy" decoding="async">
+                <span class="home-video-play" aria-hidden="true"></span>
+            </span>
             <span class="home-video-caption">
                 <span class="home-video-type">{{ video.type }}</span>
                 <span class="home-video-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span>
