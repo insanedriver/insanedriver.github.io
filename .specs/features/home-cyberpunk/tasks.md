@@ -411,14 +411,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: hero height equals viewport height at 1440x900 and 375x667
-- [ ] E2E: z-index order photo < vignette < grid < scan < content; overlays `aria-hidden`
-- [ ] E2E at 375x667: release card bounding box fully inside the first viewport
-- [ ] E2E: every hero animation name starts with `home-`; with `reducedMotion: 'reduce'` their computed `animation-name` is `none`
-- [ ] Gate check passes: `npm test`
+- [x] E2E: hero height equals viewport height at 1440x900 and 375x667
+- [x] E2E: z-index order photo < vignette < grid < scan < content; overlays `aria-hidden`
+- [x] E2E at 375x667: release card bounding box fully inside the first viewport
+- [x] E2E: every hero animation name starts with `home-`; with `reducedMotion: 'reduce'` their computed `animation-name` is `none`
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `style(home): add the cyberpunk hero`
 
 ---

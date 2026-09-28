@@ -37,15 +37,15 @@ jspath: js/home
             <div class="home-release-body">
                 <span class="home-release-meta">{{ release.typeLabel }} // {{ release.year }}</span>
                 <h2 class="home-release-title" id="home-release-title">{{ release.title | escape }}</h2>
-                <div class="home-release-links">
-                    {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary %}
-                    <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="hero">
-                        <i class="fa {{ p.icon }}"></i>
-                        <span class="cyber-link-name">{{ p.name }}</span>
-                        <span class="cyber-link-sub">Listen now</span>
-                    </a>
-                    {% endif %}{% endfor %}
-                </div>
+            </div>
+            <div class="home-release-links">
+                {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="hero">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    <span class="cyber-link-sub">Listen now</span>
+                </a>
+                {% endif %}{% endfor %}
             </div>
         </article>
         {% endif %}

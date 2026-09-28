@@ -1,35 +1,404 @@
-#page_home .page-header {
-    background-image: url("../images/logo_horizontal.png");
-    background-size: contain;
-    width:404px;
-    height:64px;
-    text-indent: -9999px;
-    overflow: hidden;
-    border:0;
-    margin-left: auto;
-    margin-right: auto;
-}
+#page_home {
+    /* ═══════════════════════════════════════════════════════════
+       CYBERPUNK HOME
+       Palette: #00f3ff (cyan neon), #005f8c (deep blue),
+                #ff00ea (magenta), #fcee0a (yellow)
+       Keyframes carry the `home-` prefix so they never collide with
+       another page's copy of the cyber system.
+    ═══════════════════════════════════════════════════════════ */
 
-@media (max-width: 992px) {
-    #page_home .page-header {
-        width:350px;
-        height:60px;
-        background-repeat: no-repeat;
+    @home-ink: #03080e;
+    @home-logo: url("../images/logo_loading.png");
+
+    background: @home-ink;
+
+    @keyframes home-drift {
+        0%   { transform: scale(1.02) translate3d(0, 0, 0); }
+        100% { transform: scale(1.08) translate3d(-1%, -1.5%, 0); }
     }
-}
 
-@media (min-width: 768px) {
-    #page_home .nav-logo {
-        display: none;   
+    @keyframes home-grid {
+        0%   { background-position: 0 0, 0 0; }
+        100% { background-position: 0 64px, 0 0; }
     }
-}
 
-#page_home #player_spotify .follow_title iframe{
-    position:relative;
-}
+    @keyframes home-sweep {
+        0%, 70% { transform: translateY(-20vh); opacity: 0; }
+        72%     { opacity: 1; }
+        100%    { transform: translateY(120vh); opacity: 0; }
+    }
 
-@media (min-width: 992px) {
-    #page_home #player_spotify {
-        padding-top: 39px;
+    // Long idle stretches broken by short bursts: a glitch that never stops
+    // reads as noise, not as a signal.
+    @keyframes home-glitch-a {
+        0%, 86%, 100% { transform: translate(0, 0); clip-path: inset(0 0 100% 0); }
+        87% { transform: translate(-6px, 0); clip-path: inset(12% 0 62% 0); }
+        89% { transform: translate(5px, 0);  clip-path: inset(48% 0 30% 0); }
+        91% { transform: translate(-3px, 0); clip-path: inset(70% 0 8% 0); }
+        93% { transform: translate(4px, 0);  clip-path: inset(30% 0 52% 0); }
+        95% { transform: translate(0, 0);    clip-path: inset(0 0 100% 0); }
+    }
+
+    @keyframes home-glitch-b {
+        0%, 88%, 100% { transform: translate(0, 0); clip-path: inset(100% 0 0 0); }
+        89% { transform: translate(6px, 0);  clip-path: inset(60% 0 18% 0); }
+        91% { transform: translate(-5px, 0); clip-path: inset(22% 0 58% 0); }
+        93% { transform: translate(3px, 0);  clip-path: inset(80% 0 4% 0); }
+        96% { transform: translate(0, 0);    clip-path: inset(100% 0 0 0); }
+    }
+
+    @keyframes home-cue {
+        0%   { transform: translate(-50%, 0); opacity: 1; }
+        70%  { transform: translate(-50%, 12px); opacity: 0; }
+        100% { transform: translate(-50%, 0); opacity: 0; }
+    }
+
+    @keyframes home-flag-pulse {
+        0%, 100% { box-shadow: 0 0 0 rgba(252, 238, 10, 0); }
+        50%      { box-shadow: 0 0 14px rgba(252, 238, 10, 0.55); }
+    }
+
+    // ── Legacy frame rules still in use ──
+
+    // The hero h1 already shows the logo; the navbar copy would be a duplicate.
+    @media (min-width: 768px) {
+        .nav-logo { display: none; }
+    }
+
+    // ── Hero ──
+
+    .home-hero {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        min-height: 0;
+        background: @home-ink;
+        color: #e9edf2;
+        overflow: hidden;
+        overflow: clip;
+        isolation: isolate;
+    }
+
+    .home-hero-photo {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 28%;
+            filter: saturate(0.8) contrast(1.12) brightness(0.72);
+            transform-origin: 50% 40%;
+            animation: home-drift 22s ease-in-out infinite alternate;
+        }
+
+        // Duotone wash: cyan light from the left, magenta from the right.
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(100deg, rgba(0, 243, 255, 0.22) 0%, transparent 38%),
+                linear-gradient(260deg, rgba(255, 0, 234, 0.2) 0%, transparent 40%);
+            mix-blend-mode: screen;
+        }
+    }
+
+    .home-hero-vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+            radial-gradient(ellipse 80% 70% at 50% 35%, transparent 35%, rgba(3, 8, 14, 0.8) 100%),
+            linear-gradient(to bottom, rgba(3, 8, 14, 0.75) 0, transparent 18%, transparent 50%, rgba(3, 8, 14, 0.92) 88%, @home-ink 100%);
+    }
+
+    // Neon floor grid in perspective, sliding towards the viewer.
+    .home-hero-grid {
+        position: absolute;
+        left: -25%;
+        right: -25%;
+        bottom: 0;
+        height: 42%;
+        z-index: 2;
+        pointer-events: none;
+        background-image:
+            linear-gradient(rgba(0, 243, 255, 0.55) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.55) 1px, transparent 1px);
+        background-size: 64px 64px, 64px 64px;
+        transform: perspective(420px) rotateX(62deg);
+        transform-origin: 50% 100%;
+        opacity: 0.28;
+        -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+        mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+        animation: home-grid 2.4s linear infinite;
+    }
+
+    .home-hero-scan {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.22) 2px, rgba(0, 0, 0, 0.22) 4px);
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 18vh;
+            background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.07), transparent);
+            animation: home-sweep 9s linear infinite;
+        }
+    }
+
+    .home-hero-content {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 96px 16px 64px;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        align-items: end;
+        gap: 22px;
+        text-align: center;
+
+        @media (min-width: 768px) {
+            padding: 120px 40px 96px;
+            gap: 36px;
+        }
+
+        @media (min-width: 992px) {
+            grid-template-columns: minmax(0, 1fr) auto;
+            justify-items: start;
+            text-align: left;
+            gap: 48px;
+        }
+
+        @media (min-width: 1600px) {
+            max-width: 1680px;
+            padding: 140px 64px 110px;
+        }
+    }
+
+    .home-hero-id {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (min-width: 992px) { align-items: flex-start; }
+    }
+
+    .home-hero-hud {
+        margin-bottom: 14px;
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-shadow: 0 0 8px rgba(0, 243, 255, 0.7);
+
+        @media (min-width: 768px) { font-size: 13px; }
+    }
+
+    .home-title {
+        position: relative;
+        margin: 0;
+        line-height: 0;
+
+        img {
+            display: block;
+            width: min(74vw, 300px);
+            height: auto;
+            filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 14px rgba(0, 243, 255, 0.55)) drop-shadow(0 0 32px rgba(255, 0, 234, 0.25));
+
+            @media (min-width: 768px) { width: clamp(300px, 34vw, 500px); }
+        }
+    }
+
+    // Two tinted copies of the logo (the PNG used as a mask) that tear
+    // sideways in short bursts: cyan one way, magenta the other.
+    .home-title-glitch {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            -webkit-mask: @home-logo center / contain no-repeat;
+            mask: @home-logo center / contain no-repeat;
+            mix-blend-mode: screen;
+        }
+
+        &::before {
+            background: #00f3ff;
+            animation: home-glitch-a 4.2s steps(1, end) infinite;
+        }
+
+        &::after {
+            background: #ff00ea;
+            animation: home-glitch-b 4.2s steps(1, end) infinite;
+        }
+    }
+
+    .home-tagline {
+        margin: 18px 0 0;
+        color: #e9edf2;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.32em;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+
+        @media (min-width: 768px) { font-size: 20px; margin-top: 24px; }
+    }
+
+    // ── Latest release card ──
+
+    .home-release-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 76px minmax(0, 1fr);
+        gap: 14px;
+        width: min(100%, 340px);
+        padding: 16px;
+        background: rgba(5, 11, 18, 0.78);
+        border: 1px solid rgba(0, 243, 255, 0.65);
+        box-shadow: 0 0 24px rgba(0, 243, 255, 0.18), inset 0 0 18px rgba(0, 243, 255, 0.06);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+        text-align: left;
+        font-family: 'Rajdhani', sans-serif;
+
+        @media (min-width: 768px) {
+            grid-template-columns: 112px minmax(0, 1fr);
+            gap: 18px;
+            width: 440px;
+            padding: 20px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 56px;
+            height: 3px;
+            background: #00f3ff;
+            box-shadow: 0 0 10px #00f3ff;
+        }
+    }
+
+    .home-release-flag {
+        position: absolute;
+        top: 0;
+        right: 26px;
+        padding: 2px 8px;
+        background: #fcee0a;
+        color: #050505;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        animation: home-flag-pulse 2.4s ease-in-out infinite;
+    }
+
+    .home-release-cover {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border: 1px solid rgba(0, 243, 255, 0.5);
+    }
+
+    .home-release-body {
+        min-width: 0;
+        align-self: end;
+    }
+
+    .home-release-meta {
+        display: block;
+        margin-top: 8px;
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .home-release-title {
+        margin: 2px 0 0;
+        color: #fff;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.15;
+
+        @media (min-width: 768px) { font-size: 24px; }
+    }
+
+    .home-release-links {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    // ── Scroll cue ──
+
+    .home-hero-cue {
+        position: absolute;
+        left: 50%;
+        bottom: 14px;
+        z-index: 4;
+        width: 22px;
+        height: 34px;
+        border: 2px solid rgba(0, 243, 255, 0.7);
+        border-radius: 12px;
+        transform: translateX(-50%);
+        display: none;
+
+        @media (min-width: 768px) and (min-height: 700px) { display: block; }
+
+        span {
+            position: absolute;
+            left: 50%;
+            top: 6px;
+            width: 3px;
+            height: 7px;
+            background: #00f3ff;
+            border-radius: 2px;
+            animation: home-cue 1.8s ease-in-out infinite;
+        }
+
+        &:focus-visible { outline: 3px solid #fcee0a; outline-offset: 4px; }
+    }
+
+    .home-hero a:focus-visible { outline: 3px solid #fcee0a; outline-offset: 4px; }
+
+    // ── Reduced motion ──
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation: none !important;
+        }
+
+        .home-title-glitch { display: none; }
     }
 }

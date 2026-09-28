@@ -215,19 +215,19 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| HOME-01 | P1: Land on the flagship - hero layout 100svh | Design | Pending |
+| HOME-01 | P1: Land on the flagship - hero layout 100svh | T12 | Implemented |
 | HOME-02 | P1: Land on the flagship - single `h1` with logo | T6 | Implemented |
 | HOME-03 | P1: Land on the flagship - tagline | T6 | Implemented |
 | HOME-04 | P1: Land on the flagship - responsive hero photo | T3, T6 | Implemented |
 | HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6, T11 | Implemented |
 | HOME-06 | P1: Land on the flagship - zero iframes on load | T6, T11 | Implemented |
-| HOME-07 | P1: Land on the flagship - decorative overlays layering | Design | Pending |
+| HOME-07 | P1: Land on the flagship - decorative overlays layering | T12 | Implemented |
 | HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
 | HOME-09 | P1: Play the latest release - selection rule | T1, T2 | Implemented |
 | HOME-10 | P1: Play the latest release - hero card content | T2, T6 | Implemented |
 | HOME-11 | P1: Play the latest release - primary platform anchors | T6 | Implemented |
 | HOME-12 | P1: Play the latest release - missing platform omitted | T6 | Implemented |
-| HOME-13 | P1: Play the latest release - card above the fold on mobile | Design | Pending |
+| HOME-13 | P1: Play the latest release - card above the fold on mobile | T12 | Implemented |
 | HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2, T7 | Implemented |
 | HOME-15 | P1: Play the latest release - no iframe before PREVIEW | Design | Pending |
 | HOME-16 | P1: Play the latest release - PREVIEW opens | Design | Pending |
@@ -246,10 +246,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
 | HOME-30 | P1: One system, one look - cyber panel shell | T7 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | T9 | Implemented |
-| HOME-32 | P1: One system, one look - fonts and palette | Design | Pending |
-| HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | Design | Pending |
+| HOME-32 | P1: One system, one look - fonts and palette | T12 | Implemented |
+| HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | T12 | Implemented |
 | HOME-34 | P1: One system, one look - full width, not a scroll container | Design | Pending |
-| HOME-35 | P1: One system, one look - reduced motion page-wide | Design | Pending |
+| HOME-35 | P1: One system, one look - reduced motion page-wide | T12 | Implemented |
 | HOME-36 | P1: One system, one look - transparent navbar at top | T1 | Implemented |
 | HOME-37 | P1: One system, one look - solid navbar after 40px | T1 | Implemented |
 | HOME-38 | P1: One system, one look - other pages' navbar unchanged | Design | Pending |
