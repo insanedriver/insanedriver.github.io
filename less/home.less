@@ -58,6 +58,10 @@
         50%      { box-shadow: 0 0 14px rgba(252, 238, 10, 0.55); }
     }
 
+    // Platform buttons come from the shared system in less/cyber-links.less,
+    // the same source band and discography use.
+    .cyber-links-system();
+
     // ── Legacy frame rules still in use ──
 
     // The hero h1 already shows the logo; the navbar copy would be a duplicate.
@@ -362,6 +366,47 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
+    }
+
+    // Hero buttons are compact rows: icon, name, and a small "listen" line.
+    .home-release-links .cyber-link-btn {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        align-items: center;
+        column-gap: 10px;
+        row-gap: 0;
+        min-height: 56px;
+        padding: 8px 12px;
+        text-align: left;
+        border-color: rgba(0, 243, 255, 0.45);
+        background-color: rgba(3, 8, 14, 0.75);
+
+        i {
+            grid-row: 1 / span 2;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .cyber-link-name {
+            font-size: 15px;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .cyber-link-sub {
+            font-size: 10px;
+            line-height: 1.2;
+            color: rgba(0, 243, 255, 0.75);
+        }
+
+        @media (min-width: 768px) {
+            min-height: 62px;
+
+            i { font-size: 28px; }
+            .cyber-link-name { font-size: 17px; }
+        }
     }
 
     // ── Scroll cue ──

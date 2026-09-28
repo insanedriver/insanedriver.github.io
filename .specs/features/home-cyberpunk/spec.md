@@ -225,7 +225,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
 | HOME-09 | P1: Play the latest release - selection rule | T1, T2 | Implemented |
 | HOME-10 | P1: Play the latest release - hero card content | T2, T6 | Implemented |
-| HOME-11 | P1: Play the latest release - primary platform anchors | T6 | Implemented |
+| HOME-11 | P1: Play the latest release - primary platform anchors | T6, T14 | Implemented |
 | HOME-12 | P1: Play the latest release - missing platform omitted | T6 | Implemented |
 | HOME-13 | P1: Play the latest release - card above the fold on mobile | T12 | Implemented |
 | HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2, T7 | Implemented |
@@ -246,7 +246,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
 | HOME-30 | P1: One system, one look - cyber panel shell | T7, T13 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | T9 | Implemented |
-| HOME-32 | P1: One system, one look - fonts and palette | T12, T13 | Implemented |
+| HOME-32 | P1: One system, one look - fonts and palette | T12, T13, T14 | Implemented |
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | T12 | Implemented |
 | HOME-34 | P1: One system, one look - full width, not a scroll container | T13 | Implemented |
 | HOME-35 | P1: One system, one look - reduced motion page-wide | T12, T13 | Implemented |

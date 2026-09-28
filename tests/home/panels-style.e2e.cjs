@@ -59,3 +59,18 @@ test.describe('reduced motion', () => {
     }
   });
 });
+
+test('HOME-11/32: home platform buttons come from the shared cyber-link system', async ({ page }) => {
+  const read = async sel => page.locator(sel).first().evaluate(el => {
+    const cs = getComputedStyle(el);
+    return { clip: cs.clipPath, font: cs.fontFamily, transition: cs.transitionDuration, name: getComputedStyle(el.querySelector('.cyber-link-name')).fontFamily };
+  });
+  await page.goto('/discography/', { waitUntil: 'load' });
+  const disc = await read('[data-disc-link="spotify"].cyber-link-btn--primary');
+  await page.goto('/', { waitUntil: 'load' });
+  for (const sel of ['[data-home-placement="hero"][data-home-link="spotify"]', '[data-home-placement="streaming"][data-home-link="spotify"]']) {
+    const home = await read(sel);
+    expect(home.clip).not.toBe('none');
+    expect(home).toEqual(disc);
+  }
+});

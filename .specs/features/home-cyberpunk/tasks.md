@@ -467,12 +467,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: home Spotify primary button computed styles match the discography Spotify primary button (border color, font-family)
-- [ ] Existing `tests/band/cyber-links.e2e.cjs` and discography theme tests still pass
-- [ ] Gate check passes: `npm test`
+- [x] E2E: home Spotify primary button computed styles match the discography Spotify primary button (border color, font-family)
+- [x] Existing `tests/band/cyber-links.e2e.cjs` and discography theme tests still pass
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `style(home): reuse the cyber link buttons`
 
 ---
