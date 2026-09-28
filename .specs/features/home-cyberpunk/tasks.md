@@ -194,11 +194,12 @@ T19 → T20
 
 **Done when**:
 
-- [ ] Before the move, the option values of `/newsletter/` are captured; after, the e2e asserts the same count, first and last values and an order checksum
-- [ ] Gate check passes: `npm test`
+- [x] Before the move, the option values of `/newsletter/` are captured; after, the e2e asserts the same count, first and last values and an order checksum
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `refactor(newsletter): extract the country list into an include`
 
 ---

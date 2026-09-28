@@ -260,7 +260,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-43 | P2: Discover - plain anchors | Design | Pending |
 | HOME-44 | P2: Newsletter - form action | Design | Pending |
 | HOME-45 | P2: Newsletter - fields | Design | Pending |
-| HOME-46 | P2: Newsletter - shared country include | Design | Pending |
+| HOME-46 | P2: Newsletter - shared country include | T4 | Implemented |
 | HOME-47 | P2: Newsletter - submit event | T1 | Implemented |
 | HOME-48 | P2: Newsletter - native validation | Design | Pending |
 | HOME-49 | P2: Measure and share - release click event | T1 | Implemented |
