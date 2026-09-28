@@ -223,7 +223,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-06 | P1: Land on the flagship - zero iframes on load | Design | Pending |
 | HOME-07 | P1: Land on the flagship - decorative overlays layering | Design | Pending |
 | HOME-08 | P1: Land on the flagship - shared menu and footer | Design | Pending |
-| HOME-09 | P1: Play the latest release - selection rule | Design | Pending |
+| HOME-09 | P1: Play the latest release - selection rule | T1 | Implemented |
 | HOME-10 | P1: Play the latest release - hero card content | Design | Pending |
 | HOME-11 | P1: Play the latest release - primary platform anchors | Design | Pending |
 | HOME-12 | P1: Play the latest release - missing platform omitted | Design | Pending |
@@ -232,15 +232,15 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-15 | P1: Play the latest release - no iframe before PREVIEW | Design | Pending |
 | HOME-16 | P1: Play the latest release - PREVIEW opens | Design | Pending |
 | HOME-17 | P1: Play the latest release - PREVIEW closes | Design | Pending |
-| HOME-18 | P1: Play the latest release - no PREVIEW without id | Design | Pending |
+| HOME-18 | P1: Play the latest release - no PREVIEW without id | T1 | Implemented |
 | HOME-19 | P1: Play the latest release - no-JS behavior | Design | Pending |
 | HOME-20 | P1: Branded boot loader - overlay content | Design | Pending |
 | HOME-21 | P1: Branded boot loader - absent without JS | Design | Pending |
-| HOME-22 | P1: Branded boot loader - first-view dismissal timing | Design | Pending |
-| HOME-23 | P1: Branded boot loader - 3.5s cap | Design | Pending |
-| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | Design | Pending |
-| HOME-25 | P1: Branded boot loader - storage failure | Design | Pending |
-| HOME-26 | P1: Branded boot loader - skip by click/Esc | Design | Pending |
+| HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1 | Implemented |
+| HOME-23 | P1: Branded boot loader - 3.5s cap | T1 | Implemented |
+| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1 | Implemented |
+| HOME-25 | P1: Branded boot loader - storage failure | T1 | Implemented |
+| HOME-26 | P1: Branded boot loader - skip by click/Esc | T1 | Implemented |
 | HOME-27 | P1: Branded boot loader - released after dismiss | Design | Pending |
 | HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
@@ -250,8 +250,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | Design | Pending |
 | HOME-34 | P1: One system, one look - full width, not a scroll container | Design | Pending |
 | HOME-35 | P1: One system, one look - reduced motion page-wide | Design | Pending |
-| HOME-36 | P1: One system, one look - transparent navbar at top | Design | Pending |
-| HOME-37 | P1: One system, one look - solid navbar after 40px | Design | Pending |
+| HOME-36 | P1: One system, one look - transparent navbar at top | T1 | Implemented |
+| HOME-37 | P1: One system, one look - solid navbar after 40px | T1 | Implemented |
 | HOME-38 | P1: One system, one look - other pages' navbar unchanged | Design | Pending |
 | HOME-39 | P1: One system, one look - no horizontal scroll | Design | Pending |
 | HOME-40 | P2: Discover - ID-TV teaser | Design | Pending |
@@ -261,10 +261,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-44 | P2: Newsletter - form action | Design | Pending |
 | HOME-45 | P2: Newsletter - fields | Design | Pending |
 | HOME-46 | P2: Newsletter - shared country include | Design | Pending |
-| HOME-47 | P2: Newsletter - submit event | Design | Pending |
+| HOME-47 | P2: Newsletter - submit event | T1 | Implemented |
 | HOME-48 | P2: Newsletter - native validation | Design | Pending |
-| HOME-49 | P2: Measure and share - release click event | Design | Pending |
-| HOME-50 | P2: Measure and share - teaser click events | Design | Pending |
+| HOME-49 | P2: Measure and share - release click event | T1 | Implemented |
+| HOME-50 | P2: Measure and share - teaser click events | T1 | Implemented |
 | HOME-51 | P2: Measure and share - missing dataLayer | Design | Pending |
 | HOME-52 | P2: Measure and share - MusicGroup JSON-LD | Design | Pending |
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | Design | Pending |

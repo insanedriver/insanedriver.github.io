@@ -112,16 +112,17 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `latestRelease` returns Keep Away (Acoustic) for the real catalog, the album on a same-day tie, the newest album when `singles` is empty, `null` for an empty catalog
-- [ ] `spotifyAlbumId` prefers `spotifyId`, parses `open.spotify.com/album/<id>` (with and without query string), returns `null` for missing or non-album URLs
-- [ ] `loaderDismissAt`: repeat -> start+400; first with early ready -> start+1200; ready at 2s -> start+2000; ready at 5s or never -> start+3500
-- [ ] `isRepeatVisit` returns `false` for `null` storage and for a storage whose `getItem` throws; `markVisited` never throws
-- [ ] `navIsSolid(40)` is `false`, `navIsSolid(41)` is `true`
-- [ ] Each event builder returns exactly the spec shape (asserted with `deepStrictEqual`)
-- [ ] Gate check passes: `npm run test:unit`
+- [x] `latestRelease` returns Keep Away (Acoustic) for the real catalog, the album on a same-day tie, the newest album when `singles` is empty, `null` for an empty catalog
+- [x] `spotifyAlbumId` prefers `spotifyId`, parses `open.spotify.com/album/<id>` (with and without query string), returns `null` for missing or non-album URLs
+- [x] `loaderDismissAt`: repeat -> start+400; first with early ready -> start+1200; ready at 2s -> start+2000; ready at 5s or never -> start+3500
+- [x] `isRepeatVisit` returns `false` for `null` storage and for a storage whose `getItem` throws; `markVisited` never throws
+- [x] `navIsSolid(40)` is `false`, `navIsSolid(41)` is `true`
+- [x] Each event builder returns exactly the spec shape (asserted with `deepStrictEqual`)
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
+**Status**: ✅ Done
 **Commit**: `feat(home): add pure home helpers`
 
 ---
