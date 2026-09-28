@@ -142,12 +142,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] Returns `slug: 'keep-away-acoustic'`, `typeLabel: 'SINGLE'`, `embedId: '14HkhB5FwTGesQECbSBSML'`, `detailUrl: '/discography/'` for today's catalog
-- [ ] An album result gets `detailUrl: '/discography/#<slug>'` (tested through an injected catalog)
-- [ ] Gate check passes: `npm run test:unit`
+- [x] Returns `slug: 'keep-away-acoustic'`, `typeLabel: 'SINGLE'`, `embedId: '14HkhB5FwTGesQECbSBSML'`, `detailUrl: '/discography/'` for today's catalog
+- [x] An album result gets `detailUrl: '/discography/#<slug>'` (tested through an injected catalog)
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
+**Status**: ✅ Done
 **Commit**: `feat(home): expose the latest release to templates`
 
 ---
