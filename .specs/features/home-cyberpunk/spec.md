@@ -266,7 +266,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-49 | P2: Measure and share - release click event | T1 | Implemented |
 | HOME-50 | P2: Measure and share - teaser click events | T1 | Implemented |
 | HOME-51 | P2: Measure and share - missing dataLayer | Design | Pending |
-| HOME-52 | P2: Measure and share - MusicGroup JSON-LD | Design | Pending |
+| HOME-52 | P2: Measure and share - MusicGroup JSON-LD | T10 | Implemented |
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 
 **Coverage:** 53 total, 0 mapped to tasks, 53 unmapped (Design pending).

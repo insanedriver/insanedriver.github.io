@@ -360,11 +360,12 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: exactly one JSON-LD script parses; `@type` `MusicGroup`, `foundingDate` `2013`, `sameAs` equals the five footer URLs
-- [ ] Gate check passes: `npm test`
+- [x] E2E: exactly one JSON-LD script parses; `@type` `MusicGroup`, `foundingDate` `2013`, `sameAs` equals the five footer URLs
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): emit MusicGroup structured data`
 
 ---
