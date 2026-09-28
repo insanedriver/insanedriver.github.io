@@ -187,6 +187,47 @@ jspath: js/home
         </div>
     </div>
 
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-signal">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> SIGNAL::NEWSLETTER</div>
+        <div class="cyber-panel-body" data-hud="FORM.READY // AWAITING_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-signal" aria-labelledby="home-signal-title">
+        <div class="home-signal-copy">
+            <span class="home-eyebrow">INSANE FAMILY // UPLINK</span>
+            <h2 id="home-signal-title">Join the network<span class="home-accent">.</span></h2>
+            <p>New music, videos and shows straight to your inbox. No spam, just signal.</p>
+        </div>
+        <form class="home-signal-form" data-home-newsletter
+            action="https://insanedriver.us11.list-manage.com/subscribe/post?u=31b9d99c4318b90997348c1ed&amp;id=79f822eba5"
+            method="post" target="_blank">
+            <div class="home-field">
+                <label for="home-EMAIL">E-mail</label>
+                <input type="email" name="EMAIL" id="home-EMAIL" autocomplete="email" placeholder="you@domain.com" required>
+            </div>
+            <div class="home-field">
+                <label for="home-COUNTRY">Country</label>
+                <select name="COUNTRY" id="home-COUNTRY" autocomplete="country-name" required>
+                    {% include 'newsletter/countries' %}
+                </select>
+            </div>
+            <!-- real people should not fill this in and expect good things; do not remove this or risk bot signups -->
+            <div class="mailchimp-bot-field" aria-hidden="true">
+                <input type="text" name="b_31b9d99c4318b90997348c1ed_79f822eba5" tabindex="-1" value="">
+            </div>
+            <button type="submit" name="subscribe" value="Subscribe" class="home-signal-submit">
+                <span>Connect</span>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </form>
+    </section>
+        </div>
+    </div>
+
     </div>
 </div>
 </div>

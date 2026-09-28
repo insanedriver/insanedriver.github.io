@@ -322,7 +322,7 @@ T19 → T20
 **Where**: `index.html`
 **Depends on**: T4, T7
 **Reuses**: `newsletter/index.html` form markup, `_includes/newsletter/countries.liquid`
-**Requirement**: HOME-44, HOME-45, HOME-46, HOME-48
+**Requirement**: HOME-31, HOME-44, HOME-45, HOME-46, HOME-48
 
 **Tools**:
 
@@ -331,15 +331,16 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: `action` equals the `/newsletter/` form `action`
-- [ ] E2E: `COUNTRY` option values identical to `/newsletter/`
-- [ ] E2E: every control has a label or accessible name; honeypot present
-- [ ] E2E: submitting with an empty or invalid email leaves `checkValidity()` false and opens no popup
-- [ ] E2E: panel order is NOW::STREAMING, ID-TV::LATEST, DISC::ARCHIVE, VISUAL::FEED, SIGNAL::NEWSLETTER
-- [ ] Gate check passes: `npm test`
+- [x] E2E: `action` equals the `/newsletter/` form `action`
+- [x] E2E: `COUNTRY` option values identical to `/newsletter/`
+- [x] E2E: every control has a label or accessible name; honeypot present
+- [x] E2E: submitting with an empty or invalid email leaves `checkValidity()` false and opens no popup
+- [x] E2E: panel order is NOW::STREAMING, ID-TV::LATEST, DISC::ARCHIVE, VISUAL::FEED, SIGNAL::NEWSLETTER
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): add the inline newsletter signup`
 
 ---

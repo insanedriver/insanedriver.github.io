@@ -245,7 +245,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
 | HOME-29 | P1: Branded boot loader - reduced motion | Design | Pending |
 | HOME-30 | P1: One system, one look - cyber panel shell | T7 | Implemented |
-| HOME-31 | P1: One system, one look - panel order | Design | Pending |
+| HOME-31 | P1: One system, one look - panel order | T9 | Implemented |
 | HOME-32 | P1: One system, one look - fonts and palette | Design | Pending |
 | HOME-33 | P1: One system, one look - scoped LESS, `home-` keyframes | Design | Pending |
 | HOME-34 | P1: One system, one look - full width, not a scroll container | Design | Pending |
@@ -258,11 +258,11 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-41 | P2: Discover - album covers | T8 | Implemented |
 | HOME-42 | P2: Discover - photo feed | T8 | Implemented |
 | HOME-43 | P2: Discover - plain anchors | T8 | Implemented |
-| HOME-44 | P2: Newsletter - form action | Design | Pending |
-| HOME-45 | P2: Newsletter - fields | Design | Pending |
-| HOME-46 | P2: Newsletter - shared country include | T4 | Implemented |
+| HOME-44 | P2: Newsletter - form action | T9 | Implemented |
+| HOME-45 | P2: Newsletter - fields | T9 | Implemented |
+| HOME-46 | P2: Newsletter - shared country include | T4, T9 | Implemented |
 | HOME-47 | P2: Newsletter - submit event | T1 | Implemented |
-| HOME-48 | P2: Newsletter - native validation | Design | Pending |
+| HOME-48 | P2: Newsletter - native validation | T9 | Implemented |
 | HOME-49 | P2: Measure and share - release click event | T1 | Implemented |
 | HOME-50 | P2: Measure and share - teaser click events | T1 | Implemented |
 | HOME-51 | P2: Measure and share - missing dataLayer | Design | Pending |
