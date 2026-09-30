@@ -56,4 +56,18 @@ test.describe('reduced motion', () => {
     // Boot lines are simply shown, not revealed.
     expect(await page.locator('.home-loader-log li').last().evaluate(el => getComputedStyle(el).opacity)).toBe('1');
   });
+
+  test('HOME-29: the exit is an opacity fade of at most 200ms', async ({ page }) => {
+    await holdLoader(page);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const exit = await page.locator('#home-loader').evaluate(el => {
+      el.classList.add('is-done');
+      const cs = getComputedStyle(el);
+      return { property: cs.transitionProperty, duration: cs.transitionDuration, animation: cs.animationName, clip: cs.clipPath };
+    });
+    expect(exit.property).toBe('opacity');
+    for (const d of exit.duration.split(',')) expect(parseFloat(d) * (d.trim().endsWith('ms') ? 0.001 : 1)).toBeLessThanOrEqual(0.2);
+    expect(exit.animation).not.toMatch(/home-loader-(?!failsafe)/);
+    expect(exit.clip).toBe('none');
+  });
 });
