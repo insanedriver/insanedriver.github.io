@@ -45,6 +45,25 @@ test('HOME-24: a second home view in the same session flashes for at most 0.5s',
   expect(ms).toBeLessThanOrEqual(500);
 });
 
+test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'commit' });
+  await dismissedAfter(page);
+  await page.route('**/assets/js/home.js*', async route => {
+    await new Promise(r => setTimeout(r, 700));
+    await route.continue();
+  });
+  await page.goto('/', { waitUntil: 'commit' });
+  // Off screen by any means: home.js dismissal or a script-free fallback.
+  const ms = await page.waitForFunction(() => {
+    const el = document.getElementById('home-loader');
+    if (!el || !window.IDHomeBootAt) return false;
+    const cs = getComputedStyle(el);
+    if (cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('is-done')) return false;
+    return performance.now() - window.IDHomeBootAt;
+  }, null, { polling: 'raf', timeout: 8000 }).then(h => h.jsonValue());
+  expect(ms).toBeLessThanOrEqual(500);
+});
+
 test('HOME-25: blocked sessionStorage means a full boot and no error', async ({ page }) => {
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));

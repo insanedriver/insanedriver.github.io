@@ -23,7 +23,8 @@
     <meta name="twitter:site" content="@insanedriverid">
 
     <!-- Boot loader gate: the loader only ever shows when this script runs. -->
-    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0;</script>
+    <!-- A repeat view (key: home-core.js BOOT_KEY) leaves at 0.4s on its own, without waiting for home.js. -->
+    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; try { if (sessionStorage.getItem('id-home-booted') === '1') { setTimeout(function () { var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } }, 400); } } catch (e) {}</script>
 
     <link rel="preload" as="image" type="image/webp"
         imagesrcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w"
