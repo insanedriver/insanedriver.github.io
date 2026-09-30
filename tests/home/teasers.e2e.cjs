@@ -2,7 +2,7 @@ const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
 const videos = require('../../_data/videos.json');
 const highlights = require('../../_data/highlights.js')();
-const { panelByTab } = require('./helpers.cjs');
+const { panelByTab, loaderGone } = require('./helpers.cjs');
 
 const video = videos[0];
 
@@ -43,7 +43,7 @@ test('HOME-40/41/42: the video, album and photo teasers render from the data fil
 
 test('HOME-40: the video teaser opens ID-TV on that video', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => { const el = document.getElementById('home-loader'); if (el) el.remove(); });
+  await loaderGone(page);
   await panelByTab(page, 'ID-TV::LATEST').locator('[data-home-teaser="video"]').click();
   await expect(page).toHaveURL(/\/videos\/#keep-away$/);
 });

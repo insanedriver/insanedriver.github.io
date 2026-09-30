@@ -1,4 +1,5 @@
 const { test, expect } = require('../photos/browser.cjs');
+const { loaderGone } = require('./helpers.cjs');
 
 test('HOME-05/06: the home loads its own scripts, not the legacy player bundle, and throws nothing', async ({ page }) => {
   const errors = [];
@@ -18,7 +19,7 @@ test('HOME-05/06: the home loads its own scripts, not the legacy player bundle, 
 test('HOME-08: the collapsed mobile menu still opens', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/', { waitUntil: 'load' });
-  await page.evaluate(() => { const el = document.getElementById('home-loader'); if (el) el.remove(); });
+  await loaderGone(page);
   await expect(page.locator('#navbar')).toBeHidden();
   await page.locator('.navbar-toggle').click();
   await expect(page.locator('#navbar')).toBeVisible();

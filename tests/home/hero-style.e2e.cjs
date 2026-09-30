@@ -1,6 +1,6 @@
 const { test, expect } = require('../photos/browser.cjs');
 
-const dropLoader = page => page.evaluate(() => { const el = document.getElementById('home-loader'); if (el) el.remove(); });
+const { loaderGone } = require('./helpers.cjs');
 
 // Every animated hero layer, as [selector, pseudo].
 const ANIMATED = [
@@ -40,7 +40,7 @@ test('HOME-07: overlays stack photo < vignette < grid < scan < content and are h
     await expect(page.locator(sel)).toHaveAttribute('aria-hidden', 'true');
   }
   // The text layer is really on top: the centre of the h1 hits the h1, not an overlay.
-  await dropLoader(page);
+  await loaderGone(page);
   const hit = await page.evaluate(() => {
     const r = document.querySelector('.home-title').getBoundingClientRect();
     const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);

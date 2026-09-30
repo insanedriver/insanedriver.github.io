@@ -236,13 +236,13 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-19 | P1: Play the latest release - no-JS behavior | T7 | Implemented |
 | HOME-20 | P1: Branded boot loader - overlay content | T5, T15 | Implemented |
 | HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
-| HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1 | Implemented |
-| HOME-23 | P1: Branded boot loader - 3.5s cap | T1 | Implemented |
-| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1 | Implemented |
-| HOME-25 | P1: Branded boot loader - storage failure | T1 | Implemented |
-| HOME-26 | P1: Branded boot loader - skip by click/Esc | T1 | Implemented |
-| HOME-27 | P1: Branded boot loader - released after dismiss | Design | Pending |
-| HOME-28 | P1: Branded boot loader - accessibility while visible | Design | Pending |
+| HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17 | Implemented |
+| HOME-23 | P1: Branded boot loader - 3.5s cap | T1, T17 | Implemented |
+| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1, T17 | Implemented |
+| HOME-25 | P1: Branded boot loader - storage failure | T1, T17 | Implemented |
+| HOME-26 | P1: Branded boot loader - skip by click/Esc | T1, T17 | Implemented |
+| HOME-27 | P1: Branded boot loader - released after dismiss | T17 | Implemented |
+| HOME-28 | P1: Branded boot loader - accessibility while visible | T17 | Implemented |
 | HOME-29 | P1: Branded boot loader - reduced motion | T15 | Implemented |
 | HOME-30 | P1: One system, one look - cyber panel shell | T7, T13 | Implemented |
 | HOME-31 | P1: One system, one look - panel order | T9 | Implemented |

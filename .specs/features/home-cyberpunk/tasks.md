@@ -546,15 +546,16 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E (clock control): first view hidden between 1.2s and 3.5s; hero image routed to hang -> hidden at 3.5s
-- [ ] E2E: second view in the same context hidden by 0.5s
-- [ ] E2E: `sessionStorage` stubbed to throw -> full boot, no page error
-- [ ] E2E: `Esc` and click dismiss immediately; `dataLayer` holds `{event:'home_loader_skip'}`
-- [ ] E2E: while visible `role=status` with label and content `inert`; after dismissal loader `hidden`, content not `inert`, page scrollable
-- [ ] Gate check passes: `npm test`
+- [x] E2E (clock control): first view hidden between 1.2s and 3.5s; hero image routed to hang -> hidden at 3.5s
+- [x] E2E: second view in the same context hidden by 0.5s
+- [x] E2E: `sessionStorage` stubbed to throw -> full boot, no page error
+- [x] E2E: `Esc` and click dismiss immediately; `dataLayer` holds `{event:'home_loader_skip'}`
+- [x] E2E: while visible `role=status` with label and content `inert`; after dismissal loader `hidden`, content not `inert`, page scrollable
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): drive the boot loader`
 
 ---

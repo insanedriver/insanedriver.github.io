@@ -23,7 +23,7 @@
     <meta name="twitter:site" content="@insanedriverid">
 
     <!-- Boot loader gate: the loader only ever shows when this script runs. -->
-    <script>document.documentElement.className += ' home-js home-loading';</script>
+    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0;</script>
 
     <link rel="preload" as="image" type="image/webp"
         imagesrcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w"

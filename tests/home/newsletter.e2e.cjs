@@ -1,10 +1,10 @@
 const { test, expect } = require('../photos/browser.cjs');
-const { panelByTab, optionValues } = require('./helpers.cjs');
+const { panelByTab, optionValues, loaderGone } = require('./helpers.cjs');
 
 const form = page => panelByTab(page, 'SIGNAL::NEWSLETTER').locator('form');
 
 async function clearLoader(page) {
-  await page.evaluate(() => { const el = document.getElementById('home-loader'); if (el) el.remove(); });
+  await loaderGone(page);
 }
 
 test('HOME-44: the home form posts to the same Mailchimp action as /newsletter/, in a new tab', async ({ page }) => {
