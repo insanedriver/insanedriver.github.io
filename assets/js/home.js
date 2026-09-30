@@ -102,5 +102,28 @@
         });
     }
 
+    // Navbar: transparent over the hero, solid once the page scrolls past
+    // core.navIsSolid's threshold. Checked on load too, for restored scroll.
+    function navbar() {
+        var nav = document.querySelector('nav.navbar');
+        if (!nav) { return; }
+
+        var pending = false;
+
+        function update() {
+            pending = false;
+            nav.classList.toggle('is-solid', core.navIsSolid(window.pageYOffset));
+        }
+
+        window.addEventListener('scroll', function () {
+            if (pending) { return; }
+            pending = true;
+            window.requestAnimationFrame(update);
+        }, { passive: true });
+        window.addEventListener('load', update);
+        update();
+    }
+
     loader();
+    navbar();
 }());

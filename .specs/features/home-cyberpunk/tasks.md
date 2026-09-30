@@ -575,12 +575,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: at scrollY 40 no `.is-solid`; at 41 `.is-solid`; back to 0 removes it
-- [ ] E2E: loading `/` already scrolled (restored position) applies `.is-solid` on load
-- [ ] Gate check passes: `npm test`
+- [x] E2E: at scrollY 40 no `.is-solid`; at 41 `.is-solid`; back to 0 removes it
+- [x] E2E: loading `/` already scrolled (restored position) applies `.is-solid` on load
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): solidify the navbar on scroll`
 
 ---
