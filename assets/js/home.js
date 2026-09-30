@@ -124,6 +124,35 @@
         update();
     }
 
+    // Spotify preview: the button ships hidden and only shows once JS can
+    // honour it. One iframe at most, created on demand, removed on close.
+    function preview() {
+        var button = document.querySelector('[data-home-preview-btn]');
+        var slot = document.querySelector('[data-home-preview]');
+        var url = button && core.spotifyEmbedUrl(button.getAttribute('data-home-preview-btn'));
+        if (!slot || !url) { return; }
+
+        button.hidden = false;
+        button.addEventListener('click', function () {
+            if (slot.querySelector('iframe')) {
+                slot.innerHTML = '';
+                button.setAttribute('aria-expanded', 'false');
+                return;
+            }
+            var frame = document.createElement('iframe');
+            frame.src = url;
+            frame.width = '100%';
+            frame.height = '352';
+            frame.loading = 'lazy';
+            frame.setAttribute('frameborder', '0');
+            frame.setAttribute('allow', 'encrypted-media; clipboard-write; fullscreen; picture-in-picture');
+            frame.setAttribute('title', 'Spotify preview');
+            slot.appendChild(frame);
+            button.setAttribute('aria-expanded', 'true');
+        });
+    }
+
     loader();
     navbar();
+    preview();
 }());

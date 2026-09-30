@@ -229,11 +229,11 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-12 | P1: Play the latest release - missing platform omitted | T6 | Implemented |
 | HOME-13 | P1: Play the latest release - card above the fold on mobile | T12 | Implemented |
 | HOME-14 | P1: Play the latest release - NOW::STREAMING panel | T2, T7 | Implemented |
-| HOME-15 | P1: Play the latest release - no iframe before PREVIEW | Design | Pending |
-| HOME-16 | P1: Play the latest release - PREVIEW opens | Design | Pending |
-| HOME-17 | P1: Play the latest release - PREVIEW closes | Design | Pending |
+| HOME-15 | P1: Play the latest release - no iframe before PREVIEW | T19 | Implemented |
+| HOME-16 | P1: Play the latest release - PREVIEW opens | T19 | Implemented |
+| HOME-17 | P1: Play the latest release - PREVIEW closes | T19 | Implemented |
 | HOME-18 | P1: Play the latest release - no PREVIEW without id | T1, T7 | Implemented |
-| HOME-19 | P1: Play the latest release - no-JS behavior | T7 | Implemented |
+| HOME-19 | P1: Play the latest release - no-JS behavior | T7, T19 | Implemented |
 | HOME-20 | P1: Branded boot loader - overlay content | T5, T15 | Implemented |
 | HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17 | Implemented |

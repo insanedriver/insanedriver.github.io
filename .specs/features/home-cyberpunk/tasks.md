@@ -601,12 +601,13 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: no iframe after load; click -> one iframe with `src` `https://open.spotify.com/embed/album/14HkhB5FwTGesQECbSBSML`, `aria-expanded=true`; click again -> zero iframes, `aria-expanded=false`
-- [ ] E2E: platform anchors stay visible while the preview is open
-- [ ] Gate check passes: `npm test`
+- [x] E2E: no iframe after load; click -> one iframe with `src` `https://open.spotify.com/embed/album/14HkhB5FwTGesQECbSBSML`, `aria-expanded=true`; click again -> zero iframes, `aria-expanded=false`
+- [x] E2E: platform anchors stay visible while the preview is open
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
+**Status**: ✅ Done
 **Commit**: `feat(home): load the Spotify preview on demand`
 
 ---
