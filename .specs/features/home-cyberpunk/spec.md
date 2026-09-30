@@ -261,11 +261,11 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-44 | P2: Newsletter - form action | T9 | Implemented |
 | HOME-45 | P2: Newsletter - fields | T9 | Implemented |
 | HOME-46 | P2: Newsletter - shared country include | T4, T9 | Implemented |
-| HOME-47 | P2: Newsletter - submit event | T1 | Implemented |
+| HOME-47 | P2: Newsletter - submit event | T1, T20 | Implemented |
 | HOME-48 | P2: Newsletter - native validation | T9 | Implemented |
-| HOME-49 | P2: Measure and share - release click event | T1 | Implemented |
-| HOME-50 | P2: Measure and share - teaser click events | T1 | Implemented |
-| HOME-51 | P2: Measure and share - missing dataLayer | Design | Pending |
+| HOME-49 | P2: Measure and share - release click event | T1, T20 | Implemented |
+| HOME-50 | P2: Measure and share - teaser click events | T1, T20 | Implemented |
+| HOME-51 | P2: Measure and share - missing dataLayer | T20 | Implemented |
 | HOME-52 | P2: Measure and share - MusicGroup JSON-LD | T10 | Implemented |
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 

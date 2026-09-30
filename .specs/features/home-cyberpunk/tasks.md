@@ -627,14 +627,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] E2E: hero Spotify click pushes `{event:'home_release_click', platform:'spotify', release:'keep-away-acoustic', placement:'hero'}`; a streaming-panel click pushes `placement:'streaming'`
-- [ ] E2E: video, album and photos teasers push their exact event shapes
-- [ ] E2E: valid newsletter submit pushes `{event:'home_newsletter_submit'}` (popup stubbed); invalid submit pushes nothing
-- [ ] E2E: with `dataLayer` deleted before click, the array is created and navigation proceeds
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] E2E: hero Spotify click pushes `{event:'home_release_click', platform:'spotify', release:'keep-away-acoustic', placement:'hero'}`; a streaming-panel click pushes `placement:'streaming'`
+- [x] E2E: video, album and photos teasers push their exact event shapes
+- [x] E2E: valid newsletter submit pushes `{event:'home_newsletter_submit'}` (popup stubbed); invalid submit pushes nothing
+- [x] E2E: with `dataLayer` deleted before click, the array is created and navigation proceeds
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
+**Status**: ✅ Done
 **Commit**: `feat(home): track home clicks in the dataLayer`
 
 ---

@@ -152,7 +152,37 @@
         });
     }
 
+    // Tracking: report platform, teaser and newsletter actions. Never touches
+    // the navigation or the form post itself.
+    function tracking() {
+        var card = document.querySelector('[data-home-release]');
+        var release = card ? card.getAttribute('data-home-release') : null;
+
+        document.addEventListener('click', function (event) {
+            var anchor = event.target.closest ? event.target.closest('[data-home-link], [data-home-teaser]') : null;
+            if (!anchor) { return; }
+            if (anchor.hasAttribute('data-home-link')) {
+                push(core.releaseClickEvent(
+                    anchor.getAttribute('data-home-link'),
+                    release,
+                    anchor.getAttribute('data-home-placement')
+                ));
+            } else {
+                push(core.teaserClickEvent(
+                    anchor.getAttribute('data-home-teaser'),
+                    anchor.getAttribute('data-home-slug')
+                ));
+            }
+        });
+
+        var form = document.querySelector('[data-home-newsletter]');
+        if (form) {
+            form.addEventListener('submit', function () { push(core.newsletterEvent()); });
+        }
+    }
+
     loader();
     navbar();
     preview();
+    tracking();
 }());
