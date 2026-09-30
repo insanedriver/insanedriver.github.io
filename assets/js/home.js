@@ -75,7 +75,12 @@
         function schedule() {
             window.clearTimeout(timer);
             var at = core.loaderDismissAt({ startedAt: startedAt, readyAt: readyAt, repeat: repeat });
-            timer = window.setTimeout(function () { dismiss(false); }, Math.max(0, at - now()));
+            timer = window.setTimeout(function () {
+                // Timers can fire a fraction of a millisecond before
+                // performance.now() reaches the target; never leave early.
+                if (now() < at) { schedule(); return; }
+                dismiss(false);
+            }, Math.max(0, at - now()));
         }
 
         // Hard cap, independent of whatever the ready promise does.
