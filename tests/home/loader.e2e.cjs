@@ -74,6 +74,29 @@ test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', asy
   await expect(page.getByRole('status', { name: 'Loading Insane Driver' })).toHaveCount(0);
 });
 
+test('HOME-24: a repeat view stays usable when the page parses after the 0.4s release', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'commit' });
+  await dismissedAfter(page);
+  // A pending stylesheet holds the inline body script past the head timer.
+  await page.route('**/*.css*', async route => {
+    await new Promise(r => setTimeout(r, 900));
+    await route.continue();
+  });
+  let delivered = false;
+  await page.route('**/assets/js/home.js*', async route => {
+    await new Promise(r => setTimeout(r, 2500));
+    delivered = true;
+    await route.continue();
+  });
+  await page.goto('/', { waitUntil: 'commit' });
+  await page.waitForSelector('footer', { state: 'attached' });
+  await page.waitForFunction(() => document.getElementById('home-loader').classList.contains('is-done'));
+  await page.waitForTimeout(300);
+  expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
+  await expect(page.locator('#home-loader')).toHaveAttribute('aria-hidden', 'true');
+  expect(delivered).toBe(false);
+});
+
 test('HOME-25: blocked sessionStorage means a full boot and no error', async ({ page }) => {
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
