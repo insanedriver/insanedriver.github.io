@@ -24,7 +24,7 @@
 
     <!-- Boot loader gate: the loader only ever shows when this script runs. -->
     <!-- A repeat view (key: home-core.js BOOT_KEY) leaves at 0.4s on its own, without waiting for home.js. -->
-    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; try { if (sessionStorage.getItem('id-home-booted') === '1') { setTimeout(function () { var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } }, 400); } } catch (e) {}</script>
+    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; try { if (sessionStorage.getItem('id-home-booted') === '1') { setTimeout(function () { var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } var page = document.querySelector('[data-home-page]'); if (page) { page.inert = false; } }, 400); } } catch (e) {}</script>
 
     <link rel="preload" as="image" type="image/webp"
         imagesrcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w"
@@ -66,6 +66,8 @@
     </div>
 
     <div class="home-page" data-home-page>
+        <!-- Inert under the loader before home.js runs; released at the 4s CSS failsafe if home.js never does. -->
+        <script>(function (page) { var html = document.documentElement, loader = document.getElementById('home-loader'); if (!/\bhome-loading\b/.test(html.className) || (loader && loader.classList.contains('is-done'))) { return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 4000 : 0; setTimeout(function () { page.inert = false; }, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
         {% include 'header/menu' %}
 
         <main id="home-main">

@@ -48,8 +48,10 @@ test('HOME-24: a second home view in the same session flashes for at most 0.5s',
 test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', async ({ page }) => {
   await page.goto('/', { waitUntil: 'commit' });
   await dismissedAfter(page);
+  let delivered = false;
   await page.route('**/assets/js/home.js*', async route => {
     await new Promise(r => setTimeout(r, 700));
+    delivered = true;
     await route.continue();
   });
   await page.goto('/', { waitUntil: 'commit' });
@@ -62,6 +64,14 @@ test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', asy
     return performance.now() - window.IDHomeBootAt;
   }, null, { polling: 'raf', timeout: 8000 }).then(h => h.jsonValue());
   expect(ms).toBeLessThanOrEqual(500);
+  // The script-free fallback released it, so it must release it fully.
+  expect(delivered).toBe(false);
+  const state = await page.evaluate(() => ({
+    aria: document.getElementById('home-loader').getAttribute('aria-hidden'),
+    inert: document.querySelector('[data-home-page]').inert,
+  }));
+  expect(state).toEqual({ aria: 'true', inert: false });
+  await expect(page.getByRole('status', { name: 'Loading Insane Driver' })).toHaveCount(0);
 });
 
 test('HOME-25: blocked sessionStorage means a full boot and no error', async ({ page }) => {
@@ -103,6 +113,25 @@ test('HOME-28: while visible the loader is a labelled status and the page beneat
   await expect(loader).toHaveAttribute('role', 'status');
   await expect(loader).toHaveAccessibleName('Loading Insane Driver');
   expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(true);
+});
+
+test('HOME-28: the page beneath is inert even before a late home.js arrives', async ({ page }) => {
+  let delivered = false;
+  await page.route('**/assets/js/home.js*', async route => {
+    await new Promise(r => setTimeout(r, 1500));
+    delivered = true;
+    await route.continue();
+  });
+  await page.goto('/', { waitUntil: 'commit' });
+  await page.waitForSelector('footer', { state: 'attached' });
+  await page.waitForTimeout(300);
+  await expect(page.locator('#home-loader')).toBeVisible();
+  expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(true);
+  await page.keyboard.press('Tab');
+  expect(await page.evaluate(() => !!document.activeElement.closest('[data-home-page]'))).toBe(false);
+  expect(delivered).toBe(false);
+  await dismissedAfter(page);
+  expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
 });
 
 test('HOME-27: once dismissed the loader is gone for pointer, assistive tech and scroll', async ({ page }) => {

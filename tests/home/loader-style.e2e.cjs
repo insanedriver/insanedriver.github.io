@@ -37,6 +37,7 @@ test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 4.
   await page.waitForTimeout(1000);
   await expect(page.locator('#home-loader')).toBeHidden();
   expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
+  expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
 });
 
 test('HOME-33: loader animations use home- keyframes', async ({ page }) => {
