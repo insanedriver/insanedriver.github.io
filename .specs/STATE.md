@@ -20,12 +20,11 @@
 
 ## Handoff
 
-- **Feature**: discography-cyberpunk (multi-platform discography, cyberpunk theme)
-- **Phase / Task**: Complete - Verifier PASS, gaps G1/G2 closed, spec amended (A1-A4), two user-reported defects fixed (DISC-47 width, DISC-48 anchor scroll)
-- **Completed**: T1-T13 plus four follow-ups (gap tests, spec amendments, anchor-scroll fix, full-width layout); 19 commits on the branch
+- **Feature**: home-cyberpunk (cyberpunk home page with boot loader)
+- **Phase / Task**: Complete. Verifier round 3 escalated two findings, and the user approved Fix A + B (round 4 in `validation.md`). Both are fixed, plus a late-parse repeat-view defect found while testing.
 - **In-progress**: none
-- **Next step**: user review of the branch, then open the PR. Nothing has been pushed
+- **Next step**: user review of `feature/home-cyberpunk`, then open the PR. Nothing has been pushed.
 - **Blockers**: none
-- **Uncommitted files**: none tracked
-- **Branch**: feature/discography-cyberpunk
-- **Open follow-ups, not part of this feature**: band page asks for `fa fa-bandcamp`, a glyph the bundled Font Awesome 4.4 does not have, so that button renders empty (`band/index.html:158`); `.cyber-zone` / `.cyber-panel` remain copy-pasted across page stylesheets; `less/contact.less:328` leaks an unscoped `.cyber-zone-inner` max-width site-wide; band, photos, videos and newsletter still use `overflow: hidden` on their cyber zone, which would strand the page the day any of them gets an in-page anchor (see DISC-48); the home page still carries the pre-cyberpunk player block; Universal Analytics (`UA-60390716-1`) has not processed data since 2023
+- **Uncommitted files**: `.specs/LESSONS.md`, `.specs/lessons.json` (lessons from rounds 1-3)
+- **Branch**: feature/home-cyberpunk
+- **Open follow-ups, not part of this feature**: the HOME-24 "second view" e2e is load-sensitive (pre-existing, about 2/30 at `75b1ca5`); M23 needs a `page.clock` test; HOME-05/14/24 wording; band page `fa fa-bandcamp` glyph missing in FA 4.4; `.cyber-zone` / `.cyber-panel` copy-pasted across stylesheets; `less/contact.less:328` unscoped `.cyber-zone-inner`; Universal Analytics `UA-60390716-1` is dead
