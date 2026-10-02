@@ -16,6 +16,8 @@ jspath: js/home
             srcset="/assets/images/home/hero-768.jpg 768w, /assets/images/home/hero-1280.jpg 1280w, /assets/images/home/hero-1920.jpg 1920w"
             width="1920" height="1280" alt="" fetchpriority="high" decoding="async" data-home-hero-img>
     </picture>
+    <!-- Phones only see about a third of the photo: start the pan on a random member (0-1 across the frame). -->
+    <script>(function (img) { var at = [0, 0.2, 0.45, 0.76, 1]; img.style.setProperty('--home-pan-at', at[Math.floor(Math.random() * at.length)]); })(document.querySelector('[data-home-hero-img]'));</script>
     <div class="home-hero-vignette" aria-hidden="true"></div>
     <div class="home-hero-grid" aria-hidden="true"></div>
     <div class="home-hero-scan" aria-hidden="true"></div>

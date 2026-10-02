@@ -17,6 +17,11 @@
         100% { transform: scale(1.08) translate3d(-1%, -1.5%, 0); }
     }
 
+    @keyframes home-pan {
+        0%   { object-position: 0% 28%; }
+        100% { object-position: 100% 28%; }
+    }
+
     @keyframes home-grid {
         0%   { background-position: 0 0, 0 0; }
         100% { background-position: 0 64px, 0 0; }
@@ -161,6 +166,14 @@
             filter: saturate(0.8) contrast(1.12) brightness(0.72);
             transform-origin: 50% 40%;
             animation: home-drift 22s ease-in-out infinite alternate;
+
+            // Phones crop to roughly one member: pan across the whole band,
+            // starting from the one the inline script picked (--home-pan-at).
+            @media (max-width: 767px) {
+                object-position: calc(var(--home-pan-at, 0.5) * 100%) 28%;
+                animation: home-drift 22s ease-in-out infinite alternate, home-pan 45s linear infinite alternate;
+                animation-delay: 0s, calc(var(--home-pan-at, 0.5) * -45s);
+            }
         }
 
         // Duotone wash: cyan light from the left, magenta from the right.

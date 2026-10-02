@@ -100,3 +100,47 @@ test.describe('reduced motion', () => {
     }
   });
 });
+
+// Pins Math.random so the inline hero script picks a known band member.
+const pinRandom = (page, value) => page.addInitScript(v => { Math.random = () => v; }, value);
+const photoStyle = page => page.locator('[data-home-hero-img]').evaluate(el => {
+  const cs = getComputedStyle(el);
+  return { names: cs.animationName.split(', '), durations: cs.animationDuration.split(', '), delays: cs.animationDelay.split(', '), position: cs.objectPosition };
+});
+
+for (const [random, at] of [[0, 0], [0.5, 0.45], [0.99, 1]]) {
+  test(`HOME-54: on a phone the photo pans from a random member (random ${random} starts at ${at * 100}%)`, async ({ page }) => {
+    await pinRandom(page, random);
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const s = await photoStyle(page);
+    const i = s.names.indexOf('home-pan');
+    expect(i).toBeGreaterThan(-1);
+    expect(s.names).toContain('home-drift');
+    // The negative delay puts the alternating 0%-100% pan at the chosen member.
+    expect(parseFloat(s.delays[i])).toBeCloseTo(-at * parseFloat(s.durations[i]), 3);
+    expect(parseFloat(s.durations[i])).toBeGreaterThanOrEqual(30);
+  });
+}
+
+test.describe('HOME-54 reduced motion', () => {
+  test.use({ reducedMotion: 'reduce' });
+
+  test('HOME-54: with reduced motion the phone photo holds still on the random member', async ({ page }) => {
+    await pinRandom(page, 0.99);
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    const s = await photoStyle(page);
+    expect(s.names).toEqual(['none']);
+    expect(s.position).toBe('100% 28%');
+  });
+});
+
+test('HOME-54: from 768px up the photo keeps its fixed framing and does not pan', async ({ page }) => {
+  await pinRandom(page, 0.99);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const s = await photoStyle(page);
+  expect(s.names).not.toContain('home-pan');
+  expect(s.position).toBe('50% 28%');
+});

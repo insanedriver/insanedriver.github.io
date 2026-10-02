@@ -73,6 +73,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 6. The system SHALL NOT create any `iframe` element during initial page load of `/`.
 7. The system SHALL render the hero overlays (scanlines, grid, glitch on the logo) as decorative layers marked `aria-hidden="true"`, stacked above the photo and below the hero text.
 8. The system SHALL keep the shared menu and footer includes on `/`.
+9. (HOME-54, added after review) WHILE the viewport is narrower than 768px the system SHALL frame the hero photo on a band member picked at random per page load and slowly pan it across the whole band (alternating, at least 30s per sweep) from there; WHILE `prefers-reduced-motion: reduce` matches the photo SHALL hold still on the picked member. From 768px up the framing stays fixed.
 
 **Independent Test**: Load `/`; the hero fills the viewport, the `h1` reads "Insane Driver", the tagline is visible, and the network panel shows zero iframe requests.
 
@@ -268,6 +269,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-51 | P2: Measure and share - missing dataLayer | T20 | Implemented |
 | HOME-52 | P2: Measure and share - MusicGroup JSON-LD | T10 | Implemented |
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
+| HOME-54 | P1: Land on the flagship - phone photo pans from a random member | - | Implemented |
 
 **Coverage:** 53 total, 0 mapped to tasks, 53 unmapped (Design pending).
 
