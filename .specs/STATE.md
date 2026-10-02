@@ -25,6 +25,6 @@
 - **In-progress**: none
 - **Next step**: user review of `feature/home-cyberpunk`, then open the PR. Nothing has been pushed.
 - **Blockers**: none
-- **Uncommitted files**: `.specs/LESSONS.md`, `.specs/lessons.json` (lessons from rounds 1-3)
+- **Uncommitted files**: none
 - **Branch**: feature/home-cyberpunk
 - **Open follow-ups, not part of this feature**: the HOME-24 "second view" e2e is load-sensitive (pre-existing, about 2/30 at `75b1ca5`); M23 needs a `page.clock` test; HOME-05/14/24 wording; band page `fa fa-bandcamp` glyph missing in FA 4.4; `.cyber-zone` / `.cyber-panel` copy-pasted across stylesheets; `less/contact.less:328` unscoped `.cyber-zone-inner`; Universal Analytics `UA-60390716-1` is dead
