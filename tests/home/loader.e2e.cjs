@@ -174,3 +174,21 @@ test('HOME-20: the progress read-out reaches 100% on dismissal', async ({ page }
   await dismissedAfter(page);
   await expect(page.locator('[data-home-loader-pct]')).toHaveText('100%');
 });
+
+test.describe('reduced motion', () => {
+  test.use({ reducedMotion: 'reduce' });
+
+  test('HOME-29: the progress bar does not move while the loader is up, then fills on dismissal', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'commit' });
+    await expect(page.locator('#home-loader')).toBeVisible();
+    const bar = page.locator('[data-home-loader-bar]');
+    const widths = [];
+    for (let i = 0; i < 5; i++) {
+      widths.push(await bar.evaluate(el => el.style.width || getComputedStyle(el).width));
+      await page.waitForTimeout(150);
+    }
+    expect(new Set(widths).size).toBe(1);
+    await dismissedAfter(page);
+    await expect(page.locator('[data-home-loader-pct]')).toHaveText('100%');
+  });
+});

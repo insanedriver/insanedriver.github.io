@@ -61,6 +61,28 @@ test('HOME-13: on a 375x667 phone the release card sits fully inside the first v
   expect(card.y).toBeGreaterThan(title.y + title.height - 1);
 });
 
+for (const [width, height] of [[844, 390], [667, 375]]) {
+  test(`HOME-01 edge: on a ${width}x${height} landscape phone the hero grows to fit its content`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('/', { waitUntil: 'load' });
+    await loaderGone(page);
+    const hero = await page.locator('[data-home-hero]').boundingBox();
+    const nav = await page.locator('nav.navbar').boundingBox();
+    const title = await page.locator('[data-home-hero] h1').boundingBox();
+    const card = await page.locator('[data-home-hero] .home-release-card').boundingBox();
+    expect(hero.height).toBeGreaterThanOrEqual(height);
+    // Nothing is clipped: logo and card both sit inside the hero box...
+    for (const box of [title, card]) {
+      expect(box.y).toBeGreaterThanOrEqual(hero.y);
+      expect(box.y + box.height).toBeLessThanOrEqual(hero.y + hero.height);
+    }
+    // ...and the fixed navbar covers neither of them at the top of the page.
+    const hud = await page.locator('[data-home-hero] .home-hero-hud').boundingBox();
+    expect(hud.y).toBeGreaterThanOrEqual(nav.y + nav.height);
+    expect(card.y).toBeGreaterThanOrEqual(title.y + title.height - 1);
+  });
+}
+
 test('HOME-33: every hero animation uses a home- keyframe', async ({ page }) => {
   await page.goto('/', { waitUntil: 'load' });
   for (const name of await animationNames(page)) {

@@ -38,6 +38,8 @@
         var done = false;
         var timer = null;
         var frame = null;
+        // Reduced motion: the bar holds still and only fills on dismissal.
+        var still = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
         core.markVisited(storage);
         if (page) { page.inert = true; }
@@ -99,7 +101,7 @@
         });
 
         schedule();
-        tick();
+        if (!still) { tick(); }
 
         el.addEventListener('click', function () { dismiss(true); });
         document.addEventListener('keydown', function (e) {

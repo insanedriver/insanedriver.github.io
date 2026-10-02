@@ -65,7 +65,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 **Acceptance Criteria**:
 
-1. The system SHALL render `/` with `_layouts/home.html` containing a hero section whose height is 100svh (100vh where `svh` is unsupported).
+1. The system SHALL render `/` with `_layouts/home.html` containing a hero section at least 100svh tall (100vh where `svh` is unsupported) that grows to fit its content when the viewport is shorter, so the logo, tagline and release card are never clipped or covered by the navbar (e.g. 844x390 landscape).
 2. The system SHALL render exactly one `h1` on `/`, inside the hero, with the accessible name "Insane Driver", showing the logo image `logo_loading.png` with `alt="Insane Driver"`.
 3. The system SHALL render the tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero.
 4. The system SHALL render the hero photo from `band.jpg` derivatives through `srcset` with 768w, 1280w and 1920w candidates in WebP and JPG, and the image SHALL NOT be lazy-loaded.
@@ -119,7 +119,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 7. WHEN the visitor clicks the loader or presses `Esc` while it is visible THEN the system SHALL dismiss it immediately and push `{event: 'home_loader_skip'}` to `dataLayer`.
 8. WHEN the loader is dismissed THEN the system SHALL remove it from the accessibility tree and from pointer hit-testing, and page content SHALL be scrollable.
 9. WHILE the loader is visible the system SHALL expose it as `role="status"` with an accessible label, and the page content beneath SHALL be `inert` or `aria-hidden="true"`.
-10. WHILE `prefers-reduced-motion: reduce` matches the system SHALL render the loader without the glitch, scanline and progress-bar animations and dismiss it with an opacity fade of at most 200ms.
+10. WHILE `prefers-reduced-motion: reduce` matches the system SHALL render the loader without the glitch, scanline and progress-bar animations (the bar holds still, CSS and JS alike, and only fills on dismissal) and dismiss it with an opacity fade of at most 200ms.
 
 **Independent Test**: First visit shows the boot for ~1.2-3.5s; reload in the same tab shows a ~0.4s flash; `Esc` dismisses instantly; with JS disabled the hero is visible immediately.
 
