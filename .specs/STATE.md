@@ -21,7 +21,7 @@
 ## Handoff
 
 - **Feature**: home-cyberpunk (cyberpunk home page with boot loader)
-- **Phase / Task**: Complete. Verifier round 3 escalated two findings, and the user approved Fix A + B (round 4 in `validation.md`). Both are fixed, plus a late-parse repeat-view defect found while testing.
+- **Phase / Task**: Complete. Verifier round 3 escalated two findings, and the user approved Fix A + B (round 4 in `validation.md`). Both are fixed, plus a late-parse repeat-view defect found while testing. Round 5 (`validation.md`) adds two codex review fixes (HOME-01 short screens, HOME-29 reduced-motion bar) and HOME-54 (phone photo pans from a random member). Gate on 2026-10-03: unit 65/65, Playwright 219/219.
 - **In-progress**: none
 - **Next step**: user review of `feature/home-cyberpunk`, then open the PR. Nothing has been pushed.
 - **Blockers**: none

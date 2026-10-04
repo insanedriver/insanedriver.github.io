@@ -271,7 +271,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 | HOME-54 | P1: Land on the flagship - phone photo pans from a random member | - | Implemented |
 
-**Coverage:** 53 total, 0 mapped to tasks, 53 unmapped (Design pending).
+**Coverage:** 54 total, 0 mapped to tasks, 54 unmapped (Design pending).
 
 ---
 

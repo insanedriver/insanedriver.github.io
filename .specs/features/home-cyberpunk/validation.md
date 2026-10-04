@@ -233,3 +233,17 @@ Depth: expanded. All 25 prior mutants were re-run and 5 new ones added for `7fe1
 **Known pre-existing flake**: `HOME-24: a second home view ... at most 0.5s` sometimes measures 546-676ms under load. At `75b1ca5` it failed 2/30 in isolation; after these fixes it was 0/30. The cause is load-dependent parse time before the loader exists, not the fix.
 
 **Result**: HOME-28 and M29 closed. Still deferred: the M23 `page.clock` test, the glitch `aria-hidden`, a missing `document.fonts` test, and the HOME-05/14/24 wording.
+
+---
+
+## Round 5 (codex review fixes and HOME-54)
+
+**Date**: 2026-10-02. **Commits**: `e328991`, `d9bc6c6`.
+
+- **HOME-01 (codex review)**: the hero had a fixed 100svh height with overflow clipped, so on an 844x390 landscape phone the logo fell off-screen and the navbar covered the release card. The hero is now at least 100svh tall and grows to fit its content. The 768-991px band also leaves room for the two-row navbar. AC1 is reworded. Test: landscape phones, where the hero grows to fit its content.
+- **HOME-29 (codex review)**: under reduced motion, the loader's `requestAnimationFrame` loop kept widening the progress bar. The bar now holds still and only fills on dismissal. AC10 is reworded. Test: the bar does not move while the loader is up.
+- **HOME-54 (new, user request)**: below 768px, the hero photo starts framed on a band member picked at random per load and pans across the band (45s per sweep). Under reduced motion it holds still on the picked member. From 768px up, nothing changes. Tests cover the random start positions, reduced motion, and the fixed framing at 768px and up.
+
+**Gate**: unit 65/65; Playwright 219/219 (2026-10-03, after a fresh build).
+
+**Result**: Ready for the user's review. The round-4 deferrals are still open.
