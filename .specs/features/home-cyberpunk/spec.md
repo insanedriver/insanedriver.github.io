@@ -284,7 +284,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Implemented |
 | HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Implemented |
 
-**Coverage:** 58 total, 0 mapped to tasks, 54 unmapped (Design pending).
+**Coverage:** 58 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6).
 
 ---
 

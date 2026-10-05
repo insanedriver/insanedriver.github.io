@@ -8,11 +8,12 @@ const pinRandom = (page, value) => page.addInitScript(v => { Math.random = () =>
 // The random value that draws pool[i].
 const drawing = i => (i + 0.5) / pool.length;
 
-// Serves / with the inline shuffle data replaced, to reach pools today's catalog never has.
+// Serves / with the inline shuffle data replaced (or the whole script removed
+// when body is null), to reach pools today's catalog never has.
 async function serveShuffle(page, body) {
   await page.route(url => url.pathname === '/', async route => {
     const html = await (await route.fetch()).text();
-    const patched = html.replace(/(<script type="?application\/json"? data-home-shuffle>)[\s\S]*?(<\/script>)/, (m, open, close) => open + body + close);
+    const patched = html.replace(/(<script type="?application\/json"? data-home-shuffle>)[\s\S]*?(<\/script>)/, (m, open, close) => body === null ? '' : open + body + close);
     if (patched === html) throw new Error('shuffle data not found in /');
     await route.fulfill({ contentType: 'text/html', body: patched });
   });
@@ -62,7 +63,7 @@ test('HOME-56: the pick has no memory - the same draw shows the same single on t
 
 test('HOME-12/56: a shuffled single on other platforms than the default gets exactly its own anchors', async ({ page }) => {
   const odd = Object.assign({}, pool[0], {
-    slug: 'odd-one', title: 'Odd One', releaseDate: '2016-06-06', embedId: null,
+    slug: 'odd-one', title: 'Odd One', releaseDate: '2016-06-06', embedId: null, coverWidth: 640, coverHeight: 480,
     links: { bandcamp: 'https://bandcamp.example/odd', deezer: 'https://deezer.example/odd', ytmusic: 'https://yt.example/odd' }
   });
   await serveShuffle(page, JSON.stringify([pool[0], odd]));
@@ -82,9 +83,28 @@ test('HOME-16: PREVIEW opens the Spotify embed of the shuffled single', async ({
   await expect(page.locator('[data-home-preview] iframe')).toHaveAttribute('src', `https://open.spotify.com/embed/album/${pool[5].embedId}`);
 });
 
-test('HOME-56 edge: unparseable shuffle data leaves the server-rendered single in place', async ({ page }) => {
-  await serveShuffle(page, '{not json');
-  await pinRandom(page, drawing(9));
-  await page.goto('/', { waitUntil: 'load' });
+// The rest of home.js must still run: PREVIEW opens the default single and a
+// streaming click reports it.
+async function expectDefaultStillWired(page) {
+  await page.route(/open\.spotify\.com\/embed\//, route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stub</title>' }));
+  await page.context().route(/music\.apple\.com/, route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stub</title>' }));
   await expectShows(page, pool[0]);
-});
+  await loaderGone(page);
+  await panel(page).getByRole('button', { name: 'PREVIEW' }).click();
+  await expect(page.locator('[data-home-preview] iframe')).toHaveAttribute('src', `https://open.spotify.com/embed/album/${pool[0].embedId}`);
+  const popup = page.context().waitForEvent('page');
+  await panel(page).locator('[data-home-link="apple"]').click();
+  await popup;
+  expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e.event === 'home_release_click'))).toEqual([
+    { event: 'home_release_click', platform: 'apple', release: pool[0].slug, placement: 'streaming' }
+  ]);
+}
+
+for (const [name, body] of [['unparseable', '{not json'], ['missing', null]]) {
+  test(`HOME-56 edge: ${name} shuffle data leaves the server-rendered single in place and wired`, async ({ page }) => {
+    await serveShuffle(page, body);
+    await pinRandom(page, drawing(9));
+    await page.goto('/', { waitUntil: 'load' });
+    await expectDefaultStillWired(page);
+  });
+}
