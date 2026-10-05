@@ -132,3 +132,42 @@ test('HOME-47/26: newsletter and loader skip event shapes', () => {
   assert.deepEqual(core.newsletterEvent(), { event: 'home_newsletter_submit' });
   assert.deepEqual(core.loaderSkipEvent(), { event: 'home_loader_skip' });
 });
+
+test('HOME-55: the shuffle pool is every single except the featured release, newest first', () => {
+  const featured = release('hero-single', '2025-05-09');
+  const pool = core.shufflePool({
+    albums: [release('an-album', '2024-01-01', 'ALBUM')],
+    singles: [release('old', '2015-03-06'), featured, release('new', '2025-02-21'), release('mid', '2021-07-31')]
+  }, featured);
+  assert.deepEqual(pool.map(r => r.slug), ['new', 'mid', 'old']);
+});
+
+test('HOME-55: with today\'s catalog the pool holds the 17 other singles, Waiting for You first', () => {
+  const pool = core.shufflePool(catalog, core.latestRelease(catalog));
+  assert.equal(pool.length, catalog.singles.length - 1);
+  assert.ok(!pool.some(r => r.slug === 'keep-away-acoustic'));
+  assert.ok(!pool.some(r => r.type !== 'SINGLE'));
+  assert.equal(pool[0].slug, 'waiting-for-you');
+});
+
+test('HOME-55: an album in the hero leaves every single in the pool', () => {
+  const album = release('new-album', '2026-01-01', 'ALBUM');
+  const pool = core.shufflePool({ albums: [album], singles: [release('a', '2020-01-01'), release('b', '2021-01-01')] }, album);
+  assert.deepEqual(pool.map(r => r.slug), ['b', 'a']);
+});
+
+test('HOME-58: a catalog whose only single is featured yields an empty pool', () => {
+  const only = release('only', '2025-01-01');
+  assert.deepEqual(core.shufflePool({ albums: [], singles: [only] }, only), []);
+  assert.deepEqual(core.shufflePool(null, null), []);
+});
+
+test('HOME-56: pickShuffle maps the random number uniformly onto the pool', () => {
+  const pool = ['a', 'b', 'c', 'd'];
+  assert.equal(core.pickShuffle(pool, 0), 'a');
+  assert.equal(core.pickShuffle(pool, 0.2499), 'a');
+  assert.equal(core.pickShuffle(pool, 0.25), 'b');
+  assert.equal(core.pickShuffle(pool, 0.6), 'c');
+  assert.equal(core.pickShuffle(pool, 0.9999), 'd');
+  assert.equal(core.pickShuffle([], 0.5), null);
+});

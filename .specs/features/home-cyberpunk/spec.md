@@ -49,6 +49,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | Page language | English | Whole site is in English. | y |
 | Canonical URL | `/` (unchanged) | The home layout already emits it. | y |
 | Observability | `dataLayer.push` events only; no console logging | GTM is the site's only telemetry. | y |
+| NOW::STREAMING content (round 6) | A single shuffled per page load from every single except the hero release; albums excluded | The hero already carries the latest release; the panel now surfaces the back catalog. | y |
+| Shuffle timing (round 6) | Client-side on every load, uniform, no memory of earlier picks | Per-build shuffling would freeze the panel between deploys; 17 singles make repeats rare. | y |
+| NOW::STREAMING without JS (round 6) | The newest single in the pool (today Waiting for You) | Deterministic markup for crawlers and tests. | y |
+| Shuffle data delivery (round 6) | The pool ships as inline JSON in the page; `home.js` rewrites the server-rendered panel | No extra request; the default panel keeps working without JS. | y |
 | Auth, rate limits, concurrency, idempotency of writes, data lifecycle | N/A - static page; the only write is the Mailchimp form post, handled by Mailchimp | Nothing to authorize, throttle, serialize or expire on our side. | y |
 
 **Open questions:** none - all resolved or logged above. Rows marked `n` are defaults chosen during Specify and are confirmed by approving this spec.
@@ -92,14 +96,18 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 3. The system SHALL render in that card a Spotify anchor and an Apple Music anchor pointing at the release's `links.spotify` and `links.apple`, each with `target="_blank"`, `rel="noopener"` and the `cyber-link-btn--primary` modifier.
 4. IF the latest release has no URL for Spotify or Apple Music THEN the system SHALL render no anchor for that platform.
 5. WHILE the viewport is narrower than 768px the system SHALL place the latest-release card inside the hero, below the heading, fully visible within the first viewport height at 375x667.
-6. The system SHALL render a `NOW::STREAMING` panel for the same release containing its cover, title, the remaining platform anchors present in its data, a link to `/discography/#<slug>` when the release is an album, or `/discography/` when it is a single, and a `PREVIEW` button.
+6. (Reworded in round 6) The system SHALL render a `NOW::STREAMING` panel for the shuffled single (AC12-AC15) containing its cover, its title, the eyebrow `SHUFFLE // SINGLE // <releaseDate as YYYY.MM.DD>`, the lead `From the archive. Pick your platform and turn it up.`, one anchor for every platform present in its `links`, a link to `/discography/` and a `PREVIEW` button.
 7. The system SHALL NOT create the Spotify iframe during initial page load.
-8. WHEN the visitor activates `PREVIEW` THEN the system SHALL insert one Spotify embed iframe for the release into the panel's preview container and set `aria-expanded="true"` on the button.
+8. WHEN the visitor activates `PREVIEW` THEN the system SHALL insert one Spotify embed iframe for the single shown in the panel into the panel's preview container and set `aria-expanded="true"` on the button.
 9. WHEN the visitor activates `PREVIEW` while the preview is open THEN the system SHALL remove the iframe and set `aria-expanded="false"`.
-10. IF the release has neither `spotifyId` nor a parseable `open.spotify.com/album/<id>` URL THEN the system SHALL render no `PREVIEW` button.
+10. IF the single shown in the panel has neither `spotifyId` nor a parseable `open.spotify.com/album/<id>` URL THEN the system SHALL render no `PREVIEW` button.
 11. WHILE JavaScript has not run the system SHALL keep the `PREVIEW` button hidden and every platform anchor clickable.
+12. (HOME-55, round 6) The system SHALL build the shuffle pool from every entry in `singles` except the release featured in the hero card (AC1); albums are never in the pool.
+13. (HOME-56, round 6) WHEN the page loads with JavaScript THEN the system SHALL show in the `NOW::STREAMING` panel one single picked uniformly at random from the pool, replacing the cover (`src`, `alt`, `width`, `height`), title, eyebrow date, platform anchors, `PREVIEW` embed id and the panel HUD `SIGNAL.<SLUG uppercased> // STREAMING_`, with no memory of earlier picks.
+14. (HOME-57, round 6) WHILE JavaScript has not run the system SHALL show in the `NOW::STREAMING` panel the newest single in the pool by `releaseDate`.
+15. (HOME-58, round 6) IF the shuffle pool is empty THEN the system SHALL render no `NOW::STREAMING` panel.
 
-**Independent Test**: With today's data the hero card shows Keep Away (Acoustic), 2025, with Spotify and Apple Music buttons; clicking `PREVIEW` inserts exactly one Spotify iframe and clicking again removes it.
+**Independent Test**: With today's data the hero card shows Keep Away (Acoustic), 2025, with Spotify and Apple Music buttons. With JavaScript off, `NOW::STREAMING` shows Waiting for You (2025-02-21); with `Math.random` pinned, it shows the pool entry at that index. Clicking `PREVIEW` inserts exactly one Spotify iframe for the shown single and clicking again removes it.
 
 ---
 
@@ -192,7 +200,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 **Acceptance Criteria**:
 
-1. WHEN a platform anchor on `/` is clicked THEN the system SHALL push `{event: 'home_release_click', platform: <key>, release: <slug>, placement: 'hero' | 'streaming'}` to `dataLayer`.
+1. (Reworded in round 6) WHEN a platform anchor on `/` is clicked THEN the system SHALL push `{event: 'home_release_click', platform: <key>, release: <slug>, placement: 'hero' | 'streaming'}` to `dataLayer`, where `<slug>` is the hero release for `hero` and the single currently shown in `NOW::STREAMING` for `streaming`.
 2. WHEN the ID-TV teaser is clicked THEN the system SHALL push `{event: 'home_teaser_click', target: 'video', slug: <slug>}`; WHEN an album cover is clicked THEN it SHALL push `{event: 'home_teaser_click', target: 'album', slug: <slug>}`; WHEN the photos link is clicked THEN it SHALL push `{event: 'home_teaser_click', target: 'photos'}`.
 3. IF `window.dataLayer` is undefined THEN the system SHALL create it as an array before pushing, and the click SHALL navigate normally.
 4. The system SHALL emit one `application/ld+json` script on `/` containing a schema.org `MusicGroup` with `name` "Insane Driver", `url`, `foundingDate` "2013", `genre`, `image` and a `sameAs` list of the Spotify, YouTube, Instagram, Facebook and Twitter URLs used in the footer.
@@ -209,6 +217,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 - IF the Spotify embed fails to load THEN the platform anchors SHALL remain visible and clickable.
 - WHEN the visitor lands on `/` with a hash or restores scroll mid-page THEN the navbar state SHALL match the scroll position on load.
 - IF `_data/discography.json` has no singles THEN the latest release SHALL be the newest album.
+- IF the inline shuffle data is missing or unparseable THEN the `NOW::STREAMING` panel SHALL keep its server-rendered single (round 6).
 
 ---
 
@@ -270,8 +279,12 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-52 | P2: Measure and share - MusicGroup JSON-LD | T10 | Implemented |
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 | HOME-54 | P1: Land on the flagship - phone photo pans from a random member | - | Implemented |
+| HOME-55 | P1: Play the latest release - shuffle pool | Round 6 | Implemented |
+| HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Pending |
+| HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Pending |
+| HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Pending |
 
-**Coverage:** 54 total, 0 mapped to tasks, 54 unmapped (Design pending).
+**Coverage:** 58 total, 0 mapped to tasks, 54 unmapped (Design pending).
 
 ---
 

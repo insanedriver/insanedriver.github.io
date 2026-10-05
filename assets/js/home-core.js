@@ -28,6 +28,26 @@
         return best;
     }
 
+    // NOW::STREAMING shuffles the back catalog: every single except the one
+    // the hero already features, newest first (the first one is the no-JS pick).
+    function shufflePool(catalog, featured) {
+        var singles = (catalog && catalog.singles) || [];
+        var pool = [];
+        for (var i = 0; i < singles.length; i++) {
+            if (singles[i] !== featured) {
+                pool.push(singles[i]);
+            }
+        }
+        return pool.sort(function (a, b) {
+            return a.releaseDate < b.releaseDate ? 1 : a.releaseDate > b.releaseDate ? -1 : 0;
+        });
+    }
+
+    // random is a Math.random() value in [0, 1).
+    function pickShuffle(pool, random) {
+        return pool.length ? pool[Math.floor(random * pool.length)] : null;
+    }
+
     function releaseTypeLabel(release) {
         if (release.type === 'DELUXE') {
             return 'DELUXE EDITION';
@@ -106,6 +126,8 @@
     return {
         LOADER_MAX: LOADER_MAX,
         latestRelease: latestRelease,
+        shufflePool: shufflePool,
+        pickShuffle: pickShuffle,
         releaseTypeLabel: releaseTypeLabel,
         spotifyAlbumId: spotifyAlbumId,
         spotifyEmbedUrl: spotifyEmbedUrl,
