@@ -100,7 +100,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 7. The system SHALL NOT create the Spotify iframe during initial page load.
 8. WHEN the visitor activates `PREVIEW` THEN the system SHALL insert one Spotify embed iframe for the single shown in the panel into the panel's preview container and set `aria-expanded="true"` on the button.
 9. WHEN the visitor activates `PREVIEW` while the preview is open THEN the system SHALL remove the iframe and set `aria-expanded="false"`.
-10. IF the single shown in the panel has neither `spotifyId` nor a parseable `open.spotify.com/album/<id>` URL THEN the system SHALL render no `PREVIEW` button.
+10. (Reworded in round 6) IF the single shown in the panel has neither `spotifyId` nor a parseable `open.spotify.com/album/<id>` URL THEN the system SHALL keep the `PREVIEW` button hidden (the button ships with an empty id so a shuffled single that has one can use it).
 11. WHILE JavaScript has not run the system SHALL keep the `PREVIEW` button hidden and every platform anchor clickable.
 12. (HOME-55, round 6) The system SHALL build the shuffle pool from every entry in `singles` except the release featured in the hero card (AC1); albums are never in the pool.
 13. (HOME-56, round 6) WHEN the page loads with JavaScript THEN the system SHALL show in the `NOW::STREAMING` panel one single picked uniformly at random from the pool, replacing the cover (`src`, `alt`, `width`, `height`), title, eyebrow date, platform anchors, `PREVIEW` embed id and the panel HUD `SIGNAL.<SLUG uppercased> // STREAMING_`, with no memory of earlier picks.
@@ -281,8 +281,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-54 | P1: Land on the flagship - phone photo pans from a random member | - | Implemented |
 | HOME-55 | P1: Play the latest release - shuffle pool | Round 6 | Implemented |
 | HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Pending |
-| HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Pending |
-| HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Pending |
+| HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Implemented |
+| HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Implemented |
 
 **Coverage:** 58 total, 0 mapped to tasks, 54 unmapped (Design pending).
 

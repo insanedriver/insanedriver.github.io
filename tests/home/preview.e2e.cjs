@@ -1,7 +1,8 @@
 const { test, expect } = require('../photos/browser.cjs');
 const { panelByTab, loaderGone } = require('./helpers.cjs');
 
-const EMBED = 'https://open.spotify.com/embed/album/14HkhB5FwTGesQECbSBSML';
+// The single NOW::STREAMING shows before any shuffle: Waiting for You.
+const EMBED = 'https://open.spotify.com/embed/album/33TY4424uWL5jgwvlMPn2S';
 
 const panel = page => panelByTab(page, 'NOW::STREAMING');
 const button = page => panel(page).getByRole('button', { name: 'PREVIEW' });
