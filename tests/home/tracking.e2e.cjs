@@ -2,6 +2,9 @@ const { test, expect } = require('../photos/browser.cjs');
 const { panelByTab, loaderGone } = require('./helpers.cjs');
 
 const SLUG = 'keep-away-acoustic';
+const { pool } = require('../../_data/homeShuffle.js')();
+// NOW::STREAMING is pinned to pool[4] so its click reports a known single.
+const SHUFFLED = pool[4].slug;
 
 const pushed = (page, name) => page.evaluate(n => (window.dataLayer || []).filter(e => e && e.event === n), name);
 
@@ -20,6 +23,7 @@ const holdNavigation = page => page.evaluate(() => {
 
 test.beforeEach(async ({ page, context }) => {
   await stubExternal(context);
+  await page.addInitScript(v => { Math.random = () => v; }, 4.5 / pool.length);
   await page.goto('/', { waitUntil: 'load' });
   await loaderGone(page);
 });
@@ -33,13 +37,13 @@ test('HOME-49: the hero Spotify button reports a hero release click and still op
   ]);
 });
 
-test('HOME-49: a NOW::STREAMING platform click reports placement streaming', async ({ page, context }) => {
+test('HOME-49: a NOW::STREAMING platform click reports the shuffled single with placement streaming', async ({ page, context }) => {
   const anchor = panelByTab(page, 'NOW::STREAMING').locator('[data-home-link="apple"]');
   const popup = context.waitForEvent('page');
   await anchor.click();
   await popup;
   expect(await pushed(page, 'home_release_click')).toEqual([
-    { event: 'home_release_click', platform: 'apple', release: SLUG, placement: 'streaming' }
+    { event: 'home_release_click', platform: 'apple', release: SHUFFLED, placement: 'streaming' }
   ]);
 });
 

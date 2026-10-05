@@ -131,6 +131,49 @@
         update();
     }
 
+    // NOW::STREAMING: swap the server-rendered single for one drawn from the
+    // inline pool on every load. Bad or missing data keeps the default.
+    function shuffle() {
+        var data = document.querySelector('[data-home-shuffle]');
+        var section = document.querySelector('[data-home-streaming]');
+        if (!data || !section) { return; }
+        var pool;
+        try {
+            pool = JSON.parse(data.textContent);
+        } catch (e) {
+            return;
+        }
+        var single = Array.isArray(pool) ? core.pickShuffle(pool, Math.random()) : null;
+        if (!single) { return; }
+
+        var panel = section.closest('[data-home-streaming-hud]');
+        var cover = section.querySelector('[data-home-streaming-cover]');
+        var list = section.querySelector('[data-home-streaming-links]');
+        var spare = section.querySelector('[data-home-streaming-anchors]');
+        var button = section.querySelector('[data-home-preview-btn]');
+
+        section.setAttribute('data-home-streaming', single.slug);
+        if (panel) { panel.setAttribute('data-hud', 'SIGNAL.' + single.slug.toUpperCase() + ' // STREAMING_'); }
+        cover.src = '/assets/images/releases/' + single.cover;
+        cover.alt = single.title + ' cover';
+        cover.width = single.coverWidth;
+        cover.height = single.coverHeight;
+        section.querySelector('[data-home-streaming-title]').textContent = single.title;
+        section.querySelector('[data-home-streaming-date]').textContent = single.releaseDate.replace(/-/g, '.');
+
+        list.innerHTML = '';
+        var anchors = spare.content.querySelectorAll('[data-home-link]');
+        for (var i = 0; i < anchors.length; i++) {
+            var url = single.links[anchors[i].getAttribute('data-home-link')];
+            if (url) {
+                var anchor = anchors[i].cloneNode(true);
+                anchor.href = url;
+                list.appendChild(anchor);
+            }
+        }
+        if (button) { button.setAttribute('data-home-preview-btn', single.embedId || ''); }
+    }
+
     // Spotify preview: the button ships hidden and only shows once JS can
     // honour it. One iframe at most, created on demand, removed on close.
     function preview() {
@@ -163,17 +206,18 @@
     // the navigation or the form post itself.
     function tracking() {
         var card = document.querySelector('[data-home-release]');
-        var release = card ? card.getAttribute('data-home-release') : null;
+        var streaming = document.querySelector('[data-home-streaming]');
+        var releases = {
+            hero: card ? card.getAttribute('data-home-release') : null,
+            streaming: streaming ? streaming.getAttribute('data-home-streaming') : null
+        };
 
         document.addEventListener('click', function (event) {
             var anchor = event.target.closest ? event.target.closest('[data-home-link], [data-home-teaser]') : null;
             if (!anchor) { return; }
             if (anchor.hasAttribute('data-home-link')) {
-                push(core.releaseClickEvent(
-                    anchor.getAttribute('data-home-link'),
-                    release,
-                    anchor.getAttribute('data-home-placement')
-                ));
+                var placement = anchor.getAttribute('data-home-placement');
+                push(core.releaseClickEvent(anchor.getAttribute('data-home-link'), releases[placement], placement));
             } else {
                 push(core.teaserClickEvent(
                     anchor.getAttribute('data-home-teaser'),
@@ -190,6 +234,7 @@
 
     loader();
     navbar();
+    shuffle();
     preview();
     tracking();
 }());

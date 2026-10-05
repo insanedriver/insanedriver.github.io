@@ -280,7 +280,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-53 | P2: Measure and share - Open Graph and Twitter card | T5 | Implemented |
 | HOME-54 | P1: Land on the flagship - phone photo pans from a random member | - | Implemented |
 | HOME-55 | P1: Play the latest release - shuffle pool | Round 6 | Implemented |
-| HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Pending |
+| HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Implemented |
 | HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Implemented |
 | HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Implemented |
 
