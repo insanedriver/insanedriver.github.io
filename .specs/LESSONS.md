@@ -147,8 +147,14 @@ Seen once or not yet corroborated. Tracked, not trusted.
 ### L-023 - For a fallback edge case, test every input the spec names, and assert that the code after the guarded step still runs, not just that the fallback output is shown
 - signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
 - features: home-cyberpunk
-- evidence: validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests)
-- last seen: 2026-10-05T03:08:38Z
+- evidence: validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests) (+1 more)
+- last seen: 2026-10-06T03:26:23Z
+
+### L-024 - When a guard ORs several conditions, give each condition a test where it alone is true, or the other conditions mask its removal.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)
+- last seen: 2026-10-06T03:26:23Z
 
 ## Quarantined (failed when applied - ignore)
 

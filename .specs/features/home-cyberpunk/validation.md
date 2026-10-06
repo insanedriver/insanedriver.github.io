@@ -1,8 +1,8 @@
 # Home Cyberpunk Validation
 
-## Validation: home-cyberpunk - PASS (round 6 re-verify, 2026-10-05)
+## Validation: home-cyberpunk - PASS (round 7 re-verify, 2026-10-06)
 
-The current verdict is PASS. See "Round 6 re-verify" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
+The current verdict is PASS. See "Round 7 re-verify" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
 
 ## Round 3 (of 3)
 
@@ -364,3 +364,119 @@ The changes are minimal and match the existing patterns: the `home-core` UMD exp
 - **Playwright**: 227/227 passed (round 6: 225/226). The +1 is the new missing-data edge test. The HOME-24 loader flake did not fire this run.
 
 **Summary**: R6-A and R6-B are verified. Round 6 now passes: 11/11 round-6 rows are verified, every non-equivalent mutant is killed, unit 77/77, and Playwright 227/227.
+
+## Round 7 (hardened home script)
+
+**Date**: 2026-10-06. **Diff range**: `5979787^..7d2c45b` (plan `5979787`; implementation `701b0e5`, `a831a21`, `ed147fc`, `4a0f8aa`, `354e316`, `8a6e2a0`, `caff960`, `7d2c45b`, one per task T21-T28). **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a temporary `git worktree` at `7d2c45b` under the session scratchpad (node_modules symlinked), removed with `git worktree remove --force` and pruned afterwards. `git status --porcelain` on the real tree matched the pre-sensor baseline after the gate and after the sensor (only the untracked agent dirs).
+
+**Round-7 verdict (superseded by the re-verify)**: FAIL. Every AC HOME-59..70 has evidence and the gate is green, but three non-equivalent mutants survive: E3 (HOME-61) and E6/E10 (HOME-64/66, the 4000ms branch). All three are test-only gaps; the product code behaves correctly.
+
+### Task completion
+
+T21-T28 are all `[x]` and ✅ Done in tasks.md, each with its own commit in the diff range.
+
+### Spec-anchored acceptance criteria (round-7 scope)
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| HOME-59 (spec.md:225) | Accept only when slug/title/releaseDate/cover are non-empty strings, coverWidth/coverHeight positive numbers, links a non-null object; null embedId accepted | `tests/home/home-core.test.cjs:177` every pool entry `isShuffleEntry(entry) === true`; `:182` `embedId: null` → `true`; `:185-196` blank/missing slug, blank/numeric title, null releaseDate, blank cover, 0/'600' coverWidth, -1/NaN coverHeight, null/string links each → `false`; `:198-199` null and string entry → `false` | ✅ PASS |
+| HOME-60 (spec.md:226) | A drawn entry rejected by HOME-59 leaves the server-rendered single unchanged | `tests/home/shuffle.e2e.cjs:112-117` pool[9] with `releaseDate: null`, draw pinned to 9 → `expectDefaultStillWired`: `:91` `expectShows(page, pool[0])` (slug, HUD, title, eyebrow, cover src/alt/size, anchors, embed id), `:94` PREVIEW iframe `src` = pool[0] embed, `:98-100` one `home_release_click` with `release: pool[0].slug` | ✅ PASS |
+| HOME-61 (spec.md:227) | If any of cover, title, date, link list or spare `<template>` is missing, the panel is unchanged | `tests/home/shuffle.e2e.cjs:120-129` strips `<template data-home-streaming-anchors>` (`:124` throws if nothing stripped) → `expectDefaultStillWired` (`:91-100`) | ⚠️ GAP: only the template node is exercised. The cover/title/date/list null checks (`assets/js/home.js:172`) have no test; E3 survives. |
+| HOME-62 (spec.md:228) | One throwing module does not stop the modules after it | `tests/home/scripts.e2e.cjs:31-60` navbar's first `classList.toggle` throws → `:50` panel shows `pool[5].slug` (shuffle ran), `:53` PREVIEW iframe = pool[5] embed, `:57-59` exactly one `home_release_click` with `release: pool[5].slug, placement: 'streaming'`, `:60` `errors` `toContain('navbar boom')` (still reported) | ✅ PASS (navbar only; see note) |
+| HOME-63 (spec.md:229) | Release (is-done, aria-hidden=true, not inert, IDHomeReleased=true) only through `IDHomeRelease`; a second call leaves the same state | `tests/home/layout-template.test.cjs:19-20` each of is-done/aria-hidden/inert-off occurs once, inside `IDHomeRelease`, and nowhere else in the layout; `:26-29` zero occurrences in `home.js` and it calls `window.IDHomeRelease()`; `tests/home/loader.e2e.cjs:205,207` after two calls `toEqual({ done: true, aria: 'true', inert: false, released: true })` | ✅ PASS |
+| HOME-64 (spec.md:230) | A late `home.js` (IDHomeReleased, is-done, **or 4000ms past IDHomeBootAt**) never makes content inert | `tests/home/loader.e2e.cjs:246-249` first view, home.js held 4500ms, `:257` repeat view held 700ms: `toEqual(settled)` with `relocked: false` (MutationObserver log of every `inert` change after `__homeJsAt`) and `inert: false` | ⚠️ GAP: in both tests `IDHomeReleased` is already true when home.js runs (the body failsafe / head timer fired first), so the `now() >= startedAt + LOADER_FAILSAFE` arm (`assets/js/home.js:42`) is never the deciding condition; E6 survives. |
+| HOME-65 (spec.md:231) | A late `home.js` marks the session visited | `tests/home/loader.e2e.cjs:249` `settled.visited === '1'` (`sessionStorage.getItem('id-home-booted')`) on the late first view | ✅ PASS |
+| HOME-66 (spec.md:232) | A late `home.js` leaves is-done + aria-hidden=true and removes `home-loading` within 1000ms | `tests/home/loader.e2e.cjs:230-241` sampled at `__homeJsAt + 1000`; `:249,257` `toEqual(settled)` with `loading: false, done: true, aria: 'true'` | ⚠️ GAP (same root as HOME-64): the `IDHomeRelease()` call in the early return (`assets/js/home.js:44`) is redundant in both tested scenarios; E10 survives. |
+| HOME-67 (spec.md:233) | After dismissal no loader `keydown` listener remains on document | `tests/home/loader.e2e.cjs:278-286` (timeout and click skip) instrumented add/remove, `__homeKeydown()` `toBe(0)` | ✅ PASS |
+| HOME-68 (spec.md:234) | Head gate reads the session flag under `home-core` `BOOT_KEY`, rendered at build time | `tests/home/home-boot.test.cjs:7-8` `BOOT_KEY === 'id-home-booted'`, `homeBoot().key === core.BOOT_KEY`; `tests/home/layout-template.test.cjs:42-43` rendered with `test-key` → `getItem('test-key') === '1'` in `<head>` and no `id-home-booted` literal | ✅ PASS |
+| HOME-69 (spec.md:235) | `homeRelease` exposes neither `embedId` nor `detailUrl` | `tests/home/home-release.test.cjs:12-13` and `:23-24` `!('embedId' in r)`, `!('detailUrl' in r)` for today's single and an injected album | ✅ PASS |
+| HOME-70 (spec.md:236) | No `please-wait.min.js`; `style.min.css` has no rules from please-wait/sk-wave/player | `tests/home/legacy.test.cjs:10` the four files `existsSync === false`; `:15` `style.less` imports none; `:21` CSS lacks `.pg-loading`, `.sk-wave`, `#player-sf`, `#player-id`, `.player-art`, `.iframe-spotify`, `.buy-resources`, `.follow-button-spotify`. Repo search (`git grep` outside `.specs`, `docs`, `tests`) finds no remaining reference. | ✅ PASS |
+
+**Assumptions rows (spec.md:56-59)**: invalid entry keeps the single (HOME-60 row above); module error rethrown via `setTimeout` (`assets/js/home.js:256-262`, `scripts.e2e.cjs:60`); 4000ms threshold = `core.LOADER_FAILSAFE` (`assets/js/home-core.js:13`, used at `home.js:42`; untested, see HOME-64); legacy files gone (HOME-70 row). All consistent with the code.
+
+**Notes (non-blocking)**: HOME-62 says "any module"; only a navbar failure is tested. The navbar case does kill both "swallow" (E4) and "unwrapped call" (E5) mutants, so `run()` itself is discriminated; per-module wrapping of `loader`, `shuffle`, `preview` is verified only by reading `home.js:264-268`.
+
+### Discrimination sensor (worktree at `7d2c45b`; unit = `node --test tests/*/*.test.cjs`, baseline 87/87; e2e = shuffle + scripts + loader, baseline 33/33)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| M1 | `assets/js/home-core.js:59` | `isShuffleEntry` drops the `releaseDate` check | ✅ Killed (unit: `home-core.test.cjs:185`) |
+| M8 | `_layouts/home.html:29` | Head gate hardcodes `getItem('id-home-booted')` again | ✅ Killed (unit: `layout-template.test.cjs:39`) |
+| M9 | `less/style.less:1` | `please-wait.less` restored and re-imported | ✅ Killed (unit: `legacy.test.cjs:9`, `:13`) |
+| M10 | `_data/homeRelease.js` | `embedId` re-added to the release | ✅ Killed (unit: 2 in `home-release.test.cjs`) |
+| M11 | `_data/homeBoot.js:5` | `key` drifts from `core.BOOT_KEY` | ✅ Killed (unit: `home-boot.test.cjs:6`) |
+| E1 | `assets/js/home.js:162` | `isShuffleEntry` check → `if (!single)` | ✅ Killed (1: `shuffle.e2e.cjs:112` HOME-60) |
+| E2 | `assets/js/home.js:172` | Drop `!spare \|\| !spare.content` | ✅ Killed (1: `shuffle.e2e.cjs:120` HOME-61) |
+| E3 | `assets/js/home.js:172` | Drop `!title \|\| !date` | ❌ **Survived** (13/13 shuffle + panels pass) |
+| E4 | `assets/js/home.js:260` | `run()` swallows instead of rethrowing | ✅ Killed (1: `scripts.e2e.cjs:31`) |
+| E5 | `assets/js/home.js:265` | `run(navbar)` → `navbar()` | ✅ Killed (1: `scripts.e2e.cjs:31`) |
+| E6 | `assets/js/home.js:42` | Drop the `now() >= startedAt + LOADER_FAILSAFE` arm | ❌ **Survived** (20/20 loader pass) |
+| E7 | `assets/js/home.js:42` | Early return disabled (`if (false)`) | ✅ Killed (2: `loader.e2e.cjs:246`, `:252`) |
+| E8 | `assets/js/home.js:43` | No `markVisited` in the early return | ✅ Killed (1: `loader.e2e.cjs:246`) |
+| E9 | `assets/js/home.js:45` | No `dropGate()` in the early return | ✅ Killed (2: `loader.e2e.cjs:246`, `:252`) |
+| E10 | `assets/js/home.js:44` | No `IDHomeRelease()` in the early return | ❌ **Survived** (20/20 loader pass) |
+| E11 | `assets/js/home.js:80` | `removeEventListener('keydown', onKey)` deleted | ✅ Killed (2: `loader.e2e.cjs:280` both cases) |
+| E12 | `_layouts/home.html:29` | `IDHomeRelease` toggles `is-done` instead of adding it (not idempotent) | ✅ Killed (1: `loader.e2e.cjs:196`) |
+
+**Equivalence check of E6/E10**: a scratch-only probe e2e (not committed) routed `home.js` with `window.IDHomeBootAt = performance.now() - 5000` prepended, so home.js runs with `IDHomeReleased === false` and no `is-done` (asserted) but past the 4000ms mark. The original code passed (no re-lock, `home-loading` gone, `is-done` within 1000ms); E6 and E10 both failed it. Both mutants are therefore real, reachable gaps, not equivalent. E3 is non-equivalent by reading: without the check, `title.textContent` throws after the cover was already swapped (`home.js:176-180`), so the panel is left half-changed.
+
+**Sensor depth**: expanded (17 mutants). **Sensor score (round 7)**: 14/17 killed, which failed the sensor until the re-verify below.
+
+### Gate
+
+- **Command**: `npm test` in the real tree (unit, then `less:build` + Playwright), exit 0. `less:build` left `style.min.css` byte-identical (porcelain unchanged).
+- **Unit**: 87/87 (round 6: 77; +10 = 3 HOME-59, 1 HOME-68 boot, 3 layout-template, 3 legacy).
+- **Playwright**: 235/235 (round 6 re-verify: 227; +8 = HOME-60, HOME-61, HOME-62, HOME-63, 2 HOME-64/65/66, 2 HOME-67). The HOME-24 flake did not fire.
+- **Test integrity**: no test deleted. `home-release.test.cjs` replaced its `embedId`/`detailUrl` value assertions with absence assertions (required by HOME-69); the album test kept `typeLabel === 'ALBUM'`.
+
+### Code quality
+
+Changes are surgical and match existing patterns (`home-core` UMD exports, `_data/*.js` loaders, inline head gate). `isShuffleEntry` is pure and unit-tested; `run()` is minimal; the release contract now lives in one place. The four legacy files are deleted with their imports, and no consumer remains. Every new test maps to HOME-59..70. No scope creep found.
+
+### Fix plans (test-only)
+
+1. **Fix R7-A (Minor, HOME-64/66 / E6, E10)**: in `tests/home/loader.e2e.cjs`, add a third late-`home.js` case where the routed body is prefixed with `window.IDHomeBootAt = performance.now() - 5000;` (no delay), first assert `IDHomeReleased` is falsy and `#home-loader` lacks `is-done` when home.js starts, then `expect(await afterLateHomeJs(page)).toMatchObject({ relocked: false, inert: false, loading: false, done: true, aria: 'true' })`. Verified in scratch to kill E6 and E10.
+2. **Fix R7-B (Minor, HOME-61 / E3)**: in `tests/home/shuffle.e2e.cjs:120-129`, turn the template-strip test into a loop over the panel's write targets: strip the `data-home-streaming-title`, `data-home-streaming-date`, `data-home-streaming-cover`, `data-home-streaming-links` attributes (and the `<template>` as today), each followed by `expectDefaultStillWired`-equivalent checks that do not query the stripped hook (for example assert the cover `src` and the `data-home-streaming` slug still point to pool[0], PREVIEW opens pool[0] and the streaming click reports pool[0]).
+
+**Summary**: 12/12 ACs have file:line evidence; 9 are fully verified, HOME-61 and HOME-64/66 have test gaps (3 surviving mutants, 14/17 killed). Unit 87/87, Playwright 235/235. Behavior is correct; both fixes are test-only.
+
+## Round 7 re-verify (fix `46c354e`)
+
+**Date**: 2026-10-06. **Diff range**: `7d2c45b..46c354e` (`tests/home/loader.e2e.cjs` and `tests/home/shuffle.e2e.cjs` only; no product code changed). **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a fresh temporary `git worktree` at `46c354e` under the session scratchpad, which was removed and pruned afterwards. `git status --porcelain` on the real tree matched the baseline before the sensor, after it, and after the gate.
+
+**Result**: PASS. Fix R7-A kills E6 and E10, and fix R7-B kills E3 (and its cover/links variants E3b/E3c). Every previously killed sample is still killed.
+
+### Spec-anchored check of the fix
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| HOME-61 (spec.md:227) | If any of cover, title, date, link list or spare `<template>` is missing, the panel is unchanged | `tests/home/shuffle.e2e.cjs:122-136` loops over the spare template and the `cover`, `title`, `date`, `links` hooks, stripping each in turn; `:130` throws if nothing was stripped, so no case can pass vacuously; `:135` `expectDefaultStillWired` (`:91` `expectShows(page, pool[0])`, `:94` PREVIEW = pool[0] embed, `:98-100` one `home_release_click` with `release: pool[0].slug`). `expectShows` finds the nodes by `img`, `h2`, `.home-eyebrow` and `[data-home-link]`, not by the stripped hooks | ✅ PASS (kills E3, E3b, E3c) |
+| HOME-64 (spec.md:230) | A late `home.js` past 4000ms since `IDHomeBootAt` never makes content inert, even when nothing has released the page yet | `tests/home/loader.e2e.cjs:290-299` the routed `home.js` shifts `IDHomeBootAt` back 5s; `:298` `__preState` `toEqual({ released: false, done: false })` proves only the 4000ms rule applies; `:299` `toEqual(settled)` with `relocked: false, inert: false` | ✅ PASS (kills E6) |
+| HOME-65 (spec.md:231) | A late `home.js` marks the session visited | `:299` `settled.visited === '1'` (also `:249`) | ✅ PASS |
+| HOME-66 (spec.md:232) | A late `home.js` leaves is-done + aria-hidden=true and drops `home-loading` within 1000ms | `:299` `toEqual(settled)` (`loading: false, done: true, aria: 'true'`, sampled at `__homeJsAt + 1000`, `:230`); `:249`, `:257` unchanged | ✅ PASS (kills E10) |
+
+**Test integrity**: no test was deleted or weakened. The single HOME-61 template test is now the first case of the loop, with identical assertions. `lateHomeJs` only gained an optional `prefix` (default `''`), so the existing late tests at `:246` and `:252` are unchanged.
+
+### Discrimination sensor (worktree at `46c354e`; e2e = shuffle + scripts + loader, 38 tests; baseline 38/38 green)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| E3 | `assets/js/home.js:172` | Drop `!title \|\| !date` | ✅ Killed (2: `shuffle.e2e.cjs:126` title hook, date hook) |
+| E3b | `assets/js/home.js:172` | Drop `!cover` | ✅ Killed (1: `shuffle.e2e.cjs:126` cover hook) |
+| E3c | `assets/js/home.js:172` | Drop `!list` | ✅ Killed (1: `shuffle.e2e.cjs:126` links hook) |
+| E6 | `assets/js/home.js:42` | Drop the `now() >= startedAt + LOADER_FAILSAFE` arm | ✅ Killed (1: `loader.e2e.cjs:290`) |
+| E10 | `assets/js/home.js:44` | No `IDHomeRelease()` in the early return | ✅ Killed (1: `loader.e2e.cjs:290`) |
+| E2 | `assets/js/home.js:172` | Drop `!spare \|\| !spare.content` | ✅ Killed (1), regression sample |
+| E4 | `assets/js/home.js:260` | `run()` swallows instead of rethrowing | ✅ Killed (1), regression sample |
+| E8 | `assets/js/home.js:43` | No `markVisited` in the early return | ✅ Killed (2: `loader.e2e.cjs:246`, `:290`), regression sample |
+| E11 | `assets/js/home.js:80` | `removeEventListener('keydown', onKey)` deleted | ✅ Killed (2), regression sample |
+
+**Sensor depth**: targeted (3 survivors + 2 variants + 4 regression samples). **Result**: 9/9 killed. With round 7, that is 17/17 non-equivalent mutants killed (plus E3b/E3c).
+
+### Gate
+
+- **Command**: `npm test` in the real tree at `46c354e` (exit 0).
+- **Unit**: 87/87.
+- **Playwright**: 240/240 (round 7: 235; +5 = 4 new HOME-61 hook cases and the new HOME-64/66 failsafe case). The HOME-24 flake did not fire.
+
+**Summary**: R7-A and R7-B are verified. Round 7 now passes: 12/12 ACs (HOME-59..70) are verified, every non-equivalent mutant is killed, unit 87/87, and Playwright 240/240. The HOME-62 note (only navbar failure is exercised) stays non-blocking.
