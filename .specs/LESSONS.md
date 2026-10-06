@@ -138,6 +138,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md round 3 M29; _layouts/home.html:27 (loader)
 - last seen: 2026-09-30T04:27:29Z
 
+### L-022 - When a test asserts that a field is replaced, make the fixture's value differ from the default it replaces, or the assertion cannot fail
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 6 M14 (assets/js/home.js:159-160) (tests)
+- last seen: 2026-10-05T03:08:38Z
+
+### L-023 - For a fallback edge case, test every input the spec names, and assert that the code after the guarded step still runs, not just that the fallback output is shown
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests)
+- last seen: 2026-10-05T03:08:38Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

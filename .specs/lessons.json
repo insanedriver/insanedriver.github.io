@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 22,
+  "next_id": 24,
   "lessons": [
     {
       "id": "L-001",
@@ -385,6 +385,42 @@
       ],
       "created": "2026-09-30T04:27:29Z",
       "last_seen": "2026-09-30T04:27:29Z"
+    },
+    {
+      "id": "L-022",
+      "key": "surviving_mutant::when a test asserts that a field is replaced make the fixture s value differ from the default it replaces or the assertion cannot fail",
+      "text": "When a test asserts that a field is replaced, make the fixture's value differ from the default it replaces, or the assertion cannot fail",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "home-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Round 6 M14 (assets/js/home.js:159-160) (tests)"
+      ],
+      "created": "2026-10-05T03:08:38Z",
+      "last_seen": "2026-10-05T03:08:38Z"
+    },
+    {
+      "id": "L-023",
+      "key": "surviving_mutant::for a fallback edge case test every input the spec names and assert that the code after the guarded step still runs not just that the fallback output is shown",
+      "text": "For a fallback edge case, test every input the spec names, and assert that the code after the guarded step still runs, not just that the fallback output is shown",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "home-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests)"
+      ],
+      "created": "2026-10-05T03:08:38Z",
+      "last_seen": "2026-10-05T03:08:38Z"
     }
   ]
 }

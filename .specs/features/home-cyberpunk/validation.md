@@ -1,8 +1,12 @@
-# Home Cyberpunk Validation (round 3 of 3)
+# Home Cyberpunk Validation
 
-## Validation: home-cyberpunk - FAIL (escalate to the user)
+## Validation: home-cyberpunk - PASS (round 6 re-verify, 2026-10-05)
 
-**Result: FAIL**. The round-2 blocker HOME-24 is fixed and verified. The gate is green (unit 65/65, Playwright 209/209), and the `defer` change caused no regression: 155/155 green across 5 repeats of the loader, loader-style, tracking, scripts and navbar specs.
+The current verdict is PASS. See "Round 6 re-verify" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
+
+## Round 3 (of 3)
+
+**Round-3 verdict (superseded by round 4)**: FAIL. The round-2 blocker HOME-24 is fixed and verified. The gate is green (unit 65/65, Playwright 209/209), and the `defer` change caused no regression: 155/155 green across 5 repeats of the loader, loader-style, tracking, scripts and navbar specs.
 
 Two findings remain, and this is the final fix round, so they go to the user:
 
@@ -247,3 +251,116 @@ Depth: expanded. All 25 prior mutants were re-run and 5 new ones added for `7fe1
 **Gate**: unit 65/65; Playwright 219/219 (2026-10-03, after a fresh build).
 
 **Result**: Ready for the user's review. The round-4 deferrals are still open.
+
+---
+
+## Round 6 (NOW::STREAMING shuffle)
+
+**Date**: 2026-10-05. **Diff range**: `4930fca..2cb7f75` (`6e8d1c6`, `3d6791f`, `2cb7f75`). **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree; the mutants ran in a temporary `git worktree` at `2cb7f75` under the session scratchpad, removed afterwards. `git status --porcelain` on the real tree matched the pre-sensor baseline.
+
+**Round-6 verdict (superseded by the re-verify)**: FAIL. The behavior is correct, but two mutants survive (M14 and M15/M16). Both are test-only fixes.
+
+### Spec-anchored acceptance criteria (round-6 scope)
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| P1 AC6 (spec.md:99) | The panel shows the cover, title, eyebrow `SHUFFLE // SINGLE // YYYY.MM.DD`, the exact lead, one anchor per platform in `links`, `/discography/`, and PREVIEW | `tests/home/panels.e2e.cjs:42` `toHaveText('SHUFFLE // SINGLE // 2025.02.21')`, `:44` exact lead, `:47` anchor keys `toEqual(fallbackKeys)`, `:55` `href '/discography/'`; `tests/home/hero-template.test.cjs:61-71` (same values at template level); `tests/home/shuffle.e2e.cjs:26,33` (eyebrow and anchors after the shuffle) | ✅ PASS |
+| P1 AC8 (spec.md:101) | PREVIEW embeds the single shown in the panel | `tests/home/shuffle.e2e.cjs:82` iframe `src` = `embed/album/${pool[5].embedId}`; `tests/home/preview.e2e.cjs:4,11` (pinned pool[0] embed) | ✅ PASS |
+| P1 AC10 (spec.md:103) | A shown single with no id keeps PREVIEW hidden; it ships with an empty id | `tests/home/hero-template.test.cjs:58` `data-home-preview-btn="" ... hidden>`; `tests/home/shuffle.e2e.cjs:73` `toBeHidden()` for a shuffled single with no id; `tests/home/home-shuffle.test.cjs:30` `embedId === null` | ✅ PASS |
+| P1 AC11 (spec.md:104) | With no JS, PREVIEW is hidden and every anchor is clickable | `tests/home/panels.e2e.cjs:61-63` `toBeHidden()`, count = `fallbackKeys.length`, each `toBeVisible()` | ✅ PASS |
+| P1 AC12 / HOME-55 (spec.md:105) | The pool holds every single except the hero release, with no albums, newest first | `tests/home/home-core.test.cjs:143` `['new','mid','old']`; `:147-150` length = singles-1, no `keep-away-acoustic`, no non-SINGLE; `:156` album hero keeps every single; `tests/home/home-shuffle.test.cjs:7` length 17 | ✅ PASS |
+| P1 AC13 / HOME-56 (spec.md:106) | A uniform pick per load replaces cover src/alt/**width/height**, title, date, anchors, embed id and HUD, with no memory | `tests/home/home-core.test.cjs:167-172` floor mapping at 0/.2499/.25/.6/.9999; `tests/home/shuffle.e2e.cjs:46-53` pinned draws of pool[0], [7], [16]; `:23-43` (`expectShows`): slug, HUD `SIGNAL.<SLUG> // STREAMING_`, h2, eyebrow, src, alt, anchors, embed id; `:55-61` reload with the same draw shows the same single | ⚠️ GAP: the width/height assertions (`:30-31`) cannot fail, because every cover in `_data/discography.json` is 600x600 and the `odd` fixture (`:64`) copies pool[0]'s size. M14 survives. |
+| P1 AC14 / HOME-57 (spec.md:107) | With no JS, the panel shows the newest pool single (Waiting for You) | `tests/home/panels.e2e.cjs:34-56` HUD `SIGNAL.WAITING-FOR-YOU // STREAMING_`, h2 `Waiting for You.`, src, alt; `tests/home/home-shuffle.test.cjs:8-20` `pool[0]` deepEqual | ✅ PASS |
+| P1 AC15 / HOME-58 (spec.md:108) | An empty pool renders no panel | `tests/home/hero-template.test.cjs:80-84` `doesNotMatch(/NOW::STREAMING/)`, `doesNotMatch(/data-home-shuffle/)`; `tests/home/home-core.test.cjs:159-163` `[]` | ✅ PASS |
+| P2 AC1 / HOME-49 (spec.md:203) | A streaming click reports the slug of the shown single; a hero click reports the hero slug | `tests/home/tracking.e2e.cjs:46` `release: SHUFFLED` (pool[4], pinned at `:26`); `:31-38` hero `release: SLUG` | ✅ PASS |
+| Edge (spec.md:220) | Missing **or** unparseable shuffle data keeps the server-rendered single | `tests/home/shuffle.e2e.cjs:85-90` (unparseable only): `expectShows(page, pool[0])` | ⚠️ GAP: no test covers missing data (M16 survives). The unparseable test does not check that the rest of `home.js` still runs (M15 survives). |
+| Inline JSON safety (Assumptions row) | `<` is escaped and the JSON equals the pool | `tests/home/home-shuffle.test.cjs:38-39` `!json.includes('<')`, deepEqual; `tests/home/hero-template.test.cjs:73-77` | ✅ PASS |
+
+**Regression check (previously verified)**: hero card HOME-10..13 (`tests/home/hero.e2e.cjs:40`, `tests/home/hero-template.test.cjs:34-46`, `tests/home/hero-style.e2e.cjs:52`) and HOME-15/16/17 preview (`tests/home/preview.e2e.cjs:17-45`) are all green. The HOME-12 template tests dropped their streaming assertions because the panel no longer shows the hero release. That coverage now lives in `tests/home/hero-template.test.cjs:48-52` and `tests/home/shuffle.e2e.cjs:63-74`.
+
+**Spec-precision notes (non-blocking)**: "uniformly at random" is verified structurally: the `pickShuffle` floor mapping is exact (`home-core.test.cjs:165`), and pinning `Math.random` drives the pick in e2e. No statistical test exists, and none is needed. In `spec.md:287`, the traceability footer reads "58 total, 0 mapped, 54 unmapped". The arithmetic is stale.
+
+### Discrimination sensor (worktree at `2cb7f75`; unit = `node --test tests/*/*.test.cjs`, e2e = shuffle + tracking + preview + panels)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| M1 | `assets/js/home-core.js:37` | The pool keeps the hero release (`!== featured` → `true`) | ✅ Killed (unit) |
+| M2 | `assets/js/home-core.js:42` | The pool sort is reversed (oldest first) | ✅ Killed (unit) |
+| M3 | `assets/js/home-core.js:48` | `pickShuffle` always returns `pool[0]` | ✅ Killed (unit) |
+| M4 | `assets/js/home-core.js:48` | `Math.floor` → `Math.round` (off by one) | ✅ Killed (unit) |
+| M11 | `_data/homeShuffle.js:30` | The `<` escaping is removed | ✅ Killed (unit) |
+| M12 | `index.html:64` | An empty pool still renders the panel (`{% if true %}`) | ✅ Killed (unit) |
+| M18 | `_data/homeShuffle.js:20` | `embedId` drops the URL fallback (`single.spotifyId`) | ✅ Killed (unit) |
+| M19 | `_data/homeShuffle.js:9` | Empty link values are kept | ✅ Killed (unit) |
+| M5 | `assets/js/home.js:146` | `shuffle()` always draws index 0 | ✅ Killed (6 e2e) |
+| M6 | `assets/js/home.js:164` | The server anchors are not cleared before the rebuild | ✅ Killed (6) |
+| M6b | `assets/js/home.js:171` | Rebuilt anchors are never appended | ✅ Killed (7) |
+| M7 | `assets/js/home.js:156` | The HUD is not updated | ✅ Killed (4) |
+| M8 | `assets/js/home.js:174` | The PREVIEW embed id is not updated | ✅ Killed (5) |
+| M9 | `assets/js/home.js:162` | The eyebrow date is not updated | ✅ Killed (4) |
+| M10 | `assets/js/home.js:220` | A streaming click reports the hero slug | ✅ Killed (1) |
+| M13 | `assets/js/home.js:237` | `preview()` runs before `shuffle()` | ✅ Killed (2) |
+| M17 | `assets/js/home.js:168` | An anchor is appended for every platform, even with no URL | ✅ Killed (5) |
+| M20 | `assets/js/home.js:155` | `data-home-streaming` keeps the default slug | ✅ Killed (5) |
+| M21 | `assets/js/home.js:237-239` | `shuffle()` runs after `tracking()` | ✅ Killed (3) |
+| M14 | `assets/js/home.js:159-160` | The cover `width`/`height` are not replaced | ❌ **Survived** |
+| M15 | `assets/js/home.js:141-145` | The `try/catch` around `JSON.parse` is removed, so bad data throws and PREVIEW and tracking never initialise | ❌ **Survived** |
+| M16 | `assets/js/home.js:139` | The `!data` guard is removed, so missing data throws a TypeError | ❌ **Survived** (the missing-data path has no test) |
+
+**Sensor depth**: expanded (22 mutants). **Sensor score (round 6)**: 19/22 killed, which failed the sensor until the re-verify below.
+
+### Gate
+
+- **Command**: `npm run build && npm test` (Build gate, tasks.md).
+- **Unit**: 77/77 (round 5: 65).
+- **Playwright**: 225 passed, 1 failed (226 total; round 5: 219). The failure was `tests/home/loader.e2e.cjs:39` HOME-24 "flashes for at most 0.5s" at 578.5ms. This is the known load-dependent flake documented in round 4. Rerun in isolation with `--repeat-each=15`: 15/15 pass. The round-6 diff does not touch it.
+- **Test integrity**: no test was deleted without a replacement. The old HOME-14 JS-on test was replaced by the no-JS HOME-14/57 test and `shuffle.e2e.cjs`. The old HOME-18 template test was replaced by `hero-template.test.cjs:54`.
+
+### Code quality
+
+The changes are minimal and match the existing patterns: the `home-core` UMD export, `_data/*.js` loaders, and `data-home-*` hooks. The shared `streaming-link.liquid` include avoids duplicating the anchor markup between the panel and `<template>`. The JSON uses an escaped `<`, and `textContent` is used for the title and date. Every new test maps to HOME-55..58, HOME-49, HOME-16/18 or the new edge case.
+
+### Fix plans (test-only)
+
+1. **Fix R6-A (Minor, HOME-56 / M14)**: in `tests/home/shuffle.e2e.cjs:63-74`, give the `odd` fixture a cover size that differs from 600x600 (for example `coverWidth: 640, coverHeight: 480`). `expectShows` then kills M14.
+2. **Fix R6-B (Minor, edge case / M15, M16)**: extend `tests/home/shuffle.e2e.cjs:85-90` to also assert that the page still works after bad data. Either PREVIEW is visible and opens the pool[0] embed, or a streaming click pushes `release: 'waiting-for-you'`. Then add a missing-data variant that strips the `<script data-home-shuffle>` element (`serveShuffle` would need a remove mode) with the same assertions.
+
+**Summary**: 9/11 round-6 rows verified. 2 rows have test gaps, and the behavior is correct for both. The sensor killed 19/22. Unit 77/77; Playwright 225/226, and the 1 failure is the pre-existing HOME-24 flake, which passed 15/15 on rerun.
+
+## Round 6 re-verify (fix `6d2810f`)
+
+**Date**: 2026-10-05. **Diff range**: `2cb7f75..6d2810f` (`tests/home/shuffle.e2e.cjs` and the `spec.md` coverage footer only; no product code changed). **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a temporary `git worktree` at `6d2810f` under the session scratchpad, which was removed and pruned afterwards. `git status --porcelain` on the real tree matched the baseline before the sensor, after it, and after the gate.
+
+**Result**: PASS. Fix R6-A kills M14 and fix R6-B kills M15. M16 is an equivalent mutant: `data.textContent` is read inside the `try` (`assets/js/home.js:141-145`), so with the `!data` guard gone the TypeError is caught and `shuffle()` still returns. The new missing-data test kills the non-equivalent form of M16 (M16b).
+
+### Spec-anchored check of the fix
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| P1 AC13 / HOME-56 (spec.md:106) | The pick replaces the cover `width`/`height` | `tests/home/shuffle.e2e.cjs:66` the `odd` fixture is 640x480, which differs from every 600x600 catalog cover; `:72` `expectShows(page, odd)` asserts `width` = `640` and `height` = `480` (`:31-32`) | ✅ PASS (kills M14) |
+| Edge (spec.md:220) | Unparseable shuffle data keeps the server-rendered single | `tests/home/shuffle.e2e.cjs:103-109` (`unparseable`, body `{not json`) → `expectDefaultStillWired`: `:91` `expectShows(page, pool[0])`, `:94` PREVIEW iframe `src` = `embed/album/${pool[0].embedId}`, `:98-100` the `dataLayer` holds exactly one `home_release_click` with `release: pool[0].slug, placement: 'streaming'` | ✅ PASS (kills M15) |
+| Edge (spec.md:220) | Missing shuffle data keeps the server-rendered single | `tests/home/shuffle.e2e.cjs:16` `body === null` strips the whole `<script data-home-shuffle>`; `:17` throws if nothing was stripped, so the test cannot pass vacuously; `:103-109` (`missing`) runs the same assertions | ✅ PASS (kills M16b) |
+
+**Test integrity**: no test was deleted or weakened. The old unparseable test (`expectShows(page, pool[0])` only) is now the `unparseable` case of the loop, with PREVIEW and tracking assertions added. The `odd` fixture only gained `coverWidth`/`coverHeight`. `spec.md:287` now has correct arithmetic: HOME-01..53 map to T1-T20, and HOME-54..58 come from rounds 5 and 6.
+
+### Discrimination sensor (worktree at `6d2810f`; e2e = shuffle + tracking + preview + panels, 23 tests; baseline 23/23 green, unit 77/77)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| M14 | `assets/js/home.js:159-160` | The cover `width`/`height` are not replaced | ✅ Killed (1: `shuffle.e2e.cjs:64`) |
+| M15 | `assets/js/home.js:141-145` | The `try/catch` around `JSON.parse` is removed | ✅ Killed (1: `shuffle.e2e.cjs:104` unparseable) |
+| M16 | `assets/js/home.js:139` | `if (!data \|\| !section)` → `if (!section)` | ⚪ Equivalent (23/23 pass). The null dereference `data.textContent` happens inside the `try` at `:142`, so it is caught and no behavior changes. |
+| M16b | `assets/js/home.js:139-142` | Guard removed and `data.textContent` read before the `try` (missing data now throws) | ✅ Killed (1: `shuffle.e2e.cjs:104` missing) |
+| M5 | `assets/js/home.js:146` | `shuffle()` always draws index 0 | ✅ Killed (6), regression sample |
+| M8 | `assets/js/home.js:174` | The PREVIEW embed id is not updated | ✅ Killed (5), regression sample |
+| M10 | `assets/js/home.js:212` | A streaming click reports the hero slug | ✅ Killed (3: `tracking.e2e.cjs:40` and both new edge tests), regression sample |
+
+**Sensor depth**: targeted (3 survivors + 1 non-equivalent variant + 3 regression samples). **Result**: 6/6 non-equivalent mutants killed; M16 is equivalent. With round 6, that is 21/21 non-equivalent mutants killed.
+
+### Gate
+
+- **Command**: `npm run build && npm test` in the real tree (exit 0).
+- **Unit**: 77/77.
+- **Playwright**: 227/227 passed (round 6: 225/226). The +1 is the new missing-data edge test. The HOME-24 loader flake did not fire this run.
+
+**Summary**: R6-A and R6-B are verified. Round 6 now passes: 11/11 round-6 rows are verified, every non-equivalent mutant is killed, unit 77/77, and Playwright 227/227.

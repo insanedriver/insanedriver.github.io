@@ -21,10 +21,10 @@
 ## Handoff
 
 - **Feature**: home-cyberpunk (cyberpunk home page with boot loader)
-- **Phase / Task**: Complete. Verifier round 3 escalated two findings, and the user approved Fix A + B (round 4 in `validation.md`). Both are fixed, plus a late-parse repeat-view defect found while testing. Round 5 (`validation.md`) adds two codex review fixes (HOME-01 short screens, HOME-29 reduced-motion bar) and HOME-54 (phone photo pans from a random member). Gate on 2026-10-03: unit 65/65, Playwright 219/219.
+- **Phase / Task**: Complete. Rounds 1-5 are described in `validation.md`. Round 6 added the NOW::STREAMING shuffle (HOME-55..58, `6e8d1c6`..`2cb7f75`). Its Verifier failed on 3 surviving mutants, and the test-only fix `6d2810f` closed them. Round 6 re-verify on 2026-10-05 passed: every non-equivalent mutant is killed (M16 is equivalent), unit 77/77, Playwright 227/227. `validate_state.py` passes.
 - **In-progress**: none
 - **Next step**: user review of `feature/home-cyberpunk`, then open the PR. Nothing has been pushed.
 - **Blockers**: none
-- **Uncommitted files**: none
+- **Uncommitted files**: none (agent tool dirs `.agent/`, `.agents/`, `.claude/`, `.codex/`, `.cursor/`, `.gemini/`, `.github/skills/`, `.windsurf/`, `skills-lock.json` are untracked on purpose and not part of this feature)
 - **Branch**: feature/home-cyberpunk
-- **Open follow-ups, not part of this feature**: the HOME-24 "second view" e2e is load-sensitive (pre-existing, about 2/30 at `75b1ca5`); M23 needs a `page.clock` test; HOME-05/14/24 wording; band page `fa fa-bandcamp` glyph missing in FA 4.4; `.cyber-zone` / `.cyber-panel` copy-pasted across stylesheets; `less/contact.less:328` unscoped `.cyber-zone-inner`; Universal Analytics `UA-60390716-1` is dead
+- **Open follow-ups, not part of this feature**: lessons L-022/L-023 are candidates (recurrence 1); the HOME-24 "second view" e2e is load-sensitive (pre-existing, about 2/30 at `75b1ca5`); M23 needs a `page.clock` test; HOME-05/14/24 wording; band page `fa fa-bandcamp` glyph missing in FA 4.4; `.cyber-zone` / `.cyber-panel` copy-pasted across stylesheets; `less/contact.less:328` unscoped `.cyber-zone-inner`; Universal Analytics `UA-60390716-1` is dead
