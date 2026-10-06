@@ -137,6 +137,7 @@
     }
 
     return {
+        BOOT_KEY: BOOT_KEY,
         LOADER_MAX: LOADER_MAX,
         LOADER_FAILSAFE: LOADER_FAILSAFE,
         latestRelease: latestRelease,

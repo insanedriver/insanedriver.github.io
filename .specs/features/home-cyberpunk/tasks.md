@@ -805,13 +805,13 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Unit: `homeBoot().key === core.BOOT_KEY` and equals `'id-home-booted'`
-- [ ] Unit: rendering the layout with `homeBoot.key = 'test-key'` puts `getItem('test-key')` in the head gate and no `id-home-booted` literal
-- [ ] Gate check passes: `npm test`
+- [x] Unit: `homeBoot().key === core.BOOT_KEY` and equals `'id-home-booted'`
+- [x] Unit: rendering the layout with `homeBoot.key = 'test-key'` puts `getItem('test-key')` in the head gate and no `id-home-booted` literal
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `refactor(home): read the boot key from home-core in the head gate`
 
 ---

@@ -2,6 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const Liquid = require('liquidjs'); // v6, the version Eleventy 0.12 renders with
 
 const ROOT = path.join(__dirname, '..', '..');
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
@@ -26,4 +27,18 @@ test('HOME-63: home.js leaves the release contract to window.IDHomeRelease', () 
   assert.equal(count(js, /setAttribute\('aria-hidden', 'true'\)/g), 0);
   assert.equal(count(js, /\.inert = false/g), 0);
   assert.ok(/window\.IDHomeRelease\(\)/.test(js));
+});
+
+// Renders the real layout the way Eleventy does, with the boot key bent.
+function renderLayout(key) {
+  const source = read('_layouts/home.html');
+  const engine = Liquid({ root: [path.join(ROOT, '_includes')], extname: '.liquid', dynamicPartials: true });
+  return engine.parseAndRender(source, { homeBoot: { key: key }, content: '' });
+}
+
+test('HOME-68: the head gate reads the session flag under the key from the data', async () => {
+  const html = await renderLayout('test-key');
+  const head = html.slice(0, html.indexOf('</head>'));
+  assert.ok(head.includes("sessionStorage.getItem('test-key') === '1'"));
+  assert.ok(!html.includes('id-home-booted'));
 });
