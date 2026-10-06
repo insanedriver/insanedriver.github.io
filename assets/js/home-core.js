@@ -9,6 +9,8 @@
     var BOOT_KEY = 'id-home-booted';
     var LOADER_MIN = 1200;
     var LOADER_MAX = 3500;
+    // The CSS failsafe and the inline body script release the page here.
+    var LOADER_FAILSAFE = 4000;
     var LOADER_REPEAT = 400;
     var NAV_SOLID_AFTER = 40;
 
@@ -136,6 +138,7 @@
 
     return {
         LOADER_MAX: LOADER_MAX,
+        LOADER_FAILSAFE: LOADER_FAILSAFE,
         latestRelease: latestRelease,
         shufflePool: shufflePool,
         pickShuffle: pickShuffle,

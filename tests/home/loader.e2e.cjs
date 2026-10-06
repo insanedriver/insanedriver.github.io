@@ -206,3 +206,53 @@ test('HOME-63: calling IDHomeRelease again after the loader left changes nothing
   await page.evaluate(() => window.IDHomeRelease());
   expect(await state()).toEqual(expected);
 });
+
+// Holds home.js for `ms`, stamps the moment it runs, and records every
+// change to the inert attribute so a brief re-lock cannot slip between polls.
+async function lateHomeJs(page, ms) {
+  await page.addInitScript(() => {
+    window.__inertLog = [];
+    new MutationObserver(records => {
+      for (const r of records) window.__inertLog.push({ at: performance.now(), inert: r.target.hasAttribute('inert') });
+    }).observe(document, { subtree: true, attributes: true, attributeFilter: ['inert'] });
+  });
+  await page.route('**/assets/js/home.js*', async route => {
+    const body = await (await route.fetch()).text();
+    await new Promise(r => setTimeout(r, ms));
+    await route.fulfill({ contentType: 'application/javascript', body: 'window.__homeJsAt = performance.now();\n' + body });
+  });
+}
+
+// After home.js ran: was the page ever locked again, and is the release
+// finished within 1000ms?
+async function afterLateHomeJs(page) {
+  await page.waitForFunction(() => typeof window.__homeJsAt === 'number', null, { timeout: 10000 });
+  await page.waitForFunction(() => performance.now() > window.__homeJsAt + 1000);
+  return page.evaluate(() => {
+    const el = document.getElementById('home-loader');
+    return {
+      relocked: window.__inertLog.some(e => e.at >= window.__homeJsAt && e.inert),
+      inert: document.querySelector('[data-home-page]').inert,
+      loading: document.documentElement.classList.contains('home-loading'),
+      done: el.classList.contains('is-done'),
+      aria: el.getAttribute('aria-hidden'),
+      visited: sessionStorage.getItem('id-home-booted')
+    };
+  });
+}
+
+const settled = { relocked: false, inert: false, loading: false, done: true, aria: 'true', visited: '1' };
+
+test('HOME-64/65/66: a first view whose home.js lands after the 4s failsafe is not locked again', async ({ page }) => {
+  await lateHomeJs(page, 4500);
+  await page.goto('/', { waitUntil: 'commit' });
+  expect(await afterLateHomeJs(page)).toEqual(settled);
+});
+
+test('HOME-64/66: a repeat view whose home.js lands after the 0.4s release is not locked again', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'commit' });
+  await dismissedAfter(page);
+  await lateHomeJs(page, 700);
+  await page.goto('/', { waitUntil: 'commit' });
+  expect(await afterLateHomeJs(page)).toEqual(settled);
+});

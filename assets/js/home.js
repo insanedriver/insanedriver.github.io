@@ -27,13 +27,30 @@
         var el = document.getElementById('home-loader');
         if (!el || !html.classList.contains('home-loading')) { return; }
 
+        var storage = sessionStore();
+        var startedAt = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt : now();
+
+        // Let the exit transition play, then drop the gate for good.
+        function dropGate() {
+            window.setTimeout(function () {
+                html.classList.remove('home-loading');
+            }, 450);
+        }
+
+        // Arrived late: the head gate or the 4s failsafe already let the
+        // visitor in. Finish the release; never lock the page again.
+        if (window.IDHomeReleased || el.classList.contains('is-done') || now() >= startedAt + core.LOADER_FAILSAFE) {
+            core.markVisited(storage);
+            window.IDHomeRelease();
+            dropGate();
+            return;
+        }
+
         var page = document.querySelector('[data-home-page]');
         var bar = el.querySelector('[data-home-loader-bar]');
         var pct = el.querySelector('[data-home-loader-pct]');
         var img = document.querySelector('[data-home-hero-img]');
-        var storage = sessionStore();
         var repeat = core.isRepeatVisit(storage);
-        var startedAt = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt : now();
         var readyAt = null;
         var done = false;
         var timer = null;
@@ -66,10 +83,7 @@
             setProgress(100);
             window.IDHomeRelease();
             if (skipped) { push(core.loaderSkipEvent()); }
-            // Let the exit transition play, then drop the gate for good.
-            window.setTimeout(function () {
-                html.classList.remove('home-loading');
-            }, 450);
+            dropGate();
         }
 
         function schedule() {

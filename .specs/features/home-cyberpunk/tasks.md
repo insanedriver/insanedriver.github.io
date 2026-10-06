@@ -752,15 +752,15 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: first view with `home.js` held 4500ms: content is never `inert` after `home.js` runs (sampled until 1000ms later)
-- [ ] E2E: repeat view with `home.js` held 700ms: content is never `inert` after `home.js` runs
-- [ ] E2E: in both cases `home-loading` is gone and `#home-loader` has `is-done` and `aria-hidden="true"` within 1000ms of `home.js` running
-- [ ] E2E: after the late first view, `sessionStorage[BOOT_KEY] === '1'`
-- [ ] Gate check passes: `npm test`
+- [x] E2E: first view with `home.js` held 4500ms: content is never `inert` after `home.js` runs (sampled until 1000ms later)
+- [x] E2E: repeat view with `home.js` held 700ms: content is never `inert` after `home.js` runs
+- [x] E2E: in both cases `home-loading` is gone and `#home-loader` has `is-done` and `aria-hidden="true"` within 1000ms of `home.js` running
+- [x] E2E: after the late first view, `sessionStorage[BOOT_KEY] === '1'`
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): stop a late home script from locking a released page`
 
 ---

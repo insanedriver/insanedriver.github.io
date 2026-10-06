@@ -317,9 +317,9 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-61 | P2: Hardened home script - missing node keeps the default | T21 | Implemented |
 | HOME-62 | P2: Hardened home script - module isolation | T22 | Implemented |
 | HOME-63 | P2: Hardened home script - single release function | T23 | Implemented |
-| HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Pending |
-| HOME-65 | P2: Hardened home script - late home.js marks the visit | T24 | Pending |
-| HOME-66 | P2: Hardened home script - late home.js finishes the release | T24 | Pending |
+| HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Implemented |
+| HOME-65 | P2: Hardened home script - late home.js marks the visit | T24 | Implemented |
+| HOME-66 | P2: Hardened home script - late home.js finishes the release | T24 | Implemented |
 | HOME-67 | P2: Hardened home script - Esc listener removed | T25 | Pending |
 | HOME-68 | P2: Hardened home script - boot key from home-core | T26 | Pending |
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Pending |
