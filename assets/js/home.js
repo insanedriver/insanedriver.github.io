@@ -64,9 +64,7 @@
             window.clearTimeout(cap);
             window.cancelAnimationFrame(frame);
             setProgress(100);
-            el.classList.add('is-done');
-            el.setAttribute('aria-hidden', 'true');
-            if (page) { page.inert = false; }
+            window.IDHomeRelease();
             if (skipped) { push(core.loaderSkipEvent()); }
             // Let the exit transition play, then drop the gate for good.
             window.setTimeout(function () {

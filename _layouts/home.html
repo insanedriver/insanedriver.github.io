@@ -25,7 +25,8 @@
     <!-- Boot loader gate: the loader only ever shows when this script runs. -->
     <!-- A repeat view (key: home-core.js BOOT_KEY) leaves at 0.4s on its own, without waiting for home.js; -->
     <!-- if the loader is not parsed yet by then, the script at the top of .home-page finishes the release. -->
-    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; try { if (sessionStorage.getItem('id-home-booted') === '1') { setTimeout(function () { window.IDHomeReleased = true; var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } var page = document.querySelector('[data-home-page]'); if (page) { page.inert = false; } }, 400); } } catch (e) {}</script>
+    <!-- window.IDHomeRelease is the one place the loader is released; it is safe to call more than once. -->
+    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; window.IDHomeRelease = function () { window.IDHomeReleased = true; var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } var page = document.querySelector('[data-home-page]'); if (page) { page.inert = false; } }; try { if (sessionStorage.getItem('id-home-booted') === '1') { setTimeout(window.IDHomeRelease, 400); } } catch (e) {}</script>
 
     <link rel="preload" as="image" type="image/webp"
         imagesrcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w"
@@ -67,8 +68,8 @@
     </div>
 
     <div class="home-page" data-home-page>
-        <!-- Inert under the loader before home.js runs; released at the 4s CSS failsafe if home.js never does. -->
-        <script>(function (page) { var html = document.documentElement, loader = document.getElementById('home-loader'); if (!/\bhome-loading\b/.test(html.className)) { return; } if (window.IDHomeReleased) { if (loader) { loader.classList.add('is-done'); loader.setAttribute('aria-hidden', 'true'); } return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 4000 : 0; setTimeout(function () { page.inert = false; }, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
+        <!-- Inert under the loader before home.js runs; released through IDHomeRelease at the 4s CSS failsafe if home.js never does. -->
+        <script>(function (page) { if (!/\bhome-loading\b/.test(document.documentElement.className)) { return; } if (window.IDHomeReleased) { window.IDHomeRelease(); return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 4000 : 0; setTimeout(window.IDHomeRelease, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
         {% include 'header/menu' %}
 
         <main id="home-main">

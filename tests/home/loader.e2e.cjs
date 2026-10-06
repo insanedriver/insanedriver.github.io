@@ -192,3 +192,17 @@ test.describe('reduced motion', () => {
     await expect(page.locator('[data-home-loader-pct]')).toHaveText('100%');
   });
 });
+
+test('HOME-63: calling IDHomeRelease again after the loader left changes nothing', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'commit' });
+  await dismissedAfter(page);
+  const state = () => page.evaluate(() => {
+    const el = document.getElementById('home-loader');
+    return { done: el.classList.contains('is-done'), aria: el.getAttribute('aria-hidden'), inert: document.querySelector('[data-home-page]').inert, released: window.IDHomeReleased };
+  });
+  const expected = { done: true, aria: 'true', inert: false, released: true };
+  await page.evaluate(() => window.IDHomeRelease());
+  expect(await state()).toEqual(expected);
+  await page.evaluate(() => window.IDHomeRelease());
+  expect(await state()).toEqual(expected);
+});

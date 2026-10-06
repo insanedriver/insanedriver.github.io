@@ -725,14 +725,14 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Unit: in the rendered layout and in `home.js`, `is-done` is added only inside `IDHomeRelease`
-- [ ] E2E: after the loader leaves, a second `IDHomeRelease()` call leaves `is-done`, `aria-hidden="true"`, `inert === false` and `IDHomeReleased === true`
-- [ ] Existing loader e2e (HOME-22 to HOME-29) pass unchanged
-- [ ] Gate check passes: `npm test`
+- [x] Unit: in the rendered layout and in `home.js`, `is-done` is added only inside `IDHomeRelease`
+- [x] E2E: after the loader leaves, a second `IDHomeRelease()` call leaves `is-done`, `aria-hidden="true"`, `inert === false` and `IDHomeReleased === true`
+- [x] Existing loader e2e (HOME-22 to HOME-29) pass unchanged
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit, e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `refactor(home): release the boot loader through one function`
 
 ---
