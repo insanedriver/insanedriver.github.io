@@ -680,7 +680,7 @@ T27 and T28 have no dependency; they are ordered by phase only.
 **Tests**: unit, e2e
 **Gate**: full
 **Status**: ✅ Done
-**Commit**: `fix(home): keep the default single when the shuffle entry or panel is incomplete`
+**Commit**: `fix(home): keep the default single on a bad shuffle entry or panel`
 
 ---
 
@@ -699,13 +699,13 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: with `DOMTokenList.prototype.toggle` stubbed to throw (navbar fails), the shuffled single is shown, PREVIEW opens and a streaming click pushes `home_release_click`
-- [ ] E2E: the navbar error still surfaces as a page error
-- [ ] Gate check passes: `npm test`
+- [x] E2E: with `DOMTokenList.prototype.toggle` stubbed to throw (navbar fails), the shuffled single is shown, PREVIEW opens and a streaming click pushes `home_release_click`
+- [x] E2E: the navbar error still surfaces as a page error
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): keep the other home modules running when one throws`
 
 ---

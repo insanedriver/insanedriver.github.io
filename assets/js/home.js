@@ -236,9 +236,19 @@
         }
     }
 
-    loader();
-    navbar();
-    shuffle();
-    preview();
-    tracking();
+    // One module failing must not stop the ones after it. The error is
+    // rethrown on its own tick so it still reaches the console and GTM.
+    function run(fn) {
+        try {
+            fn();
+        } catch (e) {
+            window.setTimeout(function () { throw e; }, 0);
+        }
+    }
+
+    run(loader);
+    run(navbar);
+    run(shuffle);
+    run(preview);
+    run(tracking);
 }());
