@@ -171,3 +171,30 @@ test('HOME-56: pickShuffle maps the random number uniformly onto the pool', () =
   assert.equal(core.pickShuffle(pool, 0.9999), 'd');
   assert.equal(core.pickShuffle([], 0.5), null);
 });
+
+test('HOME-59: every entry of today\'s shuffle pool is accepted', () => {
+  const { pool } = require('../../_data/homeShuffle.js')();
+  for (const entry of pool) assert.equal(core.isShuffleEntry(entry), true, entry.slug);
+});
+
+test('HOME-59: a null embedId is still accepted', () => {
+  const { pool } = require('../../_data/homeShuffle.js')();
+  assert.equal(core.isShuffleEntry(Object.assign({}, pool[0], { embedId: null })), true);
+});
+
+test('HOME-59: an entry missing a field the panel writes is rejected', () => {
+  const { pool } = require('../../_data/homeShuffle.js')();
+  const broken = {
+    'blank slug': { slug: '' }, 'no slug': { slug: undefined },
+    'blank title': { title: '' }, 'numeric title': { title: 7 },
+    'null releaseDate': { releaseDate: null }, 'blank cover': { cover: '' },
+    'zero coverWidth': { coverWidth: 0 }, 'string coverWidth': { coverWidth: '600' },
+    'negative coverHeight': { coverHeight: -1 }, 'NaN coverHeight': { coverHeight: NaN },
+    'null links': { links: null }, 'string links': { links: 'spotify' }
+  };
+  for (const [name, patch] of Object.entries(broken)) {
+    assert.equal(core.isShuffleEntry(Object.assign({}, pool[0], patch)), false, name);
+  }
+  assert.equal(core.isShuffleEntry(null), false, 'null entry');
+  assert.equal(core.isShuffleEntry('waiting-for-you'), false, 'string entry');
+});

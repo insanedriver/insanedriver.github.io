@@ -312,9 +312,9 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Implemented |
 | HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Implemented |
 | HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Implemented |
-| HOME-59 | P2: Hardened home script - shuffle entry check | T21 | Pending |
-| HOME-60 | P2: Hardened home script - invalid entry keeps the default | T21 | Pending |
-| HOME-61 | P2: Hardened home script - missing node keeps the default | T21 | Pending |
+| HOME-59 | P2: Hardened home script - shuffle entry check | T21 | Implemented |
+| HOME-60 | P2: Hardened home script - invalid entry keeps the default | T21 | Implemented |
+| HOME-61 | P2: Hardened home script - missing node keeps the default | T21 | Implemented |
 | HOME-62 | P2: Hardened home script - module isolation | T22 | Pending |
 | HOME-63 | P2: Hardened home script - single release function | T23 | Pending |
 | HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Pending |

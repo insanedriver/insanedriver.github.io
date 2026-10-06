@@ -48,6 +48,17 @@
         return pool.length ? pool[Math.floor(random * pool.length)] : null;
     }
 
+    // A pool entry the NOW::STREAMING swap can render in full. embedId may
+    // be null: the panel then just hides PREVIEW.
+    function isShuffleEntry(entry) {
+        function text(v) { return typeof v === 'string' && v !== ''; }
+        function size(v) { return typeof v === 'number' && v > 0; }
+        return !!entry && typeof entry === 'object' &&
+            text(entry.slug) && text(entry.title) && text(entry.releaseDate) && text(entry.cover) &&
+            size(entry.coverWidth) && size(entry.coverHeight) &&
+            !!entry.links && typeof entry.links === 'object';
+    }
+
     function releaseTypeLabel(release) {
         if (release.type === 'DELUXE') {
             return 'DELUXE EDITION';
@@ -128,6 +139,7 @@
         latestRelease: latestRelease,
         shufflePool: shufflePool,
         pickShuffle: pickShuffle,
+        isShuffleEntry: isShuffleEntry,
         releaseTypeLabel: releaseTypeLabel,
         spotifyAlbumId: spotifyAlbumId,
         spotifyEmbedUrl: spotifyEmbedUrl,

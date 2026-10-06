@@ -108,3 +108,23 @@ for (const [name, body] of [['unparseable', '{not json'], ['missing', null]]) {
     await expectDefaultStillWired(page);
   });
 }
+
+test('HOME-60: a drawn entry with no releaseDate leaves the server-rendered single in place and wired', async ({ page }) => {
+  const bad = pool.map((single, i) => i === 9 ? Object.assign({}, single, { releaseDate: null }) : single);
+  await serveShuffle(page, JSON.stringify(bad));
+  await pinRandom(page, drawing(9));
+  await page.goto('/', { waitUntil: 'load' });
+  await expectDefaultStillWired(page);
+});
+
+test('HOME-61: a panel without its spare-anchor template stays on the server-rendered single and wired', async ({ page }) => {
+  await page.route(url => url.pathname === '/', async route => {
+    const html = await (await route.fetch()).text();
+    const patched = html.replace(/<template data-home-streaming-anchors>[\s\S]*?<\/template>/, '');
+    if (patched === html) throw new Error('spare-anchor template not found in /');
+    await route.fulfill({ contentType: 'text/html', body: patched });
+  });
+  await pinRandom(page, drawing(9));
+  await page.goto('/', { waitUntil: 'load' });
+  await expectDefaultStillWired(page);
+});

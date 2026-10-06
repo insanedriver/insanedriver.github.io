@@ -672,14 +672,14 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Unit: today's pool entries are accepted; each of a blank or missing `slug`, `title`, `releaseDate`, `cover`, a non-positive or non-number `coverWidth`/`coverHeight`, and a null `links` is rejected; a null `embedId` is accepted
-- [ ] E2E: a drawn entry with `releaseDate: null` leaves Waiting for You in place and PREVIEW and tracking still work
-- [ ] E2E: a page without the spare-anchor `<template>` leaves the panel unchanged and wired
-- [ ] Gate check passes: `npm test`
+- [x] Unit: today's pool entries are accepted; each of a blank or missing `slug`, `title`, `releaseDate`, `cover`, a non-positive or non-number `coverWidth`/`coverHeight`, and a null `links` is rejected; a null `embedId` is accepted
+- [x] E2E: a drawn entry with `releaseDate: null` leaves Waiting for You in place and PREVIEW and tracking still work
+- [x] E2E: a page without the spare-anchor `<template>` leaves the panel unchanged and wired
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit, e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): keep the default single when the shuffle entry or panel is incomplete`
 
 ---

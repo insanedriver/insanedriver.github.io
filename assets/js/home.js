@@ -144,13 +144,17 @@
             return;
         }
         var single = Array.isArray(pool) ? core.pickShuffle(pool, Math.random()) : null;
-        if (!single) { return; }
+        if (!core.isShuffleEntry(single)) { return; }
 
+        // Every node the swap writes to, found before anything changes.
         var panel = section.closest('[data-home-streaming-hud]');
         var cover = section.querySelector('[data-home-streaming-cover]');
+        var title = section.querySelector('[data-home-streaming-title]');
+        var date = section.querySelector('[data-home-streaming-date]');
         var list = section.querySelector('[data-home-streaming-links]');
         var spare = section.querySelector('[data-home-streaming-anchors]');
         var button = section.querySelector('[data-home-preview-btn]');
+        if (!cover || !title || !date || !list || !spare || !spare.content) { return; }
 
         section.setAttribute('data-home-streaming', single.slug);
         if (panel) { panel.setAttribute('data-hud', 'SIGNAL.' + single.slug.toUpperCase() + ' // STREAMING_'); }
@@ -158,8 +162,8 @@
         cover.alt = single.title + ' cover';
         cover.width = single.coverWidth;
         cover.height = single.coverHeight;
-        section.querySelector('[data-home-streaming-title]').textContent = single.title;
-        section.querySelector('[data-home-streaming-date]').textContent = single.releaseDate.replace(/-/g, '.');
+        title.textContent = single.title;
+        date.textContent = single.releaseDate.replace(/-/g, '.');
 
         list.innerHTML = '';
         var anchors = spare.content.querySelectorAll('[data-home-link]');
