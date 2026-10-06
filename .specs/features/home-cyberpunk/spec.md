@@ -18,8 +18,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | Feature | Reason |
 | --- | --- |
 | Restyling the navbar on pages other than `/` | The transparent-over-hero navbar is a home-only decision. |
-| Deleting `please-wait.min.js`, `please-wait.less`, `sk-wave.less`, `owl.carousel.min.js`, `owl.less` | Still used by `dates/`, `pre-save/spotify-select-playlist/` and the site-wide `js/pack` / `insane.js`. |
-| Deleting `less/player.less` or other pages' legacy CSS | Only the `#page_home` rules and `home.js` belong to this feature. |
+| Deleting `owl.carousel.min.js`, `owl.less` | Still used by the site-wide `js/pack` / `insane.js`. (Round 7 deleted `please-wait.min.js`, `please-wait.less` and `sk-wave.less`: no page used them any more, see HOME-70.) |
+| Deleting other pages' legacy CSS | Only the `#page_home` rules and `home.js` belong to this feature. (Round 7 deleted `less/player.less`: the home was its last consumer, see HOME-70.) |
 | Band teaser panel | Offered during grilling and declined to keep the page tight. |
 | Extracting a shared `.cyber-zone` / `.cyber-panel` stylesheet | Confirmed project convention: each page owns its copy with a page-specific keyframe prefix. |
 | Fixing `overflow: hidden` / reduced-motion gaps on band, contact, photos, videos, newsletter | Known follow-ups, separate changes. |
@@ -53,6 +53,10 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | Shuffle timing (round 6) | Client-side on every load, uniform, no memory of earlier picks | Per-build shuffling would freeze the panel between deploys; 17 singles make repeats rare. | y |
 | NOW::STREAMING without JS (round 6) | The newest single in the pool (today Waiting for You) | Deterministic markup for crawlers and tests. | y |
 | Shuffle data delivery (round 6) | The pool ships as inline JSON in the page; `home.js` rewrites the server-rendered panel | No extra request; the default panel keeps working without JS. | y |
+| Invalid shuffle entry (round 7) | Keep the server-rendered single; no redraw | Matches the missing/unparseable data edge case; a redraw adds a loop for a data bug. | y |
+| Error in one `home.js` module (round 7) | Each module runs in its own `try/catch`; the error is rethrown from a `setTimeout` so it still reaches the console and GTM error tracking | Isolation without hiding failures. | y |
+| Late `home.js` threshold (round 7) | 4000ms after `IDHomeBootAt`, the same delay as the CSS failsafe and the inline body script | One number for "already released by the failsafe". | y |
+| Legacy files (round 7) | `please-wait.min.js`, `please-wait.less`, `sk-wave.less` and `player.less` are deleted; the earlier note that `dates/` and `spotify-select-playlist` use `please-wait` was stale | A repo-wide search finds no consumer outside the home tests that assert their absence. | y |
 | Auth, rate limits, concurrency, idempotency of writes, data lifecycle | N/A - static page; the only write is the Mailchimp form post, handled by Mailchimp | Nothing to authorize, throttle, serialize or expire on our side. | y |
 
 **Open questions:** none - all resolved or logged above. Rows marked `n` are defaults chosen during Specify and are confirmed by approving this spec.
@@ -210,6 +214,31 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 ---
 
+### P2: Hardened home script (round 7)
+
+**User Story**: As the band, I want the home script to survive bad data and late loading so that a single broken piece never hides PREVIEW, blocks the page or silences tracking.
+
+**Why P2**: Fixes from the round 7 code review; no new visitor-facing feature.
+
+**Acceptance Criteria**:
+
+1. (HOME-59) The system SHALL accept a shuffle pool entry only when `slug`, `title`, `releaseDate` and `cover` are non-empty strings, `coverWidth` and `coverHeight` are positive numbers and `links` is a non-null object (`embedId` may be null).
+2. (HOME-60) IF the drawn shuffle entry is not accepted by AC1 THEN the system SHALL leave the server-rendered `NOW::STREAMING` single unchanged.
+3. (HOME-61) IF any node the panel swap writes to (cover image, title, date, link list or the spare-anchor `<template>`) is missing THEN the system SHALL leave the `NOW::STREAMING` panel unchanged.
+4. (HOME-62) IF one `home.js` module (loader, navbar, shuffle, preview, tracking) throws THEN the system SHALL still run every module after it.
+5. (HOME-63) The system SHALL apply the loader release (`is-done` and `aria-hidden="true"` on `#home-loader`, page content not `inert`, `window.IDHomeReleased = true`) only through `window.IDHomeRelease()`, defined by the head gate script, and a second call SHALL leave the same state.
+6. (HOME-64) WHEN `home.js` starts after the loader was already released (`window.IDHomeReleased` set, `#home-loader` has `is-done`, or 4000ms have passed since `IDHomeBootAt`) THEN the system SHALL NOT make the page content `inert`.
+7. (HOME-65) WHEN `home.js` starts after the loader was already released THEN the system SHALL mark the session visited, so the next home view is a repeat view.
+8. (HOME-66) WHEN `home.js` starts after the loader was already released THEN the system SHALL leave `#home-loader` with `is-done` and `aria-hidden="true"` and remove `home-loading` from `<html>` within 1000ms.
+9. (HOME-67) WHEN the loader is dismissed THEN the system SHALL keep no loader `keydown` listener on `document`.
+10. (HOME-68) The head gate script SHALL read the session flag under the key exported by `home-core.js` as `BOOT_KEY`, rendered into the layout at build time.
+11. (HOME-69) The `homeRelease` data SHALL NOT expose `embedId` or `detailUrl`.
+12. (HOME-70) The site SHALL NOT ship `assets/js/please-wait.min.js`, and `style.min.css` SHALL NOT contain rules from `please-wait.less`, `sk-wave.less` or `player.less`.
+
+**Independent Test**: With `Math.random` pinned to an entry whose `releaseDate` is null, the panel keeps Waiting for You and PREVIEW still opens. With `classList.toggle` stubbed to throw, the navbar fails and PREVIEW plus tracking still work. With `home.js` delayed past 4s, the page never turns inert again and `home-loading` is gone.
+
+---
+
 ## Edge Cases
 
 - IF the hero image fails to load THEN the loader SHALL still dismiss by the 3.5s cap and the hero SHALL show its dark background with text readable.
@@ -283,8 +312,20 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-56 | P1: Play the latest release - random pick per load | Round 6 | Implemented |
 | HOME-57 | P1: Play the latest release - no-JS default single | Round 6 | Implemented |
 | HOME-58 | P1: Play the latest release - empty pool hides the panel | Round 6 | Implemented |
+| HOME-59 | P2: Hardened home script - shuffle entry check | T21 | Pending |
+| HOME-60 | P2: Hardened home script - invalid entry keeps the default | T21 | Pending |
+| HOME-61 | P2: Hardened home script - missing node keeps the default | T21 | Pending |
+| HOME-62 | P2: Hardened home script - module isolation | T22 | Pending |
+| HOME-63 | P2: Hardened home script - single release function | T23 | Pending |
+| HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Pending |
+| HOME-65 | P2: Hardened home script - late home.js marks the visit | T24 | Pending |
+| HOME-66 | P2: Hardened home script - late home.js finishes the release | T24 | Pending |
+| HOME-67 | P2: Hardened home script - Esc listener removed | T25 | Pending |
+| HOME-68 | P2: Hardened home script - boot key from home-core | T26 | Pending |
+| HOME-69 | P2: Hardened home script - no dead release fields | T27 | Pending |
+| HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Pending |
 
-**Coverage:** 58 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6).
+**Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7).
 
 ---
 

@@ -20,7 +20,9 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 | Code Layer | Required Test Type | Coverage Expectation | Location Pattern | Run Command |
 | --- | --- | --- | --- | --- |
 | Pure JS helpers (`assets/js/home-core.js`) | unit | All branches; 1:1 to HOME-09/18/22-25/36-37 and every event shape; every listed edge case (empty singles, tie, missing Spotify URL, throwing storage, missing fonts) | `tests/home/home-core.test.cjs` | `npm run test:unit` |
-| Eleventy data file (`_data/homeRelease.js`) | unit | Output fields, today's expected release, `detailUrl` for album and single, `null` path | `tests/home/home-release.test.cjs` | `npm run test:unit` |
+| Eleventy data files (`_data/homeRelease.js`, `_data/homeBoot.js`) | unit | Output fields, today's expected release, type label for album and single, `null` path, boot key equals `core.BOOT_KEY` | `tests/home/home-release.test.cjs`, `tests/home/home-boot.test.cjs` | `npm run test:unit` |
+| Layout render (`_layouts/home.html`, round 7) | unit | The head gate renders the boot key from data; the release contract lives in one function | `tests/home/layout-template.test.cjs` | `npm run test:unit` |
+| Legacy file removal (round 7) | unit | Deleted files are absent; compiled CSS carries none of their selectors | `tests/home/legacy.test.cjs` | `npm run test:unit` |
 | Templates (`_layouts/home.html`, `index.html`, `_includes/**`, `newsletter/index.html`) | e2e | Every AC the rendered markup can assert: happy path + no-JS path + absence of forbidden legacy markup | `tests/home/*.e2e.cjs` | `npm test` |
 | Behavior JS (`assets/js/home.js`) | e2e | Loader timing (first/repeat/cap/skip/storage-failure), navbar threshold, preview open/close/one-iframe, every `dataLayer` event, missing `dataLayer`, no-JS degradation | `tests/home/*.e2e.cjs` | `npm test` |
 | Styles (`less/home.less`, `less/cyber-links.less` + compiled CSS) | e2e | Computed-style assertions per effect (fonts, palette, overflow, layer order, reduced motion, no horizontal scroll at 375/768/1440, `/band/` navbar unchanged) | `tests/home/*.e2e.cjs` | `npm test` |
@@ -92,6 +94,21 @@ T17 → T18
 T18 → T19
 T19 → T20
 ```
+
+---
+
+### Phase 5: Round 7 review fixes
+
+Fixes for the round 7 code review (HOME-59 to HOME-70). One task per finding.
+
+```
+T21 → T22
+T23 → T24
+T24 → T25
+T23 → T26
+```
+
+T27 and T28 have no dependency; they are ordered by phase only.
 
 ---
 
@@ -640,10 +657,220 @@ T19 → T20
 
 ---
 
+### T21: Validate the shuffle entry before the swap
+
+**What**: Add `isShuffleEntry(entry)` to `home-core.js`. In `shuffle()`, reject an entry it does not accept and resolve every node the swap writes to before changing anything; either failure keeps the server-rendered single.
+**Where**: `assets/js/home-core.js`, `assets/js/home.js`
+**Depends on**: None
+**Reuses**: `pickShuffle`, the `serveShuffle` / `expectDefaultStillWired` helpers in `tests/home/shuffle.e2e.cjs`
+**Requirement**: HOME-59, HOME-60, HOME-61
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Unit: today's pool entries are accepted; each of a blank or missing `slug`, `title`, `releaseDate`, `cover`, a non-positive or non-number `coverWidth`/`coverHeight`, and a null `links` is rejected; a null `embedId` is accepted
+- [ ] E2E: a drawn entry with `releaseDate: null` leaves Waiting for You in place and PREVIEW and tracking still work
+- [ ] E2E: a page without the spare-anchor `<template>` leaves the panel unchanged and wired
+- [ ] Gate check passes: `npm test`
+
+**Tests**: unit, e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `fix(home): keep the default single when the shuffle entry or panel is incomplete`
+
+---
+
+### T22: Run each home module in isolation
+
+**What**: Wrap `loader`, `navbar`, `shuffle`, `preview` and `tracking` in `run(fn)`: a `try/catch` that rethrows the error from `setTimeout` so it is still reported.
+**Where**: `assets/js/home.js`
+**Depends on**: T21
+**Reuses**: -
+**Requirement**: HOME-62
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: with `DOMTokenList.prototype.toggle` stubbed to throw (navbar fails), the shuffled single is shown, PREVIEW opens and a streaming click pushes `home_release_click`
+- [ ] E2E: the navbar error still surfaces as a page error
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `fix(home): keep the other home modules running when one throws`
+
+---
+
+### T23: One loader release function
+
+**What**: The head gate script defines an idempotent `window.IDHomeRelease()` (adds `is-done`, sets `aria-hidden`, clears `inert`, sets `IDHomeReleased`). The repeat-view timer, the inline `.home-page` script and `dismiss()` in `home.js` call it instead of their own copies.
+**Where**: `_layouts/home.html`, `assets/js/home.js`
+**Depends on**: None
+**Reuses**: existing HOME-24/27/28 loader e2e as regression
+**Requirement**: HOME-63
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Unit: in the rendered layout and in `home.js`, `is-done` is added only inside `IDHomeRelease`
+- [ ] E2E: after the loader leaves, a second `IDHomeRelease()` call leaves `is-done`, `aria-hidden="true"`, `inert === false` and `IDHomeReleased === true`
+- [ ] Existing loader e2e (HOME-22 to HOME-29) pass unchanged
+- [ ] Gate check passes: `npm test`
+
+**Tests**: unit, e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `refactor(home): release the boot loader through one function`
+
+---
+
+### T24: Late home.js leaves a released page alone
+
+**What**: `loader()` returns early when the page is already released (`IDHomeReleased`, `.is-done`, or 4000ms past `IDHomeBootAt`). It still marks the visit, calls `IDHomeRelease()` and drops `home-loading` after the exit transition.
+**Where**: `assets/js/home.js`
+**Depends on**: T23
+**Reuses**: the routed late `home.js` pattern in `tests/home/loader.e2e.cjs`
+**Requirement**: HOME-64, HOME-65, HOME-66
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: first view with `home.js` held 4500ms: content is never `inert` after `home.js` runs (sampled until 1000ms later)
+- [ ] E2E: repeat view with `home.js` held 700ms: content is never `inert` after `home.js` runs
+- [ ] E2E: in both cases `home-loading` is gone and `#home-loader` has `is-done` and `aria-hidden="true"` within 1000ms of `home.js` running
+- [ ] E2E: after the late first view, `sessionStorage[BOOT_KEY] === '1'`
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `fix(home): stop a late home script from locking a released page`
+
+---
+
+### T25: Drop the Esc listener on dismissal
+
+**What**: Register the loader `keydown` handler as a named function and remove it in `dismiss()`.
+**Where**: `assets/js/home.js`
+**Depends on**: T24
+**Reuses**: -
+**Requirement**: HOME-67
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: with `document.addEventListener`/`removeEventListener` instrumented, every `keydown` listener added while the loader was up is removed once it is dismissed, both on timeout and on click skip
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `fix(home): remove the loader esc listener once it is dismissed`
+
+---
+
+### T26: Boot key from home-core
+
+**What**: Export `BOOT_KEY` from `home-core.js`, add `_data/homeBoot.js` (`{ key }`) and render `{{ homeBoot.key }}` in the head gate script.
+**Where**: `assets/js/home-core.js`, `_data/homeBoot.js`, `_layouts/home.html`
+**Depends on**: T23
+**Reuses**: the Liquid render helper pattern of `tests/home/hero-template.test.cjs`
+**Requirement**: HOME-68
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Unit: `homeBoot().key === core.BOOT_KEY` and equals `'id-home-booted'`
+- [ ] Unit: rendering the layout with `homeBoot.key = 'test-key'` puts `getItem('test-key')` in the head gate and no `id-home-booted` literal
+- [ ] Gate check passes: `npm test`
+
+**Tests**: unit
+**Gate**: full
+**Status**: Pending
+**Commit**: `refactor(home): read the boot key from home-core in the head gate`
+
+---
+
+### T27: Drop the dead homeRelease fields
+
+**What**: Remove `embedId`, `detailUrl` and `isSingle` from `_data/homeRelease.js`, their assertions, and their mentions in `design.md` and this file.
+**Where**: `_data/homeRelease.js`, `tests/home/home-release.test.cjs`, `.specs/features/home-cyberpunk/design.md`, `.specs/features/home-cyberpunk/tasks.md`
+**Depends on**: None
+**Reuses**: -
+**Requirement**: HOME-69
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Unit: today's release and an injected album carry neither `embedId` nor `detailUrl`; `typeLabel` is still `SINGLE` / `ALBUM`
+- [ ] Gate check passes: `npm test`
+
+**Tests**: unit
+**Gate**: full
+**Status**: Pending
+**Commit**: `refactor(home): drop unused embed and detail fields from homeRelease`
+
+---
+
+### T28: Delete the legacy loader and player files
+
+**What**: Delete `less/please-wait.less`, `less/sk-wave.less`, `less/player.less`, `assets/js/please-wait.min.js`; drop their imports from `less/style.less`; rebuild `style.min.css`. Update the DISC-13 comment in `tests/discography/theme.e2e.cjs`, the discography-cyberpunk spec notes on `player.less` and the stale `please-wait` note in `context.md`.
+**Where**: `less/style.less`, the four deleted files, `assets/css/style.min.css`, `tests/discography/theme.e2e.cjs`, `.specs/features/discography-cyberpunk/{context,spec,tasks}.md`, `.specs/features/home-cyberpunk/context.md`
+**Depends on**: None
+**Reuses**: -
+**Requirement**: HOME-70
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Unit: the four files are absent and `style.less` imports none of them
+- [ ] Unit: `style.min.css` contains no `.pg-loading`, `.sk-wave`, `#player-sf`, `.player-art` or `.iframe-spotify`
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: unit
+**Gate**: build
+**Status**: Pending
+**Commit**: `chore(home): delete the unused please-wait, sk-wave and player styles`
+
+---
+
 ## Phase Execution Map
 
 ```
-Phase 1 → Phase 2 → Phase 3 → Phase 4
+Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5
 
 Phase 1:  T1 → T2
           T3
@@ -660,6 +887,11 @@ Phase 3:  T8 → T12 → T13 → T14
 Phase 4:  T11 → T17 → T18 → T19 → T20
           T15 → T17
           T16 → T18
+Phase 5:  T21 → T22
+          T23 → T24 → T25
+          T23 → T26
+          T27
+          T28
 ```
 
 Execution is strictly sequential in task-number order.
@@ -679,6 +911,7 @@ Execution is strictly sequential in task-number order.
 | T11 | 1 include (+ legacy body emptied) | ✅ Granular |
 | T12-T16 | 1 style concern each | ✅ Granular |
 | T17-T20 | 1 behavior module each | ✅ Granular |
+| T21-T28 | 1 review finding each | ⚠️ Cohesive (a finding spans code, tests and specs; the user asked for one commit per finding) |
 
 ## Diagram-Definition Cross-Check
 
@@ -704,6 +937,14 @@ Execution is strictly sequential in task-number order.
 | T18 | T16, T17 | T17 → T18 (+ T16 cross-phase) | ✅ Match |
 | T19 | T18 | T18 → T19 | ✅ Match |
 | T20 | T19 | T19 → T20 | ✅ Match |
+| T21 | None | - | ✅ Match |
+| T22 | T21 | T21 → T22 | ✅ Match |
+| T23 | None | - | ✅ Match |
+| T24 | T23 | T23 → T24 | ✅ Match |
+| T25 | T24 | T24 → T25 | ✅ Match |
+| T26 | T23 | T23 → T26 | ✅ Match |
+| T27 | None | - | ✅ Match |
+| T28 | None | - | ✅ Match |
 
 ## Test Co-location Validation
 
@@ -716,3 +957,9 @@ Execution is strictly sequential in task-number order.
 | T5-T11 | Templates | e2e | e2e | ✅ OK |
 | T12-T16 | Styles | e2e | e2e | ✅ OK |
 | T17-T20 | Behavior JS | e2e | e2e | ✅ OK |
+| T21 | Pure JS helpers + behavior JS | unit + e2e | unit, e2e | ✅ OK |
+| T22, T24, T25 | Behavior JS | e2e | e2e | ✅ OK |
+| T23 | Layout + behavior JS | unit + e2e | unit, e2e | ✅ OK |
+| T26 | Data file + layout render | unit | unit | ✅ OK |
+| T27 | Eleventy data file | unit | unit | ✅ OK |
+| T28 | Legacy file removal | unit | unit | ✅ OK |
