@@ -117,14 +117,21 @@ test('HOME-60: a drawn entry with no releaseDate leaves the server-rendered sing
   await expectDefaultStillWired(page);
 });
 
-test('HOME-61: a panel without its spare-anchor template stays on the server-rendered single and wired', async ({ page }) => {
-  await page.route(url => url.pathname === '/', async route => {
-    const html = await (await route.fetch()).text();
-    const patched = html.replace(/<template data-home-streaming-anchors>[\s\S]*?<\/template>/, '');
-    if (patched === html) throw new Error('spare-anchor template not found in /');
-    await route.fulfill({ contentType: 'text/html', body: patched });
+// Each node the swap writes to, removed from the markup in turn: the spare
+// template outright, the others by dropping the hook home.js finds them by.
+for (const [name, strip] of [
+  ['spare-anchor template', html => html.replace(/<template data-home-streaming-anchors>[\s\S]*?<\/template>/, '')],
+  ...['cover', 'title', 'date', 'links'].map(hook => [`${hook} hook`, html => html.replace(`data-home-streaming-${hook}`, '')])
+]) {
+  test(`HOME-61: a panel without its ${name} stays on the server-rendered single and wired`, async ({ page }) => {
+    await page.route(url => url.pathname === '/', async route => {
+      const html = await (await route.fetch()).text();
+      const patched = strip(html);
+      if (patched === html) throw new Error(`${name} not found in /`);
+      await route.fulfill({ contentType: 'text/html', body: patched });
+    });
+    await pinRandom(page, drawing(9));
+    await page.goto('/', { waitUntil: 'load' });
+    await expectDefaultStillWired(page);
   });
-  await pinRandom(page, drawing(9));
-  await page.goto('/', { waitUntil: 'load' });
-  await expectDefaultStillWired(page);
-});
+}

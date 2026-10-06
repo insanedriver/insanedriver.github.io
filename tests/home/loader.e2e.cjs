@@ -209,7 +209,7 @@ test('HOME-63: calling IDHomeRelease again after the loader left changes nothing
 
 // Holds home.js for `ms`, stamps the moment it runs, and records every
 // change to the inert attribute so a brief re-lock cannot slip between polls.
-async function lateHomeJs(page, ms) {
+async function lateHomeJs(page, ms, prefix = '') {
   await page.addInitScript(() => {
     window.__inertLog = [];
     new MutationObserver(records => {
@@ -219,7 +219,7 @@ async function lateHomeJs(page, ms) {
   await page.route('**/assets/js/home.js*', async route => {
     const body = await (await route.fetch()).text();
     await new Promise(r => setTimeout(r, ms));
-    await route.fulfill({ contentType: 'application/javascript', body: 'window.__homeJsAt = performance.now();\n' + body });
+    await route.fulfill({ contentType: 'application/javascript', body: prefix + 'window.__homeJsAt = performance.now();\n' + body });
   });
 }
 
@@ -286,3 +286,15 @@ for (const [how, act] of [
     expect(await page.evaluate(() => window.__homeKeydown())).toBe(0);
   });
 }
+
+test('HOME-64/66: home.js that starts past the 4s failsafe, before anything released the page, is not locked again', async ({ page }) => {
+  // Shift the boot clock back 5s as home.js starts: only the 4000ms rule can
+  // tell it the page is already out from under the loader.
+  await lateHomeJs(page, 0, `window.IDHomeBootAt = performance.now() - 5000;
+window.__preState = { released: !!window.IDHomeReleased, done: document.getElementById('home-loader').classList.contains('is-done') };
+`);
+  await page.goto('/', { waitUntil: 'commit' });
+  const state = await afterLateHomeJs(page);
+  expect(await page.evaluate(() => window.__preState)).toEqual({ released: false, done: false });
+  expect(state).toEqual(settled);
+});
