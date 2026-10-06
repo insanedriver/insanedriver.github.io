@@ -320,7 +320,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Implemented |
 | HOME-65 | P2: Hardened home script - late home.js marks the visit | T24 | Implemented |
 | HOME-66 | P2: Hardened home script - late home.js finishes the release | T24 | Implemented |
-| HOME-67 | P2: Hardened home script - Esc listener removed | T25 | Pending |
+| HOME-67 | P2: Hardened home script - Esc listener removed | T25 | Implemented |
 | HOME-68 | P2: Hardened home script - boot key from home-core | T26 | Pending |
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Pending |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Pending |

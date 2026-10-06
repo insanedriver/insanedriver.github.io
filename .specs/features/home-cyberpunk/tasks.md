@@ -780,12 +780,12 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: with `document.addEventListener`/`removeEventListener` instrumented, every `keydown` listener added while the loader was up is removed once it is dismissed, both on timeout and on click skip
-- [ ] Gate check passes: `npm test`
+- [x] E2E: with `document.addEventListener`/`removeEventListener` instrumented, every `keydown` listener added while the loader was up is removed once it is dismissed, both on timeout and on click skip
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): remove the loader esc listener once it is dismissed`
 
 ---

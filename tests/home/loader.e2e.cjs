@@ -256,3 +256,33 @@ test('HOME-64/66: a repeat view whose home.js lands after the 0.4s release is no
   await page.goto('/', { waitUntil: 'commit' });
   expect(await afterLateHomeJs(page)).toEqual(settled);
 });
+
+// Counts the keydown listeners home.js holds on document, by the stack that
+// registered them.
+const trackKeydown = page => page.addInitScript(() => {
+  const live = new Set();
+  const add = document.addEventListener, remove = document.removeEventListener;
+  document.addEventListener = function (type, fn, opts) {
+    if (type === 'keydown' && /\/assets\/js\/home\.js/.test(new Error().stack)) { live.add(fn); window.__homeKeydownEver = true; }
+    return add.call(this, type, fn, opts);
+  };
+  document.removeEventListener = function (type, fn, opts) {
+    if (type === 'keydown') live.delete(fn);
+    return remove.call(this, type, fn, opts);
+  };
+  window.__homeKeydown = () => live.size;
+});
+
+for (const [how, act] of [
+  ['leaving on its own', async () => {}],
+  ['a click skip', page => page.locator('#home-loader').click()]
+]) {
+  test(`HOME-67: after ${how} the loader holds no keydown listener on document`, async ({ page }) => {
+    await trackKeydown(page);
+    await page.goto('/', { waitUntil: 'commit' });
+    await page.waitForFunction(() => window.__homeKeydownEver === true);
+    await act(page);
+    await dismissedAfter(page);
+    expect(await page.evaluate(() => window.__homeKeydown())).toBe(0);
+  });
+}

@@ -77,6 +77,7 @@
         function dismiss(skipped) {
             if (done) { return; }
             done = true;
+            document.removeEventListener('keydown', onKey);
             window.clearTimeout(timer);
             window.clearTimeout(cap);
             window.cancelAnimationFrame(frame);
@@ -115,10 +116,12 @@
         schedule();
         if (!still) { tick(); }
 
+        function onKey(e) {
+            if (e.key === 'Escape' || e.key === 'Esc') { dismiss(true); }
+        }
+
         el.addEventListener('click', function () { dismiss(true); });
-        document.addEventListener('keydown', function (e) {
-            if (!done && (e.key === 'Escape' || e.key === 'Esc')) { dismiss(true); }
-        });
+        document.addEventListener('keydown', onKey);
     }
 
     // Navbar: transparent over the hero, solid once the page scrolls past
