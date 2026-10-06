@@ -146,7 +146,7 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 ### T2: Latest-release data file
 
-**What**: Create `_data/homeRelease.js` returning the latest release decorated with `typeLabel`, `embedId` and `detailUrl`, or `null`.
+**What**: Create `_data/homeRelease.js` returning the latest release decorated with `typeLabel`, or `null`. (Round 7, T27: `embedId` and `detailUrl` were dropped, nothing read them.)
 **Where**: `_data/homeRelease.js`
 **Depends on**: T1
 **Reuses**: `_data/highlights.js` data-file pattern, `home-core.js`
@@ -159,8 +159,8 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [x] Returns `slug: 'keep-away-acoustic'`, `typeLabel: 'SINGLE'`, `embedId: '14HkhB5FwTGesQECbSBSML'`, `detailUrl: '/discography/'` for today's catalog
-- [x] An album result gets `detailUrl: '/discography/#<slug>'` (tested through an injected catalog)
+- [x] Returns `slug: 'keep-away-acoustic'`, `typeLabel: 'SINGLE'` for today's catalog
+- [x] An album result gets `typeLabel: 'ALBUM'` (tested through an injected catalog)
 - [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
@@ -831,12 +831,12 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Unit: today's release and an injected album carry neither `embedId` nor `detailUrl`; `typeLabel` is still `SINGLE` / `ALBUM`
-- [ ] Gate check passes: `npm test`
+- [x] Unit: today's release and an injected album carry neither `embedId` nor `detailUrl`; `typeLabel` is still `SINGLE` / `ALBUM`
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `refactor(home): drop unused embed and detail fields from homeRelease`
 
 ---

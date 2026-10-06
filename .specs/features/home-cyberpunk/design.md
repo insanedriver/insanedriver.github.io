@@ -83,8 +83,8 @@ The only computation that matters (which release is "latest", when the loader le
 
 ### `_data/homeRelease.js` (new)
 
-- **Purpose**: Expose the latest release to Liquid, decorated with `typeLabel`, `spotifyAlbumId` and `detailUrl` (`/discography/#<slug>` for albums, `/discography/` for singles).
-- **Interfaces**: `module.exports = () => ({ ...latestRelease(require('./discography.json')), typeLabel, embedId, detailUrl })`.
+- **Purpose**: Expose the latest release to Liquid, decorated with `typeLabel` (round 7 dropped `embedId` and `detailUrl`: nothing read them, HOME-69).
+- **Interfaces**: `module.exports = () => ({ ...latestRelease(require('./discography.json')), typeLabel })`.
 - **Reuses**: `home-core.js` via `require('../assets/js/home-core.js')`.
 
 ### `_layouts/home.html` (rewritten)
@@ -177,8 +177,6 @@ interface HomeRelease {
   type: 'ALBUM' | 'DELUXE' | 'SINGLE';
   links: Record<PlatformKey, string | null>;
   typeLabel: 'ALBUM' | 'DELUXE EDITION' | 'SINGLE';
-  embedId: string | null;   // spotifyAlbumId(release)
-  detailUrl: string;        // '/discography/#<slug>' | '/discography/'
 }
 
 // dataLayer events

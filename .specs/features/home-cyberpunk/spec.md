@@ -322,7 +322,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-66 | P2: Hardened home script - late home.js finishes the release | T24 | Implemented |
 | HOME-67 | P2: Hardened home script - Esc listener removed | T25 | Implemented |
 | HOME-68 | P2: Hardened home script - boot key from home-core | T26 | Implemented |
-| HOME-69 | P2: Hardened home script - no dead release fields | T27 | Pending |
+| HOME-69 | P2: Hardened home script - no dead release fields | T27 | Implemented |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Pending |
 
 **Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7).
