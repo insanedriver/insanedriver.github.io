@@ -856,13 +856,13 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Unit: the four files are absent and `style.less` imports none of them
-- [ ] Unit: `style.min.css` contains no `.pg-loading`, `.sk-wave`, `#player-sf`, `.player-art` or `.iframe-spotify`
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Unit: the four files are absent and `style.less` imports none of them
+- [x] Unit: `style.min.css` contains no `.pg-loading`, `.sk-wave`, `#player-sf`, `.player-art` or `.iframe-spotify`
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `chore(home): delete the unused please-wait, sk-wave and player styles`
 
 ---

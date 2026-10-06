@@ -25,7 +25,8 @@ test('DISC-13: no legacy player markup survives on the page', async ({ page }) =
 });
 
 // The home used to be the last page on the legacy player block; the
-// home-cyberpunk feature (HOME-05) removed it. less/player.less stays in place.
+// home-cyberpunk feature (HOME-05) removed it, and round 7 (HOME-70) deleted
+// less/player.less.
 test('DISC-13: the home page no longer carries the legacy player block either', async ({ page }) => {
   await page.goto('/');
   for (const selector of ['.player-art', '.iframe-spotify', '#player-sf', '#player_spotify']) {

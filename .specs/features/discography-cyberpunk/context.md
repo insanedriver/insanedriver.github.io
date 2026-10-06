@@ -30,7 +30,7 @@ Captured from a grilling session on 2026-09-20. Five rounds, every branch confir
 | Page top | `DISC::INDEX` panel with release/single counters and anchor shortcuts (`#silicon-fortress`) | Carries the HUD language and makes a single release shareable. |
 | Release card | Two columns on desktop (cover left, meta + links right), stacked on mobile with cover above links | Keeps the CTA above the fold on phones. |
 | Shared CSS | `.cyber-link-btn` and per-platform hover colors extracted from `less/band.less` into a shared LESS file consumed by band and discography | Stops the duplication before it starts; band is refactored to consume it. |
-| Legacy CSS | Drop `#page_discography .player`; keep `less/player.less` untouched | `index.html:46` (home) still uses `.player-art` and the `#player-sf` background. |
+| Legacy CSS | Drop `#page_discography .player`; keep `less/player.less` untouched | `index.html:46` (home) still used `.player-art` and the `#player-sf` background. Superseded: home-cyberpunk round 7 deleted `player.less` (HOME-70). |
 | Cover art | Download 1000px covers into the repo for every release | Repo art is only ~325px, too small for retina cards; the page is the band's commercial shopfront and should not depend on someone else's CDN. |
 
 ## Behavior

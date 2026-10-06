@@ -10,7 +10,7 @@ Captured from a grilling session on 2026-09-27. Three rounds, every branch confi
 | Layout | `_layouts/home.html` rewritten; Owl carousel and the old logo-as-`h1` removed; menu and footer stay the shared includes | The Owl carousel holds one image; the old `h1` hides text with `text-indent`. |
 | Sections, in order | HERO -> NOW::STREAMING -> ID-TV::LATEST -> DISC::ARCHIVE -> VISUAL::FEED -> SIGNAL::NEWSLETTER -> footer | Hub order: newest music first, then video, catalog, photos, conversion. A band teaser was offered and left out to keep the page tight. |
 | Legacy content | The five YouTube iframes, the Spotify playlist iframe, `home.js`, `#player-sf` removed from the home | Six heavy iframes on first load; ID-TV already plays the videos. |
-| Legacy files | Deleted only when no other page uses them | `please-wait.min.js` is still used by `dates/` and `spotify-select-playlist`; Owl is in `js/pack` and `insane.js`, loaded site-wide. |
+| Legacy files | Deleted only when no other page uses them | Owl is in `js/pack` and `insane.js`, loaded site-wide. Round 7 found `please-wait` unused after all (the note that `dates/` and `spotify-select-playlist` used it was wrong) and deleted it with `sk-wave.less` and `player.less` (HOME-70). |
 
 ## Loader
 
