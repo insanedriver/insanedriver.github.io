@@ -156,6 +156,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)
 - last seen: 2026-10-06T03:26:23Z
 
+### L-025 - When a timing AC's bound sits within ~100ms of a timer's target, assert it under a paused fake clock; a real-time bound flakes under main-thread load even when the time is read exactly.
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 8 R8-A; tests/home/loader.e2e.cjs HOME-24 (523.6ms vs <=500) (tests)
+- last seen: 2026-10-11T20:25:55Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

@@ -549,3 +549,54 @@ Test-only and spec-only changes, surgical and in the existing style (init-script
 1. **Fix R8-A (Minor, test stability, HOME-24 / `loader.e2e.cjs:73`, `:82`)**: the ≤500ms bound leaves 100ms over a 400ms `setTimeout`, and the head-gate timer was seen running up to 125ms late while the repeat-view page parses. This is roughly a 1-in-15 failure under load. The measurement is already exact (T29), so the remaining options are a product or spec decision: (a) start the head-gate timer so that it releases at `IDHomeBootAt + 400` measured from the gate and not from when the timer runs, which does not help when the thread is busy; (b) run the repeat-view timing under `page.clock` the way T30 does, asserting release at exactly 400 for the HOME-24 target, and keep a loose real-time bound (for example ≤700) as a smoke check; or (c) accept the flake. Option (b) is test-only and also pins the 0.4s target, which no e2e asserts today (R4 is caught only by the unit test).
 
 **Summary**: Round 8 is verified. T29-T32 do what they claim. HOME-05, HOME-22, HOME-23, HOME-24 and HOME-62 are 5/5 spec-anchored. The sensor killed 13/13 non-equivalent mutants, including M23 (the early-fire guard), every per-module `run()` unwrap and the swallowed rethrow. Unit 87/87, Playwright 244/244. The one open item is the pre-existing HOME-24 timing flake (R8-A), which is test stability, not a coverage gap.
+
+## Round 8 re-verify (fix `a393cba`)
+
+**Date**: 2026-10-11. **Diff range**: `23b9f44..a393cba` (task T33: `tests/home/loader.e2e.cjs`, plus the T33 entry in `tasks.md` and the HOME-24 traceability row and coverage note in `spec.md`; no product code changed). **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a fresh temporary `git worktree` at `a393cba` under the session scratchpad (node_modules symlinked, CSS built with `less:build`), removed with `git worktree remove --force` and pruned afterwards. `git status --porcelain` on the real tree matched the baseline before the sensor, after it, and after the gate (only the untracked agent dirs).
+
+**Result**: PASS. Fix R8-A holds. Both HOME-24 repeat-view tests now run under a paused `page.clock` and assert the 0.4s target exactly: no `is-done` at 399ms and a release at 400ms. Neither test lost an assertion; the old `<= 500` bound became `toBe(400)`, which is stricter. The HOME-24 tests passed 60/60 in a 20x repeat, so the flake is gone.
+
+### Spec-anchored check of the fix
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| HOME-24 (spec.md:130), second view | A repeat view in the same session is dismissed within 0.5s after start (target 0.4s) | `tests/home/loader.e2e.cjs:93-96` → `:75-83` real first view, then the clock is installed and paused, then `/band/` and `/`; `:88` `classList.contains('is-done')` `toBe(false)` after `runFor(399)`; `:90` `dismissedAfter(page)` `toBe(400)` after `runFor(1)` | ✅ PASS (was `ms <= 500` at `23b9f44:79`) |
+| HOME-24 (spec.md:130), late `home.js` | The same, when `home.js` has not arrived; the release is full | `:98-114`: `:88` and `:90` as above; `:107` `delivered` `toBe(false)`; `:112` `toEqual({ aria: 'true', inert: false })`; `:113` `getByRole('status', { name: 'Loading Insane Driver' })` `toHaveCount(0)` | ✅ PASS (was `ms <= 500` at `23b9f44:93`; `:95`, `:100` and `:101` kept unchanged) |
+
+**Test integrity**: no test was deleted and no assertion was weakened. The two time bounds went from `<= 500` to an exact 400 plus a "not yet at 399" check. The late-`home.js` case keeps its three release checks word for word. One mechanical change: the late case now passes through `/band/` before the repeat view, as the other case already did. It is still a repeat view in the same session. The real-time `<= 700` smoke bound suggested in option (b) of R8-A was not added. That is acceptable: real timer lag is not something the spec bounds deterministically, and the fake-clock assertion pins the product timing.
+
+### Vacuity
+
+- **A real repeat view.** The session flag is set by the real first view: `:76-77` waits for the first-view release before the clock exists. Mutant V1 (drop `markVisited` from the first-view path) fails both tests, so a first view cannot pass for a repeat.
+- **The clock applies to the repeat navigation.** `page.clock.install` and `pauseAt` (`:79-80`) come before both navigations. The exact `toBe(400)` and the `false` at 399 cannot both hold on a real clock: a probe measured about 340-380ms of real time between the `home.js` request and the `delivered` check alone. Mutant H2 (gate at 300ms) fails at `:88`.
+- **The 700ms delay hits only the repeat view.** The route is installed in `beforeRepeat` (`:78`), after the first view is released. `/band/` does not load `home.js`; only `_layouts/home.html` does.
+- **Margin on `delivered === false`.** This is a real-time race between the 700ms route delay and the test body. A scratch-only probe over 20 runs used 341-381ms of the 700ms (about 320ms of headroom). If it ever lost the race, the test would fail rather than pass, because the release under the paused clock still lands only at `runFor`. So it is a stability margin, not a vacuity risk.
+
+### Discrimination sensor (worktree at `a393cba`; e2e = `tests/home/loader.e2e.cjs`, 22 tests; baseline 22/22 green)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| H1 | `_layouts/home.html:29` | Head gate repeat release `setTimeout(window.IDHomeRelease, 400)` → `600` | ✅ Killed (1: `loader.e2e.cjs:98`). `:93` passes, because `home.js` still releases at `LOADER_REPEAT` 400 |
+| H2 | `_layouts/home.html:29` | Head gate 400 → `300` | ✅ Killed (2: `:93`, `:98`, both at `:88` `Expected: false, Received: true`) |
+| H3 | `_layouts/home.html:29` | Head gate repeat release removed (the repeat view relies on `home.js` only) | ✅ Killed (3: `:98`, `:116`, `:291`). `:93` passes, because `home.js` releases at 400 |
+| R4 | `assets/js/home-core.js:14` | `LOADER_REPEAT` 400 → 700 | ✅ Killed (unit: `tests/home/home-core.test.cjs:78`, 86/87). ➖ Equivalent at e2e (22/22): the head gate releases at 400 (`is-done`, `aria-hidden`, not inert; `.is-done` has `pointer-events: none`), so the HOME-24 outcome is identical. The only differences are invisible: `home.js`'s own dismiss runs at 700, so `home-loading` drops at 1150ms instead of 850ms, and its Esc listener lives 300ms longer |
+| F1 | `_layouts/home.html:72` | Body-script fallback `if (window.IDHomeReleased) { window.IDHomeRelease(); return; }` removed | ✅ Killed (1: `:116`, the parse-after-release case). Under the paused clock the head timer cannot fire before the loader is parsed, so the clock tests do not reach this branch, as intended |
+| V1 | `assets/js/home.js:61` | First-view `core.markVisited(storage)` removed (vacuity probe) | ✅ Killed (4: `:93`, `:98`, `:116`, `:291`) |
+
+**Sensor depth**: targeted (5 requested + 1 vacuity probe). **Result**: 6/6 killed (R4 by the unit test only; it is equivalent at e2e for the reason above). PASS.
+
+### Stability
+
+`npx playwright test tests/home/loader.e2e.cjs -g HOME-24 --repeat-each=20` in the real tree: **60/60 passed** (`:93`, `:98`, `:116`, 20 each). Round 8 measured 104/105 on the old real-time bound.
+
+### Gate
+
+- **Command**: `npm run build && npm test` in the real tree at `a393cba` (build exit 0, test exit 0).
+- **Unit**: 87/87.
+- **Playwright**: 244/244 (unchanged; T33 rewrites two tests and adds none).
+
+### Code quality
+
+The change is test-only and surgical. T33 reuses the T30 fake-clock setup and the T29 `dismissedAfter` recorder. The two shared helpers (`repeatViewUnderClock`, `releasedAt400`) each serve both HOME-24 cases, so they are not single-use abstractions. The T33 Done-when items hold as written. The `tasks.md` graph, cross-check and co-location rows, and the `spec.md` traceability row, all list T33 consistently.
+
+**Summary**: R8-A is fixed and verified. HOME-24 is spec-anchored at the 0.4s target in both repeat-view tests. No assertion was weakened. The HOME-24 tests passed 60/60 over 20 repeats, the sensor killed 6/6 (R4 at unit level, equivalent at e2e), and the gate is green: unit 87/87, Playwright 244/244. Round 8 has no open items.
