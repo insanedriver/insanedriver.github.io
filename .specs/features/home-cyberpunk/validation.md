@@ -1,8 +1,8 @@
 # Home Cyberpunk Validation
 
-## Validation: home-cyberpunk - PASS (round 8, 2026-10-11)
+## Validation: home-cyberpunk - PASS (round 9, 2026-10-11)
 
-The current verdict is PASS. See "Round 8 (test hardening)" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
+The current verdict is PASS. See "Round 9 (phone fit)" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
 
 ## Round 3 (of 3)
 
@@ -600,3 +600,102 @@ Test-only and spec-only changes, surgical and in the existing style (init-script
 The change is test-only and surgical. T33 reuses the T30 fake-clock setup and the T29 `dismissedAfter` recorder. The two shared helpers (`repeatViewUnderClock`, `releasedAt400`) each serve both HOME-24 cases, so they are not single-use abstractions. The T33 Done-when items hold as written. The `tasks.md` graph, cross-check and co-location rows, and the `spec.md` traceability row, all list T33 consistently.
 
 **Summary**: R8-A is fixed and verified. HOME-24 is spec-anchored at the 0.4s target in both repeat-view tests. No assertion was weakened. The HOME-24 tests passed 60/60 over 20 repeats, the sensor killed 6/6 (R4 at unit level, equivalent at e2e), and the gate is green: unit 87/87, Playwright 244/244. Round 8 has no open items.
+
+## Round 9 (phone fit)
+
+**Date**: 2026-10-11. **Diff range**: `e24b9b8..3337324` (plan `82d4d71`; tasks T34 `6fcb602`, T35 `470a757`, T36 `3337324`). The diff touches `less/home.less`, `assets/css/style.min.css`, the new `tests/home/phone-fit.e2e.cjs`, four font fixtures in `tests/home/fonts/`, `spec.md` and `tasks.md`. **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a temporary `git worktree` at `3337324` under the session scratchpad (node_modules symlinked, `npm run less:build` after each LESS mutation), removed with `git worktree remove --force` and pruned afterwards. `git status --porcelain` on the real tree matched the baseline before the gate, after the gate and after the sensor (only the untracked agent dirs).
+
+**Verdict**: PASS. HOME-71, HOME-72 and HOME-73 each have evidence that targets the spec outcome. The sensor killed every non-equivalent mutant (12 of 19 injected; the 7 survivors are equivalent or spec-neutral, see below). The build gate is green. Real-font screenshots at 320, 375, 414 and 1024px show no alignment problem inside the scope of the ACs. One cosmetic note is left for the user (R9-A).
+
+### Task completion
+
+T34-T36 are all `[x]` and ✅ Done in tasks.md. Each has its own commit in the diff range.
+
+### Compiled CSS
+
+`npm run less:build` in the worktree at `3337324` left `assets/css/style.min.css` byte-identical (`cmp` with the committed file). `less/README.md` is satisfied.
+
+### Font fixtures
+
+- **Same faces the site uses.** `_includes/head/styles.liquid` requests `family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700`. The four fixtures are byte-identical (sha256) to the latin files Google Fonts serves today for that URL: Rajdhani v17 500/600/700 and Share Tech Mono v16 400. The latin subset covers every glyph in the button names.
+- **Routing.** `phone-fit.e2e.cjs:17-23` registers its routes in `beforeEach`, after the shared fixture's abort-all route (`tests/photos/browser.cjs:3`). Playwright tries the newest route first, so the fixture CSS and files win.
+- **No silent fallback.** `:27-33` `realFonts` loads `700 15px 'Rajdhani'` and `10px 'Share Tech Mono'` and asserts `toEqual([1, 1])`. These are the faces of `.cyber-link-name` (Rajdhani 700, `less/cyber-links.less`) and `.cyber-link-sub` (Share Tech Mono). Mutant F1 renamed the fixture family: 32 of 37 tests failed with `[0, 0]`; the 5 HOME-71 tests do not measure text and stay green, as intended.
+
+### Spec-anchored acceptance criteria (round-9 scope)
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| HOME-71 (spec.md:250) | Below 860px the NOW::STREAMING cover frame is the full content width of the panel, up to 420px | `tests/home/phone-fit.e2e.cjs:35-45` at 320, 375, 414, 768: `:43` `Math.abs(art.width - Math.min(column.width, 420))` `<= 1`, `:44` `Math.abs(art.left - column.left)` `<= 1`. At 768 the column is wider than 420, so the cap is asserted. `:48-58` at 1280 the desktop column holds: `240 <= art.width <= 340`, `body.left > art.right` | ✅ PASS |
+| HOME-72 (spec.md:251) | From 320 to 1440px each hero button is inside the hero card; its name and its `Listen now` line are each one line, with ≥16px to each side of the button | `:72` 16 widths (phones, then each side of 560, 768, 860 and 1200, up to 1440); `:82` `fits.length` `toBe(2)`; `:84-85` `btnLeft >= card.left`, `btnRight <= card.right`; `:86` `lines` `toBe(1)`; `:87-88` `left >= 16`, `right >= 16`, for both `.cyber-link-name` and `.cyber-link-sub` (`:80`) | ✅ PASS |
+| HOME-73 (spec.md:252) | From 320 to 1440px each NOW::STREAMING name is one line, centered in its button, with ≥16px to each side | `:94-114` the same 16 widths; `:105` and `:107` `toBe(8)` (all eight platforms, primary and compact); `:109` `lines` `toBe(1)`; `:110` `Math.abs(center) <= 1`; `:111-112` `left >= 16`, `right >= 16` | ✅ PASS |
+
+**Status**: 3/3 ACs matched the spec outcome. Spec-precision notes (non-blocking):
+
+1. HOME-73 says "centered" with no tolerance. The 1px bound comes from the T36 Done-when. That is a reasonable reading for sub-pixel text.
+2. HOME-72 says "inside the hero card". The test compares against the card's border box. The card has 16px padding and an 18px clip-path corner (`less/home.less:360`, `:366`), so a button could reach into the padding and still pass (mutant M16, -12px). It would only be clipped if it reached the bottom-left corner. Not a gap today: at 320px the buttons sit 16px inside.
+3. HOME-71 samples four widths below 860. The top of the range (859) is not sampled, but 768 already asserts the 420px cap and 320-414 the full-width case, which is the whole behavior.
+
+### Vacuity
+
+- **Zero rects or buttons cannot pass.** HOME-72 asserts `fits.length === 2` (`:82`) and HOME-73 asserts 8 buttons twice (`:105`, `:107`). `lines` counts `range.getClientRects()` with width > 0, so text that is not rendered gives `lines === 0` and fails `toBe(1)`.
+- **The template injection matches what `home.js` renders.** HOME-73 replaces the list with the full `<template data-home-streaming-anchors>` content (`:101-103`). `home.js` `shuffle()` clones those same anchors from the same template and keeps only the platforms the shuffled single has. The no-JS markup renders the same `home/streaming-link` include. Every button is `span 1` in a `repeat(n, minmax(0, 1fr))` grid, so a button's width does not depend on how many buttons there are. The injection is a superset of any real shuffle: all eight names, including the longest compact name, "Amazon Music".
+- **Fonts.** See Font fixtures above (F1 killed).
+
+### Discrimination sensor (worktree at `3337324`; e2e = `tests/home/phone-fit.e2e.cjs`, 37 tests; baseline 37/37 green)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| M1 | `less/home.less:823` | Restore `max-width: 260px` below 860 (420 from 860) | ✅ Killed (3: HOME-71 at 375, 414, 768, `:43`). At 320 the column is 254px, so 260 is equivalent there |
+| M11 | `less/home.less:823` | `max-width: 420px` → `none` | ✅ Killed (1: HOME-71 at 768) |
+| M2 | `less/home.less:441` | Hero links `repeat(2, minmax(0, 1fr))` → `1fr 1fr` | ➖ Survived, equivalent. With the stacked layout below 400px, the widest button's min-content (about 106px) is below the 122px column at 320, so `minmax(0, ...)` has nothing to shrink. It is a safeguard. Killed in combination with the row layout (M15) |
+| M15 | `less/home.less:441`, `:479` | `1fr 1fr` and the row layout at every width (close to the pre-T35 hero) | ✅ Killed (1: HOME-72 at 320) |
+| M7a | `less/home.less:479-490` | Drop the 400px stacked-to-row switch (stacked at every width) | ➖ Survived, spec-neutral. The stacked layout satisfies HOME-72 at every width; the spec does not prescribe row or stack |
+| M7b | `less/home.less:479` | Row layout from 0px (no stacked phone layout) | ✅ Killed (1: HOME-72 at 320, `:88` `right` = 4.9) |
+| M8 | `less/home.less:465` | Hero name below 400px 14px → 16px | ✅ Killed (1: HOME-72 at 320, `:87` `left` = 12.3) |
+| M13 | `less/home.less:497-498` | Hero ≥768 name and sub letter-spacing → 3px | ➖ Survived, spec-neutral. The text still has ≥16px clear in the 194px buttons |
+| M14 | `less/home.less:475` | Drop `white-space: nowrap` on the hero `Listen now` line | ➖ Survived, equivalent. The line never reaches its wrap width |
+| M16 | `less/home.less:441` | `margin-right: -12px` on the hero links | ➖ Survived, spec-neutral. The buttons stay inside the card's border box (16px padding) |
+| M16b | `less/home.less:441` | `margin-right: -40px` on the hero links | ✅ Killed (16: HOME-72 at every width, `:85` `btnRight <= card.right`) |
+| M4 | `less/home.less:870` | Drop the 860px two-column rule of `.home-links` | ✅ Killed (1: HOME-73 at 860) |
+| M12 | `less/home.less:869` | 560px rule `repeat(3, ...)` → `repeat(4, ...)` | ✅ Killed (2: HOME-73 at 560, 768) |
+| M3 | `less/home.less:874` | Drop `white-space: nowrap` on the streaming names | ➖ Survived, equivalent. With ≥16px clear asserted, a name never reaches its wrap width, and `:109` still pins one line |
+| M6 | `less/home.less:874` | Drop `text-align: center` on the streaming names | ➖ Survived, equivalent. The button is a flex column with `align-items: center`, so a one-line name is centered either way |
+| M17 | `less/home.less:874` | `align-self: flex-start` on the streaming names | ✅ Killed (16: HOME-73 at every width, `:110` centering) |
+| M5 | `less/home.less:884-888` | Primary streaming name 19px / 4px letter-spacing below 768 | ✅ Killed (9: HOME-73 at 320-430, 560, 860, 1200) |
+| M10 | `less/home.less:900-904` | Compact streaming name 12px/1px → 13px/2px below 375 | ✅ Killed (1: HOME-73 at 320) |
+| F1 | `tests/home/phone-fit.e2e.cjs:15` | Fixture family renamed, so the site falls back to system fonts (vacuity probe) | ✅ Killed (32: `realFonts` `:32` `[0, 0]`) |
+
+**Sensor depth**: expanded (19 mutants: the 7 the coordinator suggested, 11 more on the breakpoints, the bounds and the centering, and 1 font-vacuity probe). **Result**: 12/12 non-equivalent mutants killed. The 7 survivors are equivalent (M2, M3, M6, M14) or spec-neutral (M7a, M13, M16). For each of these the test is not the weak point: the CSS is defensive, or the spec does not pin the change. PASS.
+
+### Regressions
+
+- **HOME-13** (`tests/home/hero-style.e2e.cjs:52`): green in the gate (it runs on fallback fonts). With real Google Fonts on the dev server, the card at 375x667 spans x 17.5-357.5 and ends at y 603, inside the 667px viewport. The stacked buttons are 69px tall, against 56px for the row layout. At 320x568 (not an AC) the card ends at 563.
+- **HOME-34/39** (`tests/home/panels-style.e2e.cjs:25`, `:36`): green. With real fonts `scrollWidth` equals the viewport width at 320, 360, 375, 399, 400, 414, 430, 859, 860, 1024, 1199 and 1440.
+- **Desktop at ≥860px**: the cover keeps its 340px column, with the text beside it (1024: cover x 62-402, body from x 442). The links show two columns between 860 and 1199px and four from 1200px. `phone-fit.e2e.cjs:48` pins the desktop column at 1280.
+
+### Visual check (real Google Fonts, dev server on 4179, deviceScaleFactor 2)
+
+Screenshots are in `scratchpad/verify9/shots/`: `hero-{320,375,414,1024}.png`, `streaming-{320,375,414,1024}.png`, plus 360, 399, 400, 430, 859, 860, 1199 and 1440.
+
+- **414 (iPhone XR)**: the hero has two equal row buttons, with "APPLE MUSIC" on one line and 38.7/22.8px clear. The NOW::STREAMING cover is 348px wide, flush with the 348px text column. Both streaming names are centered (offset 0), with 49.5px and 27.6px clear. The user's report is resolved.
+- **320**: the hero buttons stack (icon over name over `Listen now`), centered, 17.7px clear for "APPLE MUSIC". The cover is 254px, the full column.
+- **375 and 1024**: no misalignment. At 1024 the streaming buttons are 255px wide, two columns, with centered names.
+- The tightest margin anywhere is 17.7px (Apple Music at 320 in both places). That is enough, but a future longer platform name would have little room.
+- **R9-A (cosmetic, outside the ACs)**: between 560 and 859px the cover reaches its 420px cap while the column keeps growing. At 859 it sits left in a 735px column, leaving a 315px empty strip to its right. This is the same "gap beside the cover" look the user reported at 414, now at tablet widths. HOME-71 allows it ("up to 420px").
+
+### Gate
+
+- **Command**: `npm run build && npm test` in the real tree at `3337324` (build exit 0, test exit 0).
+- **Unit**: 87/87.
+- **Playwright**: 281/281 (round 8 re-verify: 244; +37 = 5 HOME-71, 16 HOME-72 and 16 HOME-73 in `phone-fit.e2e.cjs`).
+- **Test integrity**: no test was deleted or weakened. Round 9 only adds a file.
+
+### Code quality
+
+The changes are styles only and scoped to `#page_home` (`.home-streaming-art`, `.home-release-links`, `.home-links`), with comments in the file's voice. The compiled CSS matches the LESS. Each test maps to HOME-71, HOME-72 or HOME-73. The 1280px HOME-71 case is a desktop guard named in the T34 Done-when. The font fixtures are the minimum the measurements need (four latin files, SIL OFL), and the commit message records why they exist. Nothing is out of scope.
+
+### Fix plans (non-blocking, for the user's decision)
+
+1. **R9-A (Cosmetic, outside HOME-71)**: if the tablet gap matters, either center the cover in its column between 560 and 859px (`margin: 0 auto`) or let it grow to the column width there. Either choice is a spec change to HOME-71, so it belongs to the user. Note that the HOME-71 test at 768 asserts left alignment (`:44`), which the spec does not require; it would need updating with that change.
+
+**Summary**: Round 9 is verified. HOME-71, HOME-72 and HOME-73 are 3/3 spec-anchored over 320-1440px (16 widths, every breakpoint edge), measured in the site's real fonts. The fixtures are byte-identical to Google's latin files, and a fallback cannot pass silently (F1). The sensor killed 12/12 non-equivalent mutants. Unit 87/87, Playwright 281/281. The compiled CSS is byte-identical to the LESS build. One open item is cosmetic and outside the ACs (R9-A).
