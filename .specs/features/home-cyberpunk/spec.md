@@ -258,7 +258,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-02 | P1: Land on the flagship - single `h1` with logo | T6 | Implemented |
 | HOME-03 | P1: Land on the flagship - tagline | T6 | Implemented |
 | HOME-04 | P1: Land on the flagship - responsive hero photo | T3, T6 | Implemented |
-| HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6, T11 | Implemented |
+| HOME-05 | P1: Land on the flagship - legacy markup removed | T5, T6, T11, T32 | Implemented |
 | HOME-06 | P1: Land on the flagship - zero iframes on load | T6, T11 | Implemented |
 | HOME-07 | P1: Land on the flagship - decorative overlays layering | T12 | Implemented |
 | HOME-08 | P1: Land on the flagship - shared menu and footer | T5 | Implemented |
@@ -275,9 +275,9 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-19 | P1: Play the latest release - no-JS behavior | T7, T19 | Implemented |
 | HOME-20 | P1: Branded boot loader - overlay content | T5, T15 | Implemented |
 | HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
-| HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17 | Implemented |
-| HOME-23 | P1: Branded boot loader - 3.5s cap | T1, T17 | Implemented |
-| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1, T17 | Verified (user-approved fix, round 4) |
+| HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17, T29, T30 | Implemented |
+| HOME-23 | P1: Branded boot loader - 3.5s cap | T1, T17, T29 | Implemented |
+| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1, T17, T29, T32 | Verified (user-approved fix, round 4) |
 | HOME-25 | P1: Branded boot loader - storage failure | T1, T17 | Implemented |
 | HOME-26 | P1: Branded boot loader - skip by click/Esc | T1, T17 | Implemented |
 | HOME-27 | P1: Branded boot loader - released after dismiss | T17 | Verified (user-approved fix, round 4) |
@@ -315,7 +315,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-59 | P2: Hardened home script - shuffle entry check | T21 | Implemented |
 | HOME-60 | P2: Hardened home script - invalid entry keeps the default | T21 | Implemented |
 | HOME-61 | P2: Hardened home script - missing node keeps the default | T21 | Implemented |
-| HOME-62 | P2: Hardened home script - module isolation | T22 | Implemented |
+| HOME-62 | P2: Hardened home script - module isolation | T22, T31 | Implemented |
 | HOME-63 | P2: Hardened home script - single release function | T23 | Implemented |
 | HOME-64 | P2: Hardened home script - late home.js never re-inerts | T24 | Implemented |
 | HOME-65 | P2: Hardened home script - late home.js marks the visit | T24 | Implemented |
@@ -325,7 +325,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Implemented |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Implemented |
 
-**Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7).
+**Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7). Round 8 (T29-T32) adds no requirement: it hardens the tests for HOME-22/23/24 and HOME-62 and fixes the HOME-05 and HOME-24 wording.
 
 ---
 

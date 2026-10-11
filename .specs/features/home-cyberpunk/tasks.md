@@ -112,6 +112,18 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 ---
 
+### Phase 6: Round 8 test hardening
+
+Follow-ups from the round 7 handoff, limited to the home. Tests and spec wording only; no product code changes.
+
+```
+T29 → T30
+```
+
+T31 and T32 have no dependency; they are ordered by phase only.
+
+---
+
 ## Task Breakdown
 
 ### T1: Pure home helpers
@@ -867,10 +879,112 @@ T27 and T28 have no dependency; they are ordered by phase only.
 
 ---
 
+### T29: Time the loader release at the moment it happens
+
+**What**: Replace the `requestAnimationFrame` polling in `dismissedAfter` and in the late-`home.js` HOME-24 test with a `MutationObserver`, installed by an init script, that records `performance.now() - IDHomeBootAt` when `#home-loader` first gets `is-done`.
+**Where**: `tests/home/loader.e2e.cjs`
+**Depends on**: None
+**Reuses**: the existing `addInitScript` instrumentation in `tests/home/loader.e2e.cjs`
+**Requirement**: HOME-22, HOME-23, HOME-24
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: every loader timing test reads the release time recorded at the `is-done` mutation, not at the next animation frame
+- [ ] E2E: the HOME-22, HOME-23 and HOME-24 bounds are unchanged (≥1200 and <3500ms; ≤500ms)
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `test(home): time the loader release at the is-done mutation`
+
+---
+
+### T30: Pin the early-fire guard with a fake clock
+
+**What**: Add a first-view e2e under `page.clock` in which the loader's dismiss timer fires 200ms early. The loader must still leave no earlier than 1200ms after start.
+**Where**: `tests/home/loader.e2e.cjs`
+**Depends on**: T29
+**Reuses**: the release-time recorder from T29
+**Requirement**: HOME-22
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: with the clock paused once the hero image and fonts are ready, and timers of 1000ms or more fired 200ms early, the loader has no `is-done` at 1199ms and has it at 1200ms
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `test(home): pin the loader early-fire guard under a fake clock`
+
+---
+
+### T31: Make each home module throw in turn
+
+**What**: Turn the navbar-only HOME-62 test into one case per module that has modules after it (`loader`, `navbar`, `shuffle`, `preview`). Each case makes the module's first `home-core` call throw and asserts that every later module still works and the error is still reported.
+**Where**: `tests/home/scripts.e2e.cjs`
+**Depends on**: None
+**Reuses**: the existing HOME-62 test, `panelByTab`
+**Requirement**: HOME-62
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: for each of `loader`, `navbar`, `shuffle` and `preview`, the modules after it still run (navbar turns solid on scroll, the shuffled single is shown, PREVIEW opens the shown single, a streaming click pushes `home_release_click`), checked only for the modules after the one that throws
+- [ ] E2E: each module's error still surfaces as a page error
+- [ ] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: Pending
+**Commit**: `test(home): make each home module throw in turn`
+
+---
+
+### T32: Match the HOME-05 and HOME-24 wording to the confirmed behavior
+
+**What**: Reword HOME-05 so it names the legacy scripts (`please-wait`, `insane.js`, `videos.js`) instead of `home.js`, which the new home loads. Reword HOME-24 to "within 0.5s (target 0.4s)", following L-004. HOME-14 needs no change, because round 6 already removed "remaining".
+**Where**: `.specs/features/home-cyberpunk/spec.md`
+**Depends on**: None
+**Reuses**: -
+**Requirement**: HOME-05, HOME-24
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] Spec: HOME-05 lists only scripts that the tests assert are absent; HOME-24 states the 0.5s bound the tests assert
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: none
+**Gate**: build
+**Status**: Pending
+**Commit**: `docs(specs): match the HOME-05 and HOME-24 wording to the tests`
+
+---
+
 ## Phase Execution Map
 
 ```
-Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5
+Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
 
 Phase 1:  T1 → T2
           T3
@@ -892,6 +1006,9 @@ Phase 5:  T21 → T22
           T23 → T26
           T27
           T28
+Phase 6:  T29 → T30
+          T31
+          T32
 ```
 
 Execution is strictly sequential in task-number order.
@@ -912,6 +1029,8 @@ Execution is strictly sequential in task-number order.
 | T12-T16 | 1 style concern each | ✅ Granular |
 | T17-T20 | 1 behavior module each | ✅ Granular |
 | T21-T28 | 1 review finding each | ⚠️ Cohesive (a finding spans code, tests and specs; the user asked for one commit per finding) |
+| T29-T31 | 1 test concern each | ✅ Granular |
+| T32 | 1 spec wording fix | ✅ Granular |
 
 ## Diagram-Definition Cross-Check
 
@@ -945,6 +1064,10 @@ Execution is strictly sequential in task-number order.
 | T26 | T23 | T23 → T26 | ✅ Match |
 | T27 | None | - | ✅ Match |
 | T28 | None | - | ✅ Match |
+| T29 | None | - | ✅ Match |
+| T30 | T29 | T29 → T30 | ✅ Match |
+| T31 | None | - | ✅ Match |
+| T32 | None | - | ✅ Match |
 
 ## Test Co-location Validation
 
@@ -963,3 +1086,5 @@ Execution is strictly sequential in task-number order.
 | T26 | Data file + layout render | unit | unit | ✅ OK |
 | T27 | Eleventy data file | unit | unit | ✅ OK |
 | T28 | Legacy file removal | unit | unit | ✅ OK |
+| T29-T31 | Behavior JS tests | e2e | e2e | ✅ OK |
+| T32 | Spec text | none | none | ✅ OK |
