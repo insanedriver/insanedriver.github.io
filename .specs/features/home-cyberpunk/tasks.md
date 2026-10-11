@@ -124,6 +124,16 @@ T31 and T32 have no dependency; they are ordered by phase only. T33 was added af
 
 ---
 
+### Phase 7: Round 9 phone fit
+
+Layout fixes for phones, reported at iPhone XR size (HOME-71 to HOME-73). Styles only; every `.less` change ships with the compiled `assets/css/style.min.css`.
+
+```
+T34 → T35 → T36
+```
+
+---
+
 ## Task Breakdown
 
 ### T1: Pure home helpers
@@ -1007,10 +1017,86 @@ T31 and T32 have no dependency; they are ordered by phase only. T33 was added af
 
 ---
 
+### T34: Full-width NOW::STREAMING cover on phones
+
+**What**: Below 860px, let the cover frame take the panel content width up to 420px, instead of the fixed 260px.
+**Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`
+**Depends on**: None
+**Reuses**: `.home-streaming-art`, `.home-release-links`, `.home-links` in `less/home.less`
+**Requirement**: HOME-71
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: at 320, 375, 414 and 768px the cover frame width equals min(panel content width, 420px), within 1px
+- [ ] E2E: at 1280px the cover keeps its desktop column (unchanged)
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+**Status**: Pending
+**Commit**: `fix(home): let the streaming cover fill the panel on phones`
+
+---
+
+### T35: Fit the hero buttons inside the card
+
+**What**: Give the hero button grid shrinkable columns and size the name, icon and padding so the name stays on one line inside the button.
+**Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`
+**Depends on**: T34
+**Reuses**: `.home-streaming-art`, `.home-release-links`, `.home-links` in `less/home.less`
+**Requirement**: HOME-72
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: from 320 to 1440px, each hero button ends inside `.home-release-card` and its name is one line with at least 8px clear on each side
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+**Status**: Pending
+**Commit**: `fix(home): keep the hero platform buttons inside the card on phones`
+
+---
+
+### T36: One-line, centered NOW::STREAMING button names
+
+**What**: Keep every NOW::STREAMING platform name on one line and centered, scaling its size and letter spacing to the button width.
+**Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`
+**Depends on**: T35
+**Reuses**: `.home-streaming-art`, `.home-release-links`, `.home-links` in `less/home.less`
+**Requirement**: HOME-73
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] E2E: from 320 to 1440px, every platform in the panel template (primary and compact) shows its name on one line, centered within 1px, with at least 8px clear on each side
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+**Status**: Pending
+**Commit**: `fix(home): keep the streaming platform names on one centered line`
+
+---
+
 ## Phase Execution Map
 
 ```
-Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
+Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6 → Phase 7
 
 Phase 1:  T1 → T2
           T3
@@ -1035,6 +1121,7 @@ Phase 5:  T21 → T22
 Phase 6:  T29 → T30 → T33
           T31
           T32
+Phase 7:  T34 → T35 → T36
 ```
 
 Execution is strictly sequential in task-number order.
@@ -1057,6 +1144,7 @@ Execution is strictly sequential in task-number order.
 | T21-T28 | 1 review finding each | ⚠️ Cohesive (a finding spans code, tests and specs; the user asked for one commit per finding) |
 | T29-T31, T33 | 1 test concern each | ✅ Granular |
 | T32 | 1 spec wording fix | ✅ Granular |
+| T34-T36 | 1 layout fix each | ✅ Granular |
 
 ## Diagram-Definition Cross-Check
 
@@ -1095,6 +1183,9 @@ Execution is strictly sequential in task-number order.
 | T31 | None | - | ✅ Match |
 | T32 | None | - | ✅ Match |
 | T33 | T30 | T30 → T33 | ✅ Match |
+| T34 | None | - | ✅ Match |
+| T35 | T34 | T34 → T35 | ✅ Match |
+| T36 | T35 | T35 → T36 | ✅ Match |
 
 ## Test Co-location Validation
 
@@ -1115,3 +1206,4 @@ Execution is strictly sequential in task-number order.
 | T28 | Legacy file removal | unit | unit | ✅ OK |
 | T29-T31, T33 | Behavior JS tests | e2e | e2e | ✅ OK |
 | T32 | Spec text | none | none | ✅ OK |
+| T34-T36 | Styles | e2e | e2e | ✅ OK |
