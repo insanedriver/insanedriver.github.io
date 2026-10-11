@@ -1,8 +1,8 @@
 # Home Cyberpunk Validation
 
-## Validation: home-cyberpunk - PASS (round 7 re-verify, 2026-10-06)
+## Validation: home-cyberpunk - PASS (round 8, 2026-10-11)
 
-The current verdict is PASS. See "Round 7 re-verify" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
+The current verdict is PASS. See "Round 8 (test hardening)" at the end of this report. The sections below record each round in order. Earlier FAIL verdicts were closed by the round that followed them.
 
 ## Round 3 (of 3)
 
@@ -480,3 +480,72 @@ Changes are surgical and match existing patterns (`home-core` UMD exports, `_dat
 - **Playwright**: 240/240 (round 7: 235; +5 = 4 new HOME-61 hook cases and the new HOME-64/66 failsafe case). The HOME-24 flake did not fire.
 
 **Summary**: R7-A and R7-B are verified. Round 7 now passes: 12/12 ACs (HOME-59..70) are verified, every non-equivalent mutant is killed, unit 87/87, and Playwright 240/240. The HOME-62 note (only navbar failure is exercised) stays non-blocking.
+
+## Round 8 (test hardening)
+
+**Date**: 2026-10-11. **Diff range**: `8b4a019..9b0321f` (plan `097d73f`; tasks T29 `72fc56c`, T30 `30c023a`, T31 `83db238`, T32 `9b0321f`). The diff touches only `tests/home/loader.e2e.cjs`, `tests/home/scripts.e2e.cjs`, `spec.md` and `tasks.md`. No product code changed. **Verifier**: independent sub-agent (author ≠ verifier), read-only over the real tree. The mutants ran in a temporary `git worktree` at `9b0321f` under the session scratchpad (node_modules symlinked), removed with `git worktree remove --force` and pruned afterwards. `git status --porcelain` on the real tree matched the pre-sensor baseline after the gate and after the sensor (only the untracked agent dirs).
+
+**Verdict**: PASS. All five ACs in scope have evidence that targets the spec outcome. Every non-equivalent mutant is killed (13 of 14 injected; the survivor is equivalent). The build gate is green. One finding carries over and is not blocking: the HOME-24 repeat-view test at `loader.e2e.cjs:73` is flaky. It failed once in 15 repeats on unmutated code with 523.6ms, and once during the sensor with 525.6ms. The cause is the head-gate 400ms timer firing late on a busy main thread, not the measurement, so T29 cannot remove it (see Fix plans).
+
+### Task completion
+
+T29-T32 are all `[x]` and ✅ Done in tasks.md. Each has its own commit in the diff range.
+
+### Task claims, checked
+
+- **T29**: holds. `loader.e2e.cjs:6-16` installs a MutationObserver init script that stamps `performance.now() - IDHomeBootAt` on the first `class` mutation that leaves `#home-loader` with `is-done`. `:19` `dismissedAfter` waits for that stamp; the raf polling is gone. The late-`home.js` HOME-24 test (`:92`) uses the same reading and is stricter than before: the old reading also accepted `display: none` or `visibility: hidden`, and the new one needs `is-done`. The bounds are unchanged: `:26-27` ≥1200 and <3500, `:37-38` ≥2000 and <3000, `:69-70` 3400-3600, `:79` and `:93` ≤500. A stamp that is never set cannot pass: `waitForFunction` times out after 8s. A stamp of 0 is falsy and would also time out rather than pass.
+- **T30**: holds. `loader.e2e.cjs:41-63`. The clock is installed and paused before navigation, and the `setTimeout` wrapper (`:47-50`) is added after it, so it wraps the fake timer. Under the paused clock, home.js computes `at = startedAt + 1200` whether readiness lands before or after the pause. The wrapped 1200ms timer fires at 1000, the guard reschedules 200ms (not shifted), and the release lands at 1200. `:59` `elapsed() === 1199` proves the clock reading. `:60` `done() === false` at 1199, and `:62` `dismissedAfter === 1200` exactly. Removing the guard (M23) or dropping its reschedule (G2) kills only this test.
+- **T31**: holds. `scripts.e2e.cjs:34` names each module's first home-core call. These match `assets/js/home.js:53` (`isRepeatVisit`), `:137` (`navIsSolid`), `:161` (`pickShuffle`) and `:201` (`spotifyEmbedUrl`). `:36` loops over four cases and `:39` checks only the modules after the failing one. Every case has `:88` `expect.poll(errors).toContain('<module> boom')`, so a wrapper that never fires (for example `window.IDHome` set without the setter) fails instead of passing vacuously. The skipped checks are intentional: navbar is not checked after itself, and shuffle's own failure expects `pool[0]` (`:72`).
+- **T32**: holds. The HOME-05 AC5 wording (`spec.md:80`) names the please-wait script and `insane.js`/`videos.js`; these are asserted absent at `scripts.e2e.cjs:11-13` and `layout.e2e.cjs:9`. The HOME-24 AC5 wording (`spec.md:130`) says "within 0.5s (target 0.4s)", and `loader.e2e.cjs:79` and `:93` assert `<= 500`. The traceability rows were updated (`spec.md:261`, `:278-280`, `:318`) and the coverage note says round 8 adds no requirement.
+
+### Spec-anchored acceptance criteria (round-8 scope)
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| HOME-05 (spec.md:80) | No `#owl-demo`, `.header-img`, please-wait script, legacy `insane.js`/`videos.js`, `#player-sf`, `#player_spotify` or any `#player*` on `/` | `tests/home/layout.e2e.cjs:5,7,9` `#owl-demo`, `.header-img`, `script[src*="please-wait"]` `toHaveCount(0)`; `tests/home/scripts.e2e.cjs:11-13` script pathnames `not.toContain` `insane.js`, `videos.js`, `please-wait.min.js`; `tests/home/hero.e2e.cjs:65-66` `[id^="player"]` and `#player-sf, #player_spotify` `toHaveCount(0)` | ✅ PASS (the wording now matches the tests) |
+| HOME-22 (spec.md:128) | First view: dismissed at the later of 1.2s and ready (image + fonts) | `tests/home/loader.e2e.cjs:26-27` `ms >= 1200`, `< 3500`; `:37-38` hero held 2s → `ms >= 2000`, `< 3000`; `:59-62` timers fired 200ms early under a paused clock → `elapsed === 1199`, `done === false`, then `dismissedAfter === 1200` | ✅ PASS |
+| HOME-23 (spec.md:129) | Dismissed no later than 3.5s whatever the image/font state | `tests/home/loader.e2e.cjs:65-71` hero never answers → `ms >= 3400`, `<= 3600` | ✅ PASS |
+| HOME-24 (spec.md:130) | Repeat view in the same session dismissed within 0.5s (target 0.4s) | `tests/home/loader.e2e.cjs:79` `ms <= 500`; `:93` the same with `home.js` held 700ms, plus `:95` `delivered === false` and `:100` `{ aria: 'true', inert: false }` | ✅ PASS (flaky; see Fix plans) |
+| HOME-62 (spec.md:228) | A throwing module (loader, navbar, shuffle, preview, tracking) does not stop the modules after it | `tests/home/scripts.e2e.cjs:36-89` one case per module with a later module: navbar `:68` `toHaveClass(/is-solid/)` after a scroll; shuffle `:74` `data-home-streaming === shown.slug`; preview `:77` iframe `src` = the shown embed; tracking `:85-87` `toEqual([{ event: 'home_release_click', platform: 'apple', release: shown.slug, placement: 'streaming' }])`; reported `:88` `toContain('<module> boom')` | ✅ PASS (the round-7 "navbar only" note is closed) |
+
+**Status**: 5/5 ACs matched the spec outcome. No spec-precision gaps.
+
+### Discrimination sensor (worktree at `9b0321f`; e2e = loader (22 tests) or scripts (6 tests), baseline 28/28 green; unit = `node --test tests/*/*.test.cjs`)
+
+| # | File | Mutation | Result |
+| --- | --- | --- | --- |
+| M23 | `assets/js/home.js:96` | Early-fire guard `if (now() < at) { schedule(); return; }` removed | ✅ Killed (1: `loader.e2e.cjs:41`, `:60` `done` was `true` at 1199) |
+| G2 | `assets/js/home.js:96` | Guard keeps the `return` but drops `schedule()` | ✅ Killed (1: `loader.e2e.cjs:41`) |
+| R1 | `_layouts/home.html:29` | Head gate repeat release `setTimeout(window.IDHomeRelease, 400)` → `600` | ✅ Killed (1: `loader.e2e.cjs:82`) |
+| R2 | `assets/js/home-core.js:10` | `LOADER_MIN` 1200 → 1000 | ✅ Killed (e2e: `loader.e2e.cjs:23`, `:41`, `:127`, `:208`; unit 1) |
+| R3 | `assets/js/home-core.js:11` | `LOADER_MAX` 3500 → 3800 | ✅ Killed (e2e: `loader.e2e.cjs:65`; unit 1) |
+| R3b | `assets/js/home-core.js:11` | `LOADER_MAX` 3500 → 3200 | ✅ Killed (1: `loader.e2e.cjs:65`) |
+| R4 | `assets/js/home-core.js:14` | `LOADER_REPEAT` 400 → 700 | ✅ Killed (unit: `home-core.test.cjs:78`). The e2e suite passes 22/22, because the head gate's own 400ms release masks it |
+| R5 | `assets/js/home-core.js:96` | Dismiss target ignores readiness (`start + LOADER_MIN`) | ✅ Killed (2: `loader.e2e.cjs:30`, `:65`) |
+| U1 | `assets/js/home.js:264` | `run(loader)` → `loader()` | ✅ Killed (1: `scripts.e2e.cjs:37` loader case) |
+| U2 | `assets/js/home.js:265` | `run(navbar)` → `navbar()` | ✅ Killed (1: navbar case) |
+| U3 | `assets/js/home.js:266` | `run(shuffle)` → `shuffle()` | ✅ Killed (1: shuffle case) |
+| U4 | `assets/js/home.js:267` | `run(preview)` → `preview()` | ✅ Killed (1: preview case) |
+| U5 | `assets/js/home.js:268` | `run(tracking)` → `tracking()` | ➖ Survived, equivalent. Tracking is last, so HOME-62 asks nothing after it, and an unwrapped throw is still reported as an uncaught error |
+| SW | `assets/js/home.js:260` | `run()` swallows instead of rethrowing | ✅ Killed (4: all four HOME-62 cases at `:88`) |
+
+**Sensor depth**: expanded (14 mutants for test-only hardening of P1 timing ACs). **Result**: 13/13 non-equivalent mutants killed. PASS.
+
+**Flake capture**: during R2, `loader.e2e.cjs:73` (HOME-24, second view) failed with `Expected: <= 500, Received: 525.6`. This failure is unrelated to the mutant, because the repeat path never reads `LOADER_MIN`. A 15x repeat of the HOME-22/23/24 tests on unmutated code gave 104/105, and the one failure was the same test with `Received: 523.6`. A scratch-only probe (30 repeat views, file deleted afterwards) wrapped `setTimeout`: median release 409ms, max 481ms, and in the slowest run the head-gate 400ms timer itself fired 75ms late. Most likely this is the "unidentified" failure the author saw in one of five full runs during T30.
+
+### Gate
+
+- **Command**: `npm run build && npm test` in the real tree at `9b0321f` (exit 0).
+- **Unit**: 87/87 (unchanged; round 8 adds no unit test).
+- **Playwright**: 244/244 (round 7 re-verify: 240; +4 = the new HOME-22 fake-clock case, and HOME-62 going from 1 case to 4).
+- **Test integrity**: no test was deleted. The navbar-only HOME-62 test became the navbar case of the loop and keeps all its assertions (shuffle slug, PREVIEW embed, exact `home_release_click` payload, error reported). Two mechanics changed: PREVIEW and the Apple link are now clicked through `element.click()` in the page instead of a Playwright pointer click, and the Apple navigation is cancelled instead of stubbed and awaited as a popup. This is acceptable, because the loader case must click through a loader overlay that is still up. The HOME-24 late-`home.js` reading is stricter (needs `is-done`).
+
+### Code quality
+
+Test-only and spec-only changes, surgical and in the existing style (init-script instrumentation, as in `lateHomeJs` and `trackKeydown`). Every new or changed test maps to HOME-22, HOME-23, HOME-24 or HOME-62. The spec rewording follows L-004, so no AC contradicts the tests. Nothing is out of scope.
+
+### Fix plans (non-blocking, for the coordinator's decision)
+
+1. **Fix R8-A (Minor, test stability, HOME-24 / `loader.e2e.cjs:73`, `:82`)**: the ≤500ms bound leaves 100ms over a 400ms `setTimeout`, and the head-gate timer was seen running up to 125ms late while the repeat-view page parses. This is roughly a 1-in-15 failure under load. The measurement is already exact (T29), so the remaining options are a product or spec decision: (a) start the head-gate timer so that it releases at `IDHomeBootAt + 400` measured from the gate and not from when the timer runs, which does not help when the thread is busy; (b) run the repeat-view timing under `page.clock` the way T30 does, asserting release at exactly 400 for the HOME-24 target, and keep a loose real-time bound (for example ≤700) as a smoke check; or (c) accept the flake. Option (b) is test-only and also pins the 0.4s target, which no e2e asserts today (R4 is caught only by the unit test).
+
+**Summary**: Round 8 is verified. T29-T32 do what they claim. HOME-05, HOME-22, HOME-23, HOME-24 and HOME-62 are 5/5 spec-anchored. The sensor killed 13/13 non-equivalent mutants, including M23 (the early-fire guard), every per-module `run()` unwrap and the swallowed rethrow. Unit 87/87, Playwright 244/244. The one open item is the pre-existing HOME-24 timing flake (R8-A), which is test stability, not a coverage gap.
