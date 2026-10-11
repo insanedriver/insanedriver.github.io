@@ -77,7 +77,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 2. The system SHALL render exactly one `h1` on `/`, inside the hero, with the accessible name "Insane Driver", showing the logo image `logo_loading.png` with `alt="Insane Driver"`.
 3. The system SHALL render the tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero.
 4. The system SHALL render the hero photo from `band.jpg` derivatives through `srcset` with 768w, 1280w and 1920w candidates in WebP and JPG, and the image SHALL NOT be lazy-loaded.
-5. The system SHALL NOT include the Owl carousel markup (`#owl-demo`), the `.header-img` block, the `please-wait` script, `home.js`, `#player-sf`, `#player_spotify` or any `#player*` YouTube container on `/`.
+5. (Reworded in round 8) The system SHALL NOT include the Owl carousel markup (`#owl-demo`), the `.header-img` block, the `please-wait` script, the legacy `insane.js` and `videos.js` player scripts, `#player-sf`, `#player_spotify` or any `#player*` YouTube container on `/`.
 6. The system SHALL NOT create any `iframe` element during initial page load of `/`.
 7. The system SHALL render the hero overlays (scanlines, grid, glitch on the logo) as decorative layers marked `aria-hidden="true"`, stacked above the photo and below the hero text.
 8. The system SHALL keep the shared menu and footer includes on `/`.
@@ -127,7 +127,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 2. The system SHALL NOT render the loader overlay visibly when JavaScript is disabled.
 3. WHEN the loader starts on the first home view of the session THEN the system SHALL dismiss it at the later of 1.2s after start and the moment both the hero image has loaded and `document.fonts.ready` has resolved.
 4. The system SHALL dismiss the loader no later than 3.5s after it starts, regardless of image or font state.
-5. WHEN the home is viewed again in the same browser session THEN the system SHALL dismiss the loader within 0.4s after start.
+5. (Reworded in round 8) WHEN the home is viewed again in the same browser session THEN the system SHALL dismiss the loader within 0.5s after start (target 0.4s).
 6. IF `sessionStorage` is unavailable or throws THEN the system SHALL treat the view as the first of the session.
 7. WHEN the visitor clicks the loader or presses `Esc` while it is visible THEN the system SHALL dismiss it immediately and push `{event: 'home_loader_skip'}` to `dataLayer`.
 8. WHEN the loader is dismissed THEN the system SHALL remove it from the accessibility tree and from pointer hit-testing, and page content SHALL be scrollable.
@@ -277,7 +277,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17, T29, T30 | Implemented |
 | HOME-23 | P1: Branded boot loader - 3.5s cap | T1, T17, T29 | Implemented |
-| HOME-24 | P1: Branded boot loader - repeat-view 0.4s | T1, T17, T29, T32 | Verified (user-approved fix, round 4) |
+| HOME-24 | P1: Branded boot loader - repeat-view 0.5s (target 0.4s) | T1, T17, T29, T32 | Verified (user-approved fix, round 4) |
 | HOME-25 | P1: Branded boot loader - storage failure | T1, T17 | Implemented |
 | HOME-26 | P1: Branded boot loader - skip by click/Esc | T1, T17 | Implemented |
 | HOME-27 | P1: Branded boot loader - released after dismiss | T17 | Verified (user-approved fix, round 4) |

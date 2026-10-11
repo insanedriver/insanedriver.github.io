@@ -971,12 +971,12 @@ T31 and T32 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] Spec: HOME-05 lists only scripts that the tests assert are absent; HOME-24 states the 0.5s bound the tests assert
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Spec: HOME-05 lists only scripts that the tests assert are absent; HOME-24 states the 0.5s bound the tests assert
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `docs(specs): match the HOME-05 and HOME-24 wording to the tests`
 
 ---
