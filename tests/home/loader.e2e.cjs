@@ -70,27 +70,39 @@ test('HOME-23: a hero image that never arrives still releases the page at 3.5s',
   expect(ms).toBeLessThanOrEqual(3600);
 });
 
-test('HOME-24: a second home view in the same session flashes for at most 0.5s', async ({ page }) => {
+// A repeat view under a paused fake clock: real timer lag on a busy machine
+// cannot push the release past the bound, so the 0.4s target is exact.
+async function repeatViewUnderClock(page, beforeRepeat = async () => {}) {
   await page.goto('/', { waitUntil: 'commit' });
   await dismissedAfter(page);
+  await beforeRepeat();
+  await page.clock.install({ time: 0 });
+  await page.clock.pauseAt(1000);
   await page.goto('/band/');
   await page.goto('/', { waitUntil: 'commit' });
-  const ms = await dismissedAfter(page);
-  expect(ms).toBeLessThanOrEqual(500);
+  await page.waitForSelector('footer', { state: 'attached' });
+}
+
+const releasedAt400 = async page => {
+  await page.clock.runFor(399);
+  expect(await page.evaluate(() => document.getElementById('home-loader').classList.contains('is-done'))).toBe(false);
+  await page.clock.runFor(1);
+  expect(await dismissedAfter(page)).toBe(400);
+};
+
+test('HOME-24: a second home view in the same session flashes for 0.4s, within the 0.5s bound', async ({ page }) => {
+  await repeatViewUnderClock(page);
+  await releasedAt400(page);
 });
 
-test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', async ({ page }) => {
-  await page.goto('/', { waitUntil: 'commit' });
-  await dismissedAfter(page);
+test('HOME-24: a repeat view leaves at 0.4s even when home.js arrives late', async ({ page }) => {
   let delivered = false;
-  await page.route('**/assets/js/home.js*', async route => {
+  await repeatViewUnderClock(page, () => page.route('**/assets/js/home.js*', async route => {
     await new Promise(r => setTimeout(r, 700));
     delivered = true;
     await route.continue();
-  });
-  await page.goto('/', { waitUntil: 'commit' });
-  const ms = await dismissedAfter(page);
-  expect(ms).toBeLessThanOrEqual(500);
+  }));
+  await releasedAt400(page);
   // The script-free fallback released it, so it must release it fully.
   expect(delivered).toBe(false);
   const state = await page.evaluate(() => ({

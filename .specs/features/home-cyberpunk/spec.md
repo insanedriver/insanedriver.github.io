@@ -277,7 +277,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-21 | P1: Branded boot loader - absent without JS | T5, T15 | Implemented |
 | HOME-22 | P1: Branded boot loader - first-view dismissal timing | T1, T17, T29, T30 | Implemented |
 | HOME-23 | P1: Branded boot loader - 3.5s cap | T1, T17, T29 | Implemented |
-| HOME-24 | P1: Branded boot loader - repeat-view 0.5s (target 0.4s) | T1, T17, T29, T32 | Verified (user-approved fix, round 4) |
+| HOME-24 | P1: Branded boot loader - repeat-view 0.5s (target 0.4s) | T1, T17, T29, T32, T33 | Verified (user-approved fix, round 4) |
 | HOME-25 | P1: Branded boot loader - storage failure | T1, T17 | Implemented |
 | HOME-26 | P1: Branded boot loader - skip by click/Esc | T1, T17 | Implemented |
 | HOME-27 | P1: Branded boot loader - released after dismiss | T17 | Verified (user-approved fix, round 4) |
@@ -325,7 +325,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Implemented |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Implemented |
 
-**Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7). Round 8 (T29-T32) adds no requirement: it hardens the tests for HOME-22/23/24 and HOME-62 and fixes the HOME-05 and HOME-24 wording.
+**Coverage:** 70 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7). Round 8 (T29-T33) adds no requirement: it hardens the tests for HOME-22/23/24 and HOME-62 and fixes the HOME-05 and HOME-24 wording.
 
 ---
 

@@ -117,10 +117,10 @@ T27 and T28 have no dependency; they are ordered by phase only.
 Follow-ups from the round 7 handoff, limited to the home. Tests and spec wording only; no product code changes.
 
 ```
-T29 → T30
+T29 → T30 → T33
 ```
 
-T31 and T32 have no dependency; they are ordered by phase only.
+T31 and T32 have no dependency; they are ordered by phase only. T33 was added after the round 8 Verifier (fix R8-A).
 
 ---
 
@@ -981,6 +981,32 @@ T31 and T32 have no dependency; they are ordered by phase only.
 
 ---
 
+### T33: Time the repeat view under a fake clock
+
+**What**: Fix R8-A from the round 8 Verifier. The head gate's `setTimeout(IDHomeRelease, 400)` fires late on a busy machine, so a real-time 500ms bound was flaky (523.6ms seen). Run both HOME-24 repeat-view tests under a paused `page.clock` and assert the release lands at exactly 400ms.
+**Where**: `tests/home/loader.e2e.cjs`
+**Depends on**: T30
+**Reuses**: the fake-clock setup from T30, the release-time recorder from T29
+**Requirement**: HOME-24
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] E2E: on a repeat view, with or without a late `home.js`, the loader has no `is-done` at 399ms and is released at exactly 400ms
+- [x] E2E: the late-`home.js` case still shows home.js was not delivered and the page fully released (`aria-hidden="true"`, not inert)
+- [x] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+**Status**: ✅ Done
+**Commit**: `test(home): time the repeat view under a fake clock`
+
+---
+
 ## Phase Execution Map
 
 ```
@@ -1006,7 +1032,7 @@ Phase 5:  T21 → T22
           T23 → T26
           T27
           T28
-Phase 6:  T29 → T30
+Phase 6:  T29 → T30 → T33
           T31
           T32
 ```
@@ -1029,7 +1055,7 @@ Execution is strictly sequential in task-number order.
 | T12-T16 | 1 style concern each | ✅ Granular |
 | T17-T20 | 1 behavior module each | ✅ Granular |
 | T21-T28 | 1 review finding each | ⚠️ Cohesive (a finding spans code, tests and specs; the user asked for one commit per finding) |
-| T29-T31 | 1 test concern each | ✅ Granular |
+| T29-T31, T33 | 1 test concern each | ✅ Granular |
 | T32 | 1 spec wording fix | ✅ Granular |
 
 ## Diagram-Definition Cross-Check
@@ -1068,6 +1094,7 @@ Execution is strictly sequential in task-number order.
 | T30 | T29 | T29 → T30 | ✅ Match |
 | T31 | None | - | ✅ Match |
 | T32 | None | - | ✅ Match |
+| T33 | T30 | T30 → T33 | ✅ Match |
 
 ## Test Co-location Validation
 
@@ -1086,5 +1113,5 @@ Execution is strictly sequential in task-number order.
 | T26 | Data file + layout render | unit | unit | ✅ OK |
 | T27 | Eleventy data file | unit | unit | ✅ OK |
 | T28 | Legacy file removal | unit | unit | ✅ OK |
-| T29-T31 | Behavior JS tests | e2e | e2e | ✅ OK |
+| T29-T31, T33 | Behavior JS tests | e2e | e2e | ✅ OK |
 | T32 | Spec text | none | none | ✅ OK |
