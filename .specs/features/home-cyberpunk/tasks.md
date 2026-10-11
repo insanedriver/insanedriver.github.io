@@ -920,12 +920,12 @@ T31 and T32 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: with the clock paused once the hero image and fonts are ready, and timers of 1000ms or more fired 200ms early, the loader has no `is-done` at 1199ms and has it at 1200ms
-- [ ] Gate check passes: `npm test`
+- [x] E2E: with the clock paused once the hero image and fonts are ready, and timers of 1000ms or more fired 200ms early, the loader has no `is-done` at 1199ms and has it at 1200ms
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `test(home): pin the loader early-fire guard under a fake clock`
 
 ---

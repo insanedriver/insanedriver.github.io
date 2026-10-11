@@ -38,6 +38,30 @@ test('HOME-22: a hero image that lands after 1.2s holds the boot until it arrive
   expect(ms).toBeLessThan(3000);
 });
 
+test('HOME-22: a dismiss timer that fires early still holds the boot until 1.2s', async ({ page }) => {
+  // Fake clock, paused, so the page only moves when the test says so.
+  await page.clock.install({ time: 0 });
+  await page.clock.pauseAt(1000);
+  // Browsers may fire a timer before performance.now() reaches its target;
+  // make every long timer fire 200ms early.
+  await page.addInitScript(() => {
+    const set = window.setTimeout;
+    window.setTimeout = function (fn, ms, ...args) { return set.call(this, fn, ms >= 1000 ? ms - 200 : ms, ...args); };
+  });
+  await page.goto('/', { waitUntil: 'commit' });
+  await page.waitForFunction(() => {
+    const img = document.querySelector('[data-home-hero-img]');
+    return window.IDHome && img && img.complete && document.fonts.status === 'loaded';
+  });
+  const elapsed = () => page.evaluate(() => performance.now() - window.IDHomeBootAt);
+  const done = () => page.evaluate(() => document.getElementById('home-loader').classList.contains('is-done'));
+  await page.clock.runFor(1199);
+  expect(await elapsed()).toBe(1199);
+  expect(await done()).toBe(false);
+  await page.clock.runFor(1);
+  expect(await dismissedAfter(page)).toBe(1200);
+});
+
 test('HOME-23: a hero image that never arrives still releases the page at 3.5s', async ({ page }) => {
   await page.route(/\/assets\/images\/home\/hero-/, () => { /* never answer */ });
   await page.goto('/', { waitUntil: 'commit' });
