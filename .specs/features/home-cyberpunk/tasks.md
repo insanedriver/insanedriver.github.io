@@ -1045,8 +1045,8 @@ T34 → T35 → T36
 
 ### T35: Fit the hero buttons inside the card
 
-**What**: Give the hero button grid shrinkable columns and size the name, icon and padding so the name stays on one line inside the button.
-**Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`
+**What**: Give the hero button grid shrinkable columns, stack icon over text below 400px, and size the name, icon and padding so the text stays on one line inside the button. The fit tests serve the latin Rajdhani and Share Tech Mono files from `tests/home/fonts`, because the shared fixture blocks Google Fonts and a fallback face would skew every measurement.
+**Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`, `tests/home/fonts/*.woff2`
 **Depends on**: T34
 **Reuses**: `.home-streaming-art`, `.home-release-links`, `.home-links` in `less/home.less`
 **Requirement**: HOME-72
@@ -1058,12 +1058,12 @@ T34 → T35 → T36
 
 **Done when**:
 
-- [ ] E2E: from 320 to 1440px, each hero button ends inside `.home-release-card` and its name is one line with at least 8px clear on each side
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] E2E: from 320 to 1440px, each hero button ends inside `.home-release-card`, and its name and `Listen now` line are each one line with at least 16px clear on each side
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): keep the hero platform buttons inside the card on phones`
 
 ---
@@ -1083,7 +1083,7 @@ T34 → T35 → T36
 
 **Done when**:
 
-- [ ] E2E: from 320 to 1440px, every platform in the panel template (primary and compact) shows its name on one line, centered within 1px, with at least 8px clear on each side
+- [ ] E2E: from 320 to 1440px, every platform in the panel template (primary and compact) shows its name on one line, centered within 1px, with at least 16px clear on each side
 - [ ] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e

@@ -248,8 +248,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 **Acceptance Criteria**:
 
 1. (HOME-71) WHILE the viewport is narrower than 860px the system SHALL size the `NOW::STREAMING` cover frame to the full content width of the panel, up to 420px.
-2. (HOME-72) WHILE the viewport is between 320px and 1440px wide the system SHALL keep each hero-card platform button inside the hero card, and show its platform name on one line with at least 8px between the name and each side of the button.
-3. (HOME-73) WHILE the viewport is between 320px and 1440px wide the system SHALL show each `NOW::STREAMING` platform name on one line, centered in its button, with at least 8px between the name and each side of the button.
+2. (HOME-72) WHILE the viewport is between 320px and 1440px wide the system SHALL keep each hero-card platform button inside the hero card, and show its platform name and its `Listen now` line each on one line, with at least 16px between that text and each side of the button.
+3. (HOME-73) WHILE the viewport is between 320px and 1440px wide the system SHALL show each `NOW::STREAMING` platform name on one line, centered in its button, with at least 16px between the name and each side of the button.
 
 **Independent Test**: At 414x896 the NOW::STREAMING cover is as wide as the panel's text column, and "APPLE MUSIC" sits on one line, centered, in both the hero card and the panel. At 320px the hero card's Apple Music button ends inside the card.
 
@@ -341,7 +341,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Implemented |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Implemented |
 | HOME-71 | P2: Phone fit - full-width NOW::STREAMING cover | T34 | Implemented |
-| HOME-72 | P2: Phone fit - hero buttons fit the card | T35 | Pending |
+| HOME-72 | P2: Phone fit - hero buttons fit the card | T35 | Implemented |
 | HOME-73 | P2: Phone fit - NOW::STREAMING names on one line, centered | T36 | Pending |
 
 **Coverage:** 73 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7). Round 8 (T29-T33) adds no requirement: it hardens the tests for HOME-22/23/24 and HOME-62 and fixes the HOME-05 and HOME-24 wording. HOME-71 to HOME-73 map to tasks T34-T36 (round 9, phone fit).

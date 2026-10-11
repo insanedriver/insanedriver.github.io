@@ -436,32 +436,33 @@
     .home-release-links {
         grid-column: 1 / -1;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        // minmax(0, ...) lets a column shrink below its one-line text, so a
+        // button can never push past the card.
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
     }
 
-    // Hero buttons are compact rows: icon, name, and a small "listen" line.
+    // Hero buttons: on narrow phones a centered stack (icon over name over a
+    // small "listen" line); from 400px a compact row with the icon beside them.
     .home-release-links .cyber-link-btn {
         display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
+        grid-template-columns: 1fr;
+        justify-items: center;
         align-items: center;
-        column-gap: 10px;
-        row-gap: 0;
+        row-gap: 2px;
         min-height: 56px;
-        padding: 8px 12px;
-        text-align: left;
+        padding: 8px 10px;
+        text-align: center;
         border-color: rgba(0, 243, 255, 0.45);
         background-color: rgba(3, 8, 14, 0.75);
 
         i {
-            grid-row: 1 / span 2;
-            font-size: 24px;
+            font-size: 20px;
             color: #fff;
         }
 
         .cyber-link-name {
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 1px;
             line-height: 1.1;
             white-space: nowrap;
@@ -469,15 +470,32 @@
 
         .cyber-link-sub {
             font-size: 10px;
+            letter-spacing: 1.5px;
             line-height: 1.2;
+            white-space: nowrap;
             color: rgba(0, 243, 255, 0.75);
         }
 
+        @media (min-width: 400px) {
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            justify-items: start;
+            column-gap: 8px;
+            row-gap: 0;
+            padding: 8px 12px;
+            text-align: left;
+
+            i { grid-row: 1 / span 2; }
+            .cyber-link-name { font-size: 15px; letter-spacing: 0.5px; }
+        }
+
         @media (min-width: 768px) {
+            column-gap: 10px;
             min-height: 62px;
 
             i { font-size: 28px; }
-            .cyber-link-name { font-size: 17px; }
+            .cyber-link-name { font-size: 17px; letter-spacing: 1px; }
+            .cyber-link-sub { letter-spacing: 2px; }
         }
     }
 
