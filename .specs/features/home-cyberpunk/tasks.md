@@ -945,13 +945,13 @@ T31 and T32 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: for each of `loader`, `navbar`, `shuffle` and `preview`, the modules after it still run (navbar turns solid on scroll, the shuffled single is shown, PREVIEW opens the shown single, a streaming click pushes `home_release_click`), checked only for the modules after the one that throws
-- [ ] E2E: each module's error still surfaces as a page error
-- [ ] Gate check passes: `npm test`
+- [x] E2E: for each of `loader`, `navbar`, `shuffle` and `preview`, the modules after it still run (navbar turns solid on scroll, the shuffled single is shown, PREVIEW opens the shown single, a streaming click pushes `home_release_click`), checked only for the modules after the one that throws
+- [x] E2E: each module's error still surfaces as a page error
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `test(home): make each home module throw in turn`
 
 ---
