@@ -342,7 +342,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Implemented |
 | HOME-71 | P2: Phone fit - full-width NOW::STREAMING cover | T34 | Implemented |
 | HOME-72 | P2: Phone fit - hero buttons fit the card | T35 | Implemented |
-| HOME-73 | P2: Phone fit - NOW::STREAMING names on one line, centered | T36 | Pending |
+| HOME-73 | P2: Phone fit - NOW::STREAMING names on one line, centered | T36 | Implemented |
 
 **Coverage:** 73 total; HOME-01 to HOME-53 map to tasks T1-T20, HOME-54 to HOME-58 were added after review (rounds 5 and 6), HOME-59 to HOME-70 map to tasks T21-T28 (round 7). Round 8 (T29-T33) adds no requirement: it hardens the tests for HOME-22/23/24 and HOME-62 and fixes the HOME-05 and HOME-24 wording. HOME-71 to HOME-73 map to tasks T34-T36 (round 9, phone fit).
 

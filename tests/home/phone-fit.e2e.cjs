@@ -68,7 +68,8 @@ const textFit = (page, selector, part) => page.evaluate(([selector, part]) => [.
   return { text: el.textContent.trim(), lines: lines.length, left: text.left - b.left, right: b.right - text.right, btnLeft: b.left, btnRight: b.right, center: (text.left + text.right) / 2 - (b.left + b.right) / 2 };
 }), [selector, part]);
 
-const WIDTHS = [320, 360, 375, 390, 414, 430, 768, 1024, 1440];
+// Phone sizes, then each side of every layout breakpoint up to 1440px.
+const WIDTHS = [320, 360, 375, 390, 414, 430, 559, 560, 767, 768, 859, 860, 1024, 1199, 1200, 1440];
 
 for (const width of WIDTHS) {
   test(`HOME-72: at ${width}px each hero button sits inside the card with its text on one line`, async ({ page }) => {
@@ -86,6 +87,29 @@ for (const width of WIDTHS) {
         expect(f.left, f.text).toBeGreaterThanOrEqual(16);
         expect(f.right, f.text).toBeGreaterThanOrEqual(16);
       }
+    }
+  });
+}
+
+for (const width of WIDTHS) {
+  test(`HOME-73: at ${width}px every NOW::STREAMING platform name is one centered line`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 896 });
+    await page.goto('/', { waitUntil: 'load' });
+    await realFonts(page);
+    // Show every platform a shuffled single can carry, primary and compact.
+    const count = await page.evaluate(() => {
+      const list = document.querySelector('[data-home-streaming-links]');
+      list.replaceChildren(document.querySelector('[data-home-streaming-anchors]').content.cloneNode(true));
+      return list.querySelectorAll('.cyber-link-btn').length;
+    });
+    expect(count).toBe(8);
+    const fits = await textFit(page, '[data-home-streaming-links] .cyber-link-btn', '.cyber-link-name');
+    expect(fits.length).toBe(8);
+    for (const f of fits) {
+      expect(f.lines, f.text).toBe(1);
+      expect(Math.abs(f.center), f.text).toBeLessThanOrEqual(1);
+      expect(f.left, f.text).toBeGreaterThanOrEqual(16);
+      expect(f.right, f.text).toBeGreaterThanOrEqual(16);
     }
   });
 }

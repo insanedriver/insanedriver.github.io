@@ -858,14 +858,20 @@
         font-size: 18px;
     }
 
+    // From 860px the cover takes a column, so the links drop back to two
+    // columns until there is room for four.
     .home-links {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
         margin-bottom: 18px;
 
-        @media (min-width: 560px) { grid-template-columns: repeat(3, 1fr); }
-        @media (min-width: 1200px) { grid-template-columns: repeat(4, 1fr); }
+        @media (min-width: 560px) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        @media (min-width: 860px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        @media (min-width: 1200px) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        // Names stay on one centered line; the size steps up with the button.
+        .cyber-link-name { white-space: nowrap; text-align: center; }
     }
 
     .home-links .cyber-link-btn--primary {
@@ -874,6 +880,14 @@
         padding: 1.2rem 0.8rem;
 
         i { font-size: 2.2rem; }
+
+        .cyber-link-name {
+            font-size: 14px;
+            letter-spacing: 1px;
+
+            @media (min-width: 375px) { font-size: 17px; letter-spacing: 2px; }
+            @media (min-width: 768px) { font-size: 19px; }
+        }
     }
 
     .home-links .cyber-link-btn--compact {
@@ -883,7 +897,12 @@
 
         i { font-size: 1.6rem; }
 
-        .cyber-link-name { font-size: 1.3rem; letter-spacing: 2px; }
+        .cyber-link-name {
+            font-size: 12px;
+            letter-spacing: 1px;
+
+            @media (min-width: 375px) { font-size: 13px; letter-spacing: 2px; }
+        }
     }
 
     .home-streaming-actions {

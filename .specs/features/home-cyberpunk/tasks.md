@@ -1070,7 +1070,7 @@ T34 → T35 → T36
 
 ### T36: One-line, centered NOW::STREAMING button names
 
-**What**: Keep every NOW::STREAMING platform name on one line and centered, scaling its size and letter spacing to the button width.
+**What**: Keep every NOW::STREAMING platform name on one line and centered, scaling its size and letter spacing to the button width. Between 860 and 1199px, where the cover takes a column, show the links in two columns instead of three. The fit tests also cover each side of every layout breakpoint (559/560, 767/768, 859/860, 1199/1200).
 **Where**: `less/home.less`, `assets/css/style.min.css`, `tests/home/phone-fit.e2e.cjs`
 **Depends on**: T35
 **Reuses**: `.home-streaming-art`, `.home-release-links`, `.home-links` in `less/home.less`
@@ -1083,12 +1083,12 @@ T34 → T35 → T36
 
 **Done when**:
 
-- [ ] E2E: from 320 to 1440px, every platform in the panel template (primary and compact) shows its name on one line, centered within 1px, with at least 16px clear on each side
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] E2E: from 320 to 1440px, every platform in the panel template (primary and compact) shows its name on one line, centered within 1px, with at least 16px clear on each side
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): keep the streaming platform names on one centered line`
 
 ---
