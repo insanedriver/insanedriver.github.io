@@ -1,12 +1,22 @@
 const { test, expect } = require('../photos/browser.cjs');
 
-// Milliseconds from the loader gate (IDHomeBootAt) to the moment the loader
-// is dismissed, observed from the page.
-const dismissedAfter = page => page.waitForFunction(() => {
-  const el = document.getElementById('home-loader');
-  if (!el || !el.classList.contains('is-done')) return false;
-  return performance.now() - window.IDHomeBootAt;
-}, null, { polling: 'raf', timeout: 8000 }).then(h => h.jsonValue());
+// Stamps the moment #home-loader first gets is-done, in milliseconds from the
+// loader gate (IDHomeBootAt). A mutation record, not a polling frame, so a
+// slow frame on a busy machine cannot inflate the reading.
+test.beforeEach(({ page }) => page.addInitScript(() => {
+  new MutationObserver((records, observer) => {
+    for (const r of records) {
+      if (r.target.id === 'home-loader' && r.target.classList.contains('is-done')) {
+        window.__homeDoneAt = performance.now() - window.IDHomeBootAt;
+        observer.disconnect();
+        return;
+      }
+    }
+  }).observe(document, { subtree: true, attributes: true, attributeFilter: ['class'] });
+}));
+
+// Milliseconds from the loader gate to the moment the loader was dismissed.
+const dismissedAfter = page => page.waitForFunction(() => window.__homeDoneAt, null, { timeout: 8000 }).then(h => h.jsonValue());
 
 const skipEvents = page => page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'home_loader_skip'));
 
@@ -55,14 +65,7 @@ test('HOME-24: a repeat view leaves by 0.5s even when home.js arrives late', asy
     await route.continue();
   });
   await page.goto('/', { waitUntil: 'commit' });
-  // Off screen by any means: home.js dismissal or a script-free fallback.
-  const ms = await page.waitForFunction(() => {
-    const el = document.getElementById('home-loader');
-    if (!el || !window.IDHomeBootAt) return false;
-    const cs = getComputedStyle(el);
-    if (cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('is-done')) return false;
-    return performance.now() - window.IDHomeBootAt;
-  }, null, { polling: 'raf', timeout: 8000 }).then(h => h.jsonValue());
+  const ms = await dismissedAfter(page);
   expect(ms).toBeLessThanOrEqual(500);
   // The script-free fallback released it, so it must release it fully.
   expect(delivered).toBe(false);

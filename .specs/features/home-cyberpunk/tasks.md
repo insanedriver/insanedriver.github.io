@@ -894,13 +894,13 @@ T31 and T32 have no dependency; they are ordered by phase only.
 
 **Done when**:
 
-- [ ] E2E: every loader timing test reads the release time recorded at the `is-done` mutation, not at the next animation frame
-- [ ] E2E: the HOME-22, HOME-23 and HOME-24 bounds are unchanged (≥1200 and <3500ms; ≤500ms)
-- [ ] Gate check passes: `npm test`
+- [x] E2E: every loader timing test reads the release time recorded at the `is-done` mutation, not at the next animation frame
+- [x] E2E: the HOME-22, HOME-23 and HOME-24 bounds are unchanged (≥1200 and <3500ms; ≤500ms)
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `test(home): time the loader release at the is-done mutation`
 
 ---
