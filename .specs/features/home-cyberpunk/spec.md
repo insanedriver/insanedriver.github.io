@@ -340,7 +340,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-68 | P2: Hardened home script - boot key from home-core | T26 | Implemented |
 | HOME-69 | P2: Hardened home script - no dead release fields | T27 | Implemented |
 | HOME-70 | P2: Hardened home script - legacy loader and player files gone | T28 | Implemented |
-| HOME-71 | P2: Phone fit - full-width NOW::STREAMING cover | T34 | Pending |
+| HOME-71 | P2: Phone fit - full-width NOW::STREAMING cover | T34 | Implemented |
 | HOME-72 | P2: Phone fit - hero buttons fit the card | T35 | Pending |
 | HOME-73 | P2: Phone fit - NOW::STREAMING names on one line, centered | T36 | Pending |
 

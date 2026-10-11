@@ -801,9 +801,8 @@
 
     .home-streaming-art {
         position: relative;
-        max-width: 260px;
-
-        @media (min-width: 860px) { max-width: 420px; }
+        // Phones: the full panel width. From 860px it sits in its grid column.
+        max-width: 420px;
 
         border: 1px solid #00f3ff;
         padding: 8px;

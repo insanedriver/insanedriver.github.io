@@ -1032,13 +1032,13 @@ T34 → T35 → T36
 
 **Done when**:
 
-- [ ] E2E: at 320, 375, 414 and 768px the cover frame width equals min(panel content width, 420px), within 1px
-- [ ] E2E: at 1280px the cover keeps its desktop column (unchanged)
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] E2E: at 320, 375, 414 and 768px the cover frame width equals min(panel content width, 420px), within 1px
+- [x] E2E: at 1280px the cover keeps its desktop column (unchanged)
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
-**Status**: Pending
+**Status**: ✅ Done
 **Commit**: `fix(home): let the streaming cover fill the panel on phones`
 
 ---
