@@ -287,7 +287,7 @@ T34 → T35 → T36
 **Done when**:
 
 - [x] E2E: exactly one `h1`, accessible name "Insane Driver", img `alt="Insane Driver"`
-- [x] E2E: tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero
+- [x] E2E: tagline text `METAL // ROCK // SINCE 2013` inside the hero
 - [x] E2E: `srcset` lists 768w, 1280w, 1920w for WebP and JPG; hero image has no `loading="lazy"`
 - [x] E2E: card shows Keep Away (Acoustic), `SINGLE`, 2025, Spotify + Apple anchors with `target=_blank`, `rel=noopener`, primary modifier and the catalog hrefs
 - [x] E2E: no `#player*`, `#player-sf`, `#player_spotify`; zero `iframe` after `load`

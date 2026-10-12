@@ -216,3 +216,27 @@ test.describe('HOME-75 heads', () => {
     });
   }
 });
+
+// Portrait phones stack the title over the photo while it pans across the
+// band, so the whole title sits below the lowest chin (HEADS y1), even at
+// the drift's full zoom, on phones at least 812px tall.
+test.describe('HOME-76 phone title', () => {
+  test.use({ reducedMotion: 'reduce' });
+
+  for (const [width, height] of [[375, 812], [390, 844], [414, 896], [430, 932]]) {
+    test(`HOME-76: on a ${width}x${height} phone the title starts below every chin`, async ({ page }) => {
+      await serveFonts(page);
+      await page.setViewportSize({ width, height });
+      await page.goto('/', { waitUntil: 'load' });
+      expect(await fontsLoaded(page)).toEqual([1, 1]);
+      const r = await page.evaluate(() => {
+        const img = document.querySelector('[data-home-hero-img]').getBoundingClientRect();
+        const top = sel => { const el = document.querySelector(sel); return getComputedStyle(el).display === 'none' ? Infinity : el.getBoundingClientRect().top; };
+        return { photoTop: img.top, photoH: img.height, title: Math.min(top('.home-hero-hud'), top('.home-title img')) };
+      });
+      // Portrait phones draw the photo at full height, so ph = box height.
+      const chin = r.photoTop + 1.08 * Math.max(...HEADS.map(h => h.y1)) * r.photoH;
+      expect(r.title).toBeGreaterThanOrEqual(chin);
+    });
+  }
+});

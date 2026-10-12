@@ -15,7 +15,7 @@ test('HOME-02: exactly one h1, named "Insane Driver" by the logo, inside the her
 
 test('HOME-03: the hero carries the tagline', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('[data-home-hero] .home-tagline')).toHaveText('BRAZILIAN METAL // SINCE 2013');
+  await expect(page.locator('[data-home-hero] .home-tagline')).toHaveText('METAL // ROCK // SINCE 2013');
 });
 
 test('HOME-04: the hero photo offers 768/1280/1920 in WebP and JPG and is not lazy', async ({ page }) => {

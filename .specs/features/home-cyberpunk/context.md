@@ -29,7 +29,7 @@ Captured from a grilling session on 2026-09-27. Three rounds, every branch confi
 | Photo | `assets/images/band.jpg` (1920x1280, black backdrop) with responsive WebP derivatives | Black backdrop melts into the neon; a fixed image can be preloaded by the loader. |
 | Height | 100svh | The "this is the page" impact. |
 | Heading | Semantic `h1` "Insane Driver" rendered with the logo | Replaces the `text-indent` hack. |
-| Tagline | `BRAZILIAN METAL // SINCE 2013` | The band has been active since 2013 (user). |
+| Tagline | `METAL // ROCK // SINCE 2013` | The band has been active since 2013 (user). |
 | Primary CTA | Latest release card with Spotify and Apple Music buttons | Two highest-traffic destinations, same as discography. |
 | Latest release rule | Most recent `releaseDate` across albums and singles in `_data/discography.json` | A new single is a data edit; the home follows. Today: Keep Away (Acoustic), 2025-05-09. |
 | Navbar on the home | Transparent over the hero, solid background once scrolled; other pages unchanged | Lets the hero own the full viewport. |

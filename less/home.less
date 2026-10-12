@@ -271,6 +271,12 @@
             gap: 36px;
         }
 
+        // Portrait phones show no scroll cue: the card takes its room, so the
+        // title can sit lower, under the band's chins.
+        @media (max-width: 767px) and (orientation: portrait) {
+            padding-bottom: 32px;
+        }
+
         // The navbar wraps to two rows of links here (about 153px tall).
         @media (min-width: 768px) and (max-width: 991px) {
             padding-top: 172px;
@@ -345,6 +351,9 @@
             letter-spacing: 0.12em;
         }
 
+        // Portrait phones need every pixel between the chins and the card.
+        @media (max-width: 767px) and (orientation: portrait) { display: none; }
+
         // Below 1200px the curtain above the heads is too short for three lines:
         // the decorative readout gives way to the logo and the tagline.
         @media (min-width: 992px) and (max-width: 1199px) { display: none; }
@@ -360,6 +369,14 @@
             width: min(74vw, 300px);
             height: auto;
             filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 14px rgba(0, 243, 255, 0.55)) drop-shadow(0 0 32px rgba(255, 0, 234, 0.25));
+
+            // Portrait phones: as wide as the room between the lowest chin (43%
+            // of the photo, at the drift's 1.08 zoom) and the release card
+            // allows, from 150px on short phones up to 260px.
+            @media (max-width: 767px) and (orientation: portrait) {
+                width: clamp(150px, ~"calc(78.8vh - 464px)", min(62vw, 260px));
+                width: clamp(150px, ~"calc(78.8svh - 464px)", min(62vw, 260px));
+            }
 
             @media (min-width: 768px) { width: clamp(300px, 34vw, 500px); }
             @media (min-width: 992px) { width: calc(var(--home-pw) * 0.145); }
@@ -408,7 +425,7 @@
         // Sized to run as wide as the logo above it.
         @media (min-width: 992px) {
             margin-top: calc(var(--home-pw) * 0.006);
-            font-size: max(9px, calc(var(--home-pw) * 0.0075));
+            font-size: max(9px, calc(var(--home-pw) * 0.008));
             line-height: 1.2;
             letter-spacing: 0.22em;
             white-space: nowrap;

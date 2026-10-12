@@ -45,7 +45,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | Country list | Moved into a shared Liquid include rendered by both `/newsletter/` and the home; `/newsletter/` output stays identical | Avoids copying ~250 `<option>` lines. | n |
 | Album covers in DISC::ARCHIVE | The 3 albums, newest first, linking to `/discography/#<slug>` | Anchors already exist on the discography page. | y |
 | Photos in VISUAL::FEED | The 6 `featured` photos from `_data/highlights.js`, thumbnails, linking to `/photos/` | Same curated set as the photos carousel; thumbnails keep the page light. | y |
-| Tagline | `BRAZILIAN METAL // SINCE 2013` | Band active since 2013 (user). | y |
+| Tagline | `METAL // ROCK // SINCE 2013` | Band active since 2013 (user). | y |
 | Page language | English | Whole site is in English. | y |
 | Canonical URL | `/` (unchanged) | The home layout already emits it. | y |
 | Observability | `dataLayer.push` events only; no console logging | GTM is the site's only telemetry. | y |
@@ -75,7 +75,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 1. The system SHALL render `/` with `_layouts/home.html` containing a hero section at least 100svh tall (100vh where `svh` is unsupported) that grows to fit its content when the viewport is shorter, so the logo, tagline and release card are never clipped or covered by the navbar (e.g. 844x390 landscape).
 2. The system SHALL render exactly one `h1` on `/`, inside the hero, with the accessible name "Insane Driver", showing the logo image `logo_loading.png` with `alt="Insane Driver"`.
-3. The system SHALL render the tagline text `BRAZILIAN METAL // SINCE 2013` inside the hero.
+3. The system SHALL render the tagline text `METAL // ROCK // SINCE 2013` inside the hero.
 4. The system SHALL render the hero photo from `band.jpg` derivatives through `srcset` with 768w, 1280w and 1920w candidates in WebP and JPG, and the image SHALL NOT be lazy-loaded.
 5. (Reworded in round 8) The system SHALL NOT include the Owl carousel markup (`#owl-demo`), the `.header-img` block, the `please-wait` script, the legacy `insane.js` and `videos.js` player scripts, `#player-sf`, `#player_spotify` or any `#player*` YouTube container on `/`.
 6. The system SHALL NOT create any `iframe` element during initial page load of `/`.
