@@ -1,6 +1,6 @@
 const { test, expect } = require('../photos/browser.cjs');
 
-const { loaderGone } = require('./helpers.cjs');
+const { loaderGone, serveFonts, fontsLoaded } = require('./helpers.cjs');
 
 // Every animated hero layer, as [selector, pseudo].
 const ANIMATED = [
@@ -164,3 +164,55 @@ for (const [width, height] of [[2560, 1080], [1920, 1080], [1366, 768], [1024, 7
     expect(r.img).toBeLessThanOrEqual(r.nav + 1);
   });
 }
+
+// Each member's head, hair included, as fractions of the hero photo
+// (assets/images/home/hero-1920.jpg), left to right.
+const HEADS = [
+  { x0: 0.085, x1: 0.205, y0: 0.21, y1: 0.43 },
+  { x0: 0.265, x1: 0.375, y0: 0.10, y1: 0.32 },
+  { x0: 0.415, x1: 0.525, y0: 0.17, y1: 0.40 },
+  { x0: 0.605, x1: 0.715, y0: 0.11, y1: 0.35 },
+  { x0: 0.815, x1: 0.925, y0: 0.00, y1: 0.23 }
+];
+
+test.describe('HOME-75 heads', () => {
+  test.use({ reducedMotion: 'reduce' });
+
+  for (const [width, height] of [[2560, 1440], [2560, 1080], [1920, 1080], [1440, 900], [1366, 768], [1280, 1024], [1024, 768], [992, 620]]) {
+    test(`HOME-75: on a ${width}x${height} screen the title and the release card cover no head, at any zoom of the drift`, async ({ page }) => {
+      // Measured in the real faces: a fallback font sets the tagline wider.
+      await serveFonts(page);
+      await page.setViewportSize({ width, height });
+      await page.goto('/', { waitUntil: 'load' });
+      expect(await fontsLoaded(page)).toEqual([1, 1]);
+      await page.waitForTimeout(300);
+      const r = await page.evaluate(() => {
+        const img = document.querySelector('[data-home-hero-img]');
+        const box = img.getBoundingClientRect();
+        const rect = el => { const b = el.getBoundingClientRect(); return { name: el.className, x0: b.left, x1: b.right, y0: b.top, y1: b.bottom }; };
+        return {
+          box: { left: box.left, top: box.top, width: box.width, height: box.height },
+          ratio: img.naturalWidth / img.naturalHeight,
+          ui: ['.home-hero-hud', '.home-title img', '.home-tagline', '.home-release-card'].map(s => rect(document.querySelector(s)))
+        };
+      });
+      // object-fit: cover at object-position 50% 0%.
+      const { box, ratio } = r;
+      const pw = Math.max(box.width, box.height * ratio), ph = pw / ratio;
+      const ox = box.left + (box.width - pw) / 2, oy = box.top;
+      // home-drift-top: scale(s) translate(-1%) about the top centre, s from 1.02 to 1.08 (1 when still).
+      for (const s of [1, 1.02, 1.08]) {
+        const tx = s === 1 ? 0 : -0.01 * box.width;
+        const cx = box.left + box.width / 2;
+        const X = x => cx + s * (ox + x * pw - cx + tx), Y = y => oy + s * y * ph;
+        for (const h of HEADS) {
+          const head = { x0: X(h.x0), x1: X(h.x1), y0: Y(h.y0), y1: Y(h.y1) };
+          for (const u of r.ui) {
+            const hit = u.x0 < head.x1 && u.x1 > head.x0 && u.y0 < head.y1 && u.y1 > head.y0;
+            expect(hit, `${u.name} over the head at x ${h.x0}-${h.x1} (zoom ${s})`).toBe(false);
+          }
+        }
+      }
+    });
+  }
+});

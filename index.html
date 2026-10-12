@@ -17,8 +17,8 @@ jspath: js/home
             width="1920" height="1280" alt="" fetchpriority="high" decoding="async" data-home-hero-img>
     </picture>
     <!-- Phones only see about a third of the photo: start the pan on a random member (0-1 across the frame). -->
-    <!-- From 768px the photo starts under the fixed menu (--home-nav-h), whose height follows how many rows its links wrap to. -->
-    <script>(function (img) { var at = [0, 0.2, 0.45, 0.76, 1]; img.style.setProperty('--home-pan-at', at[Math.floor(Math.random() * at.length)]); var nav = document.querySelector('.navbar'), hero = img.closest('[data-home-hero]'); if (!nav || !hero) { return; } var fit = function () { hero.style.setProperty('--home-nav-h', nav.offsetHeight + 'px'); }; fit(); if (window.ResizeObserver) { new ResizeObserver(fit).observe(nav); } else { window.addEventListener('resize', fit); } })(document.querySelector('[data-home-hero-img]'));</script>
+    <!-- From 768px the photo starts under the fixed menu (--home-nav-h), whose height follows how many rows its links wrap to; from 992px the title is laid out against the width the photo is drawn at (--home-photo-w). -->
+    <script>(function (img) { var at = [0, 0.2, 0.45, 0.76, 1]; img.style.setProperty('--home-pan-at', at[Math.floor(Math.random() * at.length)]); var nav = document.querySelector('.navbar'), hero = img.closest('[data-home-hero]'); if (!nav || !hero) { return; } var ratio = img.getAttribute('width') / img.getAttribute('height'); var fit = function () { hero.style.setProperty('--home-nav-h', nav.offsetHeight + 'px'); hero.style.setProperty('--home-photo-w', Math.max(img.clientWidth, img.clientHeight * ratio) + 'px'); }; fit(); if (window.ResizeObserver) { var ro = new ResizeObserver(fit); ro.observe(nav); ro.observe(img); } else { window.addEventListener('resize', fit); } })(document.querySelector('[data-home-hero-img]'));</script>
     <div class="home-hero-vignette" aria-hidden="true"></div>
     <div class="home-hero-grid" aria-hidden="true"></div>
     <div class="home-hero-scan" aria-hidden="true"></div>

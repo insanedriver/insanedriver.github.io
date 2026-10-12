@@ -1,36 +1,11 @@
 const { test, expect } = require('../photos/browser.cjs');
-const fs = require('node:fs');
-const path = require('node:path');
+const { serveFonts, fontsLoaded } = require('./helpers.cjs');
 
-// The shared fixture blocks every outside host, so Google Fonts never load and
-// text would be measured in a fallback face. Serve the latin Rajdhani and
-// Share Tech Mono files the site asks for from tests/home/fonts instead.
-const FACES = [
-  ['Rajdhani', 500, 'rajdhani-500'],
-  ['Rajdhani', 600, 'rajdhani-600'],
-  ['Rajdhani', 700, 'rajdhani-700'],
-  ['Share Tech Mono', 400, 'share-tech-mono-400']
-];
-const FONT_CSS = FACES.map(([family, weight, file]) =>
-  `@font-face { font-family: '${family}'; font-style: normal; font-weight: ${weight}; font-display: swap; src: url(https://fonts.gstatic.com/local/${file}.woff2) format('woff2'); }`).join('\n');
+test.beforeEach(({ page }) => serveFonts(page));
 
-test.beforeEach(async ({ page }) => {
-  await page.route(/^https:\/\/fonts\.googleapis\.com\/css2/, route => route.fulfill({ contentType: 'text/css', body: FONT_CSS }));
-  await page.route(/^https:\/\/fonts\.gstatic\.com\/local\//, route => route.fulfill({
-    contentType: 'font/woff2',
-    body: fs.readFileSync(path.join(__dirname, 'fonts', path.basename(new URL(route.request().url()).pathname)))
-  }));
-});
-
-// Loads both faces and fails if either is missing, so no measurement can
-// silently run on a fallback font.
-const realFonts = async page => {
-  const loaded = await page.evaluate(async () => [
-    (await document.fonts.load("700 15px 'Rajdhani'")).length,
-    (await document.fonts.load("10px 'Share Tech Mono'")).length
-  ]);
-  expect(loaded).toEqual([1, 1]);
-};
+// Fails if either face is missing, so no measurement can silently run on a
+// fallback font.
+const realFonts = async page => expect(await fontsLoaded(page)).toEqual([1, 1]);
 
 for (const width of [320, 375, 414, 768]) {
   test(`HOME-71: at ${width}px the NOW::STREAMING cover fills the panel content, up to 420px`, async ({ page }) => {

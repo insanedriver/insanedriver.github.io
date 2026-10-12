@@ -156,6 +156,8 @@
         overflow: hidden;
         overflow: clip;
         isolation: isolate;
+        // Lets the title measure its gutter against the hero (100cqw).
+        container-type: inline-size;
     }
 
     .home-hero-photo {
@@ -287,11 +289,26 @@
             padding-top: 172px;
         }
 
+        // A narrower gutter keeps the release card right of the singer's head.
+        @media (min-width: 992px) and (max-width: 1199px) {
+            padding-right: 24px;
+            padding-left: 24px;
+        }
+
+        // Short screens hide the scroll cue: drop the card into its room, below
+        // the heads.
+        @media (min-width: 992px) and (max-height: 699px) {
+            padding-bottom: 32px;
+        }
+
         @media (min-width: 992px) {
             grid-template-columns: minmax(0, 1fr) auto;
             justify-items: start;
             text-align: left;
             gap: 48px;
+            // Full hero height: the title is placed against the photo from the
+            // hero's top (see .home-hero-id), the card stays at the bottom.
+            align-self: stretch;
         }
 
         @media (min-width: 1600px) {
@@ -305,7 +322,23 @@
         flex-direction: column;
         align-items: center;
 
-        @media (min-width: 992px) { align-items: flex-start; }
+        // The band fills the photo from 26% of its height down, so the title
+        // sits in the dark curtain above the first member's head and left of
+        // the second's. Everything is measured in --home-photo-w, the width the
+        // photo is drawn at (kept exact by the inline hero script), so the
+        // lockup tracks the heads at any size. Left of 23% stays clear of the
+        // second head even at the drift's full zoom; the block ends around 23%
+        // of the photo's height, where the first member's hair begins.
+        @media (min-width: 992px) {
+            --home-pw: var(--home-photo-w, max(100vw, calc((100svh - var(--home-nav-h, 72px)) * 1.5)));
+            position: absolute;
+            // The content box is centred on the hero, so 50% is the photo's
+            // centre; when the photo overflows the sides (taller screens), the
+            // title still keeps a 24px gutter from the hero's edge (100cqw).
+            left: ~"max(calc(24px - (100cqw - 100%) / 2), calc(50% - var(--home-pw) * 0.455))";
+            top: ~"calc(var(--home-nav-h, 72px) + max(14px, var(--home-pw) * 0.008))";
+            align-items: flex-start;
+        }
     }
 
     .home-hero-hud {
@@ -317,6 +350,17 @@
         text-shadow: 0 0 8px rgba(0, 243, 255, 0.7);
 
         @media (min-width: 768px) { font-size: 13px; }
+
+        @media (min-width: 992px) {
+            margin-bottom: calc(var(--home-pw) * 0.005);
+            font-size: clamp(9px, calc(var(--home-pw) * 0.0062), 14px);
+            line-height: 1.2;
+            letter-spacing: 0.12em;
+        }
+
+        // Below 1200px the curtain above the heads is too short for three lines:
+        // the decorative readout gives way to the logo and the tagline.
+        @media (min-width: 992px) and (max-width: 1199px) { display: none; }
     }
 
     .home-title {
@@ -331,6 +375,7 @@
             filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 14px rgba(0, 243, 255, 0.55)) drop-shadow(0 0 32px rgba(255, 0, 234, 0.25));
 
             @media (min-width: 768px) { width: clamp(300px, 34vw, 500px); }
+            @media (min-width: 992px) { width: calc(var(--home-pw) * 0.145); }
         }
     }
 
@@ -372,6 +417,15 @@
         text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 
         @media (min-width: 768px) { font-size: 20px; margin-top: 24px; }
+
+        // Sized to run as wide as the logo above it.
+        @media (min-width: 992px) {
+            margin-top: calc(var(--home-pw) * 0.006);
+            font-size: max(9px, calc(var(--home-pw) * 0.0075));
+            line-height: 1.2;
+            letter-spacing: 0.22em;
+            white-space: nowrap;
+        }
     }
 
     // ── Latest release card ──
@@ -398,6 +452,9 @@
             width: 440px;
             padding: 20px;
         }
+
+        // The title is out of the grid flow here: keep the card on the right.
+        @media (min-width: 992px) { grid-column: 2; }
 
         &::before {
             content: "";
