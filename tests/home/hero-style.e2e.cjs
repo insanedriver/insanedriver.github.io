@@ -142,5 +142,25 @@ test('HOME-54: from 768px up the photo keeps its fixed framing and does not pan'
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const s = await photoStyle(page);
   expect(s.names).not.toContain('home-pan');
-  expect(s.position).toBe('50% 28%');
+  expect(s.position).toBe('50% 0%');
 });
+
+// Landscape screens crop the photo's height: anchored to its top edge and
+// dropped below the fixed menu, no head is cut or hidden behind the links.
+for (const [width, height] of [[2560, 1080], [1920, 1080], [1366, 768], [1024, 768], [844, 390]]) {
+  test(`HOME-74: on a ${width}x${height} landscape screen the photo starts below the menu, top edge uncropped`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto('/', { waitUntil: 'load' });
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(300);
+    const r = await page.evaluate(() => ({
+      nav: document.querySelector('.navbar').getBoundingClientRect().bottom,
+      img: document.querySelector('[data-home-hero-img]').getBoundingClientRect().top,
+      position: getComputedStyle(document.querySelector('[data-home-hero-img]')).objectPosition
+    }));
+    expect(r.position).toBe('50% 0%');
+    expect(r.img).toBeGreaterThanOrEqual(r.nav - 1);
+    // Not so far down that a dark band opens between the menu and the photo.
+    expect(r.img).toBeLessThanOrEqual(r.nav + 1);
+  });
+}
