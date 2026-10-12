@@ -116,7 +116,7 @@ for (const [random, at] of [[0, 0], [0.5, 0.45], [0.99, 1]]) {
     const s = await photoStyle(page);
     const i = s.names.indexOf('home-pan');
     expect(i).toBeGreaterThan(-1);
-    expect(s.names).toContain('home-drift');
+    expect(s.names).toContain('home-drift-top');
     // The negative delay puts the alternating 0%-100% pan at the chosen member.
     expect(parseFloat(s.delays[i])).toBeCloseTo(-at * parseFloat(s.durations[i]), 3);
     expect(parseFloat(s.durations[i])).toBeGreaterThanOrEqual(30);
@@ -132,7 +132,7 @@ test.describe('HOME-54 reduced motion', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     const s = await photoStyle(page);
     expect(s.names).toEqual(['none']);
-    expect(s.position).toBe('100% 28%');
+    expect(s.position).toBe('100% 0%');
   });
 });
 
@@ -145,10 +145,10 @@ test('HOME-54: from 768px up the photo keeps its fixed framing and does not pan'
   expect(s.position).toBe('50% 0%');
 });
 
-// Landscape screens crop the photo's height: anchored to its top edge and
-// dropped below the fixed menu, no head is cut or hidden behind the links.
-for (const [width, height] of [[2560, 1080], [1920, 1080], [1366, 768], [1024, 768], [844, 390]]) {
-  test(`HOME-74: on a ${width}x${height} landscape screen the photo starts below the menu, top edge uncropped`, async ({ page }) => {
+// Anchored to its top edge and dropped below the fixed menu, the photo cuts
+// no head and hides none behind the links, on landscape screens and phones.
+for (const [width, height] of [[2560, 1080], [1920, 1080], [1366, 768], [1024, 768], [844, 390], [667, 375], [414, 896], [375, 667], [320, 568]]) {
+  test(`HOME-74: on a ${width}x${height} screen the photo starts below the menu, top edge uncropped`, async ({ page }) => {
     await page.setViewportSize({ width, height });
     await page.goto('/', { waitUntil: 'load' });
     await page.evaluate(() => document.fonts.ready);
@@ -158,7 +158,7 @@ for (const [width, height] of [[2560, 1080], [1920, 1080], [1366, 768], [1024, 7
       img: document.querySelector('[data-home-hero-img]').getBoundingClientRect().top,
       position: getComputedStyle(document.querySelector('[data-home-hero-img]')).objectPosition
     }));
-    expect(r.position).toBe('50% 0%');
+    expect(r.position).toMatch(/ 0%$/);
     expect(r.img).toBeGreaterThanOrEqual(r.nav - 1);
     // Not so far down that a dark band opens between the menu and the photo.
     expect(r.img).toBeLessThanOrEqual(r.nav + 1);
