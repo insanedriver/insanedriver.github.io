@@ -29,8 +29,14 @@
   - The fit tests serve the real Rajdhani and Share Tech Mono files from `tests/home/fonts/`, because the shared fixture blocks Google Fonts.
   - The Verifier passed: 12 mutants killed and 7 equivalent or spec-neutral, unit 87/87, Playwright 281/281.
   - Open, needs a user decision: R9-A. From 560 to 859px the 420px cover sits left with an empty strip beside it, which HOME-71 allows.
+- **Round 10 (hero framing, 2026-10-12)**: The user reported cut and covered heads in the hero. `7d0670c`..`5689b7f` (HOME-74..76) fixed it:
+  - The photo starts under the fixed menu on every screen (`--home-nav-h`, measured by the inline hero script), anchored to its top edge, and zooms from that edge with no upward drift (`home-drift-top`).
+  - From 992px the title sits in the curtain above the heads, sized in units of the drawn photo width (`--home-photo-w`). HOME-75 maps every head and checks the title and the release card against them at drift zoom 1, 1.02 and 1.08.
+  - On portrait phones the logo takes the room between the lowest chin and the card (150-260px) and the HUD drops out (HOME-76). Phones under about 812px tall keep a known overlap with the shortest member's chin.
+  - The tagline is now `METAL // ROCK // SINCE 2013` (user's pick).
+  - Author-run checks, no independent Verifier: unit 87/87, Playwright 302/302, build green.
 - **In-progress**: none
-- **Next step**: user decision on R9-A, then user review of `feature/home-cyberpunk`, then open the PR. Nothing has been pushed.
+- **Next step**: PR review of `feature/home-cyberpunk` into `master`. R9-A is still open for a user decision.
 - **Blockers**: none
 - **Uncommitted files**: none (agent tool dirs `.agent/`, `.agents/`, `.claude/`, `.codex/`, `.cursor/`, `.gemini/`, `.github/skills/`, `.windsurf/`, `skills-lock.json` are untracked on purpose and not part of this feature)
 - **Branch**: feature/home-cyberpunk
