@@ -20,7 +20,7 @@
 | Renaming or reworking `/preorder` and `/store` | A page called `/preorder` selling a 2021 record is confusing, but fixing it is a separate change; this feature only links to them with honest labels. |
 | Per-single platform grids | Singles link to Spotify and Apple Music only; eighteen 8-button grids would drown the albums. |
 | Third-party smart links (ffm.to, Linkfire) | Adds a redirect hop and an external tracker between the visitor and the music. |
-| Removing `less/player.less` | The home page still depends on `.player-art` and `#player-sf`. |
+| Removing `less/player.less` | The home page still depended on `.player-art` and `#player-sf`. (The home-cyberpunk feature later removed that markup and deleted the file in round 7, HOME-70.) |
 | Replacing Universal Analytics (`analytics.js`, UA-60390716-1) | Dead property since 2023, but site-wide cleanup, not this feature. |
 | Automated catalog sync from platform APIs | Data is frozen into `_data/discography.json` at build time; live API calls would add a runtime dependency to a static site. |
 
@@ -88,7 +88,7 @@
 3. WHEN an index anchor is activated THEN the browser SHALL navigate to the matching release card, whose `id` is that release's slug.
 4. The system SHALL define `.cyber-link-btn`, its name/sub children and the per-platform hover colors in a shared LESS file imported by both `#page_band` and `#page_discography`.
 5. The system SHALL leave the rendered band page visually unchanged by that extraction.
-6. The system SHALL contain no `.player`, `.iframe-spotify` or `.player-art` markup on `/discography`, and SHALL leave `less/player.less` in place for the home page.
+6. The system SHALL contain no `.player`, `.iframe-spotify` or `.player-art` markup on `/discography`. (`less/player.less` was left in place for the home page until home-cyberpunk round 7 deleted it, HOME-70.)
 7. WHILE the viewport is narrower than 768px the system SHALL stack each release card with the cover above the platform buttons.
 8. The system SHALL let the page shell span the full viewport width, as the band page does, rather than capping it at a fixed content width.
 9. WHEN the visitor follows an index anchor THEN the system SHALL scroll the page, and the shell SHALL NOT become a scroll container that strands content out of view.

@@ -8,7 +8,11 @@
 
 Corroborated across multiple features. Safe to apply as guidance.
 
-_none_
+### L-004 - When a design decision deliberately narrows or reinterprets an AC's literal wording, update the AC text itself to match the confirmed decision instead of leaving the two in silent contradiction.
+- signal: `spec_precision_gap` · recurrence: 2 feature(s) · scope: `spec-writing` · harmful: 0
+- features: photos-cyberpunk-theme, home-cyberpunk
+- evidence: PXCP-04 vs spec.md Assumptions row 'Secondary accent color' (spec-writing) (+1 more)
+- last seen: 2026-09-30T03:35:42Z
 
 ## Candidates (under observation - do NOT load as guidance yet)
 
@@ -30,12 +34,6 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - signal: `ac_gap` · recurrence: 1 feature(s) · scope: `photos` · harmful: 0
 - features: photos-cyberpunk-theme
 - evidence: PXCP-05; tests/photos/visual.e2e.cjs (photos)
-- last seen: 2026-09-20T03:51:14Z
-
-### L-004 - When a design decision deliberately narrows or reinterprets an AC's literal wording, update the AC text itself to match the confirmed decision instead of leaving the two in silent contradiction.
-- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
-- features: photos-cyberpunk-theme
-- evidence: PXCP-04 vs spec.md Assumptions row 'Secondary accent color' (spec-writing)
 - last seen: 2026-09-20T03:51:14Z
 
 ### L-005 - Assert the literal label text a spec quotes, not only the dynamic value rendered beside it
@@ -103,6 +101,66 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - features: discography-cyberpunk
 - evidence: DISC-47 (css/layout)
 - last seen: 2026-09-21T03:09:57Z
+
+### L-016 - When a Liquid template guards a section with a count condition, assert both sides of the guard from the data, or the branch that today's data never reaches ships unverified.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `templates` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md M13; index.html:42 (HOME-12) (templates)
+- last seen: 2026-09-30T03:35:42Z
+
+### L-017 - When an AC bounds a transition or animation duration, assert the computed duration against that bound, not only that the animation name is none.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `styles` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md M17; less/home.less:1478 (HOME-29) (styles)
+- last seen: 2026-09-30T03:35:42Z
+
+### L-018 - State timing acceptance criteria with an explicit measurement tolerance, so the spec and the test bound are the same number.
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: home-cyberpunk
+- evidence: HOME-24 spec 0.4s vs tasks.md T17 0.5s (spec-writing)
+- last seen: 2026-09-30T03:35:42Z
+
+### L-019 - When a timing AC is enforced by a deferred script, test it with that script's delivery delayed, or keep a CSS/inline fallback that meets the bound without the script.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `loader` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md round 2 HOME-24; assets/js/home.js:78-83 probe 759ms (loader) (+1 more)
+- last seen: 2026-09-30T04:27:29Z
+
+### L-020 - Cover timer edge guards with a controlled clock test, since real-time assertions only catch sub-millisecond races by chance.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `loader` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md round 2 M23; assets/js/home.js:81 (loader)
+- last seen: 2026-09-30T03:59:34Z
+
+### L-021 - When a fallback path duplicates a side effect of the main path, assert that side effect on the fallback path too, not only on the main one.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `loader` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md round 3 M29; _layouts/home.html:27 (loader)
+- last seen: 2026-09-30T04:27:29Z
+
+### L-022 - When a test asserts that a field is replaced, make the fixture's value differ from the default it replaces, or the assertion cannot fail
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 6 M14 (assets/js/home.js:159-160) (tests)
+- last seen: 2026-10-05T03:08:38Z
+
+### L-023 - For a fallback edge case, test every input the spec names, and assert that the code after the guarded step still runs, not just that the fallback output is shown
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests) (+1 more)
+- last seen: 2026-10-06T03:26:23Z
+
+### L-024 - When a guard ORs several conditions, give each condition a test where it alone is true, or the other conditions mask its removal.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)
+- last seen: 2026-10-06T03:26:23Z
+
+### L-025 - When a timing AC's bound sits within ~100ms of a timer's target, assert it under a paused fake clock; a real-time bound flakes under main-thread load even when the time is read exactly.
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk
+- evidence: validation.md Round 8 R8-A; tests/home/loader.e2e.cjs HOME-24 (523.6ms vs <=500) (tests)
+- last seen: 2026-10-11T20:25:55Z
 
 ## Quarantined (failed when applied - ignore)
 

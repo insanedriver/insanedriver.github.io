@@ -12,6 +12,26 @@
 
     <link rel="canonical" href="/">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Insane Driver Official Website">
+    <meta property="og:description" content="The official website of the brazilian metal band Insane Driver. {{ page_description }}">
+    <meta property="og:url" content="https://insanedriver.com.br/">
+    <meta property="og:image" content="https://insanedriver.com.br/assets/images/home/hero-1280.jpg">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="853">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@insanedriverid">
+
+    <!-- Boot loader gate: the loader only ever shows when this script runs. -->
+    <!-- A repeat view (key: home-core.js BOOT_KEY, via _data/homeBoot.js) leaves at 0.4s on its own, without waiting for home.js; -->
+    <!-- if the loader is not parsed yet by then, the script at the top of .home-page finishes the release. -->
+    <!-- window.IDHomeRelease is the one place the loader is released; it is safe to call more than once. -->
+    <script>document.documentElement.className += ' home-js home-loading'; window.IDHomeBootAt = window.performance && performance.now ? performance.now() : 0; window.IDHomeRelease = function () { window.IDHomeReleased = true; var el = document.getElementById('home-loader'); if (el) { el.classList.add('is-done'); el.setAttribute('aria-hidden', 'true'); } var page = document.querySelector('[data-home-page]'); if (page) { page.inert = false; } }; try { if (sessionStorage.getItem('{{ homeBoot.key }}') === '1') { setTimeout(window.IDHomeRelease, 400); } } catch (e) {}</script>
+
+    <link rel="preload" as="image" type="image/webp"
+        imagesrcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w"
+        imagesizes="100vw">
+
     {% include 'head/styles' %}
 
     {% if csspath != null %}
@@ -26,36 +46,38 @@
 
     {% include 'head/gtm-noscript' %}
 
-    <!-- Loading Screen-->
-    <script type="text/javascript" src="/assets/js/please-wait.min.js"></script>
-    <script type="text/javascript">
-        window.loadingScreen = window.pleaseWait({
-            logo: "/assets/images/logo_loading.png",
-            backgroundColor: '#000000',
-            loadingHtml: '<p class="loading-message">Official Website</p><div class="sk-wave"><div class="sk-rect sk-rect1"></div><div class="sk-rect sk-rect2"></div><div class="sk-rect sk-rect3"></div><div class="sk-rect sk-rect4"></div><div class="sk-rect sk-rect5"></div></div>'
-        });
-    </script>
-    <!-- End Loading Screen-->
-
-    {% include 'header/menu' %}
-
-    <h1 class="text-center subtitle-font page-header">{{page_title}}</h1>
-
-    <!-- Main Image Carousel -->
-    <div id="owl-demo" class="owl-carousel">
-        <div class="item">
-            <img src="/assets/images/2.jpg" class="img-responsive">
+    <div id="home-loader" class="home-loader" role="status" aria-label="Loading Insane Driver" data-home-loader hidden>
+        <div class="home-loader-scan" aria-hidden="true"></div>
+        <div class="home-loader-core">
+            <span class="home-loader-sys" aria-hidden="true">ID::SYS // BOOT SEQUENCE</span>
+            <div class="home-loader-logo">
+                <img src="/assets/images/logo_loading.png" width="300" height="204" alt="Insane Driver">
+            </div>
+            <ol class="home-loader-log" aria-hidden="true">
+                <li>&gt; INITIALIZING INSANE_DRIVER.SYS <span>OK</span></li>
+                <li>&gt; LOADING NEURAL AUDIO CORE <span>OK</span></li>
+                <li>&gt; SYNCING TRANSMISSION FEED <span>OK</span></li>
+                <li>&gt; ESTABLISHING UPLINK <span class="home-loader-blink">_</span></li>
+            </ol>
+            <div class="home-loader-progress" aria-hidden="true">
+                <div class="home-loader-bar"><span data-home-loader-bar></span></div>
+                <span class="home-loader-pct" data-home-loader-pct>00%</span>
+            </div>
+            <p class="home-loader-skip">Click or press Esc to skip</p>
         </div>
     </div>
-    <!-- End Main Image Carousel -->
 
-    <div id="content">
-        <div class="container-fluid insane-content">
+    <div class="home-page" data-home-page>
+        <!-- Inert under the loader before home.js runs; released through IDHomeRelease at the 4s CSS failsafe if home.js never does. -->
+        <script>(function (page) { if (!/\bhome-loading\b/.test(document.documentElement.className)) { return; } if (window.IDHomeReleased) { window.IDHomeRelease(); return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 4000 : 0; setTimeout(window.IDHomeRelease, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
+        {% include 'header/menu' %}
+
+        <main id="home-main">
             {{ content }}
-        </div>
-    </div>
+        </main>
 
-    {% include 'footer/footer' %}
+        {% include 'footer/footer' %}
+    </div>
 
     {% if jspath != null %}
     {% include jspath %}

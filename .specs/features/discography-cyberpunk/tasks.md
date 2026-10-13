@@ -475,7 +475,7 @@ T12 → T13
 **Done when**:
 
 - [ ] Page exposes `.cyber-zone`, `.cyber-panel`, `.cyber-panel-tab`, `data-hud` and the corner spans
-- [ ] No `.player`, `.iframe-spotify` or `.player-art` element exists on the page, and `less/player.less` is unchanged
+- [ ] No `.player`, `.iframe-spotify` or `.player-art` element exists on the page, and `less/player.less` is unchanged (later deleted by home-cyberpunk round 7, HOME-70)
 - [ ] `.cyber-zone-inner` renders wider than 560px at a 1280px viewport (the `contact.less` leak is neutralized)
 - [ ] At a 375px viewport the cover renders above the platform buttons in each release card
 - [ ] Compiled CSS committed with the `.less` change

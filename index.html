@@ -7,52 +7,253 @@ page_robots: index, follow
 page_id: home
 jspath: js/home
 ---
-<!-- Content -->
-<div class="container-fluid">
-    <div class="container">
-        <h2 class="text-center subtitle-font">Videos</h2>
+{% assign release = homeRelease %}
+<section class="home-hero" data-home-hero aria-labelledby="home-title">
+    <picture class="home-hero-photo">
+        <source type="image/webp" sizes="100vw"
+            srcset="/assets/images/home/hero-768.webp 768w, /assets/images/home/hero-1280.webp 1280w, /assets/images/home/hero-1920.webp 1920w">
+        <img src="/assets/images/home/hero-1280.jpg" sizes="100vw"
+            srcset="/assets/images/home/hero-768.jpg 768w, /assets/images/home/hero-1280.jpg 1280w, /assets/images/home/hero-1920.jpg 1920w"
+            width="1920" height="1280" alt="" fetchpriority="high" decoding="async" data-home-hero-img>
+    </picture>
+    <!-- Phones only see about a third of the photo: start the pan on a random member (0-1 across the frame). -->
+    <!-- The photo starts under the fixed menu (--home-nav-h), whose height follows how many rows its links wrap to; from 992px the title is laid out against the width the photo is drawn at (--home-photo-w). -->
+    <script>(function (img) { var at = [0, 0.2, 0.45, 0.76, 1]; img.style.setProperty('--home-pan-at', at[Math.floor(Math.random() * at.length)]); var nav = document.querySelector('.navbar'), hero = img.closest('[data-home-hero]'); if (!nav || !hero) { return; } var ratio = img.getAttribute('width') / img.getAttribute('height'); var fit = function () { hero.style.setProperty('--home-nav-h', nav.offsetHeight + 'px'); hero.style.setProperty('--home-photo-w', Math.max(img.clientWidth, img.clientHeight * ratio) + 'px'); }; fit(); if (window.ResizeObserver) { var ro = new ResizeObserver(fit); ro.observe(nav); ro.observe(img); } else { window.addEventListener('resize', fit); } })(document.querySelector('[data-home-hero-img]'));</script>
+    <div class="home-hero-vignette" aria-hidden="true"></div>
+    <div class="home-hero-grid" aria-hidden="true"></div>
+    <div class="home-hero-scan" aria-hidden="true"></div>
 
-        <div class="row text-center">
-            <div id="playerKeepAway"></div>
+    <div class="home-hero-content">
+        <div class="home-hero-id">
+            <span class="home-hero-hud" aria-hidden="true">ID::MAIN // SIGNAL ONLINE_</span>
+            <h1 class="home-title" id="home-title">
+                <img src="/assets/images/logo_loading.png" width="300" height="204" alt="Insane Driver">
+                <span class="home-title-glitch" aria-hidden="true"></span>
+            </h1>
+            <p class="home-tagline">METAL // ROCK // SINCE 2013</p>
         </div>
 
-        <div class="row text-center">
-            <div id="playerGhostsLyric"></div>
-        </div>
+        {% if release %}
+        <article class="home-release-card" data-home-release="{{ release.slug }}" aria-labelledby="home-release-title">
+            <span class="home-release-flag" aria-hidden="true">NEW RELEASE</span>
+            <img class="home-release-cover" src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" decoding="async">
+            <div class="home-release-body">
+                <span class="home-release-meta">{{ release.typeLabel }} // {{ release.year }}</span>
+                <h2 class="home-release-title" id="home-release-title">{{ release.title | escape }}</h2>
+            </div>
+            <div class="home-release-links">
+                {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="hero">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    <span class="cyber-link-sub">Listen now</span>
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+        </article>
+        {% endif %}
+    </div>
 
-        <div class="row text-center">
-            <div id="playerDistantLyric"></div>
-        </div>
+    <a class="home-hero-cue" href="#home-zone" aria-label="Scroll to content"><span aria-hidden="true"></span></a>
+</section>
 
-        <div class="row text-center">
-            <div id="playerDesperateLyric"></div>
-        </div>
+<div id="content" class="home-content">
+<div class="home-shell cyber-zone" id="home-zone" data-home-zone>
+    <div class="cyber-zone-inner">
 
-        <div class="row text-center">
-            <div id="playerToday"></div>
+    {% assign single = homeShuffle.pool[0] %}
+    {% if single %}
+    <div class="cyber-panel cyber-panel--home-streaming">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> NOW::STREAMING</div>
+        <div class="cyber-panel-body" data-hud="SIGNAL.{{ single.slug | upcase }} // STREAMING_" data-home-streaming-hud>
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-streaming" data-home-streaming="{{ single.slug }}" aria-labelledby="home-streaming-title">
+        <div class="home-streaming-art">
+            <img src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async" data-home-streaming-cover>
+            <span class="home-art-corner" aria-hidden="true"></span>
+        </div>
+        <div class="home-streaming-body">
+            <span class="home-eyebrow">SHUFFLE // SINGLE // <span data-home-streaming-date>{{ single.releaseDate | replace: '-', '.' }}</span></span>
+            <h2 id="home-streaming-title"><span data-home-streaming-title>{{ single.title | escape }}</span><span class="home-accent">.</span></h2>
+            <p class="home-streaming-lead">From the archive. Pick your platform and turn it up.</p>
+
+            <div class="home-links" data-home-streaming-links>
+                {% for p in platforms %}{% assign url = single.links[p.key] %}{% if url %}
+                {% include 'home/streaming-link' %}
+                {% endif %}{% endfor %}
+            </div>
+            <!-- home.js copies these to show whichever platforms the shuffled single is on. -->
+            <template data-home-streaming-anchors>
+                {% for p in platforms %}{% assign url = '' %}{% include 'home/streaming-link' %}{% endfor %}
+            </template>
+
+            <div class="home-streaming-actions">
+                <button type="button" class="home-preview-btn" data-home-preview-btn="{{ single.embedId | default: '' }}" aria-expanded="false" aria-controls="home-preview" hidden>
+                    <span class="home-preview-icon" aria-hidden="true"></span> PREVIEW
+                </button>
+                <a class="home-more" href="/discography/">Full discography <span aria-hidden="true">&rarr;</span></a>
+            </div>
+            <div class="home-preview" id="home-preview" data-home-preview></div>
+        </div>
+    </section>
+        </div>
+    </div>
+    <script type="application/json" data-home-shuffle>{{ homeShuffle.json }}</script>
+    {% endif %}
+
+    {% assign video = videos[0] %}
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-video">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> ID-TV::LATEST</div>
+        <div class="cyber-panel-body" data-hud="TRANSMISSION.LATEST // {{ video.type }}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-video" aria-labelledby="home-video-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">TRANSMISSION FEED</span><h2 id="home-video-title">ID-TV<span class="home-accent">.</span></h2></div>
+            <a class="home-more" href="/videos/">All videos <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <a class="home-video-screen" href="/videos/#{{ video.slug }}" data-home-teaser="video" data-home-slug="{{ video.slug }}">
+            <span class="home-video-media">
+                <img src="https://i.ytimg.com/vi/{{ video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy" decoding="async">
+                <span class="home-video-play" aria-hidden="true"></span>
+            </span>
+            <span class="home-video-caption">
+                <span class="home-video-type">{{ video.type }}</span>
+                <span class="home-video-title">{{ video.title | remove_first: 'Insane Driver - ' | escape }}</span>
+            </span>
+            <span class="home-frame-corner" aria-hidden="true"></span>
+        </a>
+    </section>
         </div>
     </div>
 
-</div>
+    <div class="cyber-separator"></div>
 
-<div class="container-fluid" id="player-sf">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-6">
-                <h4 class="text-center silicon-font" style="padding-top: 20px;">Silicon Fortress - 2021</h4>
-
-                <div class="row">
-                    <img src="/assets/images/player_sf.jpg" class="img-responsive text-center player-art" style="margin-bottom: 20px;">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div id="player_spotify">
-                    <div class="player_container text-center"></div>
-                </div>
-            </div>
-
+    <div class="cyber-panel cyber-panel--home-archive">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> DISC::ARCHIVE</div>
+        <div class="cyber-panel-body" data-hud="CATALOG // {% if discography.albums.size < 10 %}0{% endif %}{{ discography.albums.size }} ALBUMS_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-archive" aria-labelledby="home-archive-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">INSANE DRIVER / CATALOG</span><h2 id="home-archive-title">Discography<span class="home-accent">.</span></h2></div>
+            <a class="home-more" href="/discography/">Every release <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <ul class="home-archive-list">
+            {% for album in discography.albums %}
+            <li>
+                <a class="home-archive-item" href="/discography/#{{ album.slug }}" data-home-teaser="album" data-home-slug="{{ album.slug }}">
+                    <span class="home-archive-art">
+                        <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="" loading="lazy" decoding="async">
+                    </span>
+                    <span class="home-archive-year">{{ album.year }}</span>
+                    <span class="home-archive-title">{{ album.title | escape }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
         </div>
     </div>
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-visual">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> VISUAL::FEED</div>
+        <div class="cyber-panel-body" data-hud="VISUAL.FEED // {% if highlights.size < 10 %}0{% endif %}{{ highlights.size }} FRAMES_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-visual" aria-labelledby="home-visual-title">
+        <div class="home-section-heading">
+            <div><span class="home-eyebrow">PROMO // LIVE</span><h2 id="home-visual-title">Photos<span class="home-accent">.</span></h2></div>
+        </div>
+        <a class="home-visual-link" href="/photos/" data-home-teaser="photos">
+            <span class="home-visual-grid">
+                {% for photo in highlights %}
+                <span class="home-visual-frame">
+                    <img src="{{ photo.thumbnail }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
+                </span>
+                {% endfor %}
+            </span>
+            <span class="home-visual-cta">Open the gallery <span aria-hidden="true">&rarr;</span></span>
+        </a>
+    </section>
+        </div>
+    </div>
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel cyber-panel--home-signal">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> SIGNAL::NEWSLETTER</div>
+        <div class="cyber-panel-body" data-hud="FORM.READY // AWAITING_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <section class="home-signal" aria-labelledby="home-signal-title">
+        <div class="home-signal-copy">
+            <span class="home-eyebrow">INSANE FAMILY // UPLINK</span>
+            <h2 id="home-signal-title">Join the network<span class="home-accent">.</span></h2>
+            <p>New music, videos and shows straight to your inbox. No spam, just signal.</p>
+        </div>
+        <form class="home-signal-form" data-home-newsletter
+            action="https://insanedriver.us11.list-manage.com/subscribe/post?u=31b9d99c4318b90997348c1ed&amp;id=79f822eba5"
+            method="post" target="_blank">
+            <div class="home-field">
+                <label for="home-EMAIL">E-mail</label>
+                <input type="email" name="EMAIL" id="home-EMAIL" autocomplete="email" placeholder="you@domain.com" required>
+            </div>
+            <div class="home-field">
+                <label for="home-COUNTRY">Country</label>
+                <select name="COUNTRY" id="home-COUNTRY" autocomplete="country-name" required>
+                    {% include 'newsletter/countries' %}
+                </select>
+            </div>
+            <!-- real people should not fill this in and expect good things; do not remove this or risk bot signups -->
+            <div class="mailchimp-bot-field" aria-hidden="true">
+                <input type="text" name="b_31b9d99c4318b90997348c1ed_79f822eba5" tabindex="-1" value="">
+            </div>
+            <button type="submit" name="subscribe" value="Subscribe" class="home-signal-submit">
+                <span>Connect</span>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </form>
+    </section>
+        </div>
+    </div>
+
+    </div>
 </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Insane Driver",
+  "url": "https://insanedriver.com.br/",
+  "foundingDate": "2013",
+  "foundingLocation": { "@type": "Country", "name": "Brazil" },
+  "genre": ["Metal", "Hard Rock"],
+  "image": "https://insanedriver.com.br/assets/images/home/hero-1280.jpg",
+  "logo": "https://insanedriver.com.br/assets/images/logo_horizontal.png",
+  "sameAs": [
+    "https://play.spotify.com/artist/2ye4AQnKI7zNyOnuLGHaaE",
+    "https://www.youtube.com/user/insanedriverofficial",
+    "https://www.instagram.com/insanedriverid/",
+    "https://facebook.com/insanedriverid",
+    "https://twitter.com/insanedriverid"
+  ]
+}
+</script>

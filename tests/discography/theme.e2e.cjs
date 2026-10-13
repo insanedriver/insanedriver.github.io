@@ -24,10 +24,14 @@ test('DISC-13: no legacy player markup survives on the page', async ({ page }) =
   }
 });
 
-test('DISC-13: the home page keeps the legacy player styling it still uses', async ({ page }) => {
+// The home used to be the last page on the legacy player block; the
+// home-cyberpunk feature (HOME-05) removed it, and round 7 (HOME-70) deleted
+// less/player.less.
+test('DISC-13: the home page no longer carries the legacy player block either', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.player-art')).toHaveCount(1);
-  expect(await page.locator('.player-art').evaluate(el => getComputedStyle(el).marginLeft)).not.toBe('0px');
+  for (const selector of ['.player-art', '.iframe-spotify', '#player-sf', '#player_spotify']) {
+    await expect(page.locator(selector)).toHaveCount(0);
+  }
 });
 
 test('DISC-14: the panels escape the site-wide 56rem cap', async ({ page }) => {

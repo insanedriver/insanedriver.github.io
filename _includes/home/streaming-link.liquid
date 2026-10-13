@@ -1,0 +1,5 @@
+<a class="cyber-link-btn {% if p.primary %}cyber-link-btn--primary{% else %}cyber-link-btn--compact{% endif %} cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-home-link="{{ p.key }}" data-home-placement="streaming">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    {% if p.primary %}<span class="cyber-link-sub">Listen now</span>{% endif %}
+                </a>
