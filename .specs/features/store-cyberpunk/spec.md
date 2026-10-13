@@ -172,7 +172,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-23 | P2: Old pre-order links | T5 | Implemented |
 | STORE-24 | P2: Old pre-order links | T4 | Implemented |
 
-**Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️
+**Coverage:** 24 total, 24 mapped to tasks (T1-T5), 0 unmapped. Edge cases: both covered (no-JS in `tests/store/markup.e2e.cjs`, empty tracks in `tests/store/store-template.test.cjs`).
 
 ---
 
