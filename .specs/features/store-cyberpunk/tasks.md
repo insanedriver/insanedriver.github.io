@@ -174,10 +174,11 @@ T4 → T5
 
 **Done when**:
 
-- [ ] `tests/store/store-data.test.cjs` asserts `buyCd === '/store/'`
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/store/store-data.test.cjs` asserts `buyCd === '/store/'`
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
+**Status**: ✅ Complete
 **Gate**: build
 
 **Commit**: `fix(discography): send Silicon Fortress buyers to the store`

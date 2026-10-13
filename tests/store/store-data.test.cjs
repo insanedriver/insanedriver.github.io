@@ -15,3 +15,8 @@ test('STORE-24: style.less no longer imports preorder.less', () => {
   const style = fs.readFileSync(path.join(root, 'less/style.less'), 'utf8');
   assert.doesNotMatch(style, /@import\s+["']preorder\.less["']/);
 });
+
+test('STORE-23: Silicon Fortress buyers are sent to the store', () => {
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, '_data/discography.json'), 'utf8'));
+  assert.equal(catalog.albums.find(a => a.slug === 'silicon-fortress').buyCd, '/store/');
+});

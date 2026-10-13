@@ -169,7 +169,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-20 | P1: Cyberpunk look | T2 | Implemented |
 | STORE-21 | P2: Old pre-order links | T3 | Implemented |
 | STORE-22 | P2: Old pre-order links | T3 | Implemented |
-| STORE-23 | P2: Old pre-order links | Tasks | Pending |
+| STORE-23 | P2: Old pre-order links | T5 | Implemented |
 | STORE-24 | P2: Old pre-order links | T4 | Implemented |
 
 **Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️

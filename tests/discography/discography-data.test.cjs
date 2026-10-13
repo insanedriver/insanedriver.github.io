@@ -70,7 +70,7 @@ test('DISC-30: album tracks carry a sequential position, a title and a positive 
 
 test('DISC-37: buyCd is an internal path only where a CD is sold', () => {
   const byCd = Object.fromEntries(catalog.albums.map(a => [a.slug, a.buyCd]));
-  assert.equal(byCd['silicon-fortress'], '/preorder/');
+  assert.equal(byCd['silicon-fortress'], '/store/');
   assert.equal(byCd['insane-driver'], '/store/');
   assert.equal(byCd['insane-driver-deluxe'], null);
   for (const r of releases()) {
