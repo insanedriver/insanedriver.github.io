@@ -1,0 +1,182 @@
+# Cyberpunk Store Specification
+
+## Problem Statement
+
+The site sells CDs from two disconnected pages: `/store/` sells only the 2016 debut *Insane Driver* with an old Bootstrap layout, and `/preorder/` sells the *Silicon Fortress* + *Insane Driver* combo and *Silicon Fortress* alone behind a radio list whose Brazil/international switch depends on an `http://` geo-IP call that fails on HTTPS. Buyers cannot see all three offers in one place, and neither page matches the cyberpunk look of the rest of the site.
+
+## Goals
+
+- [ ] One `/store/` page lists all three products (combo $35, *Silicon Fortress* $25, *Insane Driver* $22), each with its own working PayPal button.
+- [ ] The page uses the site's cyberpunk panel language and has no horizontal overflow from 320px to desktop widths.
+- [ ] `/preorder/` and every internal "buy CD" link land on `/store/`.
+
+## Out of Scope
+
+| Feature | Reason |
+| ------- | ------ |
+| Changing PayPal buttons, prices or options on PayPal's side | Prices live in the existing hosted buttons; the page only reuses them. |
+| A live PayPal purchase test | It would create a real order. |
+| Shipping cost, delivery time or stock info | The band has not provided this data. |
+| Geo-IP country detection | Replaced by always showing both purchase routes. |
+| Extracting a shared cyberpunk stylesheet | Project convention keeps each page's cyber styles in its own `.less` file. |
+| Selling *Insane Driver (Deluxe)* | Not part of the three agreed offers. |
+
+---
+
+## Assumptions & Open Questions
+
+| Assumption / decision | Chosen default | Rationale | Confirmed? |
+| --------------------- | -------------- | --------- | ---------- |
+| Source branch | `feature/store-cyberpunk` from local `master`. | Repository default branch is `master`. | y |
+| PayPal wiring | Combo and *Silicon Fortress* post to hosted button `JYP8YSM95V69A` with a hidden `on0`/`os0` carrying the exact existing option values; *Insane Driver* posts to hosted button `ACB6SNWZ97592`. | Reuses buttons that already hold the prices; no PayPal changes needed. | y |
+| Displayed prices | $35.00, $25.00, $22.00 USD. | Copied from the current pages; PayPal's hosted buttons stay authoritative. | y |
+| Card art | Combo uses `assets/images/silicon-preorder-combo.png`; singles use `assets/images/releases/<slug>.jpg`. | Combo art already shows both CDs; album covers keep the two singles consistent. | y |
+| Card order | DOM order is Combo, *Silicon Fortress*, *Insane Driver*; at >=992px CSS places *Silicon Fortress* left, Combo centre, *Insane Driver* right. | Combo is first on mobile and central on desktop. | y |
+| Tracklists and year | Rendered at build time from `_data/discography.json` (`silicon-fortress`, `insane-driver`). | Single source of truth already used by the discography page. | y |
+| Brazil route | A Portuguese panel with a "Comprar" link to the existing Die Hard search URL, always visible, plus an English note that it ships only within Brazil. | Removes the broken geo-IP dependency; both audiences see their route. | y |
+| `/preorder/` | A standalone HTML page (no site layout) with `meta refresh` 0s to `/store/`, `rel=canonical` to `https://insanedriver.com.br/store/`, `robots noindex`, and a visible fallback link. | GitHub Pages has no server-side redirects. | y |
+| Header image | `header_7.jpg`, unchanged. | Keeps the current store header. | y |
+| Motion | Cyber animations are disabled under `prefers-reduced-motion: reduce`. | Matches newsletter/photos; does not copy band/contact's gap. | y |
+| PayPal target | Forms submit to PayPal in the same tab (`target="_top"`). | Matches the current `/store/` button. | y |
+| Remaining implicit-requirement dimensions | Validation, auth, retries, concurrency, persistence and data lifecycle are N/A. | The page is static and only posts existing hosted-button forms. | y |
+
+**Open questions:** none - all resolved or logged above.
+
+---
+
+## User Stories
+
+### P1: Buy any of the three CD offers ⭐ MVP
+
+**User Story**: As a fan outside Brazil, I want to see the combo and both CDs side by side with prices and buy the one I want so that I can order with PayPal in one step.
+
+**Why P1**: Selling CDs is the page's only purpose.
+
+**Acceptance Criteria**:
+
+1. **STORE-01** — The store page SHALL render exactly three product cards, in DOM order: combo, *Silicon Fortress*, *Insane Driver*.
+2. **STORE-02** — The store page SHALL show the prices `$35.00`, `$25.00` and `$22.00` (USD) on the combo, *Silicon Fortress* and *Insane Driver* cards respectively.
+3. **STORE-03** — The combo card SHALL contain a PayPal form posting to `https://www.paypal.com/cgi-bin/webscr` with `cmd=_s-xclick`, `hosted_button_id=JYP8YSM95V69A`, `currency_code=USD` and `os0=COMBO: CD Silicon Fortress + Insane Driver`.
+4. **STORE-04** — The *Silicon Fortress* card SHALL contain a PayPal form with `cmd=_s-xclick`, `hosted_button_id=JYP8YSM95V69A`, `currency_code=USD` and `os0=CD Silicon Fortress`.
+5. **STORE-05** — The *Insane Driver* card SHALL contain a PayPal form with `cmd=_s-xclick` and `hosted_button_id=ACB6SNWZ97592`.
+6. **STORE-06** — Each card SHALL show its title, its art image with non-empty `alt` text, and a release-year HUD tag (`2021` for *Silicon Fortress*, `2016` for *Insane Driver*, `2021 + 2016` for the combo).
+7. **STORE-07** — The combo card SHALL carry a visible `BEST DEAL` badge.
+8. **STORE-08** — The store page SHALL display the line `Ships worldwide · PayPal` above the product cards.
+
+**Independent Test**: Load `/store/` without JavaScript and read the three forms' hidden fields and prices.
+
+---
+
+### P1: Read what is on each CD
+
+**User Story**: As a buyer, I want to check the tracklist before buying so that I know what I get.
+
+**Why P1**: The current store already shows the debut tracklist; dropping it would be a regression.
+
+**Acceptance Criteria**:
+
+1. **STORE-09** — Each single-CD card SHALL contain a collapsed `<details>` tracklist listing that album's tracks from `_data/discography.json` in `position` order.
+2. **STORE-10** — The combo card SHALL contain one collapsed `<details>` tracklist per included album (*Silicon Fortress*, then *Insane Driver*).
+3. **STORE-11** — WHEN the visitor activates a tracklist summary THEN the store page SHALL reveal that album's track titles.
+
+**Independent Test**: Click each "Tracklist" summary and compare the titles with the JSON.
+
+---
+
+### P1: Buy from Brazil
+
+**User Story**: As a fan in Brazil, I want a clear route to the local retailer so that I pay in reais and get domestic shipping.
+
+**Why P1**: Brazil is the band's home market and the retailer deal is exclusive.
+
+**Acceptance Criteria**:
+
+1. **STORE-12** — The store page SHALL always show a Brazil panel with the heading `Venda exclusiva pela Die Hard para todo Brasil! 🇧🇷` and a `Comprar` link to `https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&estoque=estoque&cod_tipo=0&pesquisa=Insane+Driver`.
+2. **STORE-13** — The Brazil panel SHALL state in English that Die Hard ships only within Brazil and that international buyers should use PayPal.
+3. **STORE-14** — The store page SHALL NOT call any geo-IP service or read an `imInBrazil` query parameter.
+
+**Independent Test**: Load `/store/?imInBrazil=true` and `/store/?imInBrazil=false`; both show the same three cards and the Brazil panel, with no request to `ip-api.com`.
+
+---
+
+### P1: Cyberpunk look on every screen
+
+**User Story**: As a visitor, I want the store to look like the rest of the site and work on my phone.
+
+**Why P1**: Visual consistency was an explicit requirement.
+
+**Acceptance Criteria**:
+
+1. **STORE-15** — The store page SHALL render its content inside the `.cyber-zone` / `.cyber-panel` structure (tab, HUD body, corner accents) with the site palette (`#00f3ff`, `#005f8c`, `#ff00ea`, `#fcee0a`), and SHALL leave `#content`'s `bodybg.jpg` background visible.
+2. **STORE-16** — WHILE the viewport is at least 992px wide the store page SHALL lay the three cards in one row ordered *Silicon Fortress*, combo, *Insane Driver* from left to right.
+3. **STORE-17** — WHILE the viewport is below 992px the store page SHALL stack the cards in a single column in DOM order (combo first).
+4. **STORE-18** — WHILE the viewport is between 320px and 1440px the store page SHALL NOT overflow horizontally (`document.documentElement.scrollWidth <= window.innerWidth`).
+5. **STORE-19** — WHILE the visitor requests reduced motion the store page SHALL set `animation: none` on every store cyber element that is animated by default.
+6. **STORE-20** — WHEN a keyboard user focuses a buy button or tracklist summary THEN the store page SHALL display a visible focus outline.
+
+**Independent Test**: Screenshot `/store/` at 375px and 1280px; emulate reduced motion and check computed animations.
+
+---
+
+### P2: Old pre-order links still work
+
+**User Story**: As a fan with an old `/preorder/` link, I want to reach the store so that the link is not dead.
+
+**Why P2**: Protects existing shared links; the store works without it.
+
+**Acceptance Criteria**:
+
+1. **STORE-21** — WHEN a browser loads `/preorder/` THEN it SHALL navigate to `/store/` via a 0-second meta refresh.
+2. **STORE-22** — The `/preorder/` page SHALL include `<link rel="canonical" href="https://insanedriver.com.br/store/">`, `<meta name="robots" content="noindex">` and a visible link to `/store/`.
+3. **STORE-23** — The *Silicon Fortress* entry in `_data/discography.json` SHALL have `buyCd` equal to `/store/`.
+4. **STORE-24** — The repository SHALL NOT contain `less/preorder.less`, `assets/js/preorder.js` or `_includes/js/preorder.liquid`, and `less/style.less` SHALL NOT import `preorder.less`.
+
+**Independent Test**: Open `/preorder/` and land on `/store/`; grep the repo for the removed files.
+
+---
+
+## Edge Cases
+
+- IF JavaScript is disabled THEN the store page SHALL still render all three cards, the tracklists and working PayPal forms (the page needs no JS).
+- IF an album's `tracks` array is empty THEN the store page SHALL omit that album's `<details>` block instead of rendering an empty list.
+
+---
+
+## Requirement Traceability
+
+| Requirement ID | Story | Phase | Status |
+| -------------- | ----- | ----- | ------ |
+| STORE-01 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-02 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-03 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-04 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-05 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-06 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-07 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-08 | P1: Buy any of the three CD offers | T1 | Implemented |
+| STORE-09 | P1: Read what is on each CD | T1 | Implemented |
+| STORE-10 | P1: Read what is on each CD | T1 | Implemented |
+| STORE-11 | P1: Read what is on each CD | T1 | Implemented |
+| STORE-12 | P1: Buy from Brazil | T1 | Implemented |
+| STORE-13 | P1: Buy from Brazil | T1 | Implemented |
+| STORE-14 | P1: Buy from Brazil | T1 | Implemented |
+| STORE-15 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-16 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-17 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-18 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-19 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-20 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-21 | P2: Old pre-order links | Tasks | Pending |
+| STORE-22 | P2: Old pre-order links | Tasks | Pending |
+| STORE-23 | P2: Old pre-order links | Tasks | Pending |
+| STORE-24 | P2: Old pre-order links | Tasks | Pending |
+
+**Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️
+
+---
+
+## Success Criteria
+
+- [ ] All three PayPal forms carry the spec'd hidden fields (verified by e2e tests).
+- [ ] Zero horizontal overflow at 320, 375, 768, 1024 and 1440px.
+- [ ] `/preorder/` reaches `/store/` in a real browser.
