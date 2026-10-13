@@ -148,10 +148,11 @@ T4 → T5
 
 **Done when**:
 
-- [ ] `tests/store/store-data.test.cjs` asserts the files and the import are gone
-- [ ] Gate check passes: `npm test`
+- [x] `tests/store/store-data.test.cjs` asserts the files and the import are gone
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
+**Status**: ✅ Complete
 **Gate**: full
 
 **Commit**: `chore(preorder): remove the unused pre-order styles and script`
