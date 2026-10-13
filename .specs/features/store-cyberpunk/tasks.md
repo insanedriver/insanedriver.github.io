@@ -96,10 +96,11 @@ T4 → T5
 
 **Done when**:
 
-- [ ] `tests/store/theme.e2e.cjs` asserts STORE-15..20
-- [ ] Gate check passes: `npm test`
+- [x] `tests/store/theme.e2e.cjs` asserts STORE-15..20
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
+**Status**: ✅ Complete
 **Gate**: full
 
 **Commit**: `style(store): give the store the cyberpunk panel look`

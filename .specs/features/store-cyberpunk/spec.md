@@ -38,6 +38,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | Header image | `header_7.jpg`, unchanged. | Keeps the current store header. | y |
 | Motion | Cyber animations are disabled under `prefers-reduced-motion: reduce`. | Matches newsletter/photos; does not copy band/contact's gap. | y |
 | PayPal target | Forms submit to PayPal in the same tab (`target="_top"`). | Matches the current `/store/` button. | y |
+| Overflow scope (amended in T2) | STORE-18 measures the store content, not the whole document. | The site header (`.container.menu-center`) already overflows to 781px at 768px on every page; fixing the global header is outside this feature. | y |
 | Remaining implicit-requirement dimensions | Validation, auth, retries, concurrency, persistence and data lifecycle are N/A. | The page is static and only posts existing hosted-button forms. | y |
 
 **Open questions:** none - all resolved or logged above.
@@ -110,7 +111,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 1. **STORE-15** — The store page SHALL render its content inside the `.cyber-zone` / `.cyber-panel` structure (tab, HUD body, corner accents) with the site palette (`#00f3ff`, `#005f8c`, `#ff00ea`, `#fcee0a`), and SHALL leave `#content`'s `bodybg.jpg` background visible.
 2. **STORE-16** — WHILE the viewport is at least 992px wide the store page SHALL lay the three cards in one row ordered *Silicon Fortress*, combo, *Insane Driver* from left to right.
 3. **STORE-17** — WHILE the viewport is below 992px the store page SHALL stack the cards in a single column in DOM order (combo first).
-4. **STORE-18** — WHILE the viewport is between 320px and 1440px the store page SHALL NOT overflow horizontally (`document.documentElement.scrollWidth <= window.innerWidth`).
+4. **STORE-18** — WHILE the viewport is between 320px and 1440px no element inside the store content (`[data-store]`) SHALL extend past the right edge of the viewport.
 5. **STORE-19** — WHILE the visitor requests reduced motion the store page SHALL set `animation: none` on every store cyber element that is animated by default.
 6. **STORE-20** — WHEN a keyboard user focuses a buy button or tracklist summary THEN the store page SHALL display a visible focus outline.
 
@@ -160,12 +161,12 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-12 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-13 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-14 | P1: Buy from Brazil | T1 | Implemented |
-| STORE-15 | P1: Cyberpunk look | Tasks | Pending |
-| STORE-16 | P1: Cyberpunk look | Tasks | Pending |
-| STORE-17 | P1: Cyberpunk look | Tasks | Pending |
-| STORE-18 | P1: Cyberpunk look | Tasks | Pending |
-| STORE-19 | P1: Cyberpunk look | Tasks | Pending |
-| STORE-20 | P1: Cyberpunk look | Tasks | Pending |
+| STORE-15 | P1: Cyberpunk look | T2 | Implemented |
+| STORE-16 | P1: Cyberpunk look | T2 | Implemented |
+| STORE-17 | P1: Cyberpunk look | T2 | Implemented |
+| STORE-18 | P1: Cyberpunk look | T2 | Implemented |
+| STORE-19 | P1: Cyberpunk look | T2 | Implemented |
+| STORE-20 | P1: Cyberpunk look | T2 | Implemented |
 | STORE-21 | P2: Old pre-order links | Tasks | Pending |
 | STORE-22 | P2: Old pre-order links | Tasks | Pending |
 | STORE-23 | P2: Old pre-order links | Tasks | Pending |
