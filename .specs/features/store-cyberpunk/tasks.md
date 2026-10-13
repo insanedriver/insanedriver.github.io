@@ -122,10 +122,11 @@ T4 → T5
 
 **Done when**:
 
-- [ ] `tests/store/redirect.e2e.cjs` asserts the browser ends on `/store/` and the three head/body elements exist
-- [ ] Gate check passes: `npm test`
+- [x] `tests/store/redirect.e2e.cjs` asserts the browser ends on `/store/` and the three head/body elements exist
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
+**Status**: ✅ Complete
 **Gate**: full
 
 **Commit**: `feat(preorder): redirect the pre-order page to the store`
