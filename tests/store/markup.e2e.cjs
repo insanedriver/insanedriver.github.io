@@ -67,22 +67,24 @@ test.describe('without JavaScript', () => {
     expect(f.fields).not.toHaveProperty('os0');
   });
 
-  test('STORE-06: each card shows title, art with alt text and the release-year tag', async ({ page }) => {
+  test('STORE-06: each card shows title, one cover per album with alt text and the release-year tag', async ({ page }) => {
     await page.goto('/store/');
     const expected = {
-      combo: { title: /Silicon Fortress \+ Insane Driver/, year: '2021 + 2016', src: '/assets/images/silicon-preorder-combo.png' },
-      'silicon-fortress': { title: /^\s*Silicon Fortress\s*$/, year: '2021', src: '/assets/images/releases/silicon-fortress.jpg' },
-      'insane-driver': { title: /^\s*Insane Driver\s*$/, year: '2016', src: '/assets/images/releases/insane-driver.jpg' },
+      combo: { title: /^\s*Silicon Fortress \+ Insane Driver\s*$/, year: '2021 + 2016',
+        src: ['/assets/images/releases/silicon-fortress.jpg', '/assets/images/releases/insane-driver.jpg'] },
+      'silicon-fortress': { title: /^\s*Silicon Fortress\s*$/, year: '2021', src: ['/assets/images/releases/silicon-fortress.jpg'] },
+      'insane-driver': { title: /^\s*Insane Driver\s*$/, year: '2016', src: ['/assets/images/releases/insane-driver.jpg'] },
     };
     for (const [id, e] of Object.entries(expected)) {
       const c = card(page, id);
       await expect(c.locator('[data-store-title]')).toHaveText(e.title);
       await expect(c.locator('[data-store-year]')).toHaveText(e.year);
-      const img = c.locator('img');
-      await expect(img).toHaveCount(1);
-      await expect(img).toHaveAttribute('src', e.src);
-      expect((await img.getAttribute('alt')).trim().length).toBeGreaterThan(0);
-      expect(await img.evaluate(el => el.complete && el.naturalWidth > 0)).toBe(true);
+      const imgs = c.locator('img');
+      expect(await imgs.evaluateAll(els => els.map(el => el.getAttribute('src')))).toEqual(e.src);
+      for (const alt of await imgs.evaluateAll(els => els.map(el => el.getAttribute('alt') || ''))) {
+        expect(alt.trim().length).toBeGreaterThan(0);
+      }
+      expect(await imgs.evaluateAll(els => els.every(el => el.complete && el.naturalWidth > 0))).toBe(true);
     }
   });
 

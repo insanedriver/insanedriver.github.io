@@ -13,8 +13,6 @@ products:
     title: Silicon Fortress + Insane Driver
     eyebrow: COMBO // 2 CDs
     tab: PKG::COMBO
-    image: /assets/images/silicon-preorder-combo.png
-    alt: Silicon Fortress and Insane Driver audio CDs
     price: "$35.00"
     button: JYP8YSM95V69A
     option: "COMBO: CD Silicon Fortress + Insane Driver"
@@ -24,8 +22,6 @@ products:
     title: Silicon Fortress
     eyebrow: AUDIO CD
     tab: CD::SILICON
-    image: /assets/images/releases/silicon-fortress.jpg
-    alt: Silicon Fortress cover
     price: "$25.00"
     button: JYP8YSM95V69A
     option: CD Silicon Fortress
@@ -34,8 +30,6 @@ products:
     title: Insane Driver
     eyebrow: AUDIO CD // DEBUT
     tab: CD::DEBUT
-    image: /assets/images/releases/insane-driver.jpg
-    alt: Insane Driver cover
     price: "$22.00"
     button: ACB6SNWZ97592
     albums: [insane-driver]
@@ -60,8 +54,10 @@ products:
 
                 {% if product.badge %}<span class="store-badge" data-store-badge>{{ product.badge }}</span>{% endif %}
 
-                <div class="store-art">
-                    <img src="{{ product.image }}" alt="{{ product.alt }}" decoding="async">
+                <div class="store-art{% if product.albums.size > 1 %} store-art--stack{% endif %}">
+                    {% for slug in product.albums %}{% for album in discography.albums %}{% if album.slug == slug %}
+                    <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover" decoding="async">
+                    {% endif %}{% endfor %}{% endfor %}
                 </div>
 
                 <div class="store-meta">

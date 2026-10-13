@@ -30,7 +30,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | Source branch | `feature/store-cyberpunk` from local `master`. | Repository default branch is `master`. | y |
 | PayPal wiring | Combo and *Silicon Fortress* post to hosted button `JYP8YSM95V69A` with a hidden `on0`/`os0` carrying the exact existing option values; *Insane Driver* posts to hosted button `ACB6SNWZ97592`. | Reuses buttons that already hold the prices; no PayPal changes needed. | y |
 | Displayed prices | $35.00, $25.00, $22.00 USD. | Copied from the current pages; PayPal's hosted buttons stay authoritative. | y |
-| Card art | Combo uses `assets/images/silicon-preorder-combo.png`; singles use `assets/images/releases/<slug>.jpg`. | Combo art already shows both CDs; album covers keep the two singles consistent. | y |
+| Card art | Every card shows the `assets/images/releases/<cover>` image of each album it includes; the combo stacks both covers. | Amended during T2: `silicon-preorder-combo.png` is only 180x120 and blurs at card width; the user chose the stacked 600px covers. | y |
 | Card order | DOM order is Combo, *Silicon Fortress*, *Insane Driver*; at >=992px CSS places *Silicon Fortress* left, Combo centre, *Insane Driver* right. | Combo is first on mobile and central on desktop. | y |
 | Tracklists and year | Rendered at build time from `_data/discography.json` (`silicon-fortress`, `insane-driver`). | Single source of truth already used by the discography page. | y |
 | Brazil route | A Portuguese panel with a "Comprar" link to the existing Die Hard search URL, always visible, plus an English note that it ships only within Brazil. | Removes the broken geo-IP dependency; both audiences see their route. | y |
@@ -59,7 +59,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 3. **STORE-03** — The combo card SHALL contain a PayPal form posting to `https://www.paypal.com/cgi-bin/webscr` with `cmd=_s-xclick`, `hosted_button_id=JYP8YSM95V69A`, `currency_code=USD` and `os0=COMBO: CD Silicon Fortress + Insane Driver`.
 4. **STORE-04** — The *Silicon Fortress* card SHALL contain a PayPal form with `cmd=_s-xclick`, `hosted_button_id=JYP8YSM95V69A`, `currency_code=USD` and `os0=CD Silicon Fortress`.
 5. **STORE-05** — The *Insane Driver* card SHALL contain a PayPal form with `cmd=_s-xclick` and `hosted_button_id=ACB6SNWZ97592`.
-6. **STORE-06** — Each card SHALL show its title, its art image with non-empty `alt` text, and a release-year HUD tag (`2021` for *Silicon Fortress*, `2016` for *Insane Driver*, `2021 + 2016` for the combo).
+6. **STORE-06** — Each card SHALL show its title, one cover image with non-empty `alt` text per included album (`releases/silicon-fortress.jpg` then `releases/insane-driver.jpg` on the combo), and a release-year HUD tag (`2021` for *Silicon Fortress*, `2016` for *Insane Driver*, `2021 + 2016` for the combo).
 7. **STORE-07** — The combo card SHALL carry a visible `BEST DEAL` badge.
 8. **STORE-08** — The store page SHALL display the line `Ships worldwide · PayPal` above the product cards.
 
