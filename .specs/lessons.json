@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 26,
+  "next_id": 27,
   "lessons": [
     {
       "id": "L-001",
@@ -458,6 +458,24 @@
       ],
       "created": "2026-10-11T20:25:55Z",
       "last_seen": "2026-10-11T20:25:55Z"
+    },
+    {
+      "id": "L-026",
+      "key": "surviving_mutant::cover data driven template guards for states the real data never produces with a unit test that renders the template against a fixture",
+      "text": "Cover data-driven template guards for states the real data never produces with a unit test that renders the template against a fixture",
+      "signal": "surviving_mutant",
+      "scope": "templates",
+      "status": "candidate",
+      "features": [
+        "store-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "store/index.html:81 (mutant M17) (templates)"
+      ],
+      "created": "2026-10-13T02:06:09Z",
+      "last_seen": "2026-10-13T02:06:09Z"
     }
   ]
 }

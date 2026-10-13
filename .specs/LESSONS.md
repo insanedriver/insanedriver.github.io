@@ -162,6 +162,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Round 8 R8-A; tests/home/loader.e2e.cjs HOME-24 (523.6ms vs <=500) (tests)
 - last seen: 2026-10-11T20:25:55Z
 
+### L-026 - Cover data-driven template guards for states the real data never produces with a unit test that renders the template against a fixture
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `templates` · harmful: 0
+- features: store-cyberpunk
+- evidence: store/index.html:81 (mutant M17) (templates)
+- last seen: 2026-10-13T02:06:09Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
