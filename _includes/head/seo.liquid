@@ -1,0 +1,29 @@
+{%- comment -%}
+SEO-04/05/06: title, description, robots, absolute canonical, Open Graph and Twitter Card.
+Reads page_title, seo_title (full title override), page_description, page_robots,
+og_image (site path, default: the home hero) and og_type (default: website).
+{%- endcomment -%}
+{%- if seo_title -%}
+{%- assign seo_full_title = seo_title -%}
+{%- else -%}
+{%- assign seo_full_title = page_title | append: ' - Insane Driver Official Website' -%}
+{%- endif -%}
+{%- assign seo_url = 'https://insanedriver.com.br' | append: page.url -%}
+{%- assign seo_image = og_image | default: '/assets/images/home/hero-1280.jpg' -%}
+<title>{{ seo_full_title | escape }}</title>
+<meta name="description" content="{{ page_description | escape }}">
+{%- if page_robots %}
+<meta name="robots" content="{{ page_robots }}">
+{%- endif %}
+<link rel="canonical" href="{{ seo_url }}">
+<meta property="og:type" content="{{ og_type | default: 'website' }}">
+<meta property="og:title" content="{{ seo_full_title | escape }}">
+<meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:url" content="{{ seo_url }}">
+<meta property="og:image" content="https://insanedriver.com.br{{ seo_image }}">
+{%- unless og_image %}
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="853">
+{%- endunless %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@insanedriverid">

@@ -170,9 +170,9 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/head.e2e.cjs` reads every URL from `docs/sitemap.xml` and asserts SEO-04, SEO-05, SEO-06 on each (without JavaScript).
-- [ ] Existing home and discography e2e tests still pass.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/seo/head.e2e.cjs` reads every URL from `docs/sitemap.xml` and asserts SEO-04, SEO-05, SEO-06 on each (without JavaScript).
+- [x] Existing home and discography e2e tests still pass.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: full
