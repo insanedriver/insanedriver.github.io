@@ -60,16 +60,12 @@ for (const [name, selector, expected] of [
   });
 }
 
-// The signup lives in a cross-origin iframe, so the page reports nothing for it.
-// Any form still left in the panel is filled validly and submitted.
-test('BIT-05: the newsletter panel never reports home_newsletter_submit', async ({ page }) => {
-  const forms = panelByTab(page, 'SIGNAL::NEWSLETTER').locator('form');
-  for (const form of await forms.all()) {
-    for (const email of await form.locator('input[type="email"]').all()) await email.fill('fan@example.com');
-    for (const select of await form.locator('select').all()) await select.selectOption({ index: 1 });
-    await form.evaluate(f => f.requestSubmit());
-  }
-  await page.waitForTimeout(300);
+// The signup lives in a cross-origin iframe on /newsletter/; the home panel
+// only links there and reports nothing.
+test('BIT-05: the Join the network link never reports home_newsletter_submit', async ({ page }) => {
+  await holdNavigation(page);
+  await panelByTab(page, 'SIGNAL::NEWSLETTER').getByRole('link', { name: 'Join the network' }).click();
+  expect(await page.evaluate(() => window.__prevented)).toEqual([false]);
   expect(await pushed(page, 'home_newsletter_submit')).toEqual([]);
 });
 

@@ -37,3 +37,33 @@ test('BIT-20: the enrol panel body keeps its background and neon border', async 
     left: '2px solid rgb(0, 243, 255)'
   });
 });
+
+const animated = page => page.locator('.cyber-zone').evaluate(root => {
+  const out = [];
+  for (const el of [root, ...root.querySelectorAll('*')]) {
+    for (const pseudo of [null, '::before', '::after']) {
+      const name = getComputedStyle(el, pseudo).animationName;
+      if (name && name !== 'none') out.push(`${el.className || el.tagName}${pseudo || ''}:${name}`);
+    }
+  }
+  return out;
+});
+
+// browser.newContext skips the shared fixture, so block outside hosts here too.
+const localOnly = context => context.route(url => !['127.0.0.1', 'localhost'].includes(url.hostname), route => route.abort());
+
+test('Edge case: reduced motion stops every newsletter animation that runs by default', async ({ browser }) => {
+  const normalContext = await browser.newContext();
+  await localOnly(normalContext);
+  const normal = await normalContext.newPage();
+  await normal.goto('/newsletter/');
+  expect((await animated(normal)).length).toBeGreaterThan(0);
+  await normalContext.close();
+
+  const context = await browser.newContext({ reducedMotion: 'reduce' });
+  await localOnly(context);
+  const reduced = await context.newPage();
+  await reduced.goto('/newsletter/');
+  expect(await animated(reduced)).toEqual([]);
+  await context.close();
+});
