@@ -32,6 +32,7 @@
   - `d3bf941`: `gray-matter` 4.0.2 is now a direct devDependency.
   - `093ff15`: R9-A. The user chose to centre the cover; HOME-71 amended, test covers 600 and 859px.
   - Gate: build green, unit 91/91, Playwright 356/356.
+- **Round 2, Brazil panel redesign (2026-10-17)**: grilling then spec; STORE-12 amended, STORE-25..31 added. T6 `5b57b09` + fix R2-1 `b118f89`. Verifier PASS on iteration 2 (14/14 mutants killed). Unit 91/91, Playwright 370/370, build green. Candidate lessons L-027/L-028 (visual order must be asserted by rendered position and specified as a direction).
 - **In-progress**: none
 - **Next step**: user review, then push and open the PR. Nothing is pushed.
 - **Blockers**: none

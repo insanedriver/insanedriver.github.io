@@ -1,14 +1,116 @@
 # Store Cyberpunk Validation
 
+## Round 2 (Brazil panel redesign)
+
+**Date**: 2026-10-17
+**Spec**: `.specs/features/store-cyberpunk/spec.md` (amended STORE-12, new STORE-25 to STORE-31)
+**Diff range**: `3c0c3d3..b118f89` (2 commits: T6 `5b57b09`, fix R2-1 `b118f89`)
+**Iteration**: 2 (re-verify after fix commit b118f89)
+**Verifier**: independent sub-agent (author ≠ verifier)
+
+### Validation (round 2): store-cyberpunk Brazil panel - PASS
+
+**Result**: PASS (round 2). All 8 round-2 ACs have spec-anchored evidence, STORE-13/18/19/20 still hold, and the sensor killed 14/14 non-equivalent mutants. Iteration 1 found one gap (M13, covers drawn in reverse order). Commit `b118f89` amends STORE-26 to "from left to right" and asserts the rendered order at `tests/store/theme.e2e.cjs:152`; the re-run of M13 is killed. Fix R2-1 is resolved.
+
+#### Iteration 2 (re-verify of b118f89)
+
+- **Fix diff** (`5b57b09..b118f89`): `spec.md` STORE-26 gains "from left to right"; `tests/store/theme.e2e.cjs:132` the `brazil` helper also returns each image's `src`; `:145` STORE-26 test renamed; `:151-152` new assertion `left('silicon-fortress')` `toBeLessThan(left('insane-driver'))` at 375 and 1280px. The existing `toHaveLength(2)` and 96px width assertions are unchanged; no other test is touched, removed or loosened.
+- **M13 re-run**: killed. `flex-direction: row-reverse` on `.store-brazil-covers` (`less/store.less:522`, confirmed in the compiled CSS) fails `tests/store/theme.e2e.cjs:152` at 375 and 1280px (2 failed, 46 passed).
+- **Sanity re-runs**: M7 (cover width 96 → 110px, `less/store.less:528`) killed by `theme.e2e.cjs:150` at 375 and 1280px; M8 (link `min-height` 56 → 40px, `less/store.less:510`) killed by `theme.e2e.cjs:160` at 375px.
+- **Isolation**: fresh detached worktree at `b118f89` in the session scratchpad, `node_modules` symlinked, `npm run less:build` per mutation, one Playwright run at a time. Worktree removed; real-tree `git status --porcelain` matched the pre-sensor baseline after the sensor and again after the gate.
+
+#### Iteration 1 (5b57b09) - kept for history
+
+**Iteration 1 outcome**: not passed. All 8 round-2 ACs have spec-anchored evidence and STORE-13/18/19/20 still hold, but 1 of 14 non-equivalent sensor mutants survived: the covers can be drawn in reverse order (Insane Driver left of Silicon Fortress) and every test still passes. STORE-26 says "silicon-fortress.jpg then insane-driver.jpg", and the tests check that order only in the DOM. One fix task, minor severity.
+
+### Task completion
+
+| Task | Status | Notes |
+| ---- | ------ | ----- |
+| T6 | ✅ Done | 5b57b09; gate green |
+| R2-1 | ✅ Done | b118f89; M13 now killed |
+
+### Spec-anchored acceptance criteria (round 2)
+
+| AC | Spec-defined outcome | `file:line` + assertion | Result |
+| -- | -------------------- | ----------------------- | ------ |
+| STORE-12 (amended) | Panel shown, placed after the product cards, heading `No Brasil? Compre pela Die Hard 🇧🇷`, link named `Comprar na Die Hard` to the exact Die Hard URL | `tests/store/markup.e2e.cjs:141` `expect(br).toBeVisible()`; `:142` `toHaveText('No Brasil? Compre pela Die Hard 🇧🇷')`; `:143` `getByRole('link', { name: 'Comprar na Die Hard', exact: true })`; `:144` `toHaveAttribute('href', 'https://www.diehard.com.br/...pesquisa=Insane+Driver')`; `:151` last card `compareDocumentPosition(panel) & FOLLOWING` → `toBe(true)` | ✅ PASS |
+| STORE-13 | English note says Die Hard ships only within Brazil and points international buyers to PayPal | `tests/store/markup.e2e.cjs:193-195` `toBeVisible()`, `toContainText('ships only within Brazil')`, `toContainText('PayPal')` | ✅ PASS (still holds) |
+| STORE-25 | Line `Pague em reais · Pix ou cartão · Envio para todo o Brasil`, between heading and link | `tests/store/markup.e2e.cjs:158` `toHaveText('Pague em reais · Pix ou cartão · Envio para todo o Brasil')`; `:164` heading→benefit→link DOM order `toEqual([true, true])` | ✅ PASS (see precision note 2) |
+| STORE-26 | Two covers, non-empty `alt`, `silicon-fortress.jpg` then `insane-driver.jpg` from left to right, each 96px wide | `tests/store/markup.e2e.cjs:170` src list `toEqual(['/assets/images/releases/silicon-fortress.jpg', '/assets/images/releases/insane-driver.jpg'])`; `:173` `alt.trim().length` `toBeGreaterThan(0)`; `tests/store/theme.e2e.cjs:149` `toHaveLength(2)`; `:150` `Math.abs(img.width - 96)` `toBeLessThanOrEqual(0.5)`; `:152` `left('silicon-fortress')` `toBeLessThan(left('insane-driver'))` at 375 and 1280px | ✅ PASS (iteration 2; spec now says "from left to right", rendered order asserted, M13 killed) |
+| STORE-27 | Link has `target="_blank"` and `rel` containing `noopener` | `tests/store/markup.e2e.cjs:180` `toHaveAttribute('target', '_blank')`; `:181` `rel.split(/\s+/)` `toContain('noopener')` | ✅ PASS |
+| STORE-28 | Link at least 56px tall | `tests/store/theme.e2e.cjs:160` `link.height` `toBeGreaterThanOrEqual(56)` at 375, 768, 1280px | ✅ PASS |
+| STORE-29 | ≥768px: heading, benefit, note in the left column; covers above the link in the right column; link ≥280px wide | `tests/store/theme.e2e.cjs:170` each text part `right` `toBeLessThanOrEqual(min(covers.left, link.left))`; `:171` `covers.bottom` `toBeLessThanOrEqual(link.top)`; `:172` `link.width` `toBeGreaterThanOrEqual(280)` at 768 and 1280px | ✅ PASS |
+| STORE-30 | <768px: stack heading, benefit, covers, link, note; link as wide as the panel content ±1px | `tests/store/theme.e2e.cjs:182` four vertical orderings `toEqual([true, true, true, true])`; `:183` `Math.abs(link.width - content)` `toBeLessThanOrEqual(1)` at 320, 375, 767px | ✅ PASS |
+| STORE-31 | Panel `lang="pt-BR"`, note `lang="en"` | `tests/store/markup.e2e.cjs:186` `toHaveAttribute('lang', 'pt-BR')`; `:187` `toHaveAttribute('lang', 'en')` | ✅ PASS |
+| STORE-18 | No element inside `[data-store]` past the viewport's right edge, 320 to 1440px | `tests/store/theme.e2e.cjs:81-92` (loop over 320/375/768/1024/1440) overflowing list `toEqual([])`; covers the new 600px images | ✅ PASS (still holds) |
+| STORE-19 | Reduced motion sets `animation: none` on every animated store element | `tests/store/theme.e2e.cjs:96-105` `animated(reduced)` `toEqual([])` over all of `[data-store]`; the diff adds no animation | ✅ PASS (still holds) |
+| STORE-20 | Focused buy button shows a visible outline | `tests/store/theme.e2e.cjs:111` selector list includes `[data-store-brazil] .store-buy`; `:121-123` outline style not `none`, width ≥2, color `rgb(252, 238, 10)` | ✅ PASS (still holds) |
+
+**Spec-precision notes**
+
+1. Resolved in iteration 2 (b118f89). Iteration 1 note: STORE-26 "`silicon-fortress.jpg` then `insane-driver.jpg`" did not say whether "then" is source order or left-to-right rendering. The tests take the source-order reading (`tests/store/markup.e2e.cjs:170`); a CSS reversal (M13) survives. Gap: amend the AC to "left to right" and assert it.
+2. STORE-25 "between the heading and the link" can only mean reading order, since at ≥768px the link sits in the right column. The DOM-order check (`tests/store/markup.e2e.cjs:164`) is the right reading, and STORE-30 checks the rendered order below 768px. No action.
+
+### Discrimination sensor (round 2)
+
+Scratch: detached worktree of `5b57b09` under the session scratchpad, `node_modules` symlinked, `npm run less:build` after each mutation, `npx playwright test tests/store/` (48 tests, baseline 48 passed). One mutant at a time on port 4178. Worktree removed afterwards; real-tree `git status --porcelain` matched the pre-sensor baseline.
+
+| # | File | Mutation | Killed? | Killed by |
+| - | ---- | -------- | ------- | --------- |
+| M1 | `store/index.html:107` | Heading `Compre pela` → `Compre na` | ✅ Killed | `markup.e2e.cjs:138` STORE-12 |
+| M2 | `store/index.html:108` | Benefit `Pix ou cartão` → `Pix ou boleto` | ✅ Killed | `markup.e2e.cjs:154` STORE-25 |
+| M3 | `store/index.html:115` | Drop `target="_blank"` | ✅ Killed | `markup.e2e.cjs:177` STORE-27 |
+| M4 | `store/index.html:115` | `rel="noopener"` → `rel="noreferrer"` | ✅ Killed | `markup.e2e.cjs:177` STORE-27 |
+| M5 | `store/index.html:37` | `brazil_albums` order swapped | ✅ Killed | `markup.e2e.cjs:167` STORE-26 |
+| M6 | `store/index.html:117` | Drop `lang="en"` from the note | ✅ Killed | `markup.e2e.cjs:184` STORE-31 |
+| M7 | `less/store.less:528` | Cover `width: 96px` → `110px` | ✅ Killed | `theme.e2e.cjs:145` STORE-26 (375, 1280) |
+| M8 | `less/store.less:510` | Link `min-height: 56px` → `40px` | ✅ Killed | `theme.e2e.cjs:155` STORE-28 (375) |
+| M9 | `less/store.less:484` | Panel grid breakpoint 768 → 800px | ✅ Killed | `theme.e2e.cjs:163` STORE-29 (768) |
+| M10 | `less/store.less:472` | Mobile areas: note before media | ✅ Killed | `theme.e2e.cjs:175` STORE-30 (320, 375, 767) |
+| M11 | `less/store.less:486` | Right column `minmax(280px, 320px)` → `minmax(200px, 240px)` | ✅ Killed | `theme.e2e.cjs:163` STORE-29 (768, 1280) |
+| M12 | `less/store.less:514` | Mobile link `align-self: flex-start` (equivalent: `width: 100%` still applies) | n/a, equivalent | replaced by M12b |
+| M12b | `less/store.less:514` | Mobile link `width: auto; align-self: flex-start` | ✅ Killed | `theme.e2e.cjs:175` STORE-30 (767) |
+| M13 | `less/store.less:522` | Covers `flex-direction: row-reverse` (Insane Driver drawn left) | ❌ Survived in iteration 1 (48/48 passed); ✅ Killed in iteration 2 | `theme.e2e.cjs:152` STORE-26 (375, 1280) |
+| M14 | `less/store.less:487` | Desktop areas: media column moved left | ✅ Killed | `theme.e2e.cjs:163` STORE-29 (768, 1280) |
+
+**Sensor outcome**: iteration 1 killed 13/14 (M13 survived); iteration 2 re-ran M13 (killed) plus M7 and M8 (killed). Final: 14/14 non-equivalent mutants killed (1 equivalent discarded). Line numbers in the table refer to `5b57b09`; the fix did not touch product files.
+
+### Gate (round 2)
+
+Iteration 2 (at `b118f89`): `npm run build && npm test` in the real tree, exit 0; unit 91 pass / 0 fail / 0 skipped; Playwright 370 passed / 0 failed / 0 skipped (4.7 min). Matches the expected baseline. Real-tree porcelain unchanged.
+
+Iteration 1 (at `5b57b09`):
+
+- **Command**: `npm run build && npm test` (real tree, exit 0)
+- **Unit**: 91 tests, 91 pass, 0 fail, 0 skipped
+- **Playwright**: 370 passed, 0 failed, 0 skipped
+- Matches the expected baseline (unit 91, Playwright 370). Real-tree porcelain unchanged by the gate.
+
+### Code quality (round 2)
+
+Changes stay inside `store/index.html`, `less/store.less`, the compiled CSS and the two store test files; covers reuse the catalog loop pattern of the product cards. Every new test names its AC. No scope creep found.
+
+### Fix plans (round 2)
+
+**Fix R2-1: assert the rendered cover order (STORE-26)** - Minor - ✅ Resolved by `b118f89` (iteration 2: M13 killed, gate green)
+- **Root cause**: STORE-26 order is asserted only on DOM `src` order (`tests/store/markup.e2e.cjs:170`). A CSS reversal of `.store-brazil-covers` draws Insane Driver first and passes every test.
+- **Fix task**: amend STORE-26 to read "left to right"; in `tests/store/theme.e2e.cjs` (the `brazil` helper, line 128) also return each image's `src`, and in the STORE-26 test (line 145) assert the image with `silicon-fortress.jpg` has a smaller `left` than the one with `insane-driver.jpg` at 375 and 1280px.
+- **Done when**: re-running M13 (`flex-direction: row-reverse` on `.store-brazil-covers`) fails the STORE-26 test; gate green.
+
+---
+
+## Round 1
+
 **Date**: 2026-10-12
 **Spec**: `.specs/features/store-cyberpunk/spec.md`
 **Diff range**: `master..d974a54` (91415d4..d974a54, 7 commits)
 **Iteration**: 2 (re-verify after fix commit d974a54)
 **Verifier**: independent sub-agent (author ≠ verifier)
 
-## Validation: store-cyberpunk - PASS
+### Round 1 verdict: store-cyberpunk - PASS
 
-**Result**: PASS - all 24 ACs pass with spec-anchored evidence, both edge cases now have tests, and the sensor killed 16/16 mutants. Iteration 1 found one gap (an untested edge case, mutant M17). Commit d974a54 closes it, and the re-run of M17 is killed.
+**Round 1 outcome**: PASS - all 24 ACs pass with spec-anchored evidence, both edge cases now have tests, and the sensor killed 16/16 mutants. Iteration 1 found one gap (an untested edge case, mutant M17). Commit d974a54 closes it, and the re-run of M17 is killed.
 
 ---
 
@@ -71,7 +173,7 @@ Precision notes (not gaps):
 ## Gate Check
 
 - **Gate command**: `npm run build && npm test` (Build gate from tasks.md)
-- **Result**: exit 0 - unit 90 passed / 0 failed / 0 skipped; Playwright 336 passed / 0 failed / 0 skipped (4.6 min)
+- **Outcome**: exit 0 - unit 90 passed / 0 failed / 0 skipped; Playwright 336 passed / 0 failed / 0 skipped (4.6 min)
 - **Iteration 2**: `npm run test:unit` gives 91 passed / 0 failed / 0 skipped (+1 test: `tests/store/store-template.test.cjs`). Commit d974a54 changes only a test and the spec, not product code, so the iteration-1 Playwright result above still stands.
 - **Test count delta**: +38 new tests (+37 in iteration 1, +1 in iteration 2) (unit +3: `tests/store/store-data.test.cjs`; e2e +34: markup 16, redirect 4, theme 14). No tests were deleted.
 - **Changed existing assertions**: `tests/discography/discography-data.test.cjs:73` and `tests/discography/markup.e2e.cjs:108`. Both swap `/preorder/` for `/store/`. This follows the requirement change in STORE-23 and does not weaken either test.
@@ -103,7 +205,7 @@ Scratch: `git worktree add --detach <scratchpad>/wt HEAD`, with `node_modules` s
 | M17 | `store/index.html:81` | empty-tracks guard `and album.tracks.size > 0` removed | Iteration 1: ❌ Survived. Iteration 2 (fresh scratch worktree at d974a54): ✅ Killed by `tests/store/store-template.test.cjs:16` |
 
 **Sensor depth**: expanded (≥5 mutations; this is the checkout/payment path)
-**Sensor result**: 16/16 killed (iteration 2). Scratch worktree removed and real-tree porcelain matches the baseline.
+**Sensor outcome**: 16/16 killed (iteration 2). Scratch worktree removed and real-tree porcelain matches the baseline.
 
 ---
 

@@ -168,6 +168,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: store/index.html:81 (mutant M17) (templates)
 - last seen: 2026-10-13T02:06:09Z
 
+### L-027 - When an AC fixes the order of visual items, assert their rendered positions in the browser, not only their DOM order, since CSS can reorder them.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: store-cyberpunk
+- evidence: M13 less/store.less:522; tests/store/markup.e2e.cjs:170 (tests)
+- last seen: 2026-10-18T01:05:28Z
+
+### L-028 - State the order of visual items as a direction such as left to right or top to bottom, never as a bare 'then'.
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: store-cyberpunk
+- evidence: STORE-26 spec.md:106 (spec-writing)
+- last seen: 2026-10-18T01:05:28Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

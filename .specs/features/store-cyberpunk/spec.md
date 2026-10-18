@@ -172,7 +172,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-09 | P1: Read what is on each CD | T1 | Implemented |
 | STORE-10 | P1: Read what is on each CD | T1 | Implemented |
 | STORE-11 | P1: Read what is on each CD | T1 | Implemented |
-| STORE-12 | P1: Buy from Brazil | T1, T6 | Implemented (amended) |
+| STORE-12 | P1: Buy from Brazil | T1, T6 | Verified (amended) |
 | STORE-13 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-14 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-15 | P1: Cyberpunk look | T2 | Implemented |
@@ -185,13 +185,13 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-22 | P2: Old pre-order links | T3 | Implemented |
 | STORE-23 | P2: Old pre-order links | T5 | Implemented |
 | STORE-24 | P2: Old pre-order links | T4 | Implemented |
-| STORE-25 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-26 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-27 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-28 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-29 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-30 | P1: Buy from Brazil | T6 | Implemented |
-| STORE-31 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-25 | P1: Buy from Brazil | T6 | Verified |
+| STORE-26 | P1: Buy from Brazil | T6 | Verified |
+| STORE-27 | P1: Buy from Brazil | T6 | Verified |
+| STORE-28 | P1: Buy from Brazil | T6 | Verified |
+| STORE-29 | P1: Buy from Brazil | T6 | Verified |
+| STORE-30 | P1: Buy from Brazil | T6 | Verified |
+| STORE-31 | P1: Buy from Brazil | T6 | Verified |
 
 **Coverage:** 31 total, 31 mapped to tasks (T1-T6), 0 unmapped. Round 2 (T6) redesigns the Brazil panel: STORE-12 amended, STORE-25 to STORE-31 added. Edge cases: both covered (no-JS in `tests/store/markup.e2e.cjs`, empty tracks in `tests/store/store-template.test.cjs`).
 

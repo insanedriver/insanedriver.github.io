@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 27,
+  "next_id": 29,
   "lessons": [
     {
       "id": "L-001",
@@ -476,6 +476,42 @@
       ],
       "created": "2026-10-13T02:06:09Z",
       "last_seen": "2026-10-13T02:06:09Z"
+    },
+    {
+      "id": "L-027",
+      "key": "surviving_mutant::when an ac fixes the order of visual items assert their rendered positions in the browser not only their dom order since css can reorder them",
+      "text": "When an AC fixes the order of visual items, assert their rendered positions in the browser, not only their DOM order, since CSS can reorder them.",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "store-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "M13 less/store.less:522; tests/store/markup.e2e.cjs:170 (tests)"
+      ],
+      "created": "2026-10-18T01:05:28Z",
+      "last_seen": "2026-10-18T01:05:28Z"
+    },
+    {
+      "id": "L-028",
+      "key": "spec_precision_gap::state the order of visual items as a direction such as left to right or top to bottom never as a bare then",
+      "text": "State the order of visual items as a direction such as left to right or top to bottom, never as a bare 'then'.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "store-cyberpunk"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "STORE-26 spec.md:106 (spec-writing)"
+      ],
+      "created": "2026-10-18T01:05:28Z",
+      "last_seen": "2026-10-18T01:05:28Z"
     }
   ]
 }
