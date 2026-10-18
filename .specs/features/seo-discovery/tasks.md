@@ -145,8 +145,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] A unit test parses built `docs/sitemap.xml`: valid XML, absolute `<loc>` ending in `/`, exactly the 9 current indexable URLs, none of the excluded ones.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] A unit test parses built `docs/sitemap.xml`: valid XML, absolute `<loc>` ending in `/`, exactly the 9 current indexable URLs, none of the excluded ones.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build

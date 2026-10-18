@@ -2,6 +2,7 @@ const htmlmin = require("html-minifier");
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { selectSitemapEntries } = require("./lib/sitemap");
 
 // Cache busting: appends ?v=<content hash> to local /assets/*.css|js references,
 // so browsers refetch a file exactly when its content changes.
@@ -54,6 +55,9 @@ module.exports = function (eleventyConfig) {
 
         return content;
     });
+
+    // SEO-01/02: the pages listed in sitemap.xml
+    eleventyConfig.addFilter("sitemapEntries", selectSitemapEntries);
 
     // We simply tell eleventy to pass a copy of our assets folder
     eleventyConfig.addPassthroughCopy("./assets");

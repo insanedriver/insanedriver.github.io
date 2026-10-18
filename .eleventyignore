@@ -3,14 +3,17 @@ google*
 .github/
 .git/
 node_modules/
+.agent/
 .agents/
 .claude/
 .codex/
 .cursor/
+.gemini/
 .specs/
 .windsurf/
 tests/
 scripts/
 lib/
+less/README.md
 test-results/
 playwright-report/
