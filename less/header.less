@@ -23,6 +23,12 @@
     }
 }
 
+// Bootstrap's 750px .container sits inside the collapsed-nav padding and
+// overflows the viewport between 768 and 991px.
+@media (min-width: 768px) and (max-width: 991px) {
+    .menu-center { width: auto; }
+}
+
 .navbar-inverse .navbar-nav > li > a {
     color: #C3C3C3;
 }

@@ -2,58 +2,121 @@
 layout: base.html
 
 page_title: Store
-page_description: Information on how to purchase songs or audio CDs from the band.
+page_description: Buy Insane Driver audio CDs - the Silicon Fortress + Insane Driver combo, Silicon Fortress or the Insane Driver debut - shipped worldwide via PayPal.
 page_robots: index, follow
 page_id: store
 jspath: js/insane
 header_img_path: header_7.jpg
+
+products:
+  - id: combo
+    title: Silicon Fortress + Insane Driver
+    eyebrow: COMBO // 2 CDs
+    tab: PKG::COMBO
+    price: "$35.00"
+    button: JYP8YSM95V69A
+    option: "COMBO: CD Silicon Fortress + Insane Driver"
+    badge: BEST DEAL
+    albums: [silicon-fortress, insane-driver]
+  - id: silicon-fortress
+    title: Silicon Fortress
+    eyebrow: AUDIO CD
+    tab: CD::SILICON
+    price: "$25.00"
+    button: JYP8YSM95V69A
+    option: CD Silicon Fortress
+    albums: [silicon-fortress]
+  - id: insane-driver
+    title: Insane Driver
+    eyebrow: AUDIO CD // DEBUT
+    tab: CD::DEBUT
+    price: "$22.00"
+    button: ACB6SNWZ97592
+    albums: [insane-driver]
+
+brazil_albums: [silicon-fortress, insane-driver]
 ---
-<div class="container">
+<div class="store-shell cyber-zone" data-store>
+    <div class="cyber-zone-inner">
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <header class="store-heading">
+        <div><span class="store-eyebrow">INSANE DRIVER / CD STORE</span><h2>Get the CDs<span class="store-accent">.</span></h2></div>
+        <p class="store-shipping" data-store-shipping>Ships worldwide · PayPal</p>
+    </header>
 
-            <img src="/assets/images/buy_audio_cd.jpg" class="img-responsive text-center" alt="Buy now our audio CD!"
-                style="margin: 0 auto;">
+    <div class="store-grid">
+        {% for product in products %}
+        <article class="cyber-panel store-card store-card--{{ product.id }}" data-store-product="{{ product.id }}" aria-labelledby="store-title-{{ product.id }}">
+            <div class="cyber-panel-tab"><span class="tab-icon"></span> {{ product.tab }}</div>
+            <div class="cyber-panel-body" data-hud="SKU.{{ product.id | upcase }} // IN STOCK_">
+                <span class="top-accent"></span>
+                <span class="corner-tl"></span>
+                <span class="corner-tr"></span>
+                <span class="corner-bl"></span>
 
-            <div class="col-sm-4 col-sm-offset-4" style="margin-top: 20px;">
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"
-                    style="text-align: center;">
+                {% if product.badge %}<span class="store-badge" data-store-badge>{{ product.badge }}</span>{% endif %}
+
+                <div class="store-art{% if product.albums.size > 1 %} store-art--stack{% endif %}">
+                    {% for slug in product.albums %}{% for album in discography.albums %}{% if album.slug == slug %}
+                    <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover" decoding="async">
+                    {% endif %}{% endfor %}{% endfor %}
+                </div>
+
+                <div class="store-meta">
+                    <span class="store-eyebrow">{{ product.eyebrow }}</span>
+                    <span class="store-year" data-store-year>{% assign sep = '' %}{% for slug in product.albums %}{% for album in discography.albums %}{% if album.slug == slug %}{{ sep }}{{ album.year }}{% assign sep = ' + ' %}{% endif %}{% endfor %}{% endfor %}</span>
+                </div>
+                <h3 id="store-title-{{ product.id }}" data-store-title>{{ product.title }}</h3>
+                <p class="store-price" data-store-price>{{ product.price }} <small>USD</small></p>
+
+                <form class="store-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="ACB6SNWZ97592">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif"
-                        name="submit" alt="PayPal - The safer, easier way to pay online!" style="border:0 none">
-                    <img alt="" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1"
-                        style="border: 0 none">
+                    <input type="hidden" name="hosted_button_id" value="{{ product.button }}">
+                    {% if product.option %}
+                    <input type="hidden" name="on0" value="Nome do menu suspenso">
+                    <input type="hidden" name="os0" value="{{ product.option }}">
+                    <input type="hidden" name="currency_code" value="USD">
+                    {% endif %}
+                    <button type="submit" class="store-buy"><i class="fa fa-paypal" aria-hidden="true"></i> Buy with PayPal</button>
                 </form>
-            </div>
 
-            <div class="col-md-12">
-                <h4 style="margin-top: 40px">
-                    <b></b>
-                    <b></b>Order the Insane Driver debut Audio&nbsp;CD!
-                    <p></p>
-                </h4>
-                <ul>
-                    <li>Price: $22.00</li>
-                    <li>Release date: Feb 02, 2016</li>
-                </ul>
-                <p>Tracklisting:</p>
-                <ol>
-                    <li>Endless Path</li>
-                    <li>The Edge of Life</li>
-                    <li>Firstly My Breakfast</li>
-                    <li>Tide of Fears</li>
-                    <li>Buried Thoughts</li>
-                    <li>Fallen Dreams</li>
-                    <li>Change</li>
-                    <li>Today Is Sunday</li>
-                    <li>Faithless Breath</li>
-                    <li>Make Decisions</li>
-                    <li>Tears of Blood</li>
-                </ol>
+                {% for slug in product.albums %}{% for album in discography.albums %}{% if album.slug == slug and album.tracks.size > 0 %}
+                <details class="store-tracklist" data-store-tracklist="{{ album.slug }}">
+                    <summary><span class="store-eyebrow">TRACKLIST</span> <span class="store-tracklist-name">// {{ album.title | escape }}</span></summary>
+                    <ol class="store-tracks">
+                        {% for track in album.tracks %}
+                        <li class="store-track"><span class="store-track-pos">{% if track.position < 10 %}0{% endif %}{{ track.position }}</span> <span data-store-track>{{ track.title | escape }}</span></li>
+                        {% endfor %}
+                    </ol>
+                </details>
+                {% endif %}{% endfor %}{% endfor %}
             </div>
+        </article>
+        {% endfor %}
+    </div>
 
+    <div class="cyber-separator"></div>
+
+    <section class="cyber-panel store-brazil" data-store-brazil lang="pt-BR" aria-labelledby="store-brazil-title">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> NODE::BRASIL</div>
+        <div class="cyber-panel-body" data-hud="REGION.BR // DIE HARD_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <h3 id="store-brazil-title">No Brasil? Compre pela Die Hard 🇧🇷</h3>
+            <p class="store-brazil-benefit" data-store-brazil-benefit>Pague em reais · Pix ou cartão · Envio para todo o Brasil</p>
+            <div class="store-brazil-media">
+                <div class="store-brazil-covers">
+                    {% for slug in brazil_albums %}{% for album in discography.albums %}{% if album.slug == slug %}
+                    <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover" decoding="async" loading="lazy">
+                    {% endif %}{% endfor %}{% endfor %}
+                </div>
+                <a class="store-buy store-buy--brazil" href="https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&amp;estoque=estoque&amp;cod_tipo=0&amp;pesquisa=Insane+Driver" target="_blank" rel="noopener"><span>Comprar na <span class="store-buy-keep">Die Hard <span aria-hidden="true">↗</span></span></span></a>
+            </div>
+            <p class="store-brazil-note" data-store-brazil-note lang="en">Die Hard ships only within Brazil. Outside Brazil? Order with PayPal above.</p>
         </div>
+    </section>
+
     </div>
 </div>

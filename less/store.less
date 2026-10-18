@@ -1,0 +1,555 @@
+#page_store {
+    /* ═══════════════════════════════════════════════════════════
+       CYBERPUNK STORE PANELS
+       Palette: #00f3ff (cyan neon), #005f8c (deep blue), #ff00ea (magenta),
+       #fcee0a (yellow). Panel chrome mirrors less/discography.less.
+    ═══════════════════════════════════════════════════════════ */
+
+    @keyframes store-noise-drift {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+
+    @keyframes store-border-flicker {
+        0%   { border-color: #00f3ff; }
+        5%   { border-color: transparent; }
+        10%  { border-color: #00f3ff; }
+        15%  { border-color: transparent; }
+        20%  { border-color: #00f3ff; }
+        100% { border-color: #00f3ff; }
+    }
+
+    @keyframes store-panel-glow {
+        0%   { box-shadow: 0 0 5px rgba(0,243,255,0.15), inset 0 0 5px rgba(0,243,255,0.05); }
+        50%  { box-shadow: 0 0 20px rgba(0,243,255,0.4), inset 0 0 15px rgba(0,243,255,0.1); }
+        100% { box-shadow: 0 0 5px rgba(0,243,255,0.15), inset 0 0 5px rgba(0,243,255,0.05); }
+    }
+
+    @keyframes store-blink-dot {
+        0%, 100% { opacity: 1; background: #ffffff; }
+        50%      { opacity: 0.3; background: #00f3ff; }
+    }
+
+    @keyframes store-blink-text {
+        0%   { opacity: 1; }
+        33%  { opacity: 0.2; }
+        66%  { opacity: 0.8; }
+        100% { opacity: 1; }
+    }
+
+    // ── Core Cyber Zone ──
+
+    .cyber-zone {
+        position: relative;
+        background-color: transparent;
+        // `clip` instead of `hidden`: a scroll container would strand the page
+        // on any in-page anchor (see DISC-48). `hidden` is the fallback.
+        overflow: hidden;
+        overflow: clip;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+            animation: store-noise-drift 15s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+    }
+
+    .cyber-zone-inner {
+        position: relative;
+        // Clear the scanline overlay (z-index 100) so it does not dim the cards.
+        z-index: 101;
+        // less/contact.less declares an unscoped `.cyber-zone-inner { max-width: 56rem }`
+        // that leaks site-wide; without this the panels would be capped at 560px.
+        width: 100%;
+        max-width: 100%;
+    }
+
+    // ── Panel Components ──
+
+    .cyber-panel {
+        position: relative;
+        margin-bottom: 2.5rem;
+    }
+
+    .cyber-panel-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #00f3ff 0%, #007a99 50%, #004d66 100%);
+        border: 2px solid #00f3ff;
+        border-bottom: none;
+        clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%);
+        padding: 0.4rem 2.5rem 0.4rem 1rem;
+        color: #0a0a0a;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        box-shadow: 0 -2px 10px rgba(0,243,255,0.3);
+
+        @media (min-width: 768px) { font-size: 1rem; }
+
+        .tab-icon {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: store-blink-dot 2s infinite;
+        }
+    }
+
+    .cyber-panel-body {
+        // less/contact.less declares an unscoped flex `.cyber-panel-body`.
+        display: block;
+        min-height: 0;
+        background-color: rgba(10, 10, 10, 0.85);
+        background-image: linear-gradient(rgba(0,243,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,243,255,0.05) 1px, transparent 1px);
+        background-size: 25px 25px;
+        border: 2px solid #00f3ff;
+        padding: 2rem 1.5rem 2.5rem;
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+        animation: store-panel-glow 5s ease-in-out infinite, store-border-flicker 8s infinite;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            pointer-events: none;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+        }
+
+        &::after {
+            content: attr(data-hud);
+            position: absolute;
+            bottom: 8px;
+            right: 30px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(0, 243, 255, 0.6);
+            letter-spacing: 3px;
+            pointer-events: none;
+            animation: store-blink-text 3s steps(3, start) infinite;
+        }
+
+        .corner-tl, .corner-tr, .corner-bl {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 6px; left: 6px;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+        }
+
+        .corner-tr {
+            top: 6px; right: 6px;
+            border-top: 2px solid #00f3ff;
+            border-right: 2px solid #00f3ff;
+        }
+
+        .corner-bl {
+            bottom: 0; right: 0;
+            width: 25px; height: 25px;
+            border: none;
+            background-color: #005f8c;
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+        }
+
+        .top-accent {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+        }
+    }
+
+    .cyber-separator {
+        width: 100%;
+        height: 20px;
+        position: relative;
+        margin-bottom: 2.5rem;
+        overflow: hidden;
+    }
+
+    // ── Shell ──
+
+    .store-shell {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px 16px 60px;
+        color: #e9edf2;
+        font: 18px/1.5 Rajdhani, sans-serif;
+
+        @media (min-width: 768px) { padding: 24px 32px 60px; }
+        @media (min-width: 1600px) { padding: 28px 48px 72px; }
+    }
+
+    .store-shell a, .store-shell button, .store-shell summary {
+        &:focus-visible { outline: 3px solid #fcee0a; outline-offset: 4px; }
+    }
+
+    .store-heading {
+        padding: 18px 20px;
+        background: rgba(10, 10, 10, 0.85);
+        border-left: 3px solid #00f3ff;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 8px 24px;
+        margin-bottom: 2rem;
+
+        h2 {
+            margin: 4px 0 0;
+            color: #fff;
+            font: 700 2.4rem/1 Rajdhani, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    }
+
+    .store-eyebrow {
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .store-accent { color: #ff00ea; }
+
+    .store-shipping {
+        margin: 0;
+        padding: 6px 14px;
+        border: 1px solid #00f3ff;
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    // ── Product grid ──
+
+    // DOM order is combo first (mobile); from 992px the combo moves to the centre.
+    .store-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.5rem;
+
+        @media (min-width: 992px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+
+            .store-card--silicon-fortress { order: 1; }
+            .store-card--combo { order: 2; }
+            .store-card--insane-driver { order: 3; }
+        }
+    }
+
+    .store-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        margin-bottom: 0;
+
+        // less/contact.less leaks an unscoped centred flex `.cyber-panel-body`;
+        // stretch and left-align so the art and buttons take the full width.
+        .cyber-panel-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            flex: 1;
+            gap: 10px;
+            text-align: left;
+        }
+
+        h3 {
+            margin: 0;
+            color: #fff;
+            font: 700 1.6rem/1.15 Rajdhani, sans-serif;
+            text-transform: uppercase;
+            overflow-wrap: anywhere;
+        }
+    }
+
+    .store-card--combo .cyber-panel-tab {
+        background: linear-gradient(135deg, #ff00ea 0%, #a1009a 50%, #5c0058 100%);
+        border-color: #ff00ea;
+        box-shadow: 0 -2px 10px rgba(255, 0, 234, 0.35);
+    }
+
+    .store-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 2;
+        padding: 4px 12px;
+        background: #ff00ea;
+        color: #050505;
+        font: 700 13px/1.4 'Share Tech Mono', monospace;
+        letter-spacing: 3px;
+        box-shadow: 0 0 14px rgba(255, 0, 234, 0.6);
+        animation: store-badge-pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes store-badge-pulse {
+        0%, 100% { box-shadow: 0 0 6px rgba(255, 0, 234, 0.4); }
+        50%      { box-shadow: 0 0 18px rgba(255, 0, 234, 0.9); }
+    }
+
+    // ── Art ──
+
+    .store-art {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        margin: 8px 0 6px;
+        background: #050a10;
+        border: 1px solid #294149;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    // Combo: the two covers as a fanned stack of CDs.
+    .store-art--stack {
+        img {
+            position: absolute;
+            width: 68%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            border: 2px solid #00f3ff;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        img:first-child { top: 8%; left: 6%; transform: rotate(-6deg); z-index: 1; }
+        img:last-child { bottom: 8%; right: 6%; transform: rotate(5deg); z-index: 2; border-color: #ff00ea; }
+    }
+
+    .store-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .store-year {
+        color: #9cbbc2;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .store-price {
+        margin: 0;
+        color: #fcee0a;
+        font: 2rem/1.1 'Share Tech Mono', monospace;
+        text-shadow: 0 0 10px rgba(252, 238, 10, 0.35);
+
+        small { font-size: 0.9rem; letter-spacing: 2px; color: #9cbbc2; }
+    }
+
+    // ── Buy buttons ──
+
+    .store-form { margin: 4px 0 6px; }
+
+    .store-buy {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        padding: 10px 22px;
+        background: #fcee0a;
+        border: 1px solid #fcee0a;
+        color: #050505;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 16px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+        transition: background .2s, color .2s;
+
+        &:hover, &:focus-visible {
+            background: transparent;
+            color: #fcee0a;
+            text-decoration: none;
+        }
+    }
+
+    // ── Tracklist ──
+
+    .store-tracklist {
+        border-top: 1px solid #294149;
+        padding-top: 10px;
+
+        summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+
+            &::-webkit-details-marker { display: none; }
+            &::after { content: '+'; margin-left: auto; color: #00f3ff; font-family: 'Share Tech Mono', monospace; }
+        }
+
+        &[open] summary::after { content: '-'; }
+    }
+
+    .store-tracklist-name {
+        color: #9cbbc2;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .store-tracks {
+        list-style: none;
+        margin: 10px 0 0;
+        padding: 0;
+    }
+
+    .store-track {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 10px;
+        padding: 5px 0;
+        border-bottom: 1px solid rgba(41, 65, 73, 0.6);
+        font-size: 16px;
+        overflow-wrap: anywhere;
+
+        &:last-child { border-bottom: none; }
+    }
+
+    .store-track-pos {
+        color: #9cbbc2;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+    }
+
+    // ── Brazil ──
+
+    // Phones: one column, the English note last. From 768px the text takes
+    // the left column and the covers sit above the button on the right.
+    .store-brazil {
+        .cyber-panel-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-areas: "title" "benefit" "media" "note";
+            align-items: start;
+            text-align: left;
+        }
+
+        h3 {
+            grid-area: title;
+            margin: 0 0 10px;
+            color: #fff;
+            font: 700 28px/1.2 Rajdhani, sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .cyber-panel-body {
+                grid-template-columns: 1fr minmax(280px, 320px);
+                grid-template-areas: "title media" "benefit media" "note media";
+                grid-template-rows: auto auto 1fr;
+                column-gap: 40px;
+            }
+        }
+    }
+
+    .store-brazil-benefit {
+        grid-area: benefit;
+        margin: 0 0 20px;
+        color: #fcee0a;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+
+    .store-brazil-media {
+        grid-area: media;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .store-buy {
+            min-height: 56px;
+            padding: 10px 16px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-align: center;
+
+            @media (min-width: 768px) { font-size: 18px; letter-spacing: 3px; }
+        }
+
+        .store-buy-keep { white-space: nowrap; }
+    }
+
+    .store-brazil-covers {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+
+        img {
+            width: 96px;
+            height: auto;
+            border: 1px solid #294149;
+            padding: 4px;
+            background: #080e16;
+        }
+    }
+
+    .store-brazil-note {
+        grid-area: note;
+        margin: 20px 0 0;
+        color: #9cbbc2;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    // ── Footer override ──
+
+    footer { background-image: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .store-shell, .store-shell::before, .store-shell::after,
+        .store-shell *, .store-shell *::before, .store-shell *::after {
+            animation: none !important; transition: none !important;
+        }
+    }
+}

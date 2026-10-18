@@ -105,7 +105,7 @@ test.describe('without JavaScript', () => {
 
   test('DISC-35/36/37: BUY CD points at the page that sells that record, and only there', async ({ page }) => {
     await page.goto('/discography/');
-    await expect(page.locator('#silicon-fortress [data-disc-buy]')).toHaveAttribute('href', '/preorder/');
+    await expect(page.locator('#silicon-fortress [data-disc-buy]')).toHaveAttribute('href', '/store/');
     await expect(page.locator('#insane-driver [data-disc-buy]')).toHaveAttribute('href', '/store/');
     await expect(page.locator('#insane-driver-deluxe [data-disc-buy]')).toHaveCount(0);
     await expect(page.locator('[data-disc-buy]')).toHaveCount(2);

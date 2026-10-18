@@ -20,32 +20,21 @@
 
 ## Handoff
 
-- **Feature**: home-cyberpunk (cyberpunk home page with boot loader)
-- **Phase / Task**: Complete. Rounds 1-7 are described in `validation.md`. Round 8 (T29-T33, `097d73f`..`a393cba`) hardened the home tests with no product code change. The loader release is now stamped at the `is-done` mutation (T29). The early-fire guard (T30) and both HOME-24 repeat views (T33, fix R8-A) run under a paused `page.clock`. HOME-62 throws from each of loader, navbar, shuffle and preview (T31). HOME-05 and HOME-24 are reworded (T32). The round 8 Verifier passed, with R8-A as a non-blocking flake gap, and its re-verify of `a393cba` passed: 6/6 mutants killed, HOME-24 60/60 at 20x, unit 87/87, Playwright 244/244. `validate_state.py` passes. Lesson L-025 recorded (candidate).
-- **Round 9 (phone fit, 2026-10-11)**: The user reported mobile misalignment at iPhone XR (414x896). T34-T36 (`82d4d71`..`3337324`, HOME-71..73) fixed it:
-  - The NOW::STREAMING cover fills the panel up to 420px.
-  - The hero buttons stay inside the card, stacked below 400px.
-  - Every streaming platform name sits on one centered line with 16px clear, and the links use 2 columns from 860 to 1199px.
-  - The fit tests serve the real Rajdhani and Share Tech Mono files from `tests/home/fonts/`, because the shared fixture blocks Google Fonts.
-  - The Verifier passed: 12 mutants killed and 7 equivalent or spec-neutral, unit 87/87, Playwright 281/281.
-  - Open, needs a user decision: R9-A. From 560 to 859px the 420px cover sits left with an empty strip beside it, which HOME-71 allows.
-- **Round 10 (hero framing, 2026-10-12)**: The user reported cut and covered heads in the hero. `7d0670c`..`5689b7f` (HOME-74..76) fixed it:
-  - The photo starts under the fixed menu on every screen (`--home-nav-h`, measured by the inline hero script), anchored to its top edge, and zooms from that edge with no upward drift (`home-drift-top`).
-  - From 992px the title sits in the curtain above the heads, sized in units of the drawn photo width (`--home-photo-w`). HOME-75 maps every head and checks the title and the release card against them at drift zoom 1, 1.02 and 1.08.
-  - On portrait phones the logo takes the room between the lowest chin and the card (150-260px) and the HUD drops out (HOME-76). Phones under about 812px tall keep a known overlap with the shortest member's chin.
-  - The tagline is now `METAL // ROCK // SINCE 2013` (user's pick).
-  - Author-run checks, no independent Verifier: unit 87/87, Playwright 302/302, build green.
+- **Feature**: store-cyberpunk (single `/store/` page with the combo and both CDs, cyberpunk theme)
+- **Phase / Task**: Complete. T1-T5 plus two follow-ups, `91415d4`..`d974a54` on `feature/store-cyberpunk`, which is branched from `master` at `c1b2eb6`.
+- **Verification**: The Verifier passed on iteration 2. 24/24 ACs and both edge cases have evidence. The sensor killed 16/16 mutants. Unit 91/91, Playwright 336/336, build green. Lesson L-026 recorded as a candidate (template guards for data states the real catalog never produces).
+- **Amendments during Execute (user-approved or forced by facts)**:
+  - STORE-06: the combo shows both 600px covers stacked, because `silicon-preorder-combo.png` is 180x120. The user chose this.
+  - STORE-18: the overflow check is scoped to `[data-store]`.
+- **Follow-ups closed on 2026-10-17** (same branch):
+  - `fba8849`: the header `.menu-center` 768-991px fix moved to `less/header.less` for every page; `tests/site/header.e2e.cjs` covers 9 pages at 768 and 991px.
+  - `4cb09f0`: removed the unreferenced `silicon-preorder-combo.png` and `silicon-preorder-cd.png`.
+  - `d3bf941`: `gray-matter` 4.0.2 is now a direct devDependency.
+  - `093ff15`: R9-A. The user chose to centre the cover; HOME-71 amended, test covers 600 and 859px.
+  - Gate: build green, unit 91/91, Playwright 356/356.
+- **Round 2, Brazil panel redesign (2026-10-17)**: grilling then spec; STORE-12 amended, STORE-25..31 added. T6 `5b57b09` + fix R2-1 `b118f89`. Verifier PASS on iteration 2 (14/14 mutants killed). Unit 91/91, Playwright 370/370, build green. Candidate lessons L-027/L-028 (visual order must be asserted by rendered position and specified as a direction).
 - **In-progress**: none
-- **Next step**: PR review of `feature/home-cyberpunk` into `master`. R9-A is still open for a user decision.
+- **Next step**: review and merge PR #42 (`feature/store-cyberpunk` → `master`), opened 2026-10-17.
 - **Blockers**: none
-- **Uncommitted files**: none (agent tool dirs `.agent/`, `.agents/`, `.claude/`, `.codex/`, `.cursor/`, `.gemini/`, `.github/skills/`, `.windsurf/`, `skills-lock.json` are untracked on purpose and not part of this feature)
-- **Branch**: feature/home-cyberpunk
-- **Open follow-ups for a separate site-wide PR (user decision, 2026-10-11)**:
-  - Remove the dead Universal Analytics `UA-60390716-1` snippet from `_includes/head/analytics.liquid` and the inline copy in `dates/index.html`, and keep GTM `GTM-WW9HZGP`. GA4, if wanted, goes inside GTM.
-  - Replace the band page `fa fa-bandcamp` (`band/index.html:159`, which has no glyph in FA 4.4) with an inline SVG Bandcamp logo that uses `currentColor`.
-  - Scope the cyber block after `less/contact.less:239` under `#page_contact`. Keep the keyframes global if other pages use them. Drop the compensating `max-width: 100%` hacks in home, discography, photos, videos, band and mailchimp. Confirm there is no visual change.
-  - Dedupe `.cyber-zone`, `.cyber-zone-inner` and `.cyber-panel` across 7 stylesheets through shared LESS mixins, each called inside its page scope.
-- **Other notes**:
-  - Lessons L-022..L-025 are candidates and are promoted only by `lessons.py` at 2 features.
-  - HOME-14 needed no rewording.
-  - `LOADER_REPEAT` is masked in e2e by the head gate's own 400ms release, so the unit test `home-core.test.cjs:78` is its only guard.
+- **Branch**: feature/store-cyberpunk
+- **Previous handoff**: home-cyberpunk was merged as PR #40; R9-A is now closed by `093ff15`.

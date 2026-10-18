@@ -76,12 +76,6 @@
         .nav-logo { display: none; }
     }
 
-    // Bootstrap's 750px .container inside the collapsed-nav padding overflows
-    // the 768-991px range site-wide; the newsletter page fixes it the same way.
-    @media (min-width: 768px) and (max-width: 991px) {
-        .menu-center { width: auto; }
-    }
-
     // ── Navbar (home only) ──
 
     // Floats over the hero, transparent at the top; home.js adds `.is-solid`
@@ -905,8 +899,10 @@
 
     .home-streaming-art {
         position: relative;
-        // Phones: the full panel width. From 860px it sits in its grid column.
+        // Phones: the full panel width, centred once it reaches the cap.
+        // From 860px it sits in its grid column.
         max-width: 420px;
+        @media (max-width: 859px) { margin: 0 auto; }
 
         border: 1px solid #00f3ff;
         padding: 8px;
