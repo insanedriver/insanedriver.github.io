@@ -103,7 +103,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 2. **STORE-13** — The Brazil panel SHALL state in English that Die Hard ships only within Brazil and that international buyers should use PayPal.
 3. **STORE-14** — The store page SHALL NOT call any geo-IP service or read an `imInBrazil` query parameter.
 4. **STORE-25** — The Brazil panel SHALL show the line `Pague em reais · Pix ou cartão · Envio para todo o Brasil` between the heading and the link.
-5. **STORE-26** — The Brazil panel SHALL show two cover images with non-empty `alt` text, `releases/silicon-fortress.jpg` then `releases/insane-driver.jpg`, each rendered 96px wide.
+5. **STORE-26** — The Brazil panel SHALL show two cover images with non-empty `alt` text, `releases/silicon-fortress.jpg` then `releases/insane-driver.jpg` from left to right, each rendered 96px wide.
 6. **STORE-27** — WHEN the visitor activates the Die Hard link THEN the store page SHALL open it in a new tab (`target="_blank"` with `rel` containing `noopener`).
 7. **STORE-28** — The Die Hard link SHALL render at least 56px tall.
 8. **STORE-29** — WHILE the viewport is at least 768px wide the Brazil panel SHALL place the heading, benefit line and English note in a left column and the covers above the link in a right column, with the link at least 280px wide.

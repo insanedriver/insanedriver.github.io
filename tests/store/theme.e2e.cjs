@@ -129,7 +129,7 @@ const brazil = page => page.locator('[data-store-brazil]').evaluate(el => {
   const box = n => { const r = n.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width, height: r.height }; };
   const body = el.querySelector('.cyber-panel-body');
   const cs = getComputedStyle(body);
-  const imgs = [...el.querySelectorAll('img')].map(box);
+  const imgs = [...el.querySelectorAll('img')].map(n => ({ ...box(n), src: n.getAttribute('src') }));
   return {
     heading: box(el.querySelector('h3')),
     benefit: box(el.querySelector('[data-store-brazil-benefit]')),
@@ -142,12 +142,14 @@ const brazil = page => page.locator('[data-store-brazil]').evaluate(el => {
 });
 
 for (const width of [375, 1280]) {
-  test(`STORE-26: at ${width}px each Brazil cover renders 96px wide`, async ({ page }) => {
+  test(`STORE-26: at ${width}px the Brazil covers render 96px wide, Silicon Fortress left of Insane Driver`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/store/');
     const b = await brazil(page);
     expect(b.imgs).toHaveLength(2);
     for (const img of b.imgs) expect(Math.abs(img.width - 96)).toBeLessThanOrEqual(0.5);
+    const left = name => b.imgs.find(i => i.src.endsWith(`/${name}.jpg`)).left;
+    expect(left('silicon-fortress')).toBeLessThan(left('insane-driver'));
   });
 }
 
