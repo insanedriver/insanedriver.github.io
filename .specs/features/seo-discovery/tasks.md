@@ -473,8 +473,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] All existing `tests/discography/*` pass unchanged.
-- [ ] Gate check passes: `npm test`
+- [x] All existing `tests/discography/*` pass unchanged.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

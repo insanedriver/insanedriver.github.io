@@ -54,24 +54,7 @@ header_img_path: header_4.jpg
                 <p class="disc-release-meta">{{ album.tracks.size }} tracks</p>
             </div>
 
-            <div class="disc-links">
-                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary %}
-                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
-                    <i class="fa {{ p.icon }}"></i>
-                    <span class="cyber-link-name">{{ p.name }}</span>
-                    <span class="cyber-link-sub">{{ p.sub }}</span>
-                </a>
-                {% endif %}{% endfor %}
-            </div>
-
-            <div class="disc-links disc-links--secondary">
-                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary == false %}
-                <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
-                    <i class="fa {{ p.icon }}"></i>
-                    <span class="cyber-link-name">{{ p.name }}</span>
-                </a>
-                {% endif %}{% endfor %}
-            </div>
+            {% assign release = album %}{% include 'discography/links' %}
 
             {% if album.buyCd %}
             <a class="disc-buy" href="{{ album.buyCd }}" data-disc-buy="{{ album.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>

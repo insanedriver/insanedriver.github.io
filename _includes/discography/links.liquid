@@ -1,0 +1,18 @@
+<div class="disc-links">
+    {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary %}
+    <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ release.slug }}">
+        <i class="fa {{ p.icon }}"></i>
+        <span class="cyber-link-name">{{ p.name }}</span>
+        <span class="cyber-link-sub">{{ p.sub }}</span>
+    </a>
+    {% endif %}{% endfor %}
+</div>
+
+<div class="disc-links disc-links--secondary">
+    {% for p in platforms %}{% assign url = release.links[p.key] %}{% if url and p.primary == false %}
+    <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ release.slug }}">
+        <i class="fa {{ p.icon }}"></i>
+        <span class="cyber-link-name">{{ p.name }}</span>
+    </a>
+    {% endif %}{% endfor %}
+</div>
