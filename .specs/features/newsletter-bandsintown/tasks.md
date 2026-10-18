@@ -208,8 +208,8 @@ T6
 
 **Done when**:
 
-- [ ] Both specs name the superseded IDs and link `.specs/features/newsletter-bandsintown/spec.md`.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Both specs name the superseded IDs and link `.specs/features/newsletter-bandsintown/spec.md`.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: none
 **Gate**: build

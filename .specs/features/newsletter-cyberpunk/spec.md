@@ -41,6 +41,8 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 
 ### P1: Join the Insane Network ⭐ MVP
 
+> **Superseded (2026-10-18):** the band lost the Mailchimp account. `newsletter-bandsintown` replaced the form with the Bandsintown mailing-list embed (BIT-07 to BIT-17). NEWS-03, NEWS-04, NEWS-05, NEWS-06 (form controls), and NEWS-10 no longer apply; the panels, copy, and motion requirements stand. See `.specs/features/newsletter-bandsintown/spec.md`.
+
 **User Story**: As an Insane Driver listener, I want to understand the mailing-list benefits and submit my email and country so that I can receive band news and exclusive content.
 
 **Why P1**: Newsletter signup is the page's only conversion goal.
@@ -78,14 +80,14 @@ The newsletter page uses an old Mailchimp embed whose layout and visual language
 | -------------- | ----- | ----- | ------ |
 | NEWS-01 | P1: Join the Insane Network | Execute | Verified |
 | NEWS-02 | P1: Join the Insane Network | Execute | Verified |
-| NEWS-03 | P1: Join the Insane Network | Execute | Verified |
-| NEWS-04 | P1: Join the Insane Network | Execute | Verified |
-| NEWS-05 | P1: Join the Insane Network | Execute | Verified |
-| NEWS-06 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-03 | P1: Join the Insane Network | Execute | Superseded (newsletter-bandsintown) |
+| NEWS-04 | P1: Join the Insane Network | Execute | Superseded (newsletter-bandsintown) |
+| NEWS-05 | P1: Join the Insane Network | Execute | Superseded (newsletter-bandsintown) |
+| NEWS-06 | P1: Join the Insane Network | Execute | Superseded (newsletter-bandsintown) |
 | NEWS-07 | P1: Join the Insane Network | Execute | Verified |
 | NEWS-08 | P1: Join the Insane Network | Execute | Verified |
 | NEWS-09 | P1: Join the Insane Network | Execute | Verified |
-| NEWS-10 | P1: Join the Insane Network | Execute | Verified |
+| NEWS-10 | P1: Join the Insane Network | Execute | Superseded (newsletter-bandsintown) |
 | NEWS-11 | P1: Join the Insane Network | Execute | Verified |
 
 **Coverage:** 11 total, 11 mapped to the implicit Execute steps, 0 unmapped.
