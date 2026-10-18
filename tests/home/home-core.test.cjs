@@ -128,9 +128,12 @@ test('HOME-50: teaser click event shapes', () => {
   assert.deepEqual(core.teaserClickEvent('photos'), { event: 'home_teaser_click', target: 'photos' });
 });
 
-test('HOME-47/26: newsletter and loader skip event shapes', () => {
-  assert.deepEqual(core.newsletterEvent(), { event: 'home_newsletter_submit' });
+test('HOME-26: loader skip event shape', () => {
   assert.deepEqual(core.loaderSkipEvent(), { event: 'home_loader_skip' });
+});
+
+test('BIT-05: home-core no longer exports a newsletter event', () => {
+  assert.equal(core.newsletterEvent, undefined);
 });
 
 test('HOME-55: the shuffle pool is every single except the featured release, newest first', () => {

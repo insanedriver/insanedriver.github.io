@@ -180,6 +180,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: STORE-26 spec.md:106 (spec-writing)
 - last seen: 2026-10-18T01:05:28Z
 
+### L-029 - When a form is replaced by a link, rewrite its no-event test to activate the new element, not to loop over forms that no longer exist
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `e2e-tracking` · harmful: 0
+- features: newsletter-bandsintown
+- evidence: validation.md M5b; tests/home/tracking.e2e.cjs:65 (e2e-tracking)
+- last seen: 2026-10-18T04:36:16Z
+
+### L-030 - Map every spec edge case, including reduced motion, to a test row in the Test Coverage Matrix
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: newsletter-bandsintown
+- evidence: validation.md Edge Cases: reduced motion on /newsletter/ has no test (e2e)
+- last seen: 2026-10-18T04:36:16Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

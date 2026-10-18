@@ -60,20 +60,12 @@ for (const [name, selector, expected] of [
   });
 }
 
-test('HOME-47: a valid newsletter submit reports home_newsletter_submit', async ({ page, context }) => {
-  const form = panelByTab(page, 'SIGNAL::NEWSLETTER').locator('form');
-  await form.locator('[name="EMAIL"]').fill('fan@example.com');
-  await form.locator('[name="COUNTRY"]').selectOption({ index: 1 });
-  const popup = context.waitForEvent('page');
-  await form.getByRole('button', { name: /connect/i }).click();
-  await popup;
-  expect(await pushed(page, 'home_newsletter_submit')).toEqual([{ event: 'home_newsletter_submit' }]);
-});
-
-test('HOME-47: an invalid newsletter submit reports nothing', async ({ page }) => {
-  const form = panelByTab(page, 'SIGNAL::NEWSLETTER').locator('form');
-  await form.locator('[name="EMAIL"]').fill('not-an-email');
-  await form.getByRole('button', { name: /connect/i }).click();
+// The signup lives in a cross-origin iframe on /newsletter/; the home panel
+// only links there and reports nothing.
+test('BIT-05: the Join the network link never reports home_newsletter_submit', async ({ page }) => {
+  await holdNavigation(page);
+  await panelByTab(page, 'SIGNAL::NEWSLETTER').getByRole('link', { name: 'Join the network' }).click();
+  expect(await page.evaluate(() => window.__prevented)).toEqual([false]);
   expect(await pushed(page, 'home_newsletter_submit')).toEqual([]);
 });
 

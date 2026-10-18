@@ -244,11 +244,6 @@
                 ));
             }
         });
-
-        var form = document.querySelector('[data-home-newsletter]');
-        if (form) {
-            form.addEventListener('submit', function () { push(core.newsletterEvent()); });
-        }
     }
 
     // One module failing must not stop the ones after it. The error is

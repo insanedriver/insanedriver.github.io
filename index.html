@@ -207,28 +207,10 @@ jspath: js/home
             <h2 id="home-signal-title">Join the network<span class="home-accent">.</span></h2>
             <p>New music, videos and shows straight to your inbox. No spam, just signal.</p>
         </div>
-        <form class="home-signal-form" data-home-newsletter
-            action="https://insanedriver.us11.list-manage.com/subscribe/post?u=31b9d99c4318b90997348c1ed&amp;id=79f822eba5"
-            method="post" target="_blank">
-            <div class="home-field">
-                <label for="home-EMAIL">E-mail</label>
-                <input type="email" name="EMAIL" id="home-EMAIL" autocomplete="email" placeholder="you@domain.com" required>
-            </div>
-            <div class="home-field">
-                <label for="home-COUNTRY">Country</label>
-                <select name="COUNTRY" id="home-COUNTRY" autocomplete="country-name" required>
-                    {% include 'newsletter/countries' %}
-                </select>
-            </div>
-            <!-- real people should not fill this in and expect good things; do not remove this or risk bot signups -->
-            <div class="mailchimp-bot-field" aria-hidden="true">
-                <input type="text" name="b_31b9d99c4318b90997348c1ed_79f822eba5" tabindex="-1" value="">
-            </div>
-            <button type="submit" name="subscribe" value="Subscribe" class="home-signal-submit">
-                <span>Connect</span>
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </button>
-        </form>
+        <a class="home-signal-cta" href="/newsletter/">
+            <span>Join the network</span>
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </a>
     </section>
         </div>
     </div>

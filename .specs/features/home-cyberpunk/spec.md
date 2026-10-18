@@ -180,6 +180,8 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 ### P2: Join the newsletter from the home
 
+> **Superseded (2026-10-18):** the band lost the Mailchimp account. `newsletter-bandsintown` replaced this form with a `Join the network` link to `/newsletter/` (BIT-01 to BIT-06) and removed the submit event. HOME-44 to HOME-48 no longer apply. See `.specs/features/newsletter-bandsintown/spec.md`.
+
 **User Story**: As a fan, I want to subscribe right on the home so that I do not need an extra page to stay in touch.
 
 **Why P2**: Conversion shortcut; `/newsletter/` already works.
@@ -313,11 +315,11 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 | HOME-41 | P2: Discover - album covers | T8 | Implemented |
 | HOME-42 | P2: Discover - photo feed | T8 | Implemented |
 | HOME-43 | P2: Discover - plain anchors | T8 | Implemented |
-| HOME-44 | P2: Newsletter - form action | T9 | Implemented |
-| HOME-45 | P2: Newsletter - fields | T9 | Implemented |
-| HOME-46 | P2: Newsletter - shared country include | T4, T9 | Implemented |
-| HOME-47 | P2: Newsletter - submit event | T1, T20 | Implemented |
-| HOME-48 | P2: Newsletter - native validation | T9 | Implemented |
+| HOME-44 | P2: Newsletter - form action | T9 | Superseded (newsletter-bandsintown) |
+| HOME-45 | P2: Newsletter - fields | T9 | Superseded (newsletter-bandsintown) |
+| HOME-46 | P2: Newsletter - shared country include | T4, T9 | Superseded (newsletter-bandsintown) |
+| HOME-47 | P2: Newsletter - submit event | T1, T20 | Superseded (newsletter-bandsintown) |
+| HOME-48 | P2: Newsletter - native validation | T9 | Superseded (newsletter-bandsintown) |
 | HOME-49 | P2: Measure and share - release click event | T1, T20 | Implemented |
 | HOME-50 | P2: Measure and share - teaser click events | T1, T20 | Implemented |
 | HOME-51 | P2: Measure and share - missing dataLayer | T20 | Implemented |
