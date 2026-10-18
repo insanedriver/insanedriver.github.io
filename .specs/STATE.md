@@ -26,12 +26,14 @@
 - **Amendments during Execute (user-approved or forced by facts)**:
   - STORE-06: the combo shows both 600px covers stacked, because `silicon-preorder-combo.png` is 180x120. The user chose this.
   - STORE-18: the overflow check is scoped to `[data-store]`.
-- **Open follow-ups, not part of this feature**:
-  - The site header `.container.menu-center` overflows to 781px at 768px on every page.
-  - `silicon-preorder-combo.png` and `silicon-preorder-cd.png` are now unreferenced.
-  - `tests/store/store-template.test.cjs` relies on `gray-matter`, which comes in only through Eleventy and is not a direct devDependency.
+- **Follow-ups closed on 2026-10-17** (same branch):
+  - `fba8849`: the header `.menu-center` 768-991px fix moved to `less/header.less` for every page; `tests/site/header.e2e.cjs` covers 9 pages at 768 and 991px.
+  - `4cb09f0`: removed the unreferenced `silicon-preorder-combo.png` and `silicon-preorder-cd.png`.
+  - `d3bf941`: `gray-matter` 4.0.2 is now a direct devDependency.
+  - `093ff15`: R9-A. The user chose to centre the cover; HOME-71 amended, test covers 600 and 859px.
+  - Gate: build green, unit 91/91, Playwright 356/356.
 - **In-progress**: none
 - **Next step**: user review, then push and open the PR. Nothing is pushed.
 - **Blockers**: none
 - **Branch**: feature/store-cyberpunk
-- **Previous handoff**: home-cyberpunk was merged as PR #40, but R9-A (the 560-859px cover strip) is still open for a user decision.
+- **Previous handoff**: home-cyberpunk was merged as PR #40; R9-A is now closed by `093ff15`.
