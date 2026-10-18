@@ -232,7 +232,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SEO-07 | P1: Crawl and understand | Design | Pending |
 | SEO-08 | P1: Crawl and understand | Design | Pending |
 | SEO-09 | P1: Crawl and understand | Design | Pending |
-| SEO-10 | P1: Crawl and understand | Design | Pending |
+| SEO-10 | P1: Crawl and understand | T6 | Implementing |
 | SEO-11 | P1: Crawl and understand | Design | Pending |
 | GEN-01 | P1: Genre and audience | Design | Pending |
 | GEN-02 | P1: Genre and audience | Design | Pending |

@@ -221,8 +221,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] An e2e test asserts one doctype, one `<html>` and the robots meta on `/pre-save/`.
-- [ ] Gate check passes: `npm test`
+- [x] An e2e test asserts one doctype, one `<html>` and the robots meta on `/pre-save/`.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
