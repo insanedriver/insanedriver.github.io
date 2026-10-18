@@ -161,30 +161,30 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| STORE-01 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-02 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-03 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-04 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-05 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-06 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-07 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-08 | P1: Buy any of the three CD offers | T1 | Implemented |
-| STORE-09 | P1: Read what is on each CD | T1 | Implemented |
-| STORE-10 | P1: Read what is on each CD | T1 | Implemented |
-| STORE-11 | P1: Read what is on each CD | T1 | Implemented |
+| STORE-01 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-02 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-03 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-04 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-05 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-06 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-07 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-08 | P1: Buy any of the three CD offers | T1 | Verified |
+| STORE-09 | P1: Read what is on each CD | T1 | Verified |
+| STORE-10 | P1: Read what is on each CD | T1 | Verified |
+| STORE-11 | P1: Read what is on each CD | T1 | Verified |
 | STORE-12 | P1: Buy from Brazil | T1, T6 | Verified (amended) |
-| STORE-13 | P1: Buy from Brazil | T1 | Implemented |
-| STORE-14 | P1: Buy from Brazil | T1 | Implemented |
-| STORE-15 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-16 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-17 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-18 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-19 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-20 | P1: Cyberpunk look | T2 | Implemented |
-| STORE-21 | P2: Old pre-order links | T3 | Implemented |
-| STORE-22 | P2: Old pre-order links | T3 | Implemented |
-| STORE-23 | P2: Old pre-order links | T5 | Implemented |
-| STORE-24 | P2: Old pre-order links | T4 | Implemented |
+| STORE-13 | P1: Buy from Brazil | T1 | Verified |
+| STORE-14 | P1: Buy from Brazil | T1 | Verified |
+| STORE-15 | P1: Cyberpunk look | T2 | Verified |
+| STORE-16 | P1: Cyberpunk look | T2 | Verified |
+| STORE-17 | P1: Cyberpunk look | T2 | Verified |
+| STORE-18 | P1: Cyberpunk look | T2 | Verified |
+| STORE-19 | P1: Cyberpunk look | T2 | Verified |
+| STORE-20 | P1: Cyberpunk look | T2 | Verified |
+| STORE-21 | P2: Old pre-order links | T3 | Verified |
+| STORE-22 | P2: Old pre-order links | T3 | Verified |
+| STORE-23 | P2: Old pre-order links | T5 | Verified |
+| STORE-24 | P2: Old pre-order links | T4 | Verified |
 | STORE-25 | P1: Buy from Brazil | T6 | Verified |
 | STORE-26 | P1: Buy from Brazil | T6 | Verified |
 | STORE-27 | P1: Buy from Brazil | T6 | Verified |

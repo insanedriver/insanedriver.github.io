@@ -34,7 +34,7 @@
   - Gate: build green, unit 91/91, Playwright 356/356.
 - **Round 2, Brazil panel redesign (2026-10-17)**: grilling then spec; STORE-12 amended, STORE-25..31 added. T6 `5b57b09` + fix R2-1 `b118f89`. Verifier PASS on iteration 2 (14/14 mutants killed). Unit 91/91, Playwright 370/370, build green. Candidate lessons L-027/L-028 (visual order must be asserted by rendered position and specified as a direction).
 - **In-progress**: none
-- **Next step**: user review, then push and open the PR. Nothing is pushed.
+- **Next step**: review and merge PR #42 (`feature/store-cyberpunk` → `master`), opened 2026-10-17.
 - **Blockers**: none
 - **Branch**: feature/store-cyberpunk
 - **Previous handoff**: home-cyberpunk was merged as PR #40; R9-A is now closed by `093ff15`.

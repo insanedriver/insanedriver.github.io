@@ -40,7 +40,7 @@
 | Tracklist detail | Number, title, duration; collapsed by default | Durations feed `MusicRecording.duration`; collapsing keeps the CTA high on the card. | y |
 | Duration source | Deezer public API at authoring time, frozen into the JSON | No runtime dependency; durations do not change. | y |
 | Click tracking | `dataLayer.push({event:'release_click', ...})`; GTM tag configuration is out of band | GTM is already loaded site-wide; the tag itself is the user's to configure. | y |
-| Physical CTA mapping | Silicon Fortress -> `/preorder`, Insane Driver 2016 -> `/store`, deluxe none | Those pages sell those CDs today; the deluxe has no physical edition. | y |
+| Physical CTA mapping | Silicon Fortress -> `/preorder`, Insane Driver 2016 -> `/store`, deluxe none (Silicon Fortress later moved to `/store`: the store-cyberpunk feature retired `/preorder/`, STORE-23) | Those pages sell those CDs today; the deluxe has no physical edition. | y |
 | Button label for `/preorder` | "Buy CD" | The record shipped in 2021; "Pre-order" would be a false promise. | y |
 | Shared platform-button CSS | Extracted from `less/band.less` into `less/cyber-links.less`, consumed by band and discography | Stops the duplication at the one place it is about to be duplicated. | y |
 | Band page visual after refactor | Pixel-identical; the extraction is pure relocation | The band page is stable and is not the subject of this change. | y |
@@ -164,7 +164,7 @@
 
 **Acceptance Criteria**:
 
-1. The system SHALL render a `BUY CD` anchor on the Silicon Fortress card pointing to `/preorder/`.
+1. The system SHALL render a `BUY CD` anchor on the Silicon Fortress card pointing to `/store/` (amended by store-cyberpunk STORE-23; originally `/preorder/`).
 2. The system SHALL render a `BUY CD` anchor on the Insane Driver 2016 card pointing to `/store/`.
 3. The system SHALL render no physical-purchase anchor on the Insane Driver Deluxe Edition card.
 4. The system SHALL render the `BUY CD` anchor visually distinct from the streaming buttons.
