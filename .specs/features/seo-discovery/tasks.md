@@ -422,8 +422,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] A unit test calls the data function and gets 22 songs and 7 releases from the real files.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] A unit test calls the data function and gets 22 songs and 7 releases from the real files.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
