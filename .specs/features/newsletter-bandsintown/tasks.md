@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: inline (no `design.md`). One Liquid include `_includes/newsletter/bandsintown.liquid` renders the iframe and the fallback link; both pages include it inside their existing cyber panels. The include takes a `lazy` variable so the home copy can set `loading="lazy"`. No new architecture.
-**Status**: Approved
+**Status**: In Progress
 
 ---
 
@@ -76,9 +76,9 @@ T6
 
 **Done when**:
 
-- [ ] `core.newsletterEvent` is `undefined` (unit).
-- [ ] Submitting the home newsletter panel with a valid email pushes no `home_newsletter_submit` (e2e).
-- [ ] Gate check passes: `npm test`
+- [x] `core.newsletterEvent` is `undefined` (unit).
+- [x] Submitting the home newsletter panel with a valid email pushes no `home_newsletter_submit` (e2e).
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

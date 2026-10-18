@@ -151,7 +151,7 @@ The band no longer has access to its Mailchimp account, so the two signup forms 
 | BIT-02 | P1: Home signup | Tasks | Pending |
 | BIT-03 | P1: Home signup | Tasks | Pending |
 | BIT-04 | P1: Home signup | Tasks | Pending |
-| BIT-05 | P1: Home signup | Tasks | Pending |
+| BIT-05 | P1: Home signup | T1 | Implemented |
 | BIT-06 | P1: Home signup | Tasks | Pending |
 | BIT-07 | P1: Newsletter page signup | Tasks | Pending |
 | BIT-08 | P1: Newsletter page signup | Tasks | Pending |

@@ -128,10 +128,6 @@
         return event;
     }
 
-    function newsletterEvent() {
-        return { event: 'home_newsletter_submit' };
-    }
-
     function loaderSkipEvent() {
         return { event: 'home_loader_skip' };
     }
@@ -153,7 +149,6 @@
         navIsSolid: navIsSolid,
         releaseClickEvent: releaseClickEvent,
         teaserClickEvent: teaserClickEvent,
-        newsletterEvent: newsletterEvent,
         loaderSkipEvent: loaderSkipEvent
     };
 }));
