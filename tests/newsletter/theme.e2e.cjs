@@ -17,6 +17,20 @@ for (const width of [320, 768, 1280]) {
   });
 }
 
+for (const [width, shown] of [[390, false], [768, true], [1200, true], [1440, true], [1920, true]]) {
+  test(`At ${width}px the Silicon Fortress cover is ${shown ? 'beside the console' : 'hidden'}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/newsletter/', { waitUntil: 'load' });
+    const cover = panel(page).locator('.newsletter-cover');
+    if (!shown) return expect(cover).toBeHidden();
+    await expect(cover).toBeVisible();
+    const c = await cover.boundingBox();
+    const f = await panel(page).locator('.newsletter-console').boundingBox();
+    expect(c.x).toBeGreaterThan(f.x + f.width);
+    expect(Math.abs(c.y - f.y)).toBeLessThan(2);
+  });
+}
+
 test('BIT-14: the iframe draws no border of its own', async ({ page }) => {
   await page.goto('/newsletter/', { waitUntil: 'load' });
   const widths = await frame(page).evaluate(el => ['Top', 'Right', 'Bottom', 'Left'].map(s => getComputedStyle(el)[`border${s}Width`]));

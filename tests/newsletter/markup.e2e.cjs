@@ -41,17 +41,20 @@ test('BIT-11: the embed hides its own title and header text', async ({ page }) =
   expect(p.get('headerText')).toBe('');
 });
 
-test('BIT-12: the embed uses the cyberpunk colours, square CTA, and English', async ({ page }) => {
+test('BIT-12: the embed uses the cyberpunk colours, old cyan Join the Network CTA, and English', async ({ page }) => {
   const p = await params(page);
   expect(Object.fromEntries(['backgroundColor', 'headerTextColor', 'ctaBackgroundColor', 'ctaBorderColor', 'ctaFontColor',
-    'ctaBorderRadius', 'ctaLabel', 'emailInputField', 'locale'].map(k => [k, p.get(k)]))).toEqual({
+    'ctaBorderRadius', 'ctaLabel', 'ctaSize', 'font', 'layout', 'emailInputField', 'locale'].map(k => [k, p.get(k)]))).toEqual({
     backgroundColor: 'rgba(0,0,0,0)',
     headerTextColor: 'rgba(0,243,255,1)',
-    ctaBackgroundColor: 'rgba(252,238,10,1)',
-    ctaBorderColor: 'rgba(252,238,10,1)',
-    ctaFontColor: 'rgba(0,0,0,1)',
+    ctaBackgroundColor: 'rgba(0,243,255,0.08)',
+    ctaBorderColor: 'rgba(0,243,255,1)',
+    ctaFontColor: 'rgba(0,243,255,1)',
     ctaBorderRadius: '0px',
-    ctaLabel: 'Subscribe',
+    ctaLabel: 'JOIN THE NETWORK',
+    ctaSize: 'large',
+    font: 'Courier New',
+    layout: 'narrow',
     emailInputField: 'show',
     locale: 'en'
   });
@@ -61,9 +64,9 @@ test('BIT-13: the iframe has a meaningful accessible title', async ({ page }) =>
   await expect(frame(page)).toHaveAttribute('title', 'Insane Driver mailing list signup');
 });
 
-test('BIT-14: the iframe is full width and 240px tall', async ({ page }) => {
+test('BIT-14: the iframe is full width and 220px tall', async ({ page }) => {
   await expect(frame(page)).toHaveAttribute('width', '100%');
-  await expect(frame(page)).toHaveAttribute('height', '240');
+  await expect(frame(page)).toHaveAttribute('height', '220');
 });
 
 test('BIT-16: the panel links straight to Bandsintown in a new tab', async ({ page }) => {
