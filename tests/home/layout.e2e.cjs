@@ -20,7 +20,7 @@ test('HOME-53: Open Graph and Twitter card meta describe the home', async ({ pag
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const meta = sel => page.locator(sel).getAttribute('content');
   expect(await meta('meta[property="og:type"]')).toBe('website');
-  expect(await meta('meta[property="og:title"]')).toBe('Insane Driver Official Website');
+  expect(await meta('meta[property="og:title"]')).toBe('Insane Driver – Hard Rock & Heavy Metal Band from Brazil');
   expect(await meta('meta[property="og:description"]')).toContain('Insane Driver');
   expect(await meta('meta[property="og:url"]')).toBe('https://insanedriver.com.br/');
   expect(await meta('meta[property="og:image"]')).toBe('https://insanedriver.com.br/assets/images/home/hero-1280.jpg');

@@ -229,17 +229,17 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SEO-04 | P1: Crawl and understand | T4, T5 | Implementing |
 | SEO-05 | P1: Crawl and understand | T4, T5 | Implementing |
 | SEO-06 | P1: Crawl and understand | T4, T5 | Implementing |
-| SEO-07 | P1: Crawl and understand | Design | Pending |
-| SEO-08 | P1: Crawl and understand | Design | Pending |
-| SEO-09 | P1: Crawl and understand | Design | Pending |
+| SEO-07 | P1: Crawl and understand | T7 | Implementing |
+| SEO-08 | P1: Crawl and understand | T7 | Implementing |
+| SEO-09 | P1: Crawl and understand | T7 | Implementing |
 | SEO-10 | P1: Crawl and understand | T6 | Implementing |
-| SEO-11 | P1: Crawl and understand | Design | Pending |
+| SEO-11 | P1: Crawl and understand | T7 | Implementing |
 | GEN-01 | P1: Genre and audience | Design | Pending |
 | GEN-02 | P1: Genre and audience | Design | Pending |
 | GEN-03 | P1: Genre and audience | Design | Pending |
 | GEN-04 | P1: Genre and audience | Design | Pending |
 | GEN-05 | P1: Genre and audience | Design | Pending |
-| GEN-06 | P1: Genre and audience | Design | Pending |
+| GEN-06 | P1: Genre and audience | T7 | Implementing |
 | SONG-01 | P1: Song pages | Design | Pending |
 | SONG-02 | P1: Song pages | Design | Pending |
 | SONG-03 | P1: Song pages | Design | Pending |

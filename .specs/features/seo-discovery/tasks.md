@@ -246,8 +246,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/head.e2e.cjs` asserts SEO-07, SEO-08, SEO-09 across all sitemap URLs, SEO-11 and GEN-06.
-- [ ] Gate check passes: `npm test`
+- [x] `tests/seo/head.e2e.cjs` asserts SEO-07, SEO-08, SEO-09 across all sitemap URLs, SEO-11 and GEN-06.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

@@ -57,3 +57,45 @@ test.describe('without JavaScript', () => {
     });
   }
 });
+
+test.describe('titles and descriptions across the sitemap', () => {
+  test.use({ javaScriptEnabled: false });
+
+  const readAll = async page => {
+    const pages = [];
+    for (const loc of locs) {
+      await page.goto(loc.slice(ORIGIN.length), { waitUntil: 'domcontentloaded' });
+      pages.push(await page.evaluate(() => ({
+        url: location.pathname,
+        title: document.title,
+        description: document.querySelector('meta[name="description"]').getAttribute('content'),
+      })));
+    }
+    return pages;
+  };
+
+  test('SEO-07/08/09: every description is 50-160 characters and unique, every title unique', async ({ page }) => {
+    const pages = await readAll(page);
+    for (const p of pages) {
+      expect(p.description.length, `${p.url} description length`).toBeGreaterThanOrEqual(50);
+      expect(p.description.length, `${p.url} description length`).toBeLessThanOrEqual(160);
+    }
+    const dupes = values => values.filter((v, i) => values.indexOf(v) !== i);
+    expect(dupes(pages.map(p => p.description)), 'shared descriptions').toEqual([]);
+    expect(dupes(pages.map(p => p.title)), 'shared titles').toEqual([]);
+  });
+
+  test('SEO-11: the home title names the genres and the country', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveTitle('Insane Driver – Hard Rock & Heavy Metal Band from Brazil');
+  });
+
+  for (const url of ['/', '/band/']) {
+    test(`GEN-06: the ${url} description says hard rock and Brazil`, async ({ page }) => {
+      await page.goto(url, { waitUntil: 'domcontentloaded' });
+      const description = (await page.locator('meta[name="description"]').getAttribute('content')).toLowerCase();
+      expect(description).toContain('hard rock');
+      expect(description).toContain('brazil');
+    });
+  }
+});
