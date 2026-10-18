@@ -1359,8 +1359,9 @@
         left: -5000px;
     }
 
-    .home-signal-submit {
+    .home-signal-cta {
         display: inline-flex;
+        justify-self: start;
         justify-content: center;
         align-items: center;
         gap: 10px;
@@ -1374,9 +1375,10 @@
         letter-spacing: 3px;
         text-transform: uppercase;
         clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+        text-decoration: none;
         transition: background .2s, color .2s;
 
-        &:hover, &:focus { background: transparent; color: #fcee0a; }
+        &:hover, &:focus { background: transparent; color: #fcee0a; text-decoration: none; }
     }
 
     // ═══════════════════════════════════════════════════════════

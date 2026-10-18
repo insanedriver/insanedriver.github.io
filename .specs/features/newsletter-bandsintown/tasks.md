@@ -8,7 +8,9 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 
 ---
 
-**Design**: inline (no `design.md`). One Liquid include `_includes/newsletter/bandsintown.liquid` renders the iframe and the fallback link; both pages include it inside their existing cyber panels. The include takes a `lazy` variable so the home copy can set `loading="lazy"`. No new architecture.
+**Design**: inline (no `design.md`). The iframe and the fallback link are written inline in `newsletter/index.html` (one consumer, no include). The home panel replaces its form with a `.home-signal-cta` link to `/newsletter/`, reusing the old yellow submit button rule. No new architecture.
+
+**Amended during T2 (2026-10-18):** the user moved the embed off the home page, because an iframe there breaks HOME-06. T2 and T3 were rewritten; the shared include was dropped.
 **Status**: In Progress
 
 ---
@@ -19,8 +21,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 
 | Code Layer | Required Test Type | Coverage Expectation | Location Pattern | Run Command |
 | --- | --- | --- | --- | --- |
-| Page templates (`index.html`, `newsletter/index.html`, `_includes/newsletter/bandsintown.liquid`) | e2e | Every markup AC (BIT-01..04, 06..14, 16, 17) on each page it applies to, including the blocked-embed edge case | `tests/home/newsletter.e2e.cjs`, `tests/newsletter/markup.e2e.cjs` | `npm test` |
-| Styles (`less/home.less`, `less/newsletter.less`, compiled CSS) | e2e | Iframe box inside the panel body and no page overflow at 320/768/1280 (BIT-15), border (BIT-14), panel computed styles kept (BIT-20) | `tests/home/newsletter.e2e.cjs`, `tests/newsletter/theme.e2e.cjs` | `npm test` |
+| Page templates (`index.html`, `newsletter/index.html`) | e2e | Every markup AC (BIT-01..04, 06..14, 16, 17), including the blocked-embed edge case | `tests/home/newsletter.e2e.cjs`, `tests/newsletter/markup.e2e.cjs` | `npm test` |
+| Styles (`less/home.less`, `less/newsletter.less`, compiled CSS) | e2e + unit | Iframe box inside the panel body and no page overflow at 320/768/1280 (BIT-15), border (BIT-14), panel computed styles kept (BIT-20), removed selectors (BIT-19) | `tests/newsletter/theme.e2e.cjs`, `tests/newsletter/cleanup.test.cjs` | `npm test` |
 | Home JS (`assets/js/home-core.js`, `assets/js/home.js`) | unit + e2e | No `newsletterEvent` export; no `home_newsletter_submit` push (BIT-05) | `tests/home/home-core.test.cjs`, `tests/home/tracking.e2e.cjs` | `npm test` |
 | Repo hygiene (removed files, LESS selectors) | unit | BIT-18, BIT-19 | `tests/newsletter/cleanup.test.cjs` | `npm run test:unit` |
 | Specs docs | none | - (build gate only) | - | build gate only |
@@ -87,65 +89,13 @@ T6
 
 ---
 
-### T2: Put the Bandsintown embed on the home page
+### T2: Turn the home panel into a link to /newsletter/
 
-**What**: Create the shared include and replace the home Mailchimp form with it.
-**Where**: `_includes/newsletter/bandsintown.liquid` (new), `index.html`, `tests/home/newsletter.e2e.cjs`
+**What**: Replace the home Mailchimp form with a `Join the network` primary link to `/newsletter/`.
+**Where**: `index.html` (and `less/home.less`, compiled CSS, `tests/home/newsletter.e2e.cjs`)
 **Depends on**: T1
-**Reuses**: `panelByTab` from `tests/home/helpers.cjs`
-**Requirement**: BIT-01, BIT-02, BIT-03, BIT-04, BIT-06, BIT-11, BIT-12, BIT-13, BIT-14 (attributes), BIT-16, BIT-17
-
-**Tools**:
-
-- MCP: `claude-in-chrome` (pick `layout` and `height` against the live embed at 320/768/1280)
-- Skill: NONE
-
-**Done when**:
-
-- [ ] `layout` and `height` are chosen in a browser and written into BIT-12/BIT-14.
-- [ ] The e2e suite asserts every listed AC on `/`.
-- [ ] Gate check passes: `npm test`
-
-**Tests**: e2e
-**Gate**: full
-
-**Commit**: `feat(home): replace the mailchimp form with the bandsintown embed`
-
----
-
-### T3: Style the home embed and drop the old form CSS
-
-**What**: Size the iframe and fallback link in the SIGNAL::NEWSLETTER panel; delete `.home-signal-form`, `.home-field`, `.home-signal-submit`, and `.mailchimp-bot-field` rules.
-**Where**: `less/home.less` (and the compiled `assets/css/style.min.css`)
-**Depends on**: T2
-**Reuses**: existing `.home-signal` grid
-**Requirement**: BIT-14 (border), BIT-15 (home)
-
-**Tools**:
-
-- MCP: `claude-in-chrome`
-- Skill: NONE
-
-**Done when**:
-
-- [ ] At 320/768/1280 the home iframe lies inside its panel body and the page has no horizontal overflow (e2e).
-- [ ] The iframe's computed border width is `0px` (e2e).
-- [ ] Gate check passes: `npm run build && npm test`
-
-**Tests**: e2e
-**Gate**: build
-
-**Commit**: `style(home): fit the bandsintown embed into the signal panel`
-
----
-
-### T4: Put the Bandsintown embed on /newsletter/
-
-**What**: Replace the USER::ENROLL Mailchimp form with the include; delete `countries.liquid`, `tests/home/countries.e2e.cjs`, and the `optionValues` helper.
-**Where**: `newsletter/index.html`, `tests/newsletter/markup.e2e.cjs` (new)
-**Depends on**: None (Phase 1, which creates the include, runs first)
-**Reuses**: `_includes/newsletter/bandsintown.liquid` from T2
-**Requirement**: BIT-07, BIT-08, BIT-09, BIT-10, BIT-13, BIT-16, BIT-17
+**Reuses**: the `.home-signal-submit` rule, renamed `.home-signal-cta`; `panelByTab` from `tests/home/helpers.cjs`
+**Requirement**: BIT-01, BIT-02, BIT-03, BIT-04, BIT-06
 
 **Tools**:
 
@@ -154,7 +104,59 @@ T6
 
 **Done when**:
 
-- [ ] The e2e suite asserts every listed AC on `/newsletter/`, with BIT-07 comparing `src` against `/`.
+- [x] The e2e suite asserts every listed AC on `/`.
+- [x] HOME-06 and HOME-15 tests (zero iframes on load) still pass unchanged.
+- [x] Gate check passes: `npm test`
+
+**Tests**: e2e
+**Gate**: full
+
+**Commit**: `feat(home): point the signal panel at /newsletter/`
+
+---
+
+### T3: Drop the old home form CSS
+
+**What**: Delete the `.home-signal-form`, `.home-field`, and `.mailchimp-bot-field` rules from `less/home.less` and recompile.
+**Where**: `less/home.less` (and the compiled `assets/css/style.min.css`)
+**Depends on**: T2
+**Reuses**: existing `.home-signal` grid
+**Requirement**: BIT-19 (home selectors)
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] A unit test asserts `less/home.less` has none of the removed selectors.
+- [ ] Existing home layout and phone-fit e2e tests still pass.
+- [ ] Gate check passes: `npm run build && npm test`
+
+**Tests**: unit
+**Gate**: build
+
+**Commit**: `style(home): drop the old signal form rules`
+
+---
+
+### T4: Put the Bandsintown embed on /newsletter/
+
+**What**: Replace the USER::ENROLL Mailchimp form with the inline Bandsintown iframe and fallback link; delete `countries.liquid`, `tests/home/countries.e2e.cjs`, and the `optionValues` helper.
+**Where**: `newsletter/index.html`, `tests/newsletter/markup.e2e.cjs` (new)
+**Depends on**: None (Phase 1, which creates the include, runs first)
+**Reuses**: the embed URL verified in the browser during T2
+**Requirement**: BIT-07, BIT-08, BIT-09, BIT-10, BIT-11, BIT-12, BIT-13, BIT-14 (attributes), BIT-16, BIT-17
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [ ] The e2e suite asserts every listed AC on `/newsletter/`.
 - [ ] `_includes/newsletter/countries.liquid` and its test are gone.
 - [ ] Gate check passes: `npm test`
 
@@ -171,7 +173,7 @@ T6
 **Where**: `less/newsletter.less` (and `less/style.less`, compiled CSS, `tests/newsletter/theme.e2e.cjs`, `tests/newsletter/cleanup.test.cjs`)
 **Depends on**: T4
 **Reuses**: existing USER::ENROLL panel rules
-**Requirement**: BIT-14 (border), BIT-15 (newsletter), BIT-18, BIT-19, BIT-20
+**Requirement**: BIT-14 (border), BIT-15, BIT-18, BIT-19, BIT-20
 
 **Tools**:
 
@@ -245,7 +247,7 @@ Phase 3:  T6
 | ---- | --------------------------- | --------------- | --------- | ------ |
 | T1 | Home JS | unit + e2e | e2e (with unit) | ✅ OK |
 | T2 | Page templates | e2e | e2e | ✅ OK |
-| T3 | Styles | e2e | e2e | ✅ OK |
+| T3 | Styles (removal only) | unit | unit | ✅ OK |
 | T4 | Page templates | e2e | e2e | ✅ OK |
 | T5 | Styles + repo hygiene | e2e + unit | e2e (with unit) | ✅ OK |
 | T6 | Specs docs | none | none | ✅ OK |
