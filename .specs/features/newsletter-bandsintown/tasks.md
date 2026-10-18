@@ -130,9 +130,9 @@ T6
 
 **Done when**:
 
-- [ ] A unit test asserts `less/home.less` has none of the removed selectors.
-- [ ] Existing home layout and phone-fit e2e tests still pass.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] A unit test asserts `less/home.less` has none of the removed selectors.
+- [x] Existing home layout and phone-fit e2e tests still pass.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
