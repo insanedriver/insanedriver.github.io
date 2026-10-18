@@ -241,16 +241,16 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | GEN-04 | P1: Genre and audience | T9 | Implementing |
 | GEN-05 | P1: Genre and audience | T9 | Implementing |
 | GEN-06 | P1: Genre and audience | T7 | Implementing |
-| SONG-01 | P1: Song pages | Design | Pending |
-| SONG-02 | P1: Song pages | Design | Pending |
+| SONG-01 | P1: Song pages | T13 | Implementing |
+| SONG-02 | P1: Song pages | T13 | Implementing |
 | SONG-03 | P1: Song pages | Design | Pending |
 | SONG-04 | P1: Song pages | Design | Pending |
 | SONG-05 | P1: Song pages | Design | Pending |
 | SONG-06 | P1: Song pages | T11 | Implementing |
 | SONG-07 | P1: Song pages | Design | Pending |
-| SONG-08 | P1: Song pages | Design | Pending |
+| SONG-08 | P1: Song pages | T13 | Implementing |
 | SONG-09 | P1: Song pages | Design | Pending |
-| SONG-10 | P1: Song pages | Design | Pending |
+| SONG-10 | P1: Song pages | T13 | Implementing |
 | SONG-11 | P1: Song pages | Design | Pending |
 | SONG-12 | P1: Song pages | Design | Pending |
 | SONG-13 | P1: Song pages | Design | Pending |
@@ -259,9 +259,9 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | LYR-01 | P1: Lyrics data | Design | Pending |
 | LYR-02 | P1: Lyrics data | Design | Pending |
 | LYR-03 | P1: Lyrics data | Design | Pending |
-| LYR-04 | P1: Lyrics data | T11 | Implementing |
-| LYR-05 | P1: Lyrics data | Design | Pending |
-| REL-01 | P1: Release pages | Design | Pending |
+| LYR-04 | P1: Lyrics data | T11, T13 | Implementing |
+| LYR-05 | P1: Lyrics data | T13 | Implementing |
+| REL-01 | P1: Release pages | T13 | Implementing |
 | REL-02 | P1: Release pages | Design | Pending |
 | REL-03 | P1: Release pages | Design | Pending |
 | REL-04 | P1: Release pages | Design | Pending |

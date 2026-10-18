@@ -397,8 +397,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/catalog.test.cjs` covers: 22 songs with URLs, the exact REL-01 release list, every single folded per the spec mapping, deluxe tracks resolving to base-album songs, prev/next (first/last omitted), sections parsing (labelled and unlabelled), instrumental, missing lyrics error, unknown track error, video match and no-match.
-- [ ] Gate check passes: `npm run test:unit`
+- [x] `tests/seo/catalog.test.cjs` covers: 22 songs with URLs, the exact REL-01 release list, every single folded per the spec mapping, deluxe tracks resolving to base-album songs, prev/next (first/last omitted), sections parsing (labelled and unlabelled), instrumental, missing lyrics error, unknown track error, video match and no-match.
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
