@@ -347,8 +347,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/songs-data.test.cjs` asserts 22 songs, slugs unique, every song resolves to a track of its album, instrumental exactly for `endless-path` and `back-to-1994`, `about` present for the 11 agreed songs, copy present for the 7 release pages.
-- [ ] Gate check passes: `npm run test:unit`
+- [x] `tests/seo/songs-data.test.cjs` asserts 22 songs, slugs unique, every song resolves to a track of its album, instrumental exactly for `endless-path` and `back-to-1994`, `about` present for the 11 agreed songs, copy present for the 7 release pages.
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick

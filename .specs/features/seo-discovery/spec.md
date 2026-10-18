@@ -246,7 +246,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SONG-03 | P1: Song pages | Design | Pending |
 | SONG-04 | P1: Song pages | Design | Pending |
 | SONG-05 | P1: Song pages | Design | Pending |
-| SONG-06 | P1: Song pages | Design | Pending |
+| SONG-06 | P1: Song pages | T11 | Implementing |
 | SONG-07 | P1: Song pages | Design | Pending |
 | SONG-08 | P1: Song pages | Design | Pending |
 | SONG-09 | P1: Song pages | Design | Pending |
@@ -259,7 +259,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | LYR-01 | P1: Lyrics data | Design | Pending |
 | LYR-02 | P1: Lyrics data | Design | Pending |
 | LYR-03 | P1: Lyrics data | Design | Pending |
-| LYR-04 | P1: Lyrics data | Design | Pending |
+| LYR-04 | P1: Lyrics data | T11 | Implementing |
 | LYR-05 | P1: Lyrics data | Design | Pending |
 | REL-01 | P1: Release pages | Design | Pending |
 | REL-02 | P1: Release pages | Design | Pending |

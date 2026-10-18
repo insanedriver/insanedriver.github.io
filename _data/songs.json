@@ -1,0 +1,35 @@
+{
+  "songs": [
+    {"slug": "endless-path", "album": "insane-driver", "instrumental": true},
+    {"slug": "the-edge-of-life", "album": "insane-driver"},
+    {"slug": "firstly-my-breakfast", "album": "insane-driver"},
+    {"slug": "tide-of-fears", "album": "insane-driver"},
+    {"slug": "buried-thoughts", "album": "insane-driver", "about": "Buried Thoughts, from the 2016 debut album, deals with bullying and the hidden wounds it can leave long after the fact. Its message is direct: if bullying still weighs on you, reach out for help, because nobody has to carry it alone."},
+    {"slug": "fallen-dreams", "album": "insane-driver"},
+    {"slug": "change", "album": "insane-driver"},
+    {"slug": "today-is-sunday", "album": "insane-driver"},
+    {"slug": "faithless-breath", "album": "insane-driver"},
+    {"slug": "make-decisions", "album": "insane-driver"},
+    {"slug": "tears-of-blood", "album": "insane-driver"},
+    {"slug": "back-to-1994", "album": "silicon-fortress", "instrumental": true},
+    {"slug": "faceless-demons", "album": "silicon-fortress", "about": "Faceless Demons brings the metalcore side of Silicon Fortress to bear on cyberbullying and the anonymous haters who hide behind a screen. It speaks to anyone worn down by online abuse and the depression that can follow, and urges them to stand up to those voices instead of facing them alone."},
+    {"slug": "keep-away", "album": "silicon-fortress", "about": "Keep Away deals with depression and the fears that can knock you down without warning. The song argues for holding on to what makes you happy and stepping away from what hurts you. It was the ninth single from Silicon Fortress and the last one out before the album."},
+    {"slug": "silicon-fortress", "album": "silicon-fortress", "about": "The title track compares the rise of technology, and of social networks above all, to a fortress built from silicon. It looks at people who act one way online and another in real life, hiding behind their screens until a healthy social life slips out of reach."},
+    {"slug": "age-of-lies", "album": "silicon-fortress", "about": "Age of Lies takes on fake news and a world run on appearances, where every bubble tells its own version of events. Over heavy riffs, it challenges the listener to question what they are told and work out what is actually true."},
+    {"slug": "insane-driver", "album": "silicon-fortress", "about": "The band's namesake song is a call to be yourself, whatever society and social media say you should look like, wear or think. It doubles as an open invitation to join the Insane Family and enjoy the ride on your own terms."},
+    {"slug": "desperate-prayer", "album": "silicon-fortress", "about": "Desperate Prayer puts a believer and an atheist side by side on a plane that is going down, sharing the same fate. As the end gets closer, the song asks whether one could lose his faith and the other find it, and hides a message about empathy for the listener to uncover."},
+    {"slug": "ghosts", "album": "silicon-fortress", "about": "Ghosts is about the people close to you, a friend or a partner, who slowly drain your energy and pull you down without you noticing. By the time you see them for what they are, they may have taken your dreams and joy with them, and the dependence is hard to break."},
+    {"slug": "imagined-realities", "album": "silicon-fortress", "about": "Inspired by Yuval Noah Harari's book Sapiens, Imagined Realities looks at the things humans invented and agreed to believe in, such as money, borders, laws and companies. Those shared fictions let us live together in huge numbers but have also led to war, and the song asks what part we play in that game."},
+    {"slug": "invisible-chains", "album": "silicon-fortress", "about": "Invisible Chains follows a relationship that starts out well until one partner begins to control the other. It shows how an abusive relationship turns into a nightmare and leaves deep scars. It was the eighth single from Silicon Fortress."},
+    {"slug": "distant-hearts", "album": "silicon-fortress", "about": "Distant Hearts is the ballad of Silicon Fortress, about loving someone who lives far away. It explores long-distance and online relationships and the challenges that come with them, and it was the album's fourth single."}
+  ],
+  "releases": {
+    "silicon-fortress": "Silicon Fortress is Insane Driver's second album, released in 2021. Across eleven tracks of hard rock, heavy metal and metalcore, it looks at technology, social media and modern society, from cyberbullying and fake news to abusive and long-distance relationships. Nine of its songs came out as singles before the album.",
+    "insane-driver": "Insane Driver is the band's self-titled debut album, released in 2016. Its eleven tracks mix hard rock, heavy metal and metalcore, from the instrumental opener Endless Path to songs like The Edge of Life, Buried Thoughts and Today Is Sunday.",
+    "insane-driver-deluxe": "The 2018 deluxe edition of Insane Driver's 2016 debut album keeps all eleven original hard rock and heavy metal tracks. It adds deluxe versions of Firstly My Breakfast, Buried Thoughts and Today Is Sunday, plus an acoustic version of Tide of Fears.",
+    "waiting-for-you": "Waiting for You is a 2025 single by Insane Driver, the hard rock, heavy metal and metalcore band from São Paulo, Brazil. It came out on its own, outside any album.",
+    "the-sun-will-rise": "The Sun Will Rise is a 2024 hard rock and heavy metal single by Insane Driver. It carries a hopeful message: whatever challenges come, things will turn out okay.",
+    "today-is-sunday-eder-franco": "This 2017 version of Today Is Sunday is credited to Eder Franco, Insane Driver's lead vocalist. The song first appeared on the band's 2016 debut album.",
+    "change-live": "Change (Live) is a 2015 live recording of Change, performed at Acustica Studios, where the band also filmed the performance video. The studio version appeared a year later on the 2016 debut album Insane Driver."
+  }
+}
