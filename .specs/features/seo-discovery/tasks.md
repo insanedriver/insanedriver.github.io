@@ -95,8 +95,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] Unit tests cover: kept page, `sitemap: false`, `noindex`, `nofollow`, non-HTML output, missing `page_robots` (kept).
-- [ ] Gate check passes: `npm run test:unit`
+- [x] Unit tests cover: kept page, `sitemap: false`, `noindex`, `nofollow`, non-HTML output, missing `page_robots` (kept).
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick

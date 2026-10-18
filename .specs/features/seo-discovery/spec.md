@@ -224,7 +224,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
 | SEO-01 | P1: Crawl and understand | Design | Pending |
-| SEO-02 | P1: Crawl and understand | Design | Pending |
+| SEO-02 | P1: Crawl and understand | T1, T3 | Implementing |
 | SEO-03 | P1: Crawl and understand | Design | Pending |
 | SEO-04 | P1: Crawl and understand | Design | Pending |
 | SEO-05 | P1: Crawl and understand | Design | Pending |
