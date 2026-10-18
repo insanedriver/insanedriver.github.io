@@ -17,6 +17,9 @@ test('SEO-03: robots.txt allows every crawler and points at the sitemap', () => 
 
 const ORIGIN = 'https://insanedriver.com.br';
 const INDEXABLE = ['/', '/band/', '/contact/', '/dates/', '/discography/', '/newsletter/', '/photos/', '/store/', '/videos/'];
+// REL-01: one page per release that does not fold into a song page.
+const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'].map(slug => `/discography/${slug}/`);
 const sitemapLocs = () => {
   const xml = built('sitemap.xml');
   // Well-formed sitemap: declaration, one urlset in the sitemap namespace, only <url><loc> children, no raw & or < in a loc.
@@ -36,7 +39,7 @@ test('SEO-01: every <loc> is an absolute insanedriver.com.br URL ending in /', (
 });
 
 test('SEO-02: the sitemap lists exactly the indexable pages', () => {
-  assert.deepEqual([...sitemapLocs()].sort(), INDEXABLE.map(u => ORIGIN + u).sort());
+  assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES].map(u => ORIGIN + u).sort());
 });
 
 test('SEO-02: redirects, campaign pages and verification files stay out of the sitemap', () => {

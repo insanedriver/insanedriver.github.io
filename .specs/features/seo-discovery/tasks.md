@@ -498,8 +498,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/release.e2e.cjs` asserts every REL AC on all 7 pages and that no other release URL exists; T4/T7 head tests pass on the new URLs.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/seo/release.e2e.cjs` asserts every REL AC on all 7 pages and that no other release URL exists; T4/T7 head tests pass on the new URLs.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: full

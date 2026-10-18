@@ -241,7 +241,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | GEN-02 | P1: Genre and audience | T8 | Implementing |
 | GEN-03 | P1: Genre and audience | T8 | Implementing |
 | GEN-04 | P1: Genre and audience | T9 | Implementing |
-| GEN-05 | P1: Genre and audience | T9 | Implementing |
+| GEN-05 | P1: Genre and audience | T9, T16 | Implementing |
 | GEN-06 | P1: Genre and audience | T7 | Implementing |
 | SONG-01 | P1: Song pages | T13, T14 | Implementing |
 | SONG-02 | P1: Song pages | T13 | Implementing |
@@ -263,12 +263,12 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | LYR-03 | P1: Lyrics data | T10 | Implementing |
 | LYR-04 | P1: Lyrics data | T11, T13 | Implementing |
 | LYR-05 | P1: Lyrics data | T13 | Implementing |
-| REL-01 | P1: Release pages | T13, T14 | Implementing |
-| REL-02 | P1: Release pages | Design | Pending |
-| REL-03 | P1: Release pages | Design | Pending |
-| REL-04 | P1: Release pages | Design | Pending |
-| REL-05 | P1: Release pages | Design | Pending |
-| REL-06 | P1: Release pages | Design | Pending |
+| REL-01 | P1: Release pages | T13, T14, T16 | Implementing |
+| REL-02 | P1: Release pages | T16 | Implementing |
+| REL-03 | P1: Release pages | T16 | Implementing |
+| REL-04 | P1: Release pages | T16 | Implementing |
+| REL-05 | P1: Release pages | T16 | Implementing |
+| REL-06 | P1: Release pages | T16 | Implementing |
 | IDX-01 | P2: Discography index | Design | Pending |
 | IDX-02 | P2: Discography index | Design | Pending |
 | IDX-03 | P2: Discography index | Design | Pending |

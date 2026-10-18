@@ -1,0 +1,94 @@
+---
+layout: base.html
+pagination:
+  data: catalog.releases
+  size: 1
+  alias: release
+  addAllPagesToCollections: true
+permalink: "discography/{{ release.slug }}/index.html"
+page_robots: index, follow
+page_id: discography
+jspath: js/discography
+header_img_path: header_4.jpg
+og_type: music.album
+eleventyComputed:
+  page_title: "{{ release.title }}"
+  seo_title: "{{ release.title }} ({{ release.year }}) – Insane Driver {% if release.type == 'SINGLE' %}Single{% else %}Album{% endif %}"
+  page_description: "{{ release.description | metaDescription }}"
+  og_image: "/assets/images/releases/{{ release.cover }}"
+---
+{%- assign is_album = false -%}
+{%- if release.type != 'SINGLE' -%}{%- assign is_album = true -%}{%- endif -%}
+<div class="disc-shell disc-page cyber-zone" data-disc>
+    <div class="cyber-zone-inner">
+
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> REL::{{ release.year }}</div>
+        <div class="cyber-panel-body cyber-panel-body--disc-release" data-hud="RELEASE.{{ release.slug | upcase }}{% if is_album %} // {{ release.tracks.size }} TRACKS{% endif %}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <article class="disc-release" data-release="{{ release.slug }}">
+        <div class="disc-release-art">
+            <img src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" decoding="async">
+            <span class="disc-art-corner" aria-hidden="true"></span>
+        </div>
+        <div class="disc-release-body">
+            <div class="disc-release-heading">
+                <span class="disc-eyebrow" data-release-meta>{% if release.type == 'DELUXE' %}Deluxe edition{% elsif release.type == 'ALBUM' %}Album{% else %}Single{% endif %} // {{ release.year }}</span>
+                <p class="disc-release-meta">{% if is_album %}{{ release.tracks.size }} tracks{% else %}Single{% endif %} · Released {{ release.year }}</p>
+            </div>
+
+            <p class="disc-release-description" data-release-description>{{ release.description | escape }}</p>
+
+            {% if release.songUrl %}{% for s in catalog.songs %}{% if s.url == release.songUrl %}
+            <p class="disc-release-song">Original song: <a href="{{ s.url }}" data-release-song>{{ s.title | escape }}</a> <span class="disc-release-song-album">from {{ s.album.title | escape }} ({{ s.album.year }})</span></p>
+            {% endif %}{% endfor %}{% endif %}
+
+            {% include 'discography/links' %}
+
+            {% if is_album %}
+            <section class="disc-tracklist disc-tracklist--page" aria-labelledby="release-tracks-title">
+                <h2 id="release-tracks-title" class="disc-eyebrow">Tracklist <span class="disc-tracklist-count">// {{ release.tracks.size }} FILES</span></h2>
+                <ol class="disc-tracks" data-release-tracks>
+                    {% for track in release.tracks %}
+                    <li class="disc-track">
+                        <span class="disc-track-pos">{% if track.position < 10 %}0{% endif %}{{ track.position }}</span>
+                        <a class="disc-track-title" href="{{ track.url }}">{{ track.title | escape }}</a>
+                        <span class="disc-track-time">{{ track.duration | divided_by: 60 | floor }}:{% assign secs = track.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</span>
+                    </li>
+                    {% endfor %}
+                </ol>
+            </section>
+            {% endif %}
+
+            {% include 'seo/fans-of' %}
+            <p class="disc-back"><a href="/discography/">&larr; All releases</a></p>
+        </div>
+    </article>
+        </div>
+    </div>
+
+    </div>
+</div>
+{% if is_album %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": {{ release.title | jsonify }},
+  "url": "https://insanedriver.com.br{{ release.url }}",
+  "datePublished": "{{ release.releaseDate }}",
+  "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
+  "numTracks": {{ release.tracks.size }},
+  "image": "https://insanedriver.com.br/assets/images/releases/{{ release.cover }}",
+  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],
+  "description": {{ release.description | jsonify }},
+  "sameAs": [{% assign sep = '' %}{% for p in platforms %}{% assign url = release.links[p.key] %}{% if url %}{{ sep }}{{ url | jsonify }}{% assign sep = ',' %}{% endif %}{% endfor %}],
+  "track": [{% for track in release.tracks %}{% unless forloop.first %},{% endunless %}
+    { "@type": "MusicRecording", "name": {{ track.title | jsonify }}, "position": {{ track.position }}, "duration": "PT{{ track.duration | divided_by: 60 | floor }}M{{ track.duration | modulo: 60 }}S", "url": "https://insanedriver.com.br{{ track.url }}" }{% endfor %}
+  ]
+}
+</script>
+{% endif %}
