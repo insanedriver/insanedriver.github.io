@@ -271,8 +271,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/identity.e2e.cjs` parses the block on both pages and asserts GEN-01..03.
-- [ ] Gate check passes: `npm test`
+- [x] `tests/seo/identity.e2e.cjs` parses the block on both pages and asserts GEN-01..03.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

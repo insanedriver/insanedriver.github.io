@@ -49,6 +49,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | `/dates/` | Only its `<head>` changes (absolute canonical, unique description, OG/Twitter). It is listed in the sitemap. | Layout migration is deferred (see Out of Scope). | y |
 | Sitemap contents | Every built HTML page except: pages whose robots value contains `noindex` or `nofollow`, `/preorder/` (redirect), `/reward/*`, `/pre-save/`, and the `google*.html` verification files. | Only pages worth ranking go in. | y |
 | `MusicGroup` JSON-LD | The existing block on the home page is updated (genres, São Paulo location, `open.spotify.com` artist URL, Bandcamp added to `sameAs`) and the same block is also emitted on `/band/`. | It already exists on the home page with `genre: ["Metal","Hard Rock"]` and `foundingLocation` Brazil. | y |
+| Footer social links | Spotify link moved to open.spotify.com; Bandcamp added with an inline SVG icon (FA 4.4 has no Bandcamp glyph); HOME-52 expects 6 footer links | User decision during Execute (T8): keep the footer as the sameAs source of truth | y |
 | Existing `/discography/` `MusicAlbum` blocks | Kept unchanged (DISC-31, DISC-32 still pass). | No regression on the existing spec. | y |
 | `og:image` | Release and song pages use the release cover (`/assets/images/releases/<cover>`); other pages use `/assets/images/home/hero-1280.jpg`. | Covers are the most recognisable share image. | y |
 
@@ -234,9 +235,9 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SEO-09 | P1: Crawl and understand | T7 | Implementing |
 | SEO-10 | P1: Crawl and understand | T6 | Implementing |
 | SEO-11 | P1: Crawl and understand | T7 | Implementing |
-| GEN-01 | P1: Genre and audience | Design | Pending |
-| GEN-02 | P1: Genre and audience | Design | Pending |
-| GEN-03 | P1: Genre and audience | Design | Pending |
+| GEN-01 | P1: Genre and audience | T8 | Implementing |
+| GEN-02 | P1: Genre and audience | T8 | Implementing |
+| GEN-03 | P1: Genre and audience | T8 | Implementing |
 | GEN-04 | P1: Genre and audience | Design | Pending |
 | GEN-05 | P1: Genre and audience | Design | Pending |
 | GEN-06 | P1: Genre and audience | T7 | Implementing |
