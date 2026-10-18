@@ -58,6 +58,7 @@ module.exports = function (eleventyConfig) {
     // We simply tell eleventy to pass a copy of our assets folder
     eleventyConfig.addPassthroughCopy("./assets");
     eleventyConfig.addPassthroughCopy("./google*.html");
+    eleventyConfig.addPassthroughCopy("./robots.txt");
 
     return {
         dir: {

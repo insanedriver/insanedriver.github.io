@@ -120,8 +120,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] A unit test reads the built `docs/robots.txt` and asserts the three lines.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] A unit test reads the built `docs/robots.txt` and asserts the three lines.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
