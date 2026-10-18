@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 29,
+  "next_id": 31,
   "lessons": [
     {
       "id": "L-001",
@@ -512,6 +512,42 @@
       ],
       "created": "2026-10-18T01:05:28Z",
       "last_seen": "2026-10-18T01:05:28Z"
+    },
+    {
+      "id": "L-029",
+      "key": "surviving_mutant::when a form is replaced by a link rewrite its no event test to activate the new element not to loop over forms that no longer exist",
+      "text": "When a form is replaced by a link, rewrite its no-event test to activate the new element, not to loop over forms that no longer exist",
+      "signal": "surviving_mutant",
+      "scope": "e2e-tracking",
+      "status": "candidate",
+      "features": [
+        "newsletter-bandsintown"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M5b; tests/home/tracking.e2e.cjs:65 (e2e-tracking)"
+      ],
+      "created": "2026-10-18T04:36:16Z",
+      "last_seen": "2026-10-18T04:36:16Z"
+    },
+    {
+      "id": "L-030",
+      "key": "ac_gap::map every spec edge case including reduced motion to a test row in the test coverage matrix",
+      "text": "Map every spec edge case, including reduced motion, to a test row in the Test Coverage Matrix",
+      "signal": "ac_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "newsletter-bandsintown"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Edge Cases: reduced motion on /newsletter/ has no test (e2e)"
+      ],
+      "created": "2026-10-18T04:36:16Z",
+      "last_seen": "2026-10-18T04:36:16Z"
     }
   ]
 }

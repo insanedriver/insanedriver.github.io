@@ -11,7 +11,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 **Design**: inline (no `design.md`). The iframe and the fallback link are written inline in `newsletter/index.html` (one consumer, no include). The home panel replaces its form with a `.home-signal-cta` link to `/newsletter/`, reusing the old yellow submit button rule. No new architecture.
 
 **Amended during T2 (2026-10-18):** the user moved the embed off the home page, because an iframe there breaks HOME-06. T2 and T3 were rewritten; the shared include was dropped.
-**Status**: In Progress
+**Status**: Done
 
 ---
 

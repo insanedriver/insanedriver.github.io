@@ -150,26 +150,26 @@ The band no longer has access to its Mailchimp account, so the two signup forms 
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| BIT-01 | P1: Home panel | T2 | Implemented |
-| BIT-02 | P1: Home panel | T2 | Implemented |
-| BIT-03 | P1: Home panel | T2 | Implemented |
-| BIT-04 | P1: Home panel | T2 | Implemented |
-| BIT-05 | P1: Home panel | T1 | Implemented |
-| BIT-06 | P1: Home panel | T2 | Implemented |
-| BIT-07 | P1: Newsletter page signup | T4 | Implemented |
-| BIT-08 | P1: Newsletter page signup | T4 | Implemented |
-| BIT-09 | P1: Newsletter page signup | T4 | Implemented |
-| BIT-10 | P1: Newsletter page signup | T4 | Implemented |
-| BIT-11 | P1: Embed matches the site | T4 | Implemented |
-| BIT-12 | P1: Embed matches the site | T4 | Implemented |
-| BIT-13 | P1: Embed matches the site | T4 | Implemented |
-| BIT-14 | P1: Embed matches the site | T4, T5 | Implemented |
-| BIT-15 | P1: Embed matches the site | T5 | Implemented |
-| BIT-16 | P2: Fallback link | T4 | Implemented |
-| BIT-17 | P2: Fallback link | T4 | Implemented |
-| BIT-18 | P2: Mailchimp leftovers removed | T5 | Implemented |
-| BIT-19 | P2: Mailchimp leftovers removed | T5 | Implemented |
-| BIT-20 | P2: Mailchimp leftovers removed | T5 | Implemented |
+| BIT-01 | P1: Home panel | T2 | Verified |
+| BIT-02 | P1: Home panel | T2 | Verified |
+| BIT-03 | P1: Home panel | T2 | Verified |
+| BIT-04 | P1: Home panel | T2 | Verified |
+| BIT-05 | P1: Home panel | T1 | Verified |
+| BIT-06 | P1: Home panel | T2 | Verified |
+| BIT-07 | P1: Newsletter page signup | T4 | Verified |
+| BIT-08 | P1: Newsletter page signup | T4 | Verified |
+| BIT-09 | P1: Newsletter page signup | T4 | Verified |
+| BIT-10 | P1: Newsletter page signup | T4 | Verified |
+| BIT-11 | P1: Embed matches the site | T4 | Verified |
+| BIT-12 | P1: Embed matches the site | T4 | Verified |
+| BIT-13 | P1: Embed matches the site | T4 | Verified |
+| BIT-14 | P1: Embed matches the site | T4, T5 | Verified |
+| BIT-15 | P1: Embed matches the site | T5 | Verified |
+| BIT-16 | P2: Fallback link | T4 | Verified |
+| BIT-17 | P2: Fallback link | T4 | Verified |
+| BIT-18 | P2: Mailchimp leftovers removed | T5 | Verified |
+| BIT-19 | P2: Mailchimp leftovers removed | T5 | Verified |
+| BIT-20 | P2: Mailchimp leftovers removed | T5 | Verified |
 
 **Coverage:** 20 total, 20 mapped to tasks, 0 unmapped.
 
