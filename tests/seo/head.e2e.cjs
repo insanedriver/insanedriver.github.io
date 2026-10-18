@@ -6,8 +6,6 @@ const { test, expect } = require('../photos/browser.cjs');
 const ORIGIN = 'https://insanedriver.com.br';
 const sitemap = fs.readFileSync(path.join(__dirname, '../../docs/sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-// /dates/ is hand-written outside the layouts; T5 moves its head onto head/seo and drops it from this list.
-const PENDING = ['/dates/'];
 
 const head = page => page.evaluate(() => {
   const all = sel => [...document.querySelectorAll(sel)];
@@ -34,7 +32,6 @@ test.describe('without JavaScript', () => {
 
   for (const loc of locs) {
     const url = loc.slice(ORIGIN.length);
-    if (PENDING.includes(url)) continue;
 
     test(`SEO-04/05/06: ${url} carries one canonical, Open Graph, Twitter and one description`, async ({ page }) => {
       await page.goto(url, { waitUntil: 'domcontentloaded' });

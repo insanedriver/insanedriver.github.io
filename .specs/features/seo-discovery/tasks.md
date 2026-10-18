@@ -196,8 +196,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `/dates/` is in the sitemap and passes the T4 head test.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `/dates/` is in the sitemap and passes the T4 head test.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: full
