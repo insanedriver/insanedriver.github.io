@@ -61,7 +61,7 @@ T7 → T8 → T9
 
 ```
 T10 → T11 → T13
-T12 → T13 → T14
+T12 → T13 → T14 → T22
 ```
 
 ### Phase 4: Release and song pages
@@ -432,6 +432,32 @@ T20 → T21
 
 ---
 
+### T22: Fix the /band/ horizontal overflow
+
+**What**: Zero the Bootstrap `.row` gutter overflow inside `.band-container` so `/band/` has no horizontal overflow at 320px (same rule as `/newsletter/`).
+**Where**: `less/band.less` (and compiled `assets/css/style.min.css`)
+**Depends on**: T14
+**Reuses**: the `> .row` margin rule in `less/newsletter.less`
+**Requirement**: Edge case: 320px overflow (extended to `/band/`, user decision during Execute)
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] `tests/seo/band-overflow.e2e.cjs` asserts `document.documentElement.scrollWidth <= innerWidth` on `/band/` at 320px.
+- [x] Existing band tests still pass.
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+
+**Commit**: `fix(band): stop the page scrolling sideways on phones`
+
+---
+
 ### T15: Extract the platform links include
 
 **What**: Move the primary/secondary platform buttons of `discography/index.html` into `_includes/discography/links.liquid` (parameterised by a `release` variable) with identical output.
@@ -615,7 +641,7 @@ Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5
 
 Phase 1:  T1 → T2 → T3 → T4 → T5 → T6
 Phase 2:  T7 → T8 → T9
-Phase 3:  T10 → T11 → T13 → T14
+Phase 3:  T10 → T11 → T13 → T14 → T22
           T12 → T13
 Phase 4:  T15 → T16 → T17 → T18 → T19
 Phase 5:  T20 → T21
@@ -623,7 +649,7 @@ Phase 5:  T20 → T21
 
 Execution is strictly sequential.
 
-`validate_tasks.py` warns on multi-file `Where` for T2–T4, T8, T9, T15, T18–T20. Each pairs a new include, filter or script with the one place that consumes it, or a `.less` file with its compiled CSS; split apart, neither half would be testable on its own (merge-backward rule).
+`validate_tasks.py` warns on multi-file `Where` for T2–T4, T8, T9, T15, T18–T20, T22. Each pairs a new include, filter or script with the one place that consumes it, or a `.less` file with its compiled CSS; split apart, neither half would be testable on its own (merge-backward rule).
 
 ---
 
@@ -647,6 +673,7 @@ Execution is strictly sequential.
 | T12 | 1 data file | ✅ |
 | T13 | 1 module | ✅ |
 | T14 | 1 data module | ✅ |
+| T22 | 1 stylesheet rule | ✅ |
 | T15 | 1 include extraction | ✅ |
 | T16 | 1 template | ✅ |
 | T17 | 1 template | ✅ |
@@ -673,6 +700,7 @@ Execution is strictly sequential.
 | T12 | None | - | ✅ |
 | T13 | T11, T12 | T11 → T13, T12 → T13 | ✅ |
 | T14 | T13 | T13 → T14 | ✅ |
+| T22 | T14 | T14 → T22 | ✅ |
 | T15 | None (phase 3 done) | - | ✅ |
 | T16 | T15 | T15 → T16 | ✅ |
 | T17 | T16 | T16 → T17 | ✅ |
@@ -699,6 +727,7 @@ Execution is strictly sequential.
 | T12 | data files | unit | unit | ✅ |
 | T13 | build-time logic | unit | unit | ✅ |
 | T14 | build-time logic | unit | unit | ✅ |
+| T22 | styles | e2e | e2e | ✅ |
 | T15 | includes | e2e | e2e | ✅ |
 | T16 | templates | e2e | e2e | ✅ |
 | T17 | templates | e2e | e2e | ✅ |
