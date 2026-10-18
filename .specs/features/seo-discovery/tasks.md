@@ -372,8 +372,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] A unit test asserts every present `uploadDate` matches `YYYY-MM-DD`; existing videos tests still pass.
-- [ ] Gate check passes: `npm test`
+- [x] A unit test asserts every present `uploadDate` matches `YYYY-MM-DD`; existing videos tests still pass.
+- [x] Gate check passes: `npm test`
 
 **Tests**: unit
 **Gate**: full

@@ -255,7 +255,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SONG-12 | P1: Song pages | Design | Pending |
 | SONG-13 | P1: Song pages | Design | Pending |
 | SONG-14 | P1: Song pages | Design | Pending |
-| SONG-15 | P1: Song pages | Design | Pending |
+| SONG-15 | P1: Song pages | T12 | Implementing |
 | LYR-01 | P1: Lyrics data | Design | Pending |
 | LYR-02 | P1: Lyrics data | Design | Pending |
 | LYR-03 | P1: Lyrics data | Design | Pending |
