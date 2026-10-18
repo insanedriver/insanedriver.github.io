@@ -296,9 +296,9 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/identity.e2e.cjs` asserts GEN-04 and the visible GEN-05 line on `/` and `/band/`.
-- [ ] Existing band and home layout tests still pass.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/seo/identity.e2e.cjs` asserts GEN-04 and the visible GEN-05 line on `/` and `/band/`.
+- [x] Existing band and home layout tests still pass.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build

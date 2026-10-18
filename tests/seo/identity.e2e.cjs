@@ -52,3 +52,30 @@ for (const url of ['/', '/band/']) {
     });
   });
 }
+
+const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold';
+
+test.describe('genres and audience in visible copy', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('GEN-04: the /band/ bio names hard rock, heavy metal, metalcore and São Paulo, Brazil', async ({ page }) => {
+    await page.goto('/band/', { waitUntil: 'domcontentloaded' });
+    const bio = (await page.locator('.cyber-bio-text').innerText()).toLowerCase();
+    for (const words of ['hard rock', 'heavy metal', 'metalcore', 'são paulo, brazil']) expect(bio).toContain(words);
+  });
+
+  for (const url of ['/', '/band/']) {
+    test(`GEN-05: ${url} shows the "For fans of" line`, async ({ page }) => {
+      await page.goto(url, { waitUntil: 'load' });
+      const line = page.getByText(FANS_OF, { exact: true });
+      await expect(line).toHaveCount(1);
+      await expect(line).toBeVisible();
+      expect(await line.innerText()).toBe(FANS_OF);
+    });
+  }
+});
+
+test('GEN-05: with JavaScript the home line is visible once the page has loaded', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'load' });
+  await expect(page.getByText(FANS_OF, { exact: true })).toBeVisible({ timeout: 15000 });
+});

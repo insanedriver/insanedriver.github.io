@@ -238,8 +238,8 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | GEN-01 | P1: Genre and audience | T8 | Implementing |
 | GEN-02 | P1: Genre and audience | T8 | Implementing |
 | GEN-03 | P1: Genre and audience | T8 | Implementing |
-| GEN-04 | P1: Genre and audience | Design | Pending |
-| GEN-05 | P1: Genre and audience | Design | Pending |
+| GEN-04 | P1: Genre and audience | T9 | Implementing |
+| GEN-05 | P1: Genre and audience | T9 | Implementing |
 | GEN-06 | P1: Genre and audience | T7 | Implementing |
 | SONG-01 | P1: Song pages | Design | Pending |
 | SONG-02 | P1: Song pages | Design | Pending |
