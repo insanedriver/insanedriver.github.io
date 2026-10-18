@@ -247,7 +247,7 @@ The home page (`/`) is the site's highest-traffic page and the last major one st
 
 **Acceptance Criteria**:
 
-1. (HOME-71) WHILE the viewport is narrower than 860px the system SHALL size the `NOW::STREAMING` cover frame to the full content width of the panel, up to 420px.
+1. (HOME-71) WHILE the viewport is narrower than 860px the system SHALL size the `NOW::STREAMING` cover frame to the full content width of the panel, up to 420px, centred horizontally in the panel (amended for R9-A).
 2. (HOME-72) WHILE the viewport is between 320px and 1440px wide the system SHALL keep each hero-card platform button inside the hero card, and show its platform name and its `Listen now` line each on one line, with at least 16px between that text and each side of the button.
 3. (HOME-73) WHILE the viewport is between 320px and 1440px wide the system SHALL show each `NOW::STREAMING` platform name on one line, centered in its button, with at least 16px between the name and each side of the button.
 

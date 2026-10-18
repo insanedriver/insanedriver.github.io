@@ -7,8 +7,8 @@ test.beforeEach(({ page }) => serveFonts(page));
 // fallback font.
 const realFonts = async page => expect(await fontsLoaded(page)).toEqual([1, 1]);
 
-for (const width of [320, 375, 414, 768]) {
-  test(`HOME-71: at ${width}px the NOW::STREAMING cover fills the panel content, up to 420px`, async ({ page }) => {
+for (const width of [320, 375, 414, 600, 768, 859]) {
+  test(`HOME-71: at ${width}px the NOW::STREAMING cover fills the panel content, up to 420px, centred`, async ({ page }) => {
     await page.setViewportSize({ width, height: 896 });
     await page.goto('/', { waitUntil: 'load' });
     const { art, column } = await page.evaluate(() => {
@@ -16,7 +16,8 @@ for (const width of [320, 375, 414, 768]) {
       return { art: box(document.querySelector('.home-streaming-art')), column: box(document.querySelector('.home-streaming')) };
     });
     expect(Math.abs(art.width - Math.min(column.width, 420))).toBeLessThanOrEqual(1);
-    expect(Math.abs(art.left - column.left)).toBeLessThanOrEqual(1);
+    // Centred: once the cover hits its cap the spare width splits evenly.
+    expect(Math.abs((art.left + art.width / 2) - (column.left + column.width / 2))).toBeLessThanOrEqual(1);
   });
 }
 
