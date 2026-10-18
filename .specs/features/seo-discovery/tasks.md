@@ -322,8 +322,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/lyrics-data.test.cjs` asserts 20 `.txt` files, no `Tema:` line, no title line, and no `assets/lyrics/` or `~$` file in the repo.
-- [ ] Gate check passes: `npm run test:unit`
+- [x] `tests/seo/lyrics-data.test.cjs` asserts 20 `.txt` files, no `Tema:` line, no title line, and no `assets/lyrics/` or `~$` file in the repo.
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick

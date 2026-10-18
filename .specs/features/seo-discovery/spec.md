@@ -38,6 +38,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | Single-to-song mapping | A single folds into the song whose title equals the single title with a trailing `(Acoustic)` removed: `keep-away` and `keep-away-acoustic` → Keep Away; `fallen-dreams-acoustic` → Fallen Dreams; `tide-of-fears` and `tide-of-fears-acoustic` → Tide of Fears; `insane-driver-single` → Insane Driver (song); `silicon-fortress-single` → Silicon Fortress (song); same-title singles for the other Silicon Fortress songs and `firstly-my-breakfast`. `today-is-sunday-eder-franco` and `change-live` keep their own page and link to the Today Is Sunday and Change song pages. | Follows the Q14 list; the Eder Franco and live versions are distinct recordings. | y |
 | Deluxe Edition tracks | `insane-driver-deluxe` gets a release page. Its tracks link to the song pages of the base album; `(Deluxe Version)` and `(Acoustic Version)` suffixes are stripped to find the song. | User decision (Q14). | y |
 | Lyrics source | The 21 `.docx` files (20 lyrics + Back to 1994 marked instrumental) under `assets/lyrics/` are converted once into one Markdown file per song under `_data/` (title line and `Tema:` line removed, section labels like `[Verse 1]` kept). The originals and the PDFs are moved out of the repo to `../lyrics-originals/` (sibling of the project folder); the `~$` Word lock files are deleted. | User decision (Q13). Eleventy passthrough-copies all of `assets/`, so leaving them would publish them. | y |
+| Portuguese translations in the lyric sheets | Every docx holds the English lyrics followed by a Portuguese translation. The English part goes to `_data/lyrics/<album>/<song>.txt` (rendered); the translation goes to `<song>.pt.txt` (stored only, never read by the catalog). Plain section labels (`Chorus II:`, `Verse 1:`, `Refrão:`) are normalized to `[Chorus 2]`, `[Verse 1]`, `[Refrão]` in both files; Roman numerals become Arabic. | User decision during Execute (T10, option C): the pages stay English-only and the translation is kept for a later `/pt/`. | y |
 | Instrumentals | Endless Path (no lyrics file) and Back to 1994 (file says `INSTRUMENTAL`) show "Instrumental" instead of lyrics. | User confirmed Endless Path is instrumental; the Back to 1994 file says so. | y |
 | "About the song" text | Written by Claude in English, 2–3 sentences, rewritten from the Bandcamp description plus the `Tema:` line, never copied verbatim. Present for the 10 Silicon Fortress songs with a Bandcamp text (all but Back to 1994) and Buried Thoughts. Other songs have no About block until the band supplies one. The band reviews every text in the PR. | User decision (Q15, Q17). Verbatim copies would compete with Bandcamp as duplicate content. | y |
 | Album and bio copy | Claude drafts 2–4 sentences per album and a reworked bio; singles with a page get a templated sentence. The band reviews in the PR. | User decision (Q10). | y |
@@ -152,7 +153,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 
 **Acceptance Criteria**:
 
-1. **LYR-01** — The repository SHALL contain one lyrics Markdown file per song with lyrics (20 songs), and each file's text SHALL equal the source docx paragraphs with the title line and the `Tema:` line removed.
+1. **LYR-01** — The repository SHALL contain one English lyrics file `<song>.txt` per song with lyrics (20 songs), whose text equals the English part of the source docx with the title line and the `Tema:` line removed and section labels normalized to `[Label N]`; the Portuguese translation SHALL be stored as `<song>.pt.txt` and SHALL NOT appear on any page.
 2. **LYR-02** — The built site SHALL contain no `.docx` or `.pdf` file under `assets/lyrics/`, and the repository SHALL contain no `assets/lyrics/` directory.
 3. **LYR-03** — The repository SHALL contain no file whose name starts with `~$`.
 4. **LYR-04** — Every song in the song data SHALL reference an album slug and a track title that exist in `_data/discography.json`.
@@ -256,9 +257,9 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SONG-13 | P1: Song pages | Design | Pending |
 | SONG-14 | P1: Song pages | Design | Pending |
 | SONG-15 | P1: Song pages | T12 | Implementing |
-| LYR-01 | P1: Lyrics data | Design | Pending |
-| LYR-02 | P1: Lyrics data | Design | Pending |
-| LYR-03 | P1: Lyrics data | Design | Pending |
+| LYR-01 | P1: Lyrics data | T10 | Implementing |
+| LYR-02 | P1: Lyrics data | T10 | Implementing |
+| LYR-03 | P1: Lyrics data | T10 | Implementing |
 | LYR-04 | P1: Lyrics data | T11, T13 | Implementing |
 | LYR-05 | P1: Lyrics data | T13 | Implementing |
 | REL-01 | P1: Release pages | T13 | Implementing |
