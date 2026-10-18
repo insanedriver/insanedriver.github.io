@@ -135,14 +135,56 @@ test.describe('without JavaScript', () => {
     await expect(first).toHaveText(titles('insane-driver')[0]);
   });
 
-  test('STORE-12: the Brazil panel links to Die Hard', async ({ page }) => {
+  test('STORE-12: the Brazil panel follows the product cards and links to Die Hard', async ({ page }) => {
     await page.goto('/store/');
     const br = page.locator('[data-store-brazil]');
     await expect(br).toBeVisible();
-    await expect(br.locator('h3')).toHaveText('Venda exclusiva pela Die Hard para todo Brasil! 🇧🇷');
-    const buy = br.getByRole('link', { name: 'Comprar' });
+    await expect(br.locator('h3')).toHaveText('No Brasil? Compre pela Die Hard 🇧🇷');
+    const buy = br.getByRole('link', { name: 'Comprar na Die Hard', exact: true });
     await expect(buy).toHaveAttribute('href',
       'https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&estoque=estoque&cod_tipo=0&pesquisa=Insane+Driver');
+    const after = await page.evaluate(() => {
+      const cards = document.querySelectorAll('[data-store-product]');
+      const panel = document.querySelector('[data-store-brazil]');
+      return Boolean(cards[cards.length - 1].compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+    expect(after).toBe(true);
+  });
+
+  test('STORE-25: the Brazil panel shows the payment and shipping line between heading and link', async ({ page }) => {
+    await page.goto('/store/');
+    const br = page.locator('[data-store-brazil]');
+    const benefit = br.locator('[data-store-brazil-benefit]');
+    await expect(benefit).toHaveText('Pague em reais · Pix ou cartão · Envio para todo o Brasil');
+    const order = await br.evaluate(el => {
+      const [h, b, a] = [el.querySelector('h3'), el.querySelector('[data-store-brazil-benefit]'), el.querySelector('a[href*="diehard"]')];
+      const follows = (x, y) => Boolean(x.compareDocumentPosition(y) & Node.DOCUMENT_POSITION_FOLLOWING);
+      return [follows(h, b), follows(b, a)];
+    });
+    expect(order).toEqual([true, true]);
+  });
+
+  test('STORE-26: the Brazil panel shows the Silicon Fortress then Insane Driver covers', async ({ page }) => {
+    await page.goto('/store/');
+    const imgs = page.locator('[data-store-brazil] img');
+    expect(await imgs.evaluateAll(els => els.map(el => el.getAttribute('src'))))
+      .toEqual(['/assets/images/releases/silicon-fortress.jpg', '/assets/images/releases/insane-driver.jpg']);
+    for (const alt of await imgs.evaluateAll(els => els.map(el => el.getAttribute('alt') || ''))) {
+      expect(alt.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  test('STORE-27: the Die Hard link opens in a new tab', async ({ page }) => {
+    await page.goto('/store/');
+    const buy = page.locator('[data-store-brazil]').getByRole('link', { name: 'Comprar na Die Hard', exact: true });
+    await expect(buy).toHaveAttribute('target', '_blank');
+    expect((await buy.getAttribute('rel')).split(/\s+/)).toContain('noopener');
+  });
+
+  test('STORE-31: the Brazil panel is Portuguese and its note is English', async ({ page }) => {
+    await page.goto('/store/');
+    await expect(page.locator('[data-store-brazil]')).toHaveAttribute('lang', 'pt-BR');
+    await expect(page.locator('[data-store-brazil-note]')).toHaveAttribute('lang', 'en');
   });
 
   test('STORE-13: the Brazil panel tells international buyers to use PayPal', async ({ page }) => {

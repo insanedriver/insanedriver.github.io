@@ -33,7 +33,14 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | Card art | Every card shows the `assets/images/releases/<cover>` image of each album it includes; the combo stacks both covers. | Amended during T2: `silicon-preorder-combo.png` is only 180x120 and blurs at card width; the user chose the stacked 600px covers. | y |
 | Card order | DOM order is Combo, *Silicon Fortress*, *Insane Driver*; at >=992px CSS places *Silicon Fortress* left, Combo centre, *Insane Driver* right. | Combo is first on mobile and central on desktop. | y |
 | Tracklists and year | Rendered at build time from `_data/discography.json` (`silicon-fortress`, `insane-driver`). | Single source of truth already used by the discography page. | y |
-| Brazil route | A Portuguese panel with a "Comprar" link to the existing Die Hard search URL, always visible, plus an English note that it ships only within Brazil. | Removes the broken geo-IP dependency; both audiences see their route. | y |
+| Brazil route | A Portuguese panel with a link to the existing Die Hard search URL, always visible, plus an English note that it ships only within Brazil. | Removes the broken geo-IP dependency; both audiences see their route. | y |
+| Brazil redesign (round 2) | The panel stays last on the page with no shortcut above the cards; international buyers come first. It uses the same yellow buy button as the cards. | The user ranks international buyers first but wants the Brazil route to look finished. | y |
+| Brazil link target | The search URL stays; there is no per-product link. | Die Hard opens products through a POST, so no GET URL exists per product. | y |
+| Brazil copy | Heading `No Brasil? Compre pela Die Hard 🇧🇷`, benefit `Pague em reais · Pix ou cartão · Envio para todo o Brasil`, link `Comprar na Die Hard` shown uppercase with a decorative `↗`. | The user confirmed reais, Pix and card; nationwide shipping comes from the previous heading. | y |
+| Brazil two-column breakpoint | Two columns from 768px, one column below. | The panel spans the full content width, so 768px already fits the text and a 280px button side by side. | y |
+| Brazil covers | `releases/silicon-fortress.jpg` then `releases/insane-driver.jpg`, 96px wide each, centred over the button. | The covers read as "these products, buy here". | y |
+| Brazil language | The panel carries `lang="pt-BR"` and the English note `lang="en"`. | Screen readers pronounce each block in its own language. | y |
+| Die Hard logo | Not used. | It is another company's brand and its colours would clash with the palette. | y |
 | `/preorder/` | A standalone HTML page (no site layout) with `meta refresh` 0s to `/store/`, `rel=canonical` to `https://insanedriver.com.br/store/`, `robots noindex`, and a visible fallback link. | GitHub Pages has no server-side redirects. | y |
 | Header image | `header_7.jpg`, unchanged. | Keeps the current store header. | y |
 | Motion | Cyber animations are disabled under `prefers-reduced-motion: reduce`. | Matches newsletter/photos; does not copy band/contact's gap. | y |
@@ -92,11 +99,18 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 
 **Acceptance Criteria**:
 
-1. **STORE-12** — The store page SHALL always show a Brazil panel with the heading `Venda exclusiva pela Die Hard para todo Brasil! 🇧🇷` and a `Comprar` link to `https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&estoque=estoque&cod_tipo=0&pesquisa=Insane+Driver`.
+1. **STORE-12** — The store page SHALL always show a Brazil panel, after the product cards, with the heading `No Brasil? Compre pela Die Hard 🇧🇷` and a `Comprar na Die Hard` link to `https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&estoque=estoque&cod_tipo=0&pesquisa=Insane+Driver` (amended in round 2).
 2. **STORE-13** — The Brazil panel SHALL state in English that Die Hard ships only within Brazil and that international buyers should use PayPal.
 3. **STORE-14** — The store page SHALL NOT call any geo-IP service or read an `imInBrazil` query parameter.
+4. **STORE-25** — The Brazil panel SHALL show the line `Pague em reais · Pix ou cartão · Envio para todo o Brasil` between the heading and the link.
+5. **STORE-26** — The Brazil panel SHALL show two cover images with non-empty `alt` text, `releases/silicon-fortress.jpg` then `releases/insane-driver.jpg`, each rendered 96px wide.
+6. **STORE-27** — WHEN the visitor activates the Die Hard link THEN the store page SHALL open it in a new tab (`target="_blank"` with `rel` containing `noopener`).
+7. **STORE-28** — The Die Hard link SHALL render at least 56px tall.
+8. **STORE-29** — WHILE the viewport is at least 768px wide the Brazil panel SHALL place the heading, benefit line and English note in a left column and the covers above the link in a right column, with the link at least 280px wide.
+9. **STORE-30** — WHILE the viewport is below 768px the Brazil panel SHALL stack, top to bottom, the heading, benefit line, covers, link and English note, with the link as wide as the panel content (±1px).
+10. **STORE-31** — The Brazil panel SHALL carry `lang="pt-BR"` and its English note SHALL carry `lang="en"`.
 
-**Independent Test**: Load `/store/?imInBrazil=true` and `/store/?imInBrazil=false`; both show the same three cards and the Brazil panel, with no request to `ip-api.com`.
+**Independent Test**: Load `/store/?imInBrazil=true` and `/store/?imInBrazil=false`; both show the same three cards and the Brazil panel, with no request to `ip-api.com`. Screenshot the panel at 375px and 1280px.
 
 ---
 
@@ -158,7 +172,7 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-09 | P1: Read what is on each CD | T1 | Implemented |
 | STORE-10 | P1: Read what is on each CD | T1 | Implemented |
 | STORE-11 | P1: Read what is on each CD | T1 | Implemented |
-| STORE-12 | P1: Buy from Brazil | T1 | Implemented |
+| STORE-12 | P1: Buy from Brazil | T1, T6 | Implemented (amended) |
 | STORE-13 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-14 | P1: Buy from Brazil | T1 | Implemented |
 | STORE-15 | P1: Cyberpunk look | T2 | Implemented |
@@ -171,8 +185,15 @@ The site sells CDs from two disconnected pages: `/store/` sells only the 2016 de
 | STORE-22 | P2: Old pre-order links | T3 | Implemented |
 | STORE-23 | P2: Old pre-order links | T5 | Implemented |
 | STORE-24 | P2: Old pre-order links | T4 | Implemented |
+| STORE-25 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-26 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-27 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-28 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-29 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-30 | P1: Buy from Brazil | T6 | Implemented |
+| STORE-31 | P1: Buy from Brazil | T6 | Implemented |
 
-**Coverage:** 24 total, 24 mapped to tasks (T1-T5), 0 unmapped. Edge cases: both covered (no-JS in `tests/store/markup.e2e.cjs`, empty tracks in `tests/store/store-template.test.cjs`).
+**Coverage:** 31 total, 31 mapped to tasks (T1-T6), 0 unmapped. Round 2 (T6) redesigns the Brazil panel: STORE-12 amended, STORE-25 to STORE-31 added. Edge cases: both covered (no-JS in `tests/store/markup.e2e.cjs`, empty tracks in `tests/store/store-template.test.cjs`).
 
 ---
 

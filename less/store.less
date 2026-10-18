@@ -463,23 +463,82 @@
 
     // ── Brazil ──
 
+    // Phones: one column, the English note last. From 768px the text takes
+    // the left column and the covers sit above the button on the right.
     .store-brazil {
-        .cyber-panel-body { align-items: flex-start; text-align: left; }
-
-        h3 {
-            margin: 0 0 18px;
-            color: #fff;
-            font: 700 1.5rem/1.2 Rajdhani, sans-serif;
+        .cyber-panel-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-areas: "title" "benefit" "media" "note";
+            align-items: start;
+            text-align: left;
         }
 
-        .store-buy { width: auto; min-width: 200px; }
+        h3 {
+            grid-area: title;
+            margin: 0 0 10px;
+            color: #fff;
+            font: 700 28px/1.2 Rajdhani, sans-serif;
+        }
+
+        @media (min-width: 768px) {
+            .cyber-panel-body {
+                grid-template-columns: 1fr minmax(280px, 320px);
+                grid-template-areas: "title media" "benefit media" "note media";
+                grid-template-rows: auto auto 1fr;
+                column-gap: 40px;
+            }
+        }
+    }
+
+    .store-brazil-benefit {
+        grid-area: benefit;
+        margin: 0 0 20px;
+        color: #fcee0a;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+
+    .store-brazil-media {
+        grid-area: media;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .store-buy {
+            min-height: 56px;
+            padding: 10px 16px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-align: center;
+
+            @media (min-width: 768px) { font-size: 18px; letter-spacing: 3px; }
+        }
+
+        .store-buy-keep { white-space: nowrap; }
+    }
+
+    .store-brazil-covers {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+
+        img {
+            width: 96px;
+            height: auto;
+            border: 1px solid #294149;
+            padding: 4px;
+            background: #080e16;
+        }
     }
 
     .store-brazil-note {
-        margin: 16px 0 0;
+        grid-area: note;
+        margin: 20px 0 0;
         color: #9cbbc2;
         font-family: 'Share Tech Mono', monospace;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 1px;
     }
 

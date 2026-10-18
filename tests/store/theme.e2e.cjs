@@ -123,3 +123,61 @@ test('STORE-20: keyboard focus on a buy button and a tracklist summary shows a v
     expect(style.color).toBe('rgb(252, 238, 10)');
   }
 });
+
+// Boxes of the Brazil panel parts, plus the content width of its body.
+const brazil = page => page.locator('[data-store-brazil]').evaluate(el => {
+  const box = n => { const r = n.getBoundingClientRect(); return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, width: r.width, height: r.height }; };
+  const body = el.querySelector('.cyber-panel-body');
+  const cs = getComputedStyle(body);
+  const imgs = [...el.querySelectorAll('img')].map(box);
+  return {
+    heading: box(el.querySelector('h3')),
+    benefit: box(el.querySelector('[data-store-brazil-benefit]')),
+    note: box(el.querySelector('[data-store-brazil-note]')),
+    link: box(el.querySelector('a[href*="diehard"]')),
+    imgs,
+    covers: { top: Math.min(...imgs.map(i => i.top)), bottom: Math.max(...imgs.map(i => i.bottom)), left: Math.min(...imgs.map(i => i.left)) },
+    content: body.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+  };
+});
+
+for (const width of [375, 1280]) {
+  test(`STORE-26: at ${width}px each Brazil cover renders 96px wide`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/store/');
+    const b = await brazil(page);
+    expect(b.imgs).toHaveLength(2);
+    for (const img of b.imgs) expect(Math.abs(img.width - 96)).toBeLessThanOrEqual(0.5);
+  });
+}
+
+for (const width of [375, 768, 1280]) {
+  test(`STORE-28: at ${width}px the Die Hard link is at least 56px tall`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/store/');
+    expect((await brazil(page)).link.height).toBeGreaterThanOrEqual(56);
+  });
+}
+
+for (const width of [768, 1280]) {
+  test(`STORE-29: at ${width}px the Brazil text sits left, covers above the link on the right`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/store/');
+    const b = await brazil(page);
+    const media = Math.min(b.covers.left, b.link.left);
+    for (const part of [b.heading, b.benefit, b.note]) expect(part.right).toBeLessThanOrEqual(media);
+    expect(b.covers.bottom).toBeLessThanOrEqual(b.link.top);
+    expect(b.link.width).toBeGreaterThanOrEqual(280);
+  });
+}
+
+for (const width of [320, 375, 767]) {
+  test(`STORE-30: at ${width}px the Brazil panel stacks heading, benefit, covers, link, note`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/store/');
+    const b = await brazil(page);
+    const tops = [b.heading.bottom <= b.benefit.top, b.benefit.bottom <= b.covers.top, b.covers.bottom <= b.link.top, b.link.bottom <= b.note.top];
+    expect(tops).toEqual([true, true, true, true]);
+    expect(Math.abs(b.link.width - b.content)).toBeLessThanOrEqual(1);
+  });
+}

@@ -51,6 +51,12 @@ T3 → T4
 T4 → T5
 ```
 
+### Phase 3: Brazil panel redesign (round 2)
+
+```
+T6
+```
+
 ---
 
 ## Task Breakdown
@@ -185,6 +191,33 @@ T4 → T5
 
 ---
 
+### T6: Redesign the Brazil panel
+
+**What**: Rewrite the Brazil panel in `store/index.html` (`lang="pt-BR"`, new heading, benefit line, both covers above the `Comprar na Die Hard` link with a decorative `↗` and `target="_blank" rel="noopener"`, English note with `lang="en"`) and style it in `less/store.less` as a grid: two columns from 768px (text left, covers and button right, button at least 280px), one column below with the note last and a full-width button; button at least 56px tall; covers 96px. Recompile `assets/css/style.min.css`. Markup and styles ship together: the new 600px cover images overflow the 320px viewport (STORE-18) until the styles size them.
+**Where**: `store/index.html`
+**Depends on**: None
+**Reuses**: cover paths and `alt` text of the product cards, `.store-buy` button
+**Requirement**: STORE-12, STORE-25, STORE-26, STORE-27, STORE-28, STORE-29, STORE-30, STORE-31
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] `tests/store/markup.e2e.cjs` asserts the amended STORE-12 and STORE-25, STORE-26, STORE-27, STORE-31
+- [x] `tests/store/theme.e2e.cjs` asserts STORE-26 width, STORE-28, STORE-29, STORE-30; STORE-18/19/20 still pass
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Status**: ✅ Complete
+**Gate**: build
+
+**Commit**: `feat(store): redesign the Brazil panel with covers and a larger button`
+
+---
+
 ## Diagram-Definition Cross-Check
 
 | Task | Depends On (task body) | Diagram Shows | Status |
@@ -194,6 +227,7 @@ T4 → T5
 | T3 | None | - | ✅ Match |
 | T4 | T3 | T3 → T4 | ✅ Match |
 | T5 | T4 | T4 → T5 | ✅ Match |
+| T6 | None | - | ✅ Match |
 
 ## Test Co-location Validation
 
@@ -204,3 +238,4 @@ T4 → T5
 | T3 | Redirect page | e2e | e2e | ✅ OK |
 | T4 | Repo hygiene | unit | unit | ✅ OK |
 | T5 | Catalog data | unit | unit | ✅ OK |
+| T6 | Page template | e2e | e2e | ✅ OK |

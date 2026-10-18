@@ -33,6 +33,8 @@ products:
     price: "$22.00"
     button: ACB6SNWZ97592
     albums: [insane-driver]
+
+brazil_albums: [silicon-fortress, insane-driver]
 ---
 <div class="store-shell cyber-zone" data-store>
     <div class="cyber-zone-inner">
@@ -95,16 +97,24 @@ products:
 
     <div class="cyber-separator"></div>
 
-    <section class="cyber-panel store-brazil" data-store-brazil aria-labelledby="store-brazil-title">
+    <section class="cyber-panel store-brazil" data-store-brazil lang="pt-BR" aria-labelledby="store-brazil-title">
         <div class="cyber-panel-tab"><span class="tab-icon"></span> NODE::BRASIL</div>
         <div class="cyber-panel-body" data-hud="REGION.BR // DIE HARD_">
             <span class="top-accent"></span>
             <span class="corner-tl"></span>
             <span class="corner-tr"></span>
             <span class="corner-bl"></span>
-            <h3 id="store-brazil-title">Venda exclusiva pela Die Hard para todo Brasil! 🇧🇷</h3>
-            <a class="store-buy store-buy--brazil" href="https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&amp;estoque=estoque&amp;cod_tipo=0&amp;pesquisa=Insane+Driver">Comprar</a>
-            <p class="store-brazil-note" data-store-brazil-note>Die Hard ships only within Brazil. Outside Brazil? Order with PayPal above.</p>
+            <h3 id="store-brazil-title">No Brasil? Compre pela Die Hard 🇧🇷</h3>
+            <p class="store-brazil-benefit" data-store-brazil-benefit>Pague em reais · Pix ou cartão · Envio para todo o Brasil</p>
+            <div class="store-brazil-media">
+                <div class="store-brazil-covers">
+                    {% for slug in brazil_albums %}{% for album in discography.albums %}{% if album.slug == slug %}
+                    <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover" decoding="async" loading="lazy">
+                    {% endif %}{% endfor %}{% endfor %}
+                </div>
+                <a class="store-buy store-buy--brazil" href="https://www.diehard.com.br/resultado_pesquisa.php?tipoPesquisa=artista&amp;estoque=estoque&amp;cod_tipo=0&amp;pesquisa=Insane+Driver" target="_blank" rel="noopener"><span>Comprar na <span class="store-buy-keep">Die Hard <span aria-hidden="true">↗</span></span></span></a>
+            </div>
+            <p class="store-brazil-note" data-store-brazil-note lang="en">Die Hard ships only within Brazil. Outside Brazil? Order with PayPal above.</p>
         </div>
     </section>
 
