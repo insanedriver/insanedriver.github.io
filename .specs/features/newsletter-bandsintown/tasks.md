@@ -156,9 +156,9 @@ T6
 
 **Done when**:
 
-- [ ] The e2e suite asserts every listed AC on `/newsletter/`.
-- [ ] `_includes/newsletter/countries.liquid` and its test are gone.
-- [ ] Gate check passes: `npm test`
+- [x] The e2e suite asserts every listed AC on `/newsletter/`.
+- [x] `_includes/newsletter/countries.liquid` and its test are gone.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

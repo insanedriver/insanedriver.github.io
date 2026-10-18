@@ -155,17 +155,17 @@ The band no longer has access to its Mailchimp account, so the two signup forms 
 | BIT-04 | P1: Home panel | T2 | Implemented |
 | BIT-05 | P1: Home panel | T1 | Implemented |
 | BIT-06 | P1: Home panel | T2 | Implemented |
-| BIT-07 | P1: Newsletter page signup | Tasks | Pending |
-| BIT-08 | P1: Newsletter page signup | Tasks | Pending |
-| BIT-09 | P1: Newsletter page signup | Tasks | Pending |
-| BIT-10 | P1: Newsletter page signup | Tasks | Pending |
-| BIT-11 | P1: Embed matches the site | Tasks | Pending |
-| BIT-12 | P1: Embed matches the site | Tasks | Pending |
-| BIT-13 | P1: Embed matches the site | Tasks | Pending |
+| BIT-07 | P1: Newsletter page signup | T4 | Implemented |
+| BIT-08 | P1: Newsletter page signup | T4 | Implemented |
+| BIT-09 | P1: Newsletter page signup | T4 | Implemented |
+| BIT-10 | P1: Newsletter page signup | T4 | Implemented |
+| BIT-11 | P1: Embed matches the site | T4 | Implemented |
+| BIT-12 | P1: Embed matches the site | T4 | Implemented |
+| BIT-13 | P1: Embed matches the site | T4 | Implemented |
 | BIT-14 | P1: Embed matches the site | Tasks | Pending |
 | BIT-15 | P1: Embed matches the site | Tasks | Pending |
-| BIT-16 | P2: Fallback link | Tasks | Pending |
-| BIT-17 | P2: Fallback link | Tasks | Pending |
+| BIT-16 | P2: Fallback link | T4 | Implemented |
+| BIT-17 | P2: Fallback link | T4 | Implemented |
 | BIT-18 | P2: Mailchimp leftovers removed | Tasks | Pending |
 | BIT-19 | P2: Mailchimp leftovers removed | Tasks | Pending |
 | BIT-20 | P2: Mailchimp leftovers removed | Tasks | Pending |

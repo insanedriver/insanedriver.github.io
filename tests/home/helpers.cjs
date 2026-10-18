@@ -2,7 +2,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const panelByTab = (page, tab) => page.locator('.cyber-panel', { has: page.locator('.cyber-panel-tab', { hasText: tab }) });
-const optionValues = page => page.locator('select[name="COUNTRY"] option').evaluateAll(els => els.map(el => el.value));
 
 // Waits for the boot loader to leave on its own, so the page is no longer inert.
 const loaderGone = page => page.waitForFunction(() => !document.documentElement.classList.contains('home-loading'));
@@ -33,4 +32,4 @@ const fontsLoaded = page => page.evaluate(async () => [
   (await document.fonts.load("10px 'Share Tech Mono'")).length
 ]);
 
-module.exports = { panelByTab, optionValues, loaderGone, serveFonts, fontsLoaded };
+module.exports = { panelByTab, loaderGone, serveFonts, fontsLoaded };
