@@ -9,6 +9,10 @@
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 !important;
+
+        // Without the container's padding, Bootstrap's row gutters pushed
+        // the page 15px wider than the viewport.
+        > .row { margin-right: 0; margin-left: 0; }
     }
 
     @keyframes newsletter-noise {
@@ -376,184 +380,35 @@
         padding-left: 1rem;
     }
 
-    #mc_embed_signup {
+    .newsletter-embed {
         width: 100%;
         max-width: 720px;
-        color: #d4d4d4;
-        font-family: Rajdhani, sans-serif;
-
-        form {
-            position: relative;
-            display: block;
-            width: 100%;
-            padding: 0;
-            text-align: left;
-        }
+        text-align: center;
 
         .cyber-form-intro {
             margin-top: -0.75rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
+    }
 
-        .indicates-required {
-            margin: 0 0 1rem;
-            color: #8faeb5;
-            font-family: "Share Tech Mono", monospace;
-            font-size: 1.2rem;
-            letter-spacing: 0.12em;
-            text-align: right;
-            text-transform: uppercase;
-        }
+    // The Bandsintown form draws its own field and button; the frame itself
+    // stays invisible so the panel shows through its transparent background.
+    .newsletter-embed-frame {
+        display: block;
+        width: 100%;
+        border: 0;
+    }
 
-        .asterisk {
-            position: static;
-            color: #ff00ea;
-            font-size: 1em;
-            font-weight: 700;
-        }
+    .newsletter-embed-fallback {
+        display: inline-block;
+        margin-top: 0.5rem;
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
 
-        .mc-field-group {
-            position: relative;
-            width: 100%;
-            min-height: 0;
-            margin: 0 0 1.5rem;
-            padding: 0;
-            clear: both;
-
-            label {
-                display: block;
-                margin: 0 0 0.55rem;
-                color: #00f3ff;
-                font-family: "Share Tech Mono", monospace;
-                font-size: 1.4rem;
-                font-weight: 700;
-                letter-spacing: 0.14em;
-                text-transform: uppercase;
-            }
-
-            input,
-            select {
-                display: block;
-                width: 100%;
-                height: 50px;
-                margin: 0;
-                padding: 0 1rem;
-                border: 1px solid rgba(0, 243, 255, 0.75);
-                border-radius: 0;
-                outline: 0;
-                background: rgba(2, 12, 16, 0.95);
-                box-shadow: inset 0 0 12px rgba(0, 243, 255, 0.08);
-                color: #ffffff;
-                font-family: "Share Tech Mono", monospace;
-                font-size: 16px;
-                letter-spacing: 0.04em;
-                transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            }
-
-            select {
-                cursor: pointer;
-            }
-
-            option {
-                background: #071015;
-                color: #ffffff;
-            }
-
-            input:focus,
-            select:focus {
-                border-color: #fcee0a;
-                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.28), inset 0 0 14px rgba(252, 238, 10, 0.08);
-            }
-
-            &:focus-within input,
-            &:focus-within select {
-                border-color: #fcee0a !important;
-                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.28), inset 0 0 14px rgba(252, 238, 10, 0.08) !important;
-            }
-
-            input:user-invalid,
-            select:user-invalid {
-                border-color: #ff00ea;
-                box-shadow: 0 0 0 3px rgba(255, 0, 234, 0.2);
-            }
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        #mce-responses {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: visible;
-        }
-
-        .response {
-            width: 100%;
-            margin: 0 0 1rem;
-            padding: 0.8rem 1rem;
-            float: none;
-            border-left: 3px solid #ff00ea;
-            background: rgba(255, 0, 234, 0.08);
-            color: #ffffff;
-            font-family: "Share Tech Mono", monospace;
-            font-weight: 600;
-        }
-
-        #mce-success-response {
-            border-color: #00f3ff;
-            color: #00f3ff;
-        }
-
-        .mailchimp-bot-field {
-            position: absolute;
-            left: -5000px;
-        }
-
-        .button {
-            display: flex;
-            width: 100%;
-            min-height: 52px;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin: 0;
-            padding: 0.85rem 1.4rem;
-            border: 2px solid #00f3ff;
-            border-radius: 0;
-            background: rgba(0, 243, 255, 0.08);
-            box-shadow: inset 0 0 14px rgba(0, 243, 255, 0.16);
-            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-            color: #00f3ff;
-            cursor: pointer;
-            font-family: SiliconFont, Rajdhani, sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            line-height: 1.3;
-            text-transform: uppercase;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-
-            @media (min-width: 480px) {
-                width: auto;
-                min-width: 260px;
-                margin: 0 auto;
-            }
-
-            &:hover,
-            &:focus {
-                border-color: #00f3ff;
-                outline: 0;
-                background: #00f3ff;
-                box-shadow: 0 0 22px rgba(0, 243, 255, 0.75);
-                color: #050505;
-            }
-
-            &:focus {
-                box-shadow: 0 0 0 3px rgba(252, 238, 10, 0.4), 0 0 22px rgba(0, 243, 255, 0.75);
-            }
-        }
+        &:hover, &:focus { color: #fcee0a; }
     }
 
     .cyber-ticker {
@@ -667,8 +522,7 @@
             animation: none !important;
         }
 
-        .cyber-benefit,
-        #mc_embed_signup .button {
+        .cyber-benefit {
             transition: none;
         }
 

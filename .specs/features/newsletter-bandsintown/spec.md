@@ -44,6 +44,7 @@ The band no longer has access to its Mailchimp account, so the two signup forms 
 | GTM event | `home_newsletter_submit` and `newsletterEvent` are removed. | User decision during grilling. | y |
 | Cleanup | Delete `_includes/newsletter/countries.liquid`, the bot field, Mailchimp form CSS, and the Mailchimp-only tests; rename `less/mailchimp.less` to `less/newsletter.less`. | User decision during grilling. | y |
 | Hermetic tests | Playwright tests abort requests to `bandsintown.com` and assert our markup and the iframe box, never content inside the iframe. Visual checks inside the iframe are done manually in a browser and recorded in `validation.md`. | Live third-party content behind Cloudflare makes tests flaky; `curl` already returns 403. | y |
+| Pre-existing overflow | `/newsletter/` scrolled 15px sideways on `master` (Bootstrap `.row` gutters inside the padding-less `.newsletter-container`). T5 zeroes the row margins so BIT-15 holds. | Found by the BIT-15 test; the fix is one rule in the file T5 already rewrites. | y |
 | Superseded specs | `newsletter-cyberpunk` (NEWS-03, NEWS-04, NEWS-05, NEWS-06 form parts, NEWS-10) and `home-cyberpunk` (HOME-44 to HOME-48) get a note pointing to this spec. | Same treatment as the store amendment. | y |
 
 **Open questions:** none - all resolved or logged above. Rows marked `n` are defaults for the user to confirm at spec review.
@@ -162,15 +163,15 @@ The band no longer has access to its Mailchimp account, so the two signup forms 
 | BIT-11 | P1: Embed matches the site | T4 | Implemented |
 | BIT-12 | P1: Embed matches the site | T4 | Implemented |
 | BIT-13 | P1: Embed matches the site | T4 | Implemented |
-| BIT-14 | P1: Embed matches the site | Tasks | Pending |
-| BIT-15 | P1: Embed matches the site | Tasks | Pending |
+| BIT-14 | P1: Embed matches the site | T4, T5 | Implemented |
+| BIT-15 | P1: Embed matches the site | T5 | Implemented |
 | BIT-16 | P2: Fallback link | T4 | Implemented |
 | BIT-17 | P2: Fallback link | T4 | Implemented |
-| BIT-18 | P2: Mailchimp leftovers removed | Tasks | Pending |
-| BIT-19 | P2: Mailchimp leftovers removed | Tasks | Pending |
-| BIT-20 | P2: Mailchimp leftovers removed | Tasks | Pending |
+| BIT-18 | P2: Mailchimp leftovers removed | T5 | Implemented |
+| BIT-19 | P2: Mailchimp leftovers removed | T5 | Implemented |
+| BIT-20 | P2: Mailchimp leftovers removed | T5 | Implemented |
 
-**Coverage:** 20 total, 0 mapped to tasks, 20 unmapped ⚠️ (mapped in `tasks.md`)
+**Coverage:** 20 total, 20 mapped to tasks, 0 unmapped.
 
 ---
 

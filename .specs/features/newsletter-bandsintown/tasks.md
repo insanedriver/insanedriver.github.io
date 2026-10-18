@@ -169,7 +169,7 @@ T6
 
 ### T5: Rename and clean the newsletter styles
 
-**What**: Rename `less/mailchimp.less` to `less/newsletter.less`, update the import, delete the Mailchimp form rules, and size the iframe and fallback link.
+**What**: Rename `less/mailchimp.less` to `less/newsletter.less`, update the import, delete the Mailchimp form rules, and size the iframe and fallback link. Also zero the Bootstrap row gutters: `/newsletter/` scrolled 15px sideways on `master` already, which BIT-15 forbids.
 **Where**: `less/newsletter.less` (and `less/style.less`, compiled CSS, `tests/newsletter/theme.e2e.cjs`, `tests/newsletter/cleanup.test.cjs`)
 **Depends on**: T4
 **Reuses**: existing USER::ENROLL panel rules
@@ -182,9 +182,9 @@ T6
 
 **Done when**:
 
-- [ ] Unit test asserts the removed files, the `newsletter.less` import, and the absent selectors.
-- [ ] E2E asserts the box at 320/768/1280, border `0px`, and the USER::ENROLL panel body background and border equal the values captured on `master` before T4.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] Unit test asserts the removed files, the `newsletter.less` import, and the absent selectors.
+- [x] E2E asserts the box at 320/768/1280, border `0px`, and the USER::ENROLL panel body background and border equal the values captured on `master` before T4.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
