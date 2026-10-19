@@ -523,8 +523,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/song.e2e.cjs` asserts every listed AC on all 22 pages plus the edge cases (no About heading, first/last track, null platform).
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/seo/song.e2e.cjs` asserts every listed AC on all 22 pages plus the edge cases (no About heading, first/last track, null platform).
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: full

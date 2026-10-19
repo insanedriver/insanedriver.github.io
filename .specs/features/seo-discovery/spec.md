@@ -241,18 +241,18 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | GEN-02 | P1: Genre and audience | T8 | Implementing |
 | GEN-03 | P1: Genre and audience | T8 | Implementing |
 | GEN-04 | P1: Genre and audience | T9 | Implementing |
-| GEN-05 | P1: Genre and audience | T9, T16 | Implementing |
+| GEN-05 | P1: Genre and audience | T9, T16, T17 | Implementing |
 | GEN-06 | P1: Genre and audience | T7 | Implementing |
-| SONG-01 | P1: Song pages | T13, T14 | Implementing |
-| SONG-02 | P1: Song pages | T13 | Implementing |
-| SONG-03 | P1: Song pages | Design | Pending |
-| SONG-04 | P1: Song pages | Design | Pending |
-| SONG-05 | P1: Song pages | Design | Pending |
-| SONG-06 | P1: Song pages | T11 | Implementing |
-| SONG-07 | P1: Song pages | Design | Pending |
-| SONG-08 | P1: Song pages | T13 | Implementing |
-| SONG-09 | P1: Song pages | Design | Pending |
-| SONG-10 | P1: Song pages | T13 | Implementing |
+| SONG-01 | P1: Song pages | T13, T14, T17 | Implementing |
+| SONG-02 | P1: Song pages | T13, T17 | Implementing |
+| SONG-03 | P1: Song pages | T17 | Implementing |
+| SONG-04 | P1: Song pages | T17 | Implementing |
+| SONG-05 | P1: Song pages | T17 | Implementing |
+| SONG-06 | P1: Song pages | T11, T17 | Implementing |
+| SONG-07 | P1: Song pages | T17 | Implementing |
+| SONG-08 | P1: Song pages | T13, T17 | Implementing |
+| SONG-09 | P1: Song pages | T17 | Implementing |
+| SONG-10 | P1: Song pages | T13, T17 | Implementing |
 | SONG-11 | P1: Song pages | Design | Pending |
 | SONG-12 | P1: Song pages | Design | Pending |
 | SONG-13 | P1: Song pages | Design | Pending |

@@ -1,0 +1,129 @@
+---
+layout: base.html
+pagination:
+  data: catalog.songs
+  size: 1
+  alias: song
+  addAllPagesToCollections: true
+permalink: "discography/{{ song.album.slug }}/{{ song.slug }}/index.html"
+page_robots: index, follow
+page_id: discography
+jspath: js/discography
+header_img_path: header_4.jpg
+og_type: music.song
+eleventyComputed:
+  page_title: "{{ song.title }}"
+  seo_title: "{{ song.title }} Lyrics – Insane Driver"
+  page_description: "{% if song.about %}{{ song.about | metaDescription }}{% elsif song.instrumental %}{{ song.title }} is the instrumental track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }}, hard rock and heavy metal from Brazil.{% else %}{{ 'Lyrics of \"' | append: song.title | append: '\", track ' | append: song.position | append: \" of Insane Driver's \" | append: song.album.year | append: ' album ' | append: song.album.title | append: ' – hard rock, heavy metal and metalcore from São Paulo, Brazil.' | metaDescription }}{% endif %}"
+  og_image: "/assets/images/releases/{{ song.album.cover }}"
+---
+{%- assign release = song.album -%}
+<div class="disc-shell disc-page song-page cyber-zone" data-disc>
+    <div class="cyber-zone-inner">
+
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> TRACK::{% if song.position < 10 %}0{% endif %}{{ song.position }}</div>
+        <div class="cyber-panel-body cyber-panel-body--disc-release" data-hud="SONG.{{ song.slug | upcase }} // {{ song.album.year }}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    <article class="disc-release" data-song="{{ song.slug }}">
+        <div class="disc-release-art">
+            <img src="/assets/images/releases/{{ song.album.cover }}" width="600" height="600" alt="{{ song.album.title | escape }} cover" decoding="async">
+            <span class="disc-art-corner" aria-hidden="true"></span>
+        </div>
+        <div class="disc-release-body">
+            <div class="disc-release-heading">
+                <span class="disc-eyebrow">Track {% if song.position < 10 %}0{% endif %}{{ song.position }} // {{ song.album.year }}</span>
+                <p class="song-album">From the album <a href="{{ song.album.url }}" data-song-album>{{ song.album.title | escape }}</a> ({{ song.album.year }})</p>
+                <p class="disc-release-meta">{% if song.instrumental %}Instrumental · {% endif %}{{ song.duration | divided_by: 60 | floor }}:{% assign secs = song.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</p>
+            </div>
+
+            <span class="disc-eyebrow song-links-title">Listen to the album</span>
+            {% include 'discography/links' %}
+
+            {% include 'seo/fans-of' %}
+        </div>
+    </article>
+        </div>
+    </div>
+
+    <div class="cyber-separator"></div>
+
+    <div class="cyber-panel">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> {% if song.instrumental %}SONG::INSTRUMENTAL{% else %}SONG::LYRICS{% endif %}</div>
+        <div class="cyber-panel-body cyber-panel-body--song" data-hud="{% if song.instrumental %}NO.VOCALS{% else %}LYRICS.{{ song.sections.size }} SECTIONS{% endif %}_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+    {% if song.instrumental %}
+    <section class="song-lyrics" aria-labelledby="song-lyrics-title" data-song-lyrics>
+        <h2 id="song-lyrics-title" class="song-heading">Instrumental</h2>
+        <p class="song-instrumental">{{ song.title | escape }} is an instrumental track: it has no lyrics.</p>
+    </section>
+    {% else %}
+    <section class="song-lyrics" aria-labelledby="song-lyrics-title" data-song-lyrics>
+        <h2 id="song-lyrics-title" class="song-heading">Lyrics</h2>
+        {% for section in song.sections %}
+        <section class="song-lyrics-section">
+            {%- if section.label -%}<h3{% if section.lines.size == 0 %} class="song-lyrics-cue"{% endif %}>{{ section.label | escape }}</h3>{%- endif -%}
+            {%- if section.lines.size > 0 -%}<p>{% for line in section.lines %}{{ line | escape }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>{%- endif -%}
+        </section>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if song.about %}
+    <section class="song-about" aria-labelledby="song-about-title" data-song-about>
+        <h2 id="song-about-title" class="song-heading">About the song</h2>
+        <p>{{ song.about | escape }}</p>
+    </section>
+    {% endif %}
+
+    {% if song.alsoReleasedAs.size > 0 %}
+    <section class="song-also" aria-labelledby="song-also-title" data-song-also>
+        <h2 id="song-also-title" class="song-heading">Also released as</h2>
+        <ul class="song-also-list">
+            {% for other in song.alsoReleasedAs %}
+            <li class="song-also-item">
+                <span class="song-also-title">{% if other.url %}<a href="{{ other.url }}">{{ other.title | escape }}</a>{% else %}{{ other.title | escape }}{% endif %}</span>
+                <span class="song-also-year">{{ other.year }}</span>
+                {% unless other.url %}<span class="disc-single-links">{% for p in platforms %}{% assign url = other.links[p.key] %}{% if url %}<a class="disc-single-link cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" aria-label="{{ other.title | escape }} on {{ p.name }}"><i class="fa {{ p.icon }}" aria-hidden="true"></i></a>{% endif %}{% endfor %}</span>{% endunless %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if song.prev or song.next %}
+    <nav class="song-nav" aria-label="{{ song.album.title | escape }} tracks">
+        {% if song.prev %}<a class="song-nav-link song-nav-prev" rel="prev" href="{{ song.prev.url }}"><span class="disc-eyebrow">&larr; Previous track</span> <span class="song-nav-title">{{ song.prev.title | escape }}</span></a>{% endif %}
+        {% if song.next %}<a class="song-nav-link song-nav-next" rel="next" href="{{ song.next.url }}"><span class="disc-eyebrow">Next track &rarr;</span> <span class="song-nav-title">{{ song.next.title | escape }}</span></a>{% endif %}
+    </nav>
+    {% endif %}
+        </div>
+    </div>
+
+    </div>
+</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicRecording",
+  "name": {{ song.title | jsonify }},
+  "url": "https://insanedriver.com.br{{ song.url }}",
+  "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
+  "inAlbum": { "@type": "MusicAlbum", "name": {{ song.album.title | jsonify }}, "url": "https://insanedriver.com.br{{ song.album.url }}" },
+  "duration": "PT{{ song.duration | divided_by: 60 | floor }}M{{ song.duration | modulo: 60 }}S",
+  "position": {{ song.position }},
+  "image": "https://insanedriver.com.br/assets/images/releases/{{ song.album.cover }}",
+  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],
+  "recordingOf": {
+    "@type": "MusicComposition",
+    "name": {{ song.title | jsonify }}{% unless song.instrumental %},
+    "lyrics": { "@type": "CreativeWork", "text": {{ song.lyricsText | jsonify }} }{% endunless %}
+  }
+}
+</script>

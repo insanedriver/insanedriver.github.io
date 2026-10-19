@@ -20,6 +20,13 @@ const INDEXABLE = ['/', '/band/', '/contact/', '/dates/', '/discography/', '/new
 // REL-01: one page per release that does not fold into a song page.
 const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
   'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'].map(slug => `/discography/${slug}/`);
+// SONG-01: one page per song of the two studio albums.
+const SONGS = [
+  ...['endless-path', 'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'buried-thoughts', 'fallen-dreams',
+    'change', 'today-is-sunday', 'faithless-breath', 'make-decisions', 'tears-of-blood'].map(s => `/discography/insane-driver/${s}/`),
+  ...['back-to-1994', 'faceless-demons', 'keep-away', 'silicon-fortress', 'age-of-lies', 'insane-driver',
+    'desperate-prayer', 'ghosts', 'imagined-realities', 'invisible-chains', 'distant-hearts'].map(s => `/discography/silicon-fortress/${s}/`),
+];
 const sitemapLocs = () => {
   const xml = built('sitemap.xml');
   // Well-formed sitemap: declaration, one urlset in the sitemap namespace, only <url><loc> children, no raw & or < in a loc.
@@ -39,7 +46,7 @@ test('SEO-01: every <loc> is an absolute insanedriver.com.br URL ending in /', (
 });
 
 test('SEO-02: the sitemap lists exactly the indexable pages', () => {
-  assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES].map(u => ORIGIN + u).sort());
+  assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
 });
 
 test('SEO-02: redirects, campaign pages and verification files stay out of the sitemap', () => {
