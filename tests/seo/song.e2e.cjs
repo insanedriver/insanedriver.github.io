@@ -43,6 +43,20 @@ const alsoReleasedAs = s => {
 const jsonLd = page => page.locator('script[type="application/ld+json"]')
   .evaluateAll(els => els.map(el => JSON.parse(el.textContent)));
 
+test('SONG-07: songs.json holds real track URLs, not album URLs', () => {
+  const ghosts = songData.find(d => d.slug === 'ghosts');
+  expect(ghosts.links.spotify).toBe('https://open.spotify.com/track/59ejGVxNkLEPF4jT2CU7Tu');
+  expect(ghosts.links.bandcamp).toBe('https://insanedriverid.bandcamp.com/track/ghosts-2');
+  for (const d of songData) {
+    expect(d.links.spotify, d.slug).toMatch(/^https:\/\/open\.spotify\.com\/track\/[A-Za-z0-9]{22}$/);
+    expect(d.links.apple, d.slug).toMatch(/^https:\/\/music\.apple\.com\/us\/album\/[^?]+\?i=\d+$/);
+    expect(d.links.deezer, d.slug).toMatch(/^https:\/\/www\.deezer\.com\/track\/\d+$/);
+    expect(d.links.ytmusic, d.slug).toMatch(/^https:\/\/music\.youtube\.com\/watch\?v=[\w-]{11}&list=/);
+  }
+  const ids = songData.map(d => d.links.spotify);
+  expect(new Set(ids).size).toBe(ids.length);
+});
+
 test('SONG-01/02: the build has exactly the 22 song pages and the sitemap lists them', () => {
   const built = fs.readdirSync(path.join(DOCS, 'discography')).flatMap(dir => {
     const full = path.join(DOCS, 'discography', dir);
@@ -132,9 +146,17 @@ test.describe('without JavaScript', () => {
         await expect(aboutHeading).toHaveCount(0);
       }
 
-      // SONG-07 + null-platform edge case: exactly the album's platform links that have a URL.
-      const links = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => el.getAttribute('href')));
-      expect(links.sort()).toEqual(linksOf(s.album).sort());
+      // SONG-07 + null-platform edge case: one link per album platform with a URL,
+      // the track's own URL where songs.json has one, otherwise the album's.
+      const links = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => [
+        el.getAttribute('data-disc-link'), el.getAttribute('href'),
+        el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
+      ]));
+      const track = data.links || {};
+      expect(links).toEqual(platforms.filter(p => s.album.links[p.key]).map(p => [
+        p.key, track[p.key] || s.album.links[p.key], p.primary ? (track[p.key] ? 'Play the track' : p.sub) : null,
+      ]));
+      for (const key of ['spotify', 'apple', 'ytmusic', 'deezer']) expect(track[key], `${s.slug} ${key}`).toBeTruthy();
 
       // SONG-08: "Also released as" with title, year and the release's own links or page.
       const also = alsoReleasedAs(s);
@@ -156,6 +178,7 @@ test.describe('without JavaScript', () => {
       expect(blocks).toHaveLength(1);
       const [rec] = blocks;
       expect(rec.name).toBe(s.track.title);
+      expect(rec.sameAs).toEqual(platforms.filter(p => (data.links || {})[p.key]).map(p => data.links[p.key]));
       expect(rec.byArtist).toMatchObject({ '@type': 'MusicGroup', name: 'Insane Driver' });
       expect(rec.inAlbum).toMatchObject({ '@type': 'MusicAlbum', name: s.album.title, url: `${ORIGIN}/discography/${s.album.slug}/` });
       expect(rec.duration).toBe(iso(s.track.duration));

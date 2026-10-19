@@ -200,3 +200,24 @@ test('IDX-01..03 data: links give each album its page and track URLs, and each s
   assert.equal(c.links['change-live'].page, '/discography/change-live/');
   assert.equal(Object.keys(c.links).length, discography.albums.length + discography.singles.length);
 });
+
+test('SONG-07 data: a song links to its own track per platform and falls back to the album', () => {
+  const s = song(catalog(), 'ghosts');
+  const album = discography.albums.find(a => a.slug === 'silicon-fortress');
+  const own = songs.songs.find(x => x.slug === 'ghosts').links;
+  assert.equal(s.listen.links.spotify, own.spotify);
+  assert.notEqual(s.listen.links.spotify, album.links.spotify);
+  assert.equal(s.listen.links.tidal, album.links.tidal);
+  assert.equal(s.listen.links.pandora, null);
+  assert.deepEqual(s.listen.track, own);
+  assert.deepEqual(s.sameAs, Object.values(own));
+});
+
+test('SONG-07 data: a song without track links uses the album links and has no sameAs', () => {
+  const bare = Object.assign({}, songs, { songs: songs.songs.map(x => (x.slug === 'ghosts' ? Object.assign({}, x, { links: undefined }) : x)) });
+  const s = song(catalog({ songs: bare }), 'ghosts');
+  const album = discography.albums.find(a => a.slug === 'silicon-fortress');
+  assert.deepEqual(s.listen.links, album.links);
+  assert.deepEqual(s.listen.track, {});
+  assert.deepEqual(s.sameAs, []);
+});

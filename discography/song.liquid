@@ -40,8 +40,8 @@ eleventyComputed:
                 <p class="disc-release-meta">{% if song.instrumental %}Instrumental · {% endif %}{{ song.duration | divided_by: 60 | floor }}:{% assign secs = song.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</p>
             </div>
 
-            <span class="disc-eyebrow song-links-title">Listen to the album</span>
-            {% include 'discography/links' %}
+            <span class="disc-eyebrow song-links-title">Listen to the song</span>
+            {% assign release = song.listen %}{% include 'discography/links' %}{% assign release = song.album %}
 
             {% include 'seo/fans-of' %}
         </div>
@@ -143,7 +143,8 @@ eleventyComputed:
   "duration": "PT{{ song.duration | divided_by: 60 | floor }}M{{ song.duration | modulo: 60 }}S",
   "position": {{ song.position }},
   "image": "https://insanedriver.com.br/assets/images/releases/{{ song.album.cover }}",
-  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],
+  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],{% if song.sameAs.size > 0 %}
+  "sameAs": {{ song.sameAs | jsonify }},{% endif %}
   "recordingOf": {
     "@type": "MusicComposition",
     "name": {{ song.title | jsonify }}{% unless song.instrumental %},

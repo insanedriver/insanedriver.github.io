@@ -73,7 +73,7 @@ T15 → T16 → T17 → T18 → T19
 ### Phase 5: Linking
 
 ```
-T20 → T21 → T23
+T20 → T21 → T23 → T24
 ```
 
 ---
@@ -660,6 +660,32 @@ T20 → T21 → T23
 
 ---
 
+### T24: Link song pages to the track on each platform
+
+**What**: User request after Execute. Song pages link to the song's own track on each platform instead of the album, falling back to the album where no track URL exists; the primary buttons read `Play the track`; `MusicRecording` lists the track URLs as `sameAs`. Track URLs were collected once from the Spotify embed, the iTunes lookup API, the Deezer API, the YouTube album playlist (by position) and the saved Bandcamp album page. Tidal, Amazon and the 2016 Bandcamp album expose no track URL without auth, so they keep the album link.
+**Where**: `_data/songs.json`, `lib/catalog.js`, `discography/song.liquid`, `_includes/discography/links.liquid`, `tests/seo/catalog.test.cjs`, `tests/seo/song.e2e.cjs`
+**Depends on**: T23
+**Reuses**: `_includes/discography/links.liquid`
+**Requirement**: SONG-07
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] Every song has Spotify, Apple Music, YT Music and Deezer track URLs in `songs.json`; the Silicon Fortress songs also have Bandcamp.
+- [x] Song e2e asserts each platform link, its subtitle and `sameAs`; unit tests cover the merge and the fallback.
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: unit, e2e
+**Gate**: build
+
+**Commit**: `feat(discography): link each song page to the track on every platform`
+
+---
+
 ## Phase Execution Map
 
 ```
@@ -670,7 +696,7 @@ Phase 2:  T7 → T8 → T9
 Phase 3:  T10 → T11 → T13 → T14 → T22
           T12 → T13
 Phase 4:  T15 → T16 → T17 → T18 → T19
-Phase 5:  T20 → T21 → T23
+Phase 5:  T20 → T21 → T23 → T24
 ```
 
 Execution is strictly sequential.

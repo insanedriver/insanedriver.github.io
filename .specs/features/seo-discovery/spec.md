@@ -19,7 +19,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | Blog, news or editorial pages | User decision: nothing on the release radar to write about. |
 | Off-site work (Search Console sitemap submit, Spotify for Artists, Bandcamp and YouTube tags, Wikidata, MusicBrainz) | Not code. Delivered as a separate checklist at the end of the feature. |
 | `/dates/` widget upgrade and moving `/dates/` onto `base.html` | Deferred to its own feature by `newsletter-bandsintown`. This feature only fixes its `<head>`. |
-| Per-track streaming links | `discography.json` has links per release, not per track. Song pages link to the album's platforms. |
+| Per-track streaming links | `_data/songs.json` holds each song's own track URL per platform (Spotify, Apple Music, YT Music and Deezer for all 22 songs; Bandcamp for the Silicon Fortress songs), collected once from the platforms. Platforms without a track URL (Tidal, Amazon, 2016 Bandcamp) fall back to the album link. User request after Execute (T24). |
 | Removing the `meta keywords` tag | Google ignores it; removing it changes nothing. |
 | Changing any existing URL | Constraint: existing rankings stay intact. |
 | Reworking the `/reward/*` pages | Campaign leftovers; they are only kept out of the sitemap. |
@@ -134,7 +134,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 4. **SONG-04** — WHERE the song has lyrics, the song page SHALL show the full lyrics with one visible heading per section label (`Verse 1`, `Chorus`, ...) and the line breaks of the source.
 5. **SONG-05** — WHERE the song is instrumental (Endless Path, Back to 1994), the song page SHALL show `Instrumental` in place of lyrics.
 6. **SONG-06** — WHERE the song has an About text, the song page SHALL show it under the heading `About the song`.
-7. **SONG-07** — The song page SHALL show the streaming links of its album, using the platforms in `_data/platforms.json` that have a URL.
+7. **SONG-07** — The song page SHALL show one link per platform in `_data/platforms.json` that has a URL for the album: the song's own track URL from `_data/songs.json` where it has one (with the button subtitle `Play the track`), otherwise the album URL; and its `MusicRecording` SHALL list the song's track URLs as `sameAs`.
 8. **SONG-08** — WHERE singles or the deluxe edition fold into the song, the song page SHALL list them under `Also released as` with release title, year, and that release's own streaming links or page link.
 9. **SONG-09** — Each song page SHALL have one `MusicRecording` JSON-LD block with `name`, `byArtist` (Insane Driver), `inAlbum` (album name and URL), `duration` (ISO 8601, from the album tracklist) and `recordingOf` a `MusicComposition` whose `lyrics.text` equals the page's lyrics text when the song has lyrics.
 10. **SONG-10** — Each song page SHALL link to the previous and next track of its album, when they exist.
@@ -253,7 +253,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SONG-04 | P1: Song pages | T17 | Implementing |
 | SONG-05 | P1: Song pages | T17 | Implementing |
 | SONG-06 | P1: Song pages | T11, T17 | Implementing |
-| SONG-07 | P1: Song pages | T17 | Implementing |
+| SONG-07 | P1: Song pages | T17, T24 | Implementing |
 | SONG-08 | P1: Song pages | T13, T17 | Implementing |
 | SONG-09 | P1: Song pages | T17 | Implementing |
 | SONG-10 | P1: Song pages | T13, T17 | Implementing |
