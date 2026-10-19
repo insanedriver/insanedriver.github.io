@@ -573,8 +573,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/layout.e2e.cjs` asserts no horizontal overflow at 320px on `/discography/silicon-fortress/` and `/discography/silicon-fortress/faceless-demons/`.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] `tests/seo/layout.e2e.cjs` asserts no horizontal overflow at 320px on `/discography/silicon-fortress/` and `/discography/silicon-fortress/faceless-demons/`.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build
