@@ -1,8 +1,10 @@
 # SEO Discovery Validation
 
-## Validation: seo-discovery - FAIL
+## Validation: seo-discovery - PASS
 
-**Overall verdict: FAIL** (pass 4, T24/T25 re-verification, fix loop iteration 2 of at most 3). T25 (`b94418f`) kills all 3 pass 3 survivors (S4, S6, S10), and the gate is green at 695 tests. But 3 new data faults survive, on platforms T25 did not pin: N3 (a Bandcamp swap), N6 (a wrong Deezer id that keeps track order) and N9 (a YT Music `list=` from the other album). See "Pass 4 (T24/T25 re-verification)" below. Fix task C is open.
+**Overall verdict: PASS** (pass 5, T26 re-verification, fix loop iteration 3 of at most 3). T26 (`68aaff6`) kills all 3 pass 4 survivors (N3, N6, N9). The sensor killed 13 of 13 real mutants; the only survivor is L1, the expected fixture+data limit. All 44 Deezer and Apple fixture ids match the live APIs again, and the gate is green at 696 tests (149 unit + 547 e2e, 0 failed). See "Pass 5 (T26 re-verification)" below. Fix task C is closed.
+
+**Pass 4 verdict (historical): FAIL** (pass 4, T24/T25 re-verification, fix loop iteration 2 of at most 3). T25 (`b94418f`) kills all 3 pass 3 survivors (S4, S6, S10), and the gate is green at 695 tests. But 3 new data faults survive, on platforms T25 did not pin: N3 (a Bandcamp swap), N6 (a wrong Deezer id that keeps track order) and N9 (a YT Music `list=` from the other album). See "Pass 4 (T24/T25 re-verification)" below. Fix task C is open.
 
 **Pass 3 verdict (historical): FAIL**. T24 (`c05356f`) adds per-track links, and its implementation, data and gate are sound, but 3 of 10 sensor mutants survive. Two are data swaps in `_data/songs.json` and one is a release-page subtitle regression. See "Pass 3 (T24)" below. Fix tasks A and B were closed by T25.
 
@@ -23,6 +25,99 @@ Fix task T23 (`db6bdf7`) did three things:
 - It added SEO-12 and SEO-13.
 - It pinned both in the song and release e2e tests.
 - It moved the filters into `lib/filters.js`, with unit tests.
+
+---
+
+## Pass 5 (T26 re-verification)
+
+**Verdict: PASS** (T24 fix loop, iteration 3 of at most 3).
+- T26 meets its own Done-when: a swapped Bandcamp URL (N3), a shifted Deezer id (N6) and a YT Music URL on the other album's playlist (N9) each fail a test.
+- SONG-07 has `file:line` evidence for every clause.
+- The fixture equals `songs.json`, and the 44 Deezer and Apple ids in it match the live APIs.
+- No assertion was weakened.
+- The gate is green: 149 unit and 547 e2e tests, 0 failures.
+- The sensor killed 13 of 13 real mutants. The only survivor is L1, the expected fixture+data limit.
+
+**Date**: 2026-10-19
+**Diff range**: `b94418f..68aaff6`. The fix is the single commit `68aaff6` (T26). It touches `tests/seo/song.e2e.cjs`, `tests/seo/track-ids.fixture.json` and the spec/tasks bookkeeping. `git diff c05356f..HEAD -- _data lib discography _includes` is empty, so no production code or data has changed since T24.
+**Verifier**: independent sub-agent (author ≠ verifier). It ran read-only over the real tree. Mutations ran only in a throwaway `git worktree`.
+
+### Spec-anchored check (SONG-07 and the T26 assertions)
+
+| Clause / T26 item | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| Track URL, else album URL; `Play the track` | As SONG-07 | `tests/seo/song.e2e.cjs:190-192` - `expect(links).toEqual(platforms.filter(p => s.album.links[p.key]).map(p => [p.key, track[p.key] \|\| s.album.links[p.key], p.primary ? (track[p.key] ? 'Play the track' : p.sub) : null]))` on all 22 pages | ✅ PASS (P1, P2 and P8 killed here) |
+| `sameAs` = the song's track URLs | Set of track URLs | `tests/seo/song.e2e.cjs:216` - `expect([...rec.sameAs].sort()).toEqual(Object.values(data.links \|\| {}).sort())`; `tests/seo/catalog.test.cjs:213`, `:222` | ✅ PASS (P3 and P7 killed here) |
+| Every track URL is the right song | Each song's own track, on every platform | `tests/seo/song.e2e.cjs:66` - fixture keys equal the 22 slugs; `:67` - `expect(d.links, d.slug).toEqual(fixture[d.slug])` | ✅ PASS (N3, N6, N9, P4, P5 and P6 killed here) |
+| YT Music plays in the song's album | `list=` is the album playlist | `tests/seo/song.e2e.cjs:74` - `searchParams.get('list')` `toBe` the album's `links.ytmusic` `list` (`_data/discography.json`) | ✅ PASS (N9 and L3 killed here) |
+| Bandcamp belongs to its song | Path is the song slug | `tests/seo/song.e2e.cjs:75` - `toMatch(^https://insanedriverid\.bandcamp\.com/track/<slug>(-2)?$)` | ✅ PASS (N3 and L2 killed here) |
+| Apple and Deezer order, Apple slug and album id | Unchanged from T25 | `tests/seo/song.e2e.cjs:80-90` | ✅ PASS |
+| Unique per platform; Ghosts pins; URL shapes | Unchanged from T25 | `tests/seo/song.e2e.cjs:46-60` | ✅ PASS |
+| Release pages and the index keep the platform subtitle | Unchanged from T25 | `tests/seo/release.e2e.cjs:67-69`; `tests/seo/index-links.e2e.cjs:31` | ✅ PASS |
+
+**Fixture provenance**:
+- `git diff c05356f..HEAD -- _data/songs.json` is empty. A Node `deepStrictEqual` shows `songs.json` is byte-for-byte the `c05356f` data, and each of its 22 `links` objects deep-equals the fixture entry: 88 Spotify, Apple, YT Music and Deezer URLs, plus 11 Bandcamp URLs.
+- Pass 3 verified those 88 URLs live, and pass 4 re-verified the 44 Spotify and YT ids. The 22 Spotify and 22 YT ids in the T25 fixture (`b94418f`) are all unchanged inside the T26 URLs.
+- **Live re-query on 2026-10-19**: all 22 Deezer ids (`api.deezer.com/track/<id>`) and all 22 Apple `?i=` ids (`itunes.apple.com/lookup?id=<id>`). Each one returned the song's title, the right album (`Insane Driver` or `Silicon Fortress`) and the track number of its tracklist position. **0 mismatches in 44.**
+- Examples: Deezer `118251268` → "Tide of Fears", Insane Driver #4; Deezer `1339680552` → "Faceless Demons", Silicon Fortress #2; Apple `1563399514` → "Keep Away", Silicon Fortress #3; Apple `1563399816` → "Age of Lies", Silicon Fortress #5.
+- Bandcamp still returns a JS `Client Challenge` page for `track/keep-away-2`, `track/age-of-lies-2` and `track/back-to-1994`, so it cannot be checked live. The slug rule (`:75`) is now an independent check that pass 4 lacked.
+
+**Weakening check**: the diff removes only the per-id Spotify `toBe` and the YT `v=` `toBe` (old `:68-69`). The full-object `toEqual(fixture[d.slug])` at `:67` replaces them. It is strictly stronger: it pins the same 44 ids, which are preserved verbatim, and it also pins Apple, Deezer, Bandcamp, the YT `list=` and the absence of extra keys (P5 removes a key and is killed). The T25 checks at `:46-60` and `:80-90` are unchanged. Nothing was weakened.
+
+### Discrimination sensor
+
+**Isolation**:
+- **Scratch**: `git worktree add --detach <scratchpad>/verify-wt5 HEAD`, with `node_modules` symlinked.
+- **Per mutant**: `git checkout -- .`, then a scripted edit that asserts each target occurs exactly once, then `rm -rf docs/*`, `npm run build`, `node --test tests/*/*.test.cjs`, and `playwright test` on the `song`, `release`, `index-links` and `head` e2e files.
+- **Baseline in the scratch**: 149/149 unit, 90/90 targeted e2e.
+- **Real tree**: `git status --porcelain` matched its pre-sensor snapshot after `git worktree remove --force` and `git worktree prune`, and it matched again after the gate. No stash was used.
+
+| # | File | Mutation | Killed by | Killed? |
+| --- | --- | --- | --- | --- |
+| N3 | `_data/songs.json` | Keep Away ↔ Age of Lies Bandcamp URLs (pass 4 survivor) | `song.e2e.cjs:67` (fixture); `:75` (slug rule) | ✅ Killed |
+| N6 | `_data/songs.json` | Tide of Fears Deezer `118251268` → `118251269` (pass 4 survivor) | `song.e2e.cjs:67` | ✅ Killed |
+| N9 | `_data/songs.json` | Faceless Demons YT `list=` → the Insane Driver album playlist (pass 4 survivor) | `song.e2e.cjs:67`; `:74` | ✅ Killed |
+| P1 | `lib/catalog.js:71` | `listen.track` set to `{}`, so song pages show `p.sub` | `song.e2e.cjs:191` (22 pages); 1 unit test in `catalog.test.cjs` | ✅ Killed |
+| P2 | `_includes/discography/links.liquid:6` | Subtitle text `Play the track` → `Play the song` | `song.e2e.cjs:191` (22 pages) | ✅ Killed |
+| P3 | `discography/song.liquid:147` | `sameAs` emits only its first URL as a string (`\| first`) | `song.e2e.cjs:216` (22 pages) | ✅ Killed |
+| P4 | `_data/songs.json` | Silicon Fortress Apple `?i=1563399515` → `1563399516` (unique, still in order) | `song.e2e.cjs:67` | ✅ Killed |
+| P5 | `_data/songs.json` | Desperate Prayer loses its Bandcamp track URL (falls back to the album) | `song.e2e.cjs:67` | ✅ Killed |
+| P6 | `_data/songs.json` | Keep Away Bandcamp `keep-away-2` → `keep-away` (still passes the slug rule) | `song.e2e.cjs:67` | ✅ Killed |
+| P7 | `lib/catalog.js:72` | `sameAs` built from the merged album+song links (adds Tidal and Amazon) | `song.e2e.cjs:216` (22 pages); 2 unit tests in `catalog.test.cjs` | ✅ Killed |
+| P8 | `lib/catalog.js:71` | Merge forces the album's Deezer URL over the track's | `song.e2e.cjs:191` (22 pages) | ✅ Killed |
+| L2 | `songs.json` + fixture | N3 applied to both the data and the fixture | `song.e2e.cjs:75`: Expected pattern `/track/keep-away(-2)?$/`, Received `…/track/age-of-lies-2` | ✅ Killed |
+| L3 | `songs.json` + fixture | N9 applied to both the data and the fixture | `song.e2e.cjs:74`: Expected `OLAK5uy_mgx8…`, Received `OLAK5uy_lDX4…` | ✅ Killed |
+| L1 | `songs.json` + fixture | N6 applied to both the data and the fixture | none: 149 unit and 90 e2e passed | ⚪ Survived, the expected limit |
+
+**About L1 (the limit, not a gap)**:
+- A fixture pin cannot catch a fault made to the fixture and the data together. L2 and L3 show that T26's independent rules close that hole for Bandcamp and the YT `list=`.
+- For Deezer, Spotify and the Apple `i=` there is no derivable invariant beyond order (`:80-90`). Live re-checks like this pass's are the backstop, and any change to the fixture shows up in review as a diff.
+
+**Sensor depth**: expanded, 14 mutants. They re-inject the 3 pass 4 survivors, add 8 new faults over the data, the `lib/catalog.js` merge, the links include, `song.liquid` `sameAs` and the subtitle, and add 3 fixture+data limit probes.
+**Result**: 13/13 real mutants killed (L1 excluded as the expected fixture+data limit; L2 and L3 killed), sensor PASS.
+
+### Gate (real tree)
+
+- `npm run build`: exit 0.
+- `npm test`: exit 0. Unit: 149 passed, 0 failed, 0 skipped. E2e: 547 passed, 0 failed, 0 skipped (6.3 min).
+- HOME-23, HOME-24 and HOME-29 passed on the first run, so none needed a re-run.
+- **Count**: 696, against 695 at pass 4. T26 split the T25 fixture test into the fixture test (`song.e2e.cjs:64`) and the independent-rules test (`:71`). No test was removed.
+
+### Lessons applied
+
+L-034, L-035 and L-036 (candidates from passes 3 and 4) were applied by T25 and T26, and the faults they target are now killed:
+- **L-034**: pin hand-collected values to an independent source. Killed here by N3, N6, N9, P4, P5 and P6.
+- **L-035**: assert a shared include on every page that uses it. Its T25 checks, `release.e2e.cjs:69` and `index-links.e2e.cjs:31`, are unchanged.
+- **L-036**: pin every field with the same risk. All 5 platforms are now in the fixture.
+
+This pass found no new grounded failure, so no lesson was recorded. `lessons.py` has no "applied" command; it records only `add` and `penalize`, so this note is the record.
+
+### Pass 5 summary
+
+- **Spec-anchored check**: SONG-07 is fully evidenced, and all 8 rows pass. The pass 4 Bandcamp and YT `list=` gaps are closed.
+- **Data**: the fixture equals `songs.json` (99 URLs). 44/44 Deezer and Apple ids re-verified live. Bandcamp is not checkable live.
+- **Sensor**: 13/13 real mutants killed. L1 is the expected fixture+data limit.
+- **Gate**: 149 unit + 547 e2e = 696, 0 failed.
 
 ---
 
@@ -96,7 +191,7 @@ The Ghosts pins (`:48-49`) and the URL shapes (`:50-55`) are unchanged. Nothing 
 - **N5 (limit, not a gap)**: any fixture-based pin passes when the fixture and the data are changed the same way. The fixture is only as trustworthy as its review; live re-checks like this pass's are the backstop.
 
 **Sensor depth**: expanded, 13 mutants. They re-inject the 3 pass 3 survivors and add 10 new faults over every platform's track URL, the fallback, `sameAs` and one limit probe.
-**Result**: 9/13 killed (9/12 excluding the N5 limit probe), sensor FAIL.
+**Result (pass 4, historical)**: 9/13 killed (9/12 excluding the N5 limit probe), sensor FAIL.
 
 ### Gate (real tree)
 
@@ -443,7 +538,7 @@ Cosmetic: `tests/seo/song.e2e.cjs:89` repeats the suffix-strip regex inline inst
 
 ## Summary
 
-**Overall**: ❌ Not ready. Pass 4 (T24/T25) sensor FAIL: fix task C (N3, N6, N9). Fix tasks A and B from pass 3 are closed. The pass 2 summary below is kept as history.
+**Overall**: ✅ Ready. Pass 5 (T26) verdict PASS: N3, N6 and N9 are killed, the sensor killed 13/13 real mutants (L1 is the expected fixture+data limit), and the gate is green at 149 unit + 547 e2e = 696. Fix tasks A, B and C are all closed. Open non-blocking item: the 11 Bandcamp track URLs still cannot be checked live (Bandcamp serves a JS `Client Challenge`), so only the slug rule (`tests/seo/song.e2e.cjs:75`) and the fixture back them. The pass 2 summary below is kept as history.
 
 **Spec-anchored check**: 50/50 ACs match the spec outcome; 1 spec-precision gap (LYR-01 source equality, verified by hand).
 **Sensor**: 15/15 mutants killed (M13, M17, M18, M18s, and N1–N11).
