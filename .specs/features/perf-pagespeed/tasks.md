@@ -295,6 +295,8 @@ T19 → T20
 
 ### T9: Remove Glyphicons
 
+**Status**: ✅ Done
+
 **What**: Strip the `.glyphicon*` rules and the Glyphicons `@font-face` from `less/bootstrap.less`, and switch the footer back-to-top icon to `fa fa-chevron-up`.
 **Where**: `less/bootstrap.less`
 **Depends on**: T8
@@ -305,9 +307,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/fonts.test.cjs` asserts that no emitted CSS or built HTML contains `glyphicon`
-- [ ] e2e: the footer `.scroll-top i` has `fa-chevron-up` and a non-zero rendered width
-- [ ] Full gate passes
+- [x] `tests/perf/fonts.test.cjs` asserts that no emitted CSS or built HTML contains `glyphicon`
+- [x] e2e: the footer `.scroll-top i` has `fa-chevron-up` and a non-zero rendered width
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
