@@ -176,6 +176,8 @@ Bundle selection: `_data/cssBundles.js` returns the area names found in `less/pa
 | Loader timing tests were already flaky (HOME-23/24/29) | `tests/home/loader.e2e.cjs` | Tighter bounds may make them flakier | Change only the bounds. If flakiness gets worse, raise it in Execute instead of loosening the assertions |
 | Tracking e2e tests read `window.dataLayer` | `tests/home/tracking.e2e.cjs:9`, `tests/discography/tracking.e2e.cjs` | Need the array to exist at parse time | `trackers.liquid` creates `dataLayer` inline at parse time, as today |
 | Bootstrap collapse animation lost | `_includes/header/menu.liquid:4` | The mobile menu opens instantly instead of sliding | Accepted as the only visible change besides the loader. Called out to the user |
+| `insaneFont` was a 157 KB base64 data URI in `insane-font.less` | `less/insane-font.less` | Inlined, it alone pushed core past 200 KB (PERF-17) | Extracted to `assets/fonts/War-is-Over.woff2` + `.woff` (SPEC_DEVIATION marker in the file) |
+| `contact.less` had 37 unscoped `.cyber-*` rules after a stray `}`, so every page got them | `less/contact.less` | Moving contact into its bundle would unstyle the cyber panels on other pages | Moved verbatim to `less/cyber-global.less`, imported by `core.less` |
 | `band.less`/`contact.less` have no `prefers-reduced-motion` | memory: cyberpunk theme system | Infinite animations cost CPU | Out of scope. The CSS moves into its bundle unchanged |
 
 ---

@@ -1,30 +1,25 @@
 ## Primeiros passos
 
-Instalar o less e o watch compiler. O watch compiler vai ficar escutando os arquivos salvos e atualizar a página automaticamente.
-
-Para instalar o less:
-```
-npm install -g less
-```
-
-Para instalar o less-watch-compiler:
-```
-npm install -g less-watch-compiler
-```
-
-OBS: Não deixar de instalar globalmente (flag `-g`).
+As dependências (incluindo o `less`) vêm do `npm install`. Não é preciso instalar nada globalmente.
 
 ## Usando
 
-### Watch compiler
+### Build
 
-O comando para escutar as alterações nos arquivos é:
+O comando para compilar o CSS uma vez é:
 
 ```
-less-watch-compiler
+npm run less:build
 ```
 
-As configurações estão no arquivo [less-watch-compiler.config.json](../less-watch-compiler.config.json).  
-O intuito é ter um arquivo principal (no diretório `less`) definido nesse arquivo de configuração, que vá importar todos os arquivos menores e incluir em um só arquivo de saída (no diretório `css`).
+Ele roda [scripts/build-css.cjs](../scripts/build-css.cjs), que compila `less/core.less` em `assets/css/core.min.css` (estilos que toda página carrega) e cada `less/pages/<area>.less` em `assets/css/<area>.min.css` (estilos de uma área do site). Um arquivo novo em `less/pages/` vira um bundle novo automaticamente.
+
+### Watch
+
+O comando para servir o site e recompilar o CSS a cada arquivo salvo é:
+
+```
+npm run watch
+```
 
 Quando for fazer os commits, lembrar de commitar os arquivos .less modificados e .css gerados.

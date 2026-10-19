@@ -12,11 +12,14 @@ test('BIT-19: home.less has no Mailchimp form selectors', () => {
   for (const selector of MAILCHIMP_SELECTORS) assert.ok(!less.includes(selector), selector);
 });
 
-test('BIT-18: the Mailchimp-only files are gone and style.less imports newsletter.less', () => {
+// The Less entries: core.less and every page bundle (they replaced style.less).
+const ENTRIES = ['less/core.less', ...fs.readdirSync(path.join(ROOT, 'less/pages')).map(f => `less/pages/${f}`)];
+
+test('BIT-18: the Mailchimp-only files are gone and a Less entry imports newsletter.less', () => {
   for (const file of ['_includes/newsletter/countries.liquid', 'less/mailchimp.less']) {
     assert.equal(fs.existsSync(path.join(ROOT, file)), false, file);
   }
-  const imports = [...read('less/style.less').matchAll(/@import\s+"([^"]+)"/g)].map(m => m[1]);
+  const imports = ENTRIES.flatMap(file => [...read(file).matchAll(/@import\s+(?:\([^)]*\)\s*)?"([^"]+)"/g)].map(m => path.basename(m[1])));
   assert.ok(imports.includes('newsletter.less'));
   assert.ok(!imports.includes('mailchimp.less'));
 });

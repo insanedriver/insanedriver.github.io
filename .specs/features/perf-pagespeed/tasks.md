@@ -234,6 +234,8 @@ T19 → T20
 
 ### T7: CSS build script with core and page bundles
 
+**Status**: ✅ Done
+
 **What**: Add `scripts/build-css.cjs` (`less` API, `compress: true`, `--watch`).
 - It builds `less/core.less` and every `less/pages/<area>.less` into `assets/css/<name>.min.css`.
 - Wire `less:build` and `watch` to the script.
@@ -247,14 +249,14 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/css.test.cjs` asserts:
+- [x] `tests/perf/css.test.cjs` asserts:
   - the 9 bundles plus core exist
   - core has no `.owl-`, `.blog-` or `#page_`
   - each bundle has only its own `#page_<id>` (plus `.pswp` in photos)
   - core is ≤ 200 KB
   - no `/*` comments and no newline-indentation
-- [ ] Compiled CSS is committed
-- [ ] Quick gate passes
+- [x] Compiled CSS is committed
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
