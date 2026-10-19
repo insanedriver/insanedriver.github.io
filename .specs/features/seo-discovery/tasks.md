@@ -73,7 +73,7 @@ T15 → T16 → T17 → T18 → T19
 ### Phase 5: Linking
 
 ```
-T20 → T21
+T20 → T21 → T23
 ```
 
 ---
@@ -634,6 +634,32 @@ T20 → T21
 
 ---
 
+### T23: Close the verification gaps
+
+**What**: Fix task from the first Verifier pass (`validation.md`, mutants M13, M17, M18). Assert the song, album and single title formats (SEO-12) and the cover as `og:image` (SEO-13) on every release and song page; move `jsonify` and `metaDescription` into `lib/filters.js` and unit-test them, including a `<` inside a JSON-LD value and all three truncation branches.
+**Where**: `lib/filters.js`, `.eleventy.js`, `tests/seo/filters.test.cjs`, `tests/seo/song.e2e.cjs`, `tests/seo/release.e2e.cjs`
+**Depends on**: T21
+**Reuses**: none
+**Requirement**: SEO-07, SEO-12, SEO-13
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] `tests/seo/filters.test.cjs` fails if `jsonify` stops escaping `<`.
+- [x] Song and release e2e tests assert the exact `<title>` and `og:image`.
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: unit, e2e
+**Gate**: build
+
+**Commit**: `test(seo): pin page titles, cover og:image and the template filters`
+
+---
+
 ## Phase Execution Map
 
 ```
@@ -644,7 +670,7 @@ Phase 2:  T7 → T8 → T9
 Phase 3:  T10 → T11 → T13 → T14 → T22
           T12 → T13
 Phase 4:  T15 → T16 → T17 → T18 → T19
-Phase 5:  T20 → T21
+Phase 5:  T20 → T21 → T23
 ```
 
 Execution is strictly sequential.

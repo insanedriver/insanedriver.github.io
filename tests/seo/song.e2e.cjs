@@ -85,6 +85,11 @@ test.describe('without JavaScript', () => {
       const albumLink = page.locator(`a[href="/discography/${s.album.slug}/"]`, { hasText: s.album.title });
       await expect(albumLink.first()).toBeVisible();
 
+      // SEO-12 / SEO-13: the song title format and the album cover as og:image.
+      await expect(page).toHaveTitle(`${s.track.title.replace(/\s*\((Deluxe Version|Acoustic Version|Acoustic)\)\s*$/i, '')} Lyrics – Insane Driver`);
+      await expect(page.locator('meta[property="og:image"]'))
+        .toHaveAttribute('content', `${ORIGIN}/assets/images/releases/${s.album.cover}`);
+
       // SONG-04 / SONG-05: the lyrics, section by section with the source line breaks, or "Instrumental".
       const lyrics = page.locator('[data-song-lyrics]');
       if (data.instrumental) {

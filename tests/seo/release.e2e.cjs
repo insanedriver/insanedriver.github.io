@@ -49,6 +49,11 @@ test.describe('without JavaScript', () => {
       const cover = page.locator(`img[alt="${r.title} cover"]`);
       await expect(cover).toHaveCount(1);
       await expect(cover).toHaveAttribute('src', `/assets/images/releases/${r.cover}`);
+
+      // SEO-12 / SEO-13: the album or single title format and the cover as og:image.
+      await expect(page).toHaveTitle(`${r.title} (${r.year}) – Insane Driver ${isAlbum(r) ? 'Album' : 'Single'}`);
+      await expect(page.locator('meta[property="og:image"]'))
+        .toHaveAttribute('content', `${ORIGIN}/assets/images/releases/${r.cover}`);
       await expect(cover).toBeVisible();
       const type = { ALBUM: 'Album', DELUXE: 'Deluxe edition', SINGLE: 'Single' }[r.type];
       await expect(page.locator('[data-release-meta]')).toHaveText(`${type} // ${r.year}`);

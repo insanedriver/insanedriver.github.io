@@ -192,6 +192,24 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Edge Cases: reduced motion on /newsletter/ has no test (e2e)
 - last seen: 2026-10-18T04:36:16Z
 
+### L-031 - Give every confirmed decision with a precise value, such as a page title format or og:image source, its own AC id so a test asserts that exact value
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md M17 discography/song.liquid:16 (spec-writing) (+1 more)
+- last seen: 2026-10-19T01:11:36Z
+
+### L-032 - Unit-test every template filter with adversarial input such as a < inside a JSON-LD value instead of relying on real data passing through it
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `eleventy-filters` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md M13 .eleventy.js:63 (eleventy-filters)
+- last seen: 2026-10-19T01:11:36Z
+
+### L-033 - When an AC compares repo data with a source kept outside the repo, name the script or checked-in fixture that performs the comparison so the AC is testable
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: seo-discovery
+- evidence: LYR-01 (spec-writing)
+- last seen: 2026-10-19T01:11:36Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

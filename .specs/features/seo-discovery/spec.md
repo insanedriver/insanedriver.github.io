@@ -94,6 +94,8 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 9. **SEO-09** — No two pages in the sitemap SHALL share the same `<title>`.
 10. **SEO-10** — `/pre-save/` SHALL contain exactly one `<!DOCTYPE>` and one `<html>` element and SHALL have `<meta name="robots" content="noindex, follow">`.
 11. **SEO-11** — The home page `<title>` SHALL be `Insane Driver – Hard Rock & Heavy Metal Band from Brazil`.
+12. **SEO-12** — A song page `<title>` SHALL be `<Song> Lyrics – Insane Driver`; an album release page `<title>` SHALL be `<Album> (<year>) – Insane Driver Album`; a single release page `<title>` SHALL be `<Single> (<year>) – Insane Driver Single`.
+13. **SEO-13** — Release and song pages SHALL have `og:image` equal to `https://insanedriver.com.br/assets/images/releases/<cover>`, the cover of the release (or, for a song, of its album).
 
 **Independent Test**: Build the site, parse `docs/sitemap.xml` and `docs/robots.txt`, and check every listed page's head.
 
@@ -237,6 +239,8 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SEO-09 | P1: Crawl and understand | T7 | Implementing |
 | SEO-10 | P1: Crawl and understand | T6 | Implementing |
 | SEO-11 | P1: Crawl and understand | T7 | Implementing |
+| SEO-12 | P1: Crawl and understand | T16, T17, T23 | Implementing |
+| SEO-13 | P1: Crawl and understand | T16, T17, T23 | Implementing |
 | GEN-01 | P1: Genre and audience | T8 | Implementing |
 | GEN-02 | P1: Genre and audience | T8 | Implementing |
 | GEN-03 | P1: Genre and audience | T8 | Implementing |
@@ -275,7 +279,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | IDX-04 | P2: Discography index | T15, T20 | Implementing |
 | CRUMB-01 | P3: Breadcrumbs | T21 | Implementing |
 
-**Coverage:** 48 total, 0 mapped to tasks, 48 unmapped ⚠️
+**Coverage:** 50 total, 50 mapped to tasks, 0 unmapped ✅
 
 ---
 
