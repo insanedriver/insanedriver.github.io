@@ -20,15 +20,16 @@
 
 ## Handoff
 
-- **Feature**: newsletter-bandsintown (Mailchimp, now lost, replaced by the Bandsintown mailing-list embed for artist 10752930)
-- **Phase / Task**: Complete. T1-T6 plus one verifier fix, `13c3680`..`be23dfa` and the closing docs commit, on `feature/newsletter-bandsintown` branched from `master` at `d7efa45`.
-- **Verification**: Verifier PASS on iteration 2. 20/20 ACs and 3/3 edge cases have evidence. The sensor killed 15/15 real mutants (one equivalent mutant). Unit 95/95, Playwright 384/384, build green. Candidate lessons L-029 and L-030.
-- **Amendments during Execute (user-approved or forced by facts)**:
-  - The embed lives only on `/newsletter/`. The home SIGNAL::NEWSLETTER panel became a `Join the network` link to `/newsletter/`, because an iframe on the home breaks HOME-06 (user decision).
-  - `/newsletter/` scrolled 15px sideways on `master`; T5 zeroes the `.row` gutters so BIT-15 holds.
-  - HOME-44..48 and NEWS-03..06, NEWS-10 are marked superseded.
+- **Feature**: seo-discovery (non-brand discovery: sitemap/robots/canonical/OG, genre-aware copy and MusicGroup, 7 release pages, 22 song pages with lyrics, video facade, breadcrumbs)
+- **Phase / Task**: Complete. T1-T23 (T22 `/band/` overflow and T23 verifier fix added during Execute), `1baa2d8`..`2746fba` on `feature/seo-discovery` branched from `master` at `465e649`.
+- **Verification**: Verifier PASS on iteration 2. 50/50 ACs with evidence, sensor 15/15 killed (pass 1: 15/18). Unit 147, Playwright 541-542/542 (HOME-23/24/29 loader timing tests flaky, also on master). Sitemap 38 URLs. Candidate lessons L-031..L-033.
+- **Amendments during Execute (user-approved)**:
+  - HOME-53 expects the new home og:title; footer Spotify moved to open.spotify.com and Bandcamp added, so HOME-52 expects 6 links.
+  - Lyrics: EN in `_data/lyrics/<album>/<song>.txt` (rendered), PT in `.pt.txt` (stored, not rendered); originals moved to `../lyrics-originals/`.
+  - SEO-12 (title formats) and SEO-13 (cover og:image) added from confirmed Assumptions after verifier pass 1.
 - **In-progress**: none
-- **Next step**: the user submits one real address through the embed on `/newsletter/` and checks it in Bandsintown for Artists; then push and open the PR (needs the user's go-ahead). `/dates/` widget upgrade is the deferred follow-up feature.
+- **Next step**: band reviews the drafted copy in the PR; push and open the PR (needs the user's go-ahead); after deploy, submit the sitemap in Search Console and run the Rich Results Test.
+- **Follow-ups (not done)**: `/dates/` Bandsintown widget over http; header menu still links play.spotify.com; HOME-23 flaky; optional `[Speech]` label in Firstly My Breakfast lyrics; LYR-01 source equality is a manual check.
 - **Blockers**: none
-- **Branch**: feature/newsletter-bandsintown
-- **Previous handoff**: store-cyberpunk, merged as PR #42.
+- **Branch**: feature/seo-discovery
+- **Previous handoff**: newsletter-bandsintown.
