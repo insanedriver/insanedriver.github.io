@@ -106,3 +106,33 @@ test('PERF-28: the band photo on /band/ is a <picture> with a WebP srcset and a 
   assert.equal(img.loading, 'lazy');
   assert.equal(img.decoding, 'async');
 });
+
+// The declarations of the first rule for `selector` in an emitted stylesheet, in order.
+const ruleBody = (cssFile, selector) => {
+  const css = fs.readFileSync(path.join(ROOT, 'assets/css', cssFile), 'utf8');
+  const escaped = selector.replace(/[.#]/g, '\\$&');
+  const rule = css.match(new RegExp(`(?:^|[}\\s])${escaped}\\{([^}]*)\\}`));
+  assert.ok(rule, `${cssFile}: no ${selector} rule`);
+  return rule[1];
+};
+// image-set(url(<name>.webp) type("image/webp"), url(<name>.jpg) type("image/jpeg")), quotes optional.
+const imageSet = name => new RegExp(`image-set\\(url\\(['"]?\\.\\./images/${name}\\.webp['"]?\\)\\s*type\\(['"]image/webp['"]\\)\\s*,\\s*url\\(['"]?\\.\\./images/${name}\\.jpg['"]?\\)\\s*type\\(['"]image/jpeg['"]\\)\\)`);
+
+test('PERF-27: #content and footer backgrounds declare the JPEG, then an image-set with WebP first', () => {
+  for (const [selector, name] of [['#content', 'bodybg'], ['footer', 'footer']]) {
+    const body = ruleBody('core.min.css', selector);
+    const plain = body.search(new RegExp(`background-image:url\\(['"]?\\.\\./images/${name}\\.jpg['"]?\\)`));
+    const set = body.search(new RegExp(`background-image:${imageSet(name).source}`));
+    assert.ok(plain >= 0, `${selector}: no plain url() fallback: ${body}`);
+    assert.ok(set > plain, `${selector}: no image-set after the fallback: ${body}`);
+  }
+});
+
+test('PERF-27: the home bodybg layer keeps its gradient and adds the WebP image-set after the JPEG', () => {
+  const body = ruleBody('home.min.css', '.home-content');
+  const layers = [...body.matchAll(/background:([^;]*)/g)].map(m => m[1]);
+  assert.equal(layers.length, 2, body);
+  assert.match(layers[0], /^linear-gradient\(.*\),\s*url\(['"]?\.\.\/images\/bodybg\.jpg['"]?\)$/);
+  // Same gradient layer, with the image-set in place of the plain url().
+  assert.equal(layers[1].replace(imageSet('bodybg'), 'X'), layers[0].replace(/url\(['"]?\.\.\/images\/bodybg\.jpg['"]?\)$/, 'X'));
+});

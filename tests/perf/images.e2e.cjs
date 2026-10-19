@@ -40,3 +40,15 @@ for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
     expect(box.height).toBeCloseTo(h, 0);
   });
 }
+
+// /band/ hides the footer texture (band.less sets footer background-image: none), so the
+// footer image is checked on /videos/, which shows it.
+for (const [path, images] of [['/band/', ['bodybg']], ['/videos/', ['bodybg', 'footer']]]) {
+  test(`PERF-27: ${path} fetches the WebP ${images.join(' and ')} background, not the JPEG`, async ({ page }) => {
+    const seen = imageRequests(page);
+    await page.goto(path, { waitUntil: 'load' });
+    await page.locator('footer').scrollIntoViewIfNeeded();
+    await expect.poll(() => seen).toEqual(expect.arrayContaining(images.map(name => `/assets/images/${name}.webp`)));
+    for (const name of ['bodybg', 'footer']) expect(seen).not.toContain(`/assets/images/${name}.jpg`);
+  });
+}

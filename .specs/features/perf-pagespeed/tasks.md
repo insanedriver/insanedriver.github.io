@@ -460,6 +460,8 @@ T19 → T20
 
 ### T16: WebP backgrounds via image-set
 
+**Status**: ✅ Done
+
 **What**: `#content`, `footer` and the home bodybg layer get an `image-set()` declaration with a WebP and JPEG `type()`, after the plain `url()`.
 **Where**: `less/general.less`
 **Depends on**: T15
@@ -470,9 +472,10 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts that the emitted CSS has the `image-set` for `bodybg` and `footer`
-- [ ] e2e: on `/band/`, `bodybg.webp` and `footer.webp` are fetched and the `.jpg` files are not
-- [ ] Full gate passes
+- [x] `tests/perf/images.test.cjs` asserts that the emitted CSS has the `image-set` for `bodybg` and `footer`
+- [x] e2e: on `/band/`, `bodybg.webp` and `footer.webp` are fetched and the `.jpg` files are not
+  - Deviation: `/band/` hides the footer texture (`band.less` sets `footer { background-image: none; }`), so `footer.webp` is checked on `/videos/`; `bodybg.webp` is checked on both
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
