@@ -73,7 +73,7 @@ T15 → T16 → T17 → T18 → T19
 ### Phase 5: Linking
 
 ```
-T20 → T21 → T23 → T24 → T25
+T20 → T21 → T23 → T24 → T25 → T26
 ```
 
 ---
@@ -711,6 +711,31 @@ T20 → T21 → T23 → T24 → T25
 
 ---
 
+### T26: Pin every track URL
+
+**What**: Fix task from verifier pass 4 (mutants N3, N6, N9). `tests/seo/track-ids.fixture.json` now holds every track URL per platform (checked live in passes 3 and 4) and `songs.json` must equal it; independent rules check the YT Music `list=` is the album playlist and each Bandcamp path is `track/<slug>` or `track/<slug>-2`.
+**Where**: `tests/seo/song.e2e.cjs`, `tests/seo/track-ids.fixture.json`
+**Depends on**: T25
+**Reuses**: none
+**Requirement**: SONG-07
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] A swapped Bandcamp URL, a shifted Deezer id or a YT Music URL on the other album's playlist each fails a test.
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+
+**Commit**: `test(discography): pin every track URL to the live-checked fixture`
+
+---
+
 ## Phase Execution Map
 
 ```
@@ -721,7 +746,7 @@ Phase 2:  T7 → T8 → T9
 Phase 3:  T10 → T11 → T13 → T14 → T22
           T12 → T13
 Phase 4:  T15 → T16 → T17 → T18 → T19
-Phase 5:  T20 → T21 → T23 → T24 → T25
+Phase 5:  T20 → T21 → T23 → T24 → T25 → T26
 ```
 
 Execution is strictly sequential.

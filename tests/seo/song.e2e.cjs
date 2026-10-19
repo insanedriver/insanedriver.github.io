@@ -59,14 +59,20 @@ test('SONG-07: songs.json holds real track URLs, not album URLs', () => {
   }
 });
 
-// Spotify and YouTube ids say nothing about the song, so they are pinned to ids checked
-// against the live platforms (validation.md, pass 3): a swap between songs fails here.
-test('SONG-07: Spotify and YT Music track ids match the live-checked fixture', () => {
+// Every track URL is pinned to the set checked against the live platforms (validation.md,
+// passes 3 and 4): a swapped, shifted or re-pointed id on any platform fails here.
+test('SONG-07: every track URL matches the live-checked fixture', () => {
   const fixture = require('./track-ids.fixture.json');
   expect(Object.keys(fixture).sort()).toEqual(songData.map(d => d.slug).sort());
-  for (const d of songData) {
-    expect(d.links.spotify, d.slug).toBe(`https://open.spotify.com/track/${fixture[d.slug].spotify}`);
-    expect(d.links.ytmusic.split('v=')[1].split('&')[0], d.slug).toBe(fixture[d.slug].ytmusic);
+  for (const d of songData) expect(d.links, d.slug).toEqual(fixture[d.slug]);
+});
+
+// Independent rules on top of the fixture, so it cannot drift on its own.
+test('SONG-07: YT Music tracks play inside their album playlist, Bandcamp tracks carry the song slug', () => {
+  for (const s of SONGS) {
+    const d = songData.find(x => x.slug === s.slug);
+    expect(new URL(d.links.ytmusic).searchParams.get('list'), s.slug).toBe(new URL(s.album.links.ytmusic).searchParams.get('list'));
+    if (d.links.bandcamp) expect(d.links.bandcamp, s.slug).toMatch(new RegExp(`^https://insanedriverid\\.bandcamp\\.com/track/${s.slug}(-2)?$`));
   }
 });
 

@@ -253,7 +253,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | SONG-04 | P1: Song pages | T17 | Implementing |
 | SONG-05 | P1: Song pages | T17 | Implementing |
 | SONG-06 | P1: Song pages | T11, T17 | Implementing |
-| SONG-07 | P1: Song pages | T17, T24, T25 | Implementing |
+| SONG-07 | P1: Song pages | T17, T24, T25, T26 | Implementing |
 | SONG-08 | P1: Song pages | T13, T17 | Implementing |
 | SONG-09 | P1: Song pages | T17 | Implementing |
 | SONG-10 | P1: Song pages | T13, T17 | Implementing |
