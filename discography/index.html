@@ -44,34 +44,17 @@ header_img_path: header_4.jpg
             <span class="corner-bl"></span>
     <article class="disc-release" id="{{ album.slug }}" data-disc-release="{{ album.slug }}" aria-labelledby="disc-title-{{ album.slug }}">
         <div class="disc-release-art">
-            <img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover"{% unless forloop.first %} loading="lazy"{% endunless %} decoding="async">
+            <a href="{{ catalog.links[album.slug].page }}" data-disc-page-link="cover"><img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="{{ album.title | escape }} cover"{% unless forloop.first %} loading="lazy"{% endunless %} decoding="async"></a>
             <span class="disc-art-corner" aria-hidden="true"></span>
         </div>
         <div class="disc-release-body">
             <div class="disc-release-heading">
                 <span class="disc-eyebrow">{% if album.type == 'DELUXE' %}DELUXE EDITION{% else %}ALBUM{% endif %} // {{ album.year }}</span>
-                <h3 id="disc-title-{{ album.slug }}">{{ album.title | escape }}</h3>
+                <h3 id="disc-title-{{ album.slug }}"><a href="{{ catalog.links[album.slug].page }}" data-disc-page-link="title">{{ album.title | escape }}</a></h3>
                 <p class="disc-release-meta">{{ album.tracks.size }} tracks</p>
             </div>
 
-            <div class="disc-links">
-                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary %}
-                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
-                    <i class="fa {{ p.icon }}"></i>
-                    <span class="cyber-link-name">{{ p.name }}</span>
-                    <span class="cyber-link-sub">{{ p.sub }}</span>
-                </a>
-                {% endif %}{% endfor %}
-            </div>
-
-            <div class="disc-links disc-links--secondary">
-                {% for p in platforms %}{% assign url = album.links[p.key] %}{% if url and p.primary == false %}
-                <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ album.slug }}">
-                    <i class="fa {{ p.icon }}"></i>
-                    <span class="cyber-link-name">{{ p.name }}</span>
-                </a>
-                {% endif %}{% endfor %}
-            </div>
+            {% assign release = album %}{% include 'discography/links' %}
 
             {% if album.buyCd %}
             <a class="disc-buy" href="{{ album.buyCd }}" data-disc-buy="{{ album.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>
@@ -90,7 +73,7 @@ header_img_path: header_4.jpg
                     {% for track in album.tracks %}
                     <li class="disc-track" data-disc-track>
                         <span class="disc-track-pos">{% if track.position < 10 %}0{% endif %}{{ track.position }}</span>
-                        <span class="disc-track-title">{{ track.title | escape }}</span>
+                        <span class="disc-track-title"><a href="{{ catalog.links[album.slug].tracks[track.position] }}">{{ track.title | escape }}</a></span>
                         <span class="disc-track-time" data-disc-duration="{{ track.duration }}">{{ track.duration | divided_by: 60 | floor }}:{% assign secs = track.duration | modulo: 60 %}{% if secs < 10 %}0{% endif %}{{ secs }}</span>
                     </li>
                     {% endfor %}

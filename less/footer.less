@@ -37,8 +37,18 @@ footer h5 {
     margin-right: 0;
 }
 
+/* Same box as an fa-3x glyph; Font Awesome 4.4 has no Bandcamp icon. */
+.footer-bandcamp-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: 3em;
+    vertical-align: bottom;
+}
+
 @media (max-width: 768px) {
-    .footer-social i {
+    .footer-social i,
+    .footer-social .footer-bandcamp-icon {
         font-size: 2em;
     }
 }

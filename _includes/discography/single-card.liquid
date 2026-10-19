@@ -1,7 +1,7 @@
 <li class="disc-single" data-disc-single="{{ single.slug }}">
-    <img class="disc-single-art" src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async">
+    <a class="disc-single-page" href="{{ catalog.links[single.slug].page }}" tabindex="-1" aria-hidden="true"><img class="disc-single-art" src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async"></a>
     <span class="disc-single-meta">
-        <span class="disc-single-title">{{ single.title | escape }}</span>
+        <span class="disc-single-title"><a href="{{ catalog.links[single.slug].page }}" data-disc-page-link="single">{{ single.title | escape }}</a></span>
         <span class="disc-single-year">{{ single.year }}</span>
     </span>
     <span class="disc-single-links">

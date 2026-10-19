@@ -2,6 +2,8 @@ const htmlmin = require("html-minifier");
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { selectSitemapEntries } = require("./lib/sitemap");
+const { jsonify, metaDescription } = require("./lib/filters");
 
 // Cache busting: appends ?v=<content hash> to local /assets/*.css|js references,
 // so browsers refetch a file exactly when its content changes.
@@ -55,9 +57,19 @@ module.exports = function (eleventyConfig) {
         return content;
     });
 
+    // SEO-01/02: the pages listed in sitemap.xml
+    eleventyConfig.addFilter("sitemapEntries", selectSitemapEntries);
+
+    // JSON-LD values, with "<" escaped
+    eleventyConfig.addFilter("jsonify", jsonify);
+
+    // SEO-07: descriptions cut to 160 characters
+    eleventyConfig.addFilter("metaDescription", metaDescription);
+
     // We simply tell eleventy to pass a copy of our assets folder
     eleventyConfig.addPassthroughCopy("./assets");
     eleventyConfig.addPassthroughCopy("./google*.html");
+    eleventyConfig.addPassthroughCopy("./robots.txt");
 
     return {
         dir: {

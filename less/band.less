@@ -10,6 +10,10 @@
         padding: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+
+        // Without the container's padding, Bootstrap's row gutters pushed
+        // the page 15px wider than the viewport.
+        > .row { margin-right: 0; margin-left: 0; }
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -384,6 +388,16 @@
                 text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
             }
         }
+    }
+
+    // GEN-05: the "For fans of" line, in the eyebrow look (no uppercase: it is read as a sentence).
+    .fans-of {
+        margin: 1.5rem 0 0;
+        color: #9cbbc2;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-align: center;
     }
 
     .cyber-bio-quote {

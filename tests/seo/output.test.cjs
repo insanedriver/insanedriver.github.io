@@ -1,0 +1,64 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+
+// Reads the built site: run `npm run build` first.
+const DOCS = path.join(__dirname, '../../docs');
+const built = file => fs.readFileSync(path.join(DOCS, file), 'utf8');
+
+test('SEO-03: robots.txt allows every crawler and points at the sitemap', () => {
+  const lines = built('robots.txt').split(/\r?\n/).map(l => l.trim());
+  assert.ok(lines.includes('User-agent: *'));
+  assert.ok(lines.includes('Allow: /'));
+  assert.ok(lines.includes('Sitemap: https://insanedriver.com.br/sitemap.xml'));
+  assert.ok(!lines.some(l => /^Disallow:\s*\S/i.test(l)), 'no path is disallowed');
+});
+
+const ORIGIN = 'https://insanedriver.com.br';
+const INDEXABLE = ['/', '/band/', '/contact/', '/dates/', '/discography/', '/newsletter/', '/photos/', '/store/', '/videos/'];
+// REL-01: one page per release that does not fold into a song page.
+const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'].map(slug => `/discography/${slug}/`);
+// SONG-01: one page per song of the two studio albums.
+const SONGS = [
+  ...['endless-path', 'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'buried-thoughts', 'fallen-dreams',
+    'change', 'today-is-sunday', 'faithless-breath', 'make-decisions', 'tears-of-blood'].map(s => `/discography/insane-driver/${s}/`),
+  ...['back-to-1994', 'faceless-demons', 'keep-away', 'silicon-fortress', 'age-of-lies', 'insane-driver',
+    'desperate-prayer', 'ghosts', 'imagined-realities', 'invisible-chains', 'distant-hearts'].map(s => `/discography/silicon-fortress/${s}/`),
+];
+const sitemapLocs = () => {
+  const xml = built('sitemap.xml');
+  // Well-formed sitemap: declaration, one urlset in the sitemap namespace, only <url><loc> children, no raw & or < in a loc.
+  const shape = /^<\?xml version="1\.0" encoding="UTF-8"\?>\s*<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">(\s*<url>\s*<loc>[^<&]+<\/loc>\s*<\/url>)*\s*<\/urlset>\s*$/;
+  assert.match(xml, shape, 'sitemap.xml is a well-formed urlset');
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+};
+
+test('SEO-01: every <loc> is an absolute insanedriver.com.br URL ending in /', () => {
+  const locs = sitemapLocs();
+  assert.ok(locs.length > 0);
+  for (const loc of locs) {
+    assert.ok(loc.startsWith(`${ORIGIN}/`), loc);
+    assert.ok(loc.endsWith('/'), loc);
+  }
+  assert.equal(new Set(locs).size, locs.length, 'no URL is listed twice');
+});
+
+test('SEO-02: the sitemap lists exactly the indexable pages', () => {
+  assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
+});
+
+test('Success criteria: the sitemap lists 39 URLs (9 pages, 8 releases, 22 songs)', () => {
+  assert.equal(sitemapLocs().length, 39);
+});
+
+test('SEO-02: redirects, campaign pages and verification files stay out of the sitemap', () => {
+  const paths = sitemapLocs().map(loc => loc.slice(ORIGIN.length));
+  for (const p of paths) {
+    assert.ok(!p.startsWith('/preorder/'), p);
+    assert.ok(!p.startsWith('/pre-save/'), p);
+    assert.ok(!p.startsWith('/reward/'), p);
+    assert.ok(!/google[^/]*\.html/.test(p), p);
+  }
+});

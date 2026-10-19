@@ -6,21 +6,8 @@
     {% include 'head/gtm' %}
     {% include 'head/fbpixel' %}
 
-    <title>Insane Driver Official Website</title>
-
     {% include 'head/metatags' %}
-
-    <link rel="canonical" href="/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Insane Driver Official Website">
-    <meta property="og:description" content="The official website of the brazilian metal band Insane Driver. {{ page_description }}">
-    <meta property="og:url" content="https://insanedriver.com.br/">
-    <meta property="og:image" content="https://insanedriver.com.br/assets/images/home/hero-1280.jpg">
-    <meta property="og:image:width" content="1280">
-    <meta property="og:image:height" content="853">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@insanedriverid">
+    {% include 'head/seo' %}
 
     <!-- Boot loader gate: the loader only ever shows when this script runs. -->
     <!-- A repeat view (key: home-core.js BOOT_KEY, via _data/homeBoot.js) leaves at 0.4s on its own, without waiting for home.js; -->

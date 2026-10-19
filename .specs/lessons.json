@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 31,
+  "next_id": 37,
   "lessons": [
     {
       "id": "L-001",
@@ -548,6 +548,115 @@
       ],
       "created": "2026-10-18T04:36:16Z",
       "last_seen": "2026-10-18T04:36:16Z"
+    },
+    {
+      "id": "L-031",
+      "key": "surviving_mutant::give every confirmed decision with a precise value such as a page title format or og image source its own ac id so a test asserts that exact value",
+      "text": "Give every confirmed decision with a precise value, such as a page title format or og:image source, its own AC id so a test asserts that exact value",
+      "signal": "surviving_mutant",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M17 discography/song.liquid:16 (spec-writing)",
+        "validation.md M18 discography/release.liquid:18 (spec-writing)"
+      ],
+      "created": "2026-10-19T01:11:36Z",
+      "last_seen": "2026-10-19T01:11:36Z"
+    },
+    {
+      "id": "L-032",
+      "key": "surviving_mutant::unit test every template filter with adversarial input such as a inside a json ld value instead of relying on real data passing through it",
+      "text": "Unit-test every template filter with adversarial input such as a < inside a JSON-LD value instead of relying on real data passing through it",
+      "signal": "surviving_mutant",
+      "scope": "eleventy-filters",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M13 .eleventy.js:63 (eleventy-filters)"
+      ],
+      "created": "2026-10-19T01:11:36Z",
+      "last_seen": "2026-10-19T01:11:36Z"
+    },
+    {
+      "id": "L-033",
+      "key": "spec_precision_gap::when an ac compares repo data with a source kept outside the repo name the script or checked in fixture that performs the comparison so the ac is testable",
+      "text": "When an AC compares repo data with a source kept outside the repo, name the script or checked-in fixture that performs the comparison so the AC is testable",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "LYR-01 (spec-writing)"
+      ],
+      "created": "2026-10-19T01:11:36Z",
+      "last_seen": "2026-10-19T01:11:36Z"
+    },
+    {
+      "id": "L-034",
+      "key": "surviving_mutant::when a test takes its expected values from the same hand collected data file it checks also pin those values to an independent source or derived invariant or a swapped or off by one entry passes",
+      "text": "When a test takes its expected values from the same hand-collected data file it checks, also pin those values to an independent source or derived invariant, or a swapped or off-by-one entry passes.",
+      "signal": "surviving_mutant",
+      "scope": "tests/data",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 3 S4, S10 (tests/seo/song.e2e.cjs:156-158, :181) (tests/data)"
+      ],
+      "created": "2026-10-19T03:47:41Z",
+      "last_seen": "2026-10-19T03:47:41Z"
+    },
+    {
+      "id": "L-035",
+      "key": "surviving_mutant::when a change adds a branch to an include shared by several pages assert the unchanged output on the other pages too not only on the page the change targets",
+      "text": "When a change adds a branch to an include shared by several pages, assert the unchanged output on the other pages too, not only on the page the change targets.",
+      "signal": "surviving_mutant",
+      "scope": "templates",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 3 S6 (_includes/discography/links.liquid:6, tests/seo/release.e2e.cjs:65) (templates)"
+      ],
+      "created": "2026-10-19T03:47:41Z",
+      "last_seen": "2026-10-19T03:47:41Z"
+    },
+    {
+      "id": "L-036",
+      "key": "surviving_mutant::when pinning hand collected ids pin every field that carries the same risk because a shape uniqueness or ordering check on the fields left out still lets a wrong in range value pass",
+      "text": "When pinning hand-collected ids, pin every field that carries the same risk, because a shape, uniqueness or ordering check on the fields left out still lets a wrong in-range value pass.",
+      "signal": "surviving_mutant",
+      "scope": "test-data",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)"
+      ],
+      "created": "2026-10-19T04:18:44Z",
+      "last_seen": "2026-10-19T04:18:44Z"
     }
   ]
 }

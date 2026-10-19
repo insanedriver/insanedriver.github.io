@@ -192,6 +192,42 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Edge Cases: reduced motion on /newsletter/ has no test (e2e)
 - last seen: 2026-10-18T04:36:16Z
 
+### L-031 - Give every confirmed decision with a precise value, such as a page title format or og:image source, its own AC id so a test asserts that exact value
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md M17 discography/song.liquid:16 (spec-writing) (+1 more)
+- last seen: 2026-10-19T01:11:36Z
+
+### L-032 - Unit-test every template filter with adversarial input such as a < inside a JSON-LD value instead of relying on real data passing through it
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `eleventy-filters` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md M13 .eleventy.js:63 (eleventy-filters)
+- last seen: 2026-10-19T01:11:36Z
+
+### L-033 - When an AC compares repo data with a source kept outside the repo, name the script or checked-in fixture that performs the comparison so the AC is testable
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: seo-discovery
+- evidence: LYR-01 (spec-writing)
+- last seen: 2026-10-19T01:11:36Z
+
+### L-034 - When a test takes its expected values from the same hand-collected data file it checks, also pin those values to an independent source or derived invariant, or a swapped or off-by-one entry passes.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests/data` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 3 S4, S10 (tests/seo/song.e2e.cjs:156-158, :181) (tests/data)
+- last seen: 2026-10-19T03:47:41Z
+
+### L-035 - When a change adds a branch to an include shared by several pages, assert the unchanged output on the other pages too, not only on the page the change targets.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `templates` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 3 S6 (_includes/discography/links.liquid:6, tests/seo/release.e2e.cjs:65) (templates)
+- last seen: 2026-10-19T03:47:41Z
+
+### L-036 - When pinning hand-collected ids, pin every field that carries the same risk, because a shape, uniqueness or ordering check on the fields left out still lets a wrong in-range value pass.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `test-data` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)
+- last seen: 2026-10-19T04:18:44Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
