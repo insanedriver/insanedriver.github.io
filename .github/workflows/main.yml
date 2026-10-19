@@ -31,11 +31,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify photo data
-        run: npm run test:unit
-
+      # The unit tests read the built site (docs/sitemap.xml, docs/robots.txt), so build first.
       - name: Build
         run: npm run build
+
+      - name: Run unit tests
+        run: npm run test:unit
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3

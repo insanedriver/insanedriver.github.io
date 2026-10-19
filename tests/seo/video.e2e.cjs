@@ -51,6 +51,8 @@ test.describe('without JavaScript', () => {
           uploadDate,
           embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
         });
+        // contentUrl is for the media file itself; a YouTube watch page is not one.
+        expect(blocks[0]).not.toHaveProperty('contentUrl');
       });
     } else {
       test(`edge case: ${s.url} has no video facade and no VideoObject`, async ({ page }) => {

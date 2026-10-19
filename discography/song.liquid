@@ -162,8 +162,7 @@ eleventyComputed:
   "description": {{ video_description | jsonify }},
   "thumbnailUrl": "https://i.ytimg.com/vi/{{ song.video.id }}/hqdefault.jpg",
   "uploadDate": "{{ song.video.uploadDate }}",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ song.video.id }}",
-  "contentUrl": "https://www.youtube.com/watch?v={{ song.video.id }}"
+  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ song.video.id }}"
 }
 </script>
 {% endif %}

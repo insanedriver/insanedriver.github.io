@@ -23,6 +23,13 @@ const DISCOGRAPHY = ['ListItem', 1, 'Discography', `${ORIGIN}/discography/`];
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
+  test('the header logo links to the home page from nested release and song pages', async ({ page }) => {
+    for (const url of ['/discography/silicon-fortress/', '/discography/silicon-fortress/ghosts/']) {
+      await page.goto(url);
+      await expect(page.locator('.nav-logo a'), url).toHaveAttribute('href', '/');
+    }
+  });
+
   for (const slug of RELEASES) {
     test(`CRUMB-01: /discography/${slug}/ has Discography -> release`, async ({ page }) => {
       const r = all.find(x => x.slug === slug);
