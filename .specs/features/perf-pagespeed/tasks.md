@@ -108,6 +108,8 @@ T19 → T20
 
 ### T2: Load GTM and the Pixel after first render
 
+**Status**: ✅ Done
+
 **What**: Replace `head/gtm.liquid` and `head/fbpixel.liquid` with `head/trackers.liquid`. It queues `gtm.start`, `fbq init` and `PageView` at parse time, then injects both scripts once, on `load` + idle (2 s timeout, `setTimeout` fallback) or on the first interaction. Both `<noscript>` fallbacks stay.
 **Where**: `_includes/head/trackers.liquid` (new)
 **Depends on**: T1
@@ -118,15 +120,15 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/trackers.e2e.cjs` routes the tracker hosts and asserts:
+- [x] `tests/perf/trackers.e2e.cjs` routes the tracker hosts and asserts:
   - no request before `load` (PERF-02)
   - exactly one of each after idle (PERF-03)
   - an early `pointerdown` loads them, and a later idle does not load them again (PERF-04)
   - `dataLayer[0]` has `gtm.start`, and `fbq.queue` holds `init` + `PageView` (PERF-05)
   - with `requestIdleCallback` deleted, the scripts load 2 s after `load` (PERF-39)
-- [ ] `tests/perf/trackers.test.cjs` asserts both `<noscript>` blocks in the built HTML (PERF-06)
-- [ ] The existing `tests/home/tracking.e2e.cjs` and `tests/discography/tracking.e2e.cjs` pass unchanged
-- [ ] Full gate passes
+- [x] `tests/perf/trackers.test.cjs` asserts both `<noscript>` blocks in the built HTML (PERF-06)
+- [x] The existing `tests/home/tracking.e2e.cjs` and `tests/discography/tracking.e2e.cjs` pass unchanged
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

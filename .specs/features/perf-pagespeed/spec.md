@@ -202,11 +202,11 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
 | PERF-01 | P1: Trackers | Design | Implementing |
-| PERF-02 | P1: Trackers | Design | Pending |
-| PERF-03 | P1: Trackers | Design | Pending |
-| PERF-04 | P1: Trackers | Design | Pending |
-| PERF-05 | P1: Trackers | Design | Pending |
-| PERF-06 | P1: Trackers | Design | Pending |
+| PERF-02 | P1: Trackers | Design | Implementing |
+| PERF-03 | P1: Trackers | Design | Implementing |
+| PERF-04 | P1: Trackers | Design | Implementing |
+| PERF-05 | P1: Trackers | Design | Implementing |
+| PERF-06 | P1: Trackers | Design | Implementing |
 | PERF-07 | P1: JS | Design | Pending |
 | PERF-08 | P1: JS | Design | Pending |
 | PERF-09 | P1: JS | Design | Pending |
@@ -239,7 +239,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-36 | P2: Loader | Design | Pending |
 | PERF-37 | P3: Guard | Design | Pending |
 | PERF-38 | P3: Guard | Design | Pending |
-| PERF-39 | P1: Trackers (edge) | Design | Pending |
+| PERF-39 | P1: Trackers (edge) | Design | Implementing |
 | PERF-40 | P1: JS (edge) | Design | Pending |
 
 **Coverage:** 40 total, 0 mapped to tasks, 40 unmapped ⚠️ (mapped in Tasks)
