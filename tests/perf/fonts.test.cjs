@@ -48,3 +48,26 @@ test('PERF-21: core.min.css serves Rajdhani 500/600/700 and Share Tech Mono 400 
     assert.match(face, new RegExp(`src:\\s*url\\(['"]?\\.\\./fonts/${file}['"]?\\)\\s*format\\(['"]?woff2['"]?\\)`), `${family} ${weight} src`);
   }
 });
+
+test('PERF-19: every @font-face in every emitted stylesheet declares font-display: swap', () => {
+  let count = 0;
+  for (const [file, css] of emittedCss()) {
+    for (const face of fontFaces(css)) {
+      count++;
+      assert.match(face, /font-display:\s*swap\b/, `${file}: ${face.slice(0, 80)}`);
+    }
+  }
+  // FontAwesome, insaneFont, SiliconFont and the four self-hosted faces.
+  assert.ok(count >= 7, `only ${count} @font-face rules found`);
+});
+
+test('PERF-22: SiliconFont loads from a woff2 file first, with the .ttf only as the second src', () => {
+  const faces = fontFaces(fs.readFileSync(path.join(CSS_DIR, 'core.min.css'), 'utf8')).filter(f => /font-family:\s*['"]?SiliconFont['"]?\s*(;|$)/.test(f));
+  assert.equal(faces.length, 1, 'one SiliconFont face');
+  const src = faces[0].match(/src:([^;]*)/)[1].split(/,(?=\s*url\()/).map(s => s.trim());
+  assert.equal(src.length, 2, `src: ${src.join(', ')}`);
+  assert.match(src[0], /^url\(['"]?\.\.\/fonts\/Mars-Mission\.woff2['"]?\)\s*format\(['"]?woff2['"]?\)$/);
+  assert.match(src[1], /^url\(['"]?\.\.\/fonts\/Mars-Mission\.ttf['"]?\)\s*format\(['"]?truetype['"]?\)$/);
+  const woff2 = fs.readFileSync(path.join(__dirname, '../../assets/fonts/Mars-Mission.woff2'));
+  assert.equal(woff2.subarray(0, 4).toString('latin1'), 'wOF2', 'Mars-Mission.woff2 is woff2');
+});

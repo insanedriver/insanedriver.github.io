@@ -343,6 +343,8 @@ T19 → T20
 
 ### T11: woff2 SiliconFont and font-display everywhere
 
+**Status**: ✅ Done
+
 **What**: Add `Mars-Mission.woff2` (fonttools) as the first `src` and add `font-display: swap` to every `@font-face` (typography, insane-font, font-awesome).
 **Where**: `less/typography.less`
 **Depends on**: T10
@@ -353,8 +355,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/fonts.test.cjs` asserts that every `@font-face` in every emitted CSS has `font-display:swap` and that SiliconFont's first `src` is `.woff2`
-- [ ] Quick gate passes
+- [x] `tests/perf/fonts.test.cjs` asserts that every `@font-face` in every emitted CSS has `font-display:swap` and that SiliconFont's first `src` is `.woff2`
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
