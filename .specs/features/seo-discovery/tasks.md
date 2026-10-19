@@ -598,8 +598,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/index-links.e2e.cjs` asserts IDX-01..03; all existing `tests/discography/*` pass.
-- [ ] Gate check passes: `npm test`
+- [x] `tests/seo/index-links.e2e.cjs` asserts IDX-01..03; all existing `tests/discography/*` pass.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full

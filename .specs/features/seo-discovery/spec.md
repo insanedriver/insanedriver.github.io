@@ -269,10 +269,10 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | REL-04 | P1: Release pages | T16 | Implementing |
 | REL-05 | P1: Release pages | T16 | Implementing |
 | REL-06 | P1: Release pages | T16 | Implementing |
-| IDX-01 | P2: Discography index | Design | Pending |
-| IDX-02 | P2: Discography index | Design | Pending |
-| IDX-03 | P2: Discography index | Design | Pending |
-| IDX-04 | P2: Discography index | T15 | Implementing |
+| IDX-01 | P2: Discography index | T20 | Implementing |
+| IDX-02 | P2: Discography index | T20 | Implementing |
+| IDX-03 | P2: Discography index | T20 | Implementing |
+| IDX-04 | P2: Discography index | T15, T20 | Implementing |
 | CRUMB-01 | P3: Breadcrumbs | Design | Pending |
 
 **Coverage:** 48 total, 0 mapped to tasks, 48 unmapped ⚠️

@@ -594,6 +594,14 @@
         .disc-single-grid { margin-top: 18px; }
     }
 
+    // IDX-01..03: index titles, covers and track rows link to the release and song pages.
+    .disc-release-heading h3 a, .disc-single-title a, .disc-track-title a {
+        color: inherit;
+        text-decoration: none;
+        &:hover, &:focus { color: #00f3ff; text-decoration: none; }
+    }
+    .disc-release-art > a, .disc-single-page { display: block; }
+
     // ── Release and song pages (/discography/<slug>/, /discography/<album>/<song>/) ──
     .disc-page a:not(.cyber-link-btn):not(.disc-single-link) {
         color: #00f3ff;
