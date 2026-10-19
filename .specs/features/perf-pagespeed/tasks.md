@@ -366,6 +366,8 @@ T19 → T20
 
 ### T12: Preload only the icon font
 
+**Status**: ✅ Done
+
 **What**: Remove the Glyphicons and Mars-Mission preloads, keeping the Font Awesome woff2 preload.
 **Where**: `_includes/head/styles.liquid`
 **Depends on**: T11
@@ -376,8 +378,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/fonts.test.cjs` asserts that the only font preload in built HTML is `fontawesome-webfont.woff2`
-- [ ] Quick gate passes
+- [x] `tests/perf/fonts.test.cjs` asserts that the only font preload in built HTML is `fontawesome-webfont.woff2`
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick

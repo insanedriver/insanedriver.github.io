@@ -71,3 +71,18 @@ test('PERF-22: SiliconFont loads from a woff2 file first, with the .ttf only as 
   const woff2 = fs.readFileSync(path.join(__dirname, '../../assets/fonts/Mars-Mission.woff2'));
   assert.equal(woff2.subarray(0, 4).toString('latin1'), 'wOF2', 'Mars-Mission.woff2 is woff2');
 });
+
+// The href (without ?v=) of every font preload in a page.
+const fontPreloads = html => [...html.matchAll(/<link\b[^>]*rel="?preload"?[^>]*>/g)].map(m => m[0])
+  .filter(tag => /\bas="?font"?/.test(tag))
+  .map(tag => (tag.match(/href="?([^"\s>]+)/) || [])[1].replace(/\?.*$/, ''));
+
+test('PERF-24: the only font preload in the built HTML is the Font Awesome woff2', () => {
+  for (const [url, html] of builtPages()) {
+    for (const href of fontPreloads(html)) assert.equal(href, '/assets/fonts/fontawesome-webfont.woff2', `${url} preloads ${href}`);
+    assert.ok(!html.includes('Mars-Mission.ttf') && !html.includes('glyphicons-halflings-regular.woff2'), `${url}: preloads a removed font`);
+  }
+  for (const [url, html] of layoutPages()) {
+    assert.deepEqual(fontPreloads(html), ['/assets/fonts/fontawesome-webfont.woff2'], `${url}: icon font preload`);
+  }
+});
