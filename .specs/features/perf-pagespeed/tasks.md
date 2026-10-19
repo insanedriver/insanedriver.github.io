@@ -412,6 +412,8 @@ T19 → T20
 
 ### T14: Responsive header picture on inner pages
 
+**Status**: ✅ Done
+
 **What**: `base.html` header becomes `<picture>` with the WebP srcset, a JPEG `<img>` fallback, `width="1920" height="320" sizes="100vw" fetchpriority="high"` and no lazy loading.
 **Where**: `_layouts/base.html`
 **Depends on**: T13
@@ -422,9 +424,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts the markup on every `base.html` page
-- [ ] `tests/perf/images.e2e.cjs` asserts that `/band/` at 375 px fetches `header_3-768.webp` and not `header_3.jpg`
-- [ ] Full gate passes
+- [x] `tests/perf/images.test.cjs` asserts the markup on every `base.html` page
+- [x] `tests/perf/images.e2e.cjs` asserts that `/band/` at 375 px fetches `header_3-768.webp` and not `header_3.jpg`
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

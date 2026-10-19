@@ -20,7 +20,7 @@ async function trackers(page) {
 }
 
 // Holds the page header image back, so the window load event waits for it.
-const holdLoad = (page, ms) => page.route(/\/assets\/images\/header_\d\.jpg/, async route => {
+const holdLoad = (page, ms) => page.route(/\/assets\/images\/header_\d(-\d+)?\.(jpg|webp)/, async route => {
   await new Promise(r => setTimeout(r, ms));
   await route.continue();
 });

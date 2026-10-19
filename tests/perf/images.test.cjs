@@ -59,3 +59,35 @@ test('PERF-25: re-encoding a source reproduces the committed bytes', async () =>
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+// Attributes of one HTML tag (quoted or, after minification, unquoted), as { name: value }.
+const attrs = tag => Object.fromEntries([...tag.replace(/^<\w+|\/?>$/g, '')
+  .matchAll(/([\w-]+)(?:=(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g)]
+  .map(m => [m[1].toLowerCase(), m[2] ?? m[3] ?? m[4] ?? '']));
+// srcset "url 768w, url 1280w" as [[url, '768w'], ...].
+const srcset = value => value.split(',').map(s => s.trim().split(/\s+/));
+const { layoutPages, page } = require('./built.cjs');
+
+test('PERF-26: every base.html header is a <picture> with a 768/1280/1920 WebP srcset and a sized, eager JPEG fallback', () => {
+  const pages = layoutPages().filter(([url]) => url !== '/');
+  assert.ok(pages.length > 20, `only ${pages.length} base pages`);
+  for (const [url, html] of pages) {
+    const header = html.match(/<div class="?header-img"?>([\s\S]*?)<\/div>/);
+    assert.ok(header, `${url}: no header image`);
+    const picture = header[1].match(/^<picture>(<source[^>]*>)(<img[^>]*>)<\/picture>$/);
+    assert.ok(picture, `${url}: header is not <picture><source><img></picture>: ${header[1]}`);
+    const source = attrs(picture[1]);
+    const img = attrs(picture[2]);
+    const base = img.src.match(/^\/assets\/images\/(header_\d)\.jpg$/);
+    assert.ok(base, `${url}: fallback ${img.src}`);
+    assert.equal(source.type, 'image/webp', url);
+    assert.equal(source.sizes, '100vw', url);
+    assert.deepEqual(srcset(source.srcset), [768, 1280, 1920].map(w => [`/assets/images/${base[1]}-${w}.webp`, `${w}w`]), url);
+    for (const [file] of srcset(source.srcset)) assert.ok(fs.existsSync(path.join(ROOT, file)), `${url}: missing ${file}`);
+    assert.equal(img.width, '1920', url);
+    assert.equal(img.height, '320', url);
+    assert.equal(img.fetchpriority, 'high', url);
+    assert.equal(img.loading, undefined, `${url}: header must not be lazy`);
+    assert.equal(img.class, 'img-responsive', url);
+  }
+});

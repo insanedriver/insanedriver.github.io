@@ -226,7 +226,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-23 | P1: Fonts | Design | Implementing |
 | PERF-24 | P1: Fonts | Design | Implementing |
 | PERF-25 | P1: Images | Design | Implementing |
-| PERF-26 | P1: Images | Design | Pending |
+| PERF-26 | P1: Images | Design | Implementing |
 | PERF-27 | P1: Images | Design | Pending |
 | PERF-28 | P1: Images | Design | Pending |
 | PERF-29 | P1: Images | Design | Pending |

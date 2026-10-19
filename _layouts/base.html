@@ -24,7 +24,12 @@
     {% include 'header/menu' %}
 
     <div class="header-img">
-        <img src="/assets/images/{{header_img_path}}" class="img-responsive" alt="">
+        {% assign header_base = header_img_path | replace: '.jpg', '' %}
+        <picture>
+            <source type="image/webp" sizes="100vw"
+                srcset="/assets/images/{{ header_base }}-768.webp 768w, /assets/images/{{ header_base }}-1280.webp 1280w, /assets/images/{{ header_base }}-1920.webp 1920w">
+            <img src="/assets/images/{{header_img_path}}" class="img-responsive" alt="" width="1920" height="320" fetchpriority="high">
+        </picture>
     </div>
 
     <main>
