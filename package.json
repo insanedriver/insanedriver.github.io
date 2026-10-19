@@ -9,7 +9,8 @@
     "watch": "npx @11ty/eleventy --serve & node scripts/build-css.cjs --watch",
     "test": "npm run test:unit && npm run test:photos",
     "test:unit": "node --test tests/*/*.test.cjs",
-    "test:photos": "npm run less:build && playwright test"
+    "test:photos": "npm run less:build && playwright test",
+    "images": "node scripts/images.cjs"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "gray-matter": "4.0.2",
     "html-minifier": "^4.0.0",
     "less": "^4.5.1",
-    "liquidjs": "6.4.3"
+    "liquidjs": "6.4.3",
+    "sharp": "^0.35.5"
   }
 }

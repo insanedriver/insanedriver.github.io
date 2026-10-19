@@ -389,6 +389,8 @@ T19 → T20
 
 ### T13: WebP image pipeline
 
+**Status**: ✅ Done
+
 **What**: Add `sharp` (devDependency), `scripts/images.cjs` with an exported manifest, and `npm run images`. Generate and commit every variant from the design.
 **Where**: `scripts/images.cjs` (new)
 **Depends on**: None (phase order)
@@ -399,8 +401,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts that every manifest output exists (PERF-31), that the width of each output matches the manifest, and that re-encoding one source into a temp dir is byte-identical to the committed file (PERF-25)
-- [ ] Quick gate passes
+- [x] `tests/perf/images.test.cjs` asserts that every manifest output exists (PERF-31), that the width of each output matches the manifest, and that re-encoding one source into a temp dir is byte-identical to the committed file (PERF-25)
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
