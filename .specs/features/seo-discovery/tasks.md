@@ -73,7 +73,7 @@ T15 → T16 → T17 → T18 → T19
 ### Phase 5: Linking
 
 ```
-T20 → T21 → T23 → T24
+T20 → T21 → T23 → T24 → T25
 ```
 
 ---
@@ -686,6 +686,31 @@ T20 → T21 → T23 → T24
 
 ---
 
+### T25: Close the T24 verification gaps
+
+**What**: Fix task from verifier pass 3 (mutants S4, S6, S10). Pin the Spotify and YT Music track ids to `tests/seo/track-ids.fixture.json` (checked live in pass 3); assert Apple URLs carry the song slug and the album id, and Apple and Deezer ids increase with track position; require unique track URLs on every platform; assert release pages and `/discography/` keep the platform subtitle, never `Play the track`; compare `sameAs` without depending on key order.
+**Where**: `tests/seo/song.e2e.cjs`, `tests/seo/track-ids.fixture.json`, `tests/seo/release.e2e.cjs`, `tests/seo/index-links.e2e.cjs`
+**Depends on**: T24
+**Reuses**: none
+**Requirement**: SONG-07, REL-04, IDX-04
+
+**Tools**:
+
+- MCP: NONE
+- Skill: NONE
+
+**Done when**:
+
+- [x] Swapping two songs' Spotify ids, giving one song another's Deezer id, or showing `Play the track` on a release page each fails a test.
+- [x] Gate check passes: `npm run build && npm test`
+
+**Tests**: e2e
+**Gate**: build
+
+**Commit**: `test(discography): pin track ids and the release-page subtitles`
+
+---
+
 ## Phase Execution Map
 
 ```
@@ -696,7 +721,7 @@ Phase 2:  T7 → T8 → T9
 Phase 3:  T10 → T11 → T13 → T14 → T22
           T12 → T13
 Phase 4:  T15 → T16 → T17 → T18 → T19
-Phase 5:  T20 → T21 → T23 → T24
+Phase 5:  T20 → T21 → T23 → T24 → T25
 ```
 
 Execution is strictly sequential.

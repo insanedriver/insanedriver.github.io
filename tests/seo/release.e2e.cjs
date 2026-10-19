@@ -64,6 +64,9 @@ test.describe('without JavaScript', () => {
       // REL-04 + edge case: every platform with a URL, none for a null one.
       const linkKeys = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => [el.dataset.discLink, el.getAttribute('href')]));
       expect(linkKeys).toEqual(platforms.filter(p => r.links[p.key]).sort((a, b) => b.primary - a.primary).map(p => [p.key, r.links[p.key]]));
+      // SONG-07 counterpart: release pages keep the platform's own subtitle, never "Play the track".
+      const subs = await page.locator('[data-disc-link] .cyber-link-sub').evaluateAll(els => els.map(el => el.textContent.trim()));
+      expect(subs).toEqual(platforms.filter(p => p.primary && r.links[p.key]).map(p => p.sub));
 
       // GEN-05
       await expect(page.getByText(FANS_OF, { exact: true })).toBeVisible();

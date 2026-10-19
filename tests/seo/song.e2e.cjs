@@ -53,8 +53,37 @@ test('SONG-07: songs.json holds real track URLs, not album URLs', () => {
     expect(d.links.deezer, d.slug).toMatch(/^https:\/\/www\.deezer\.com\/track\/\d+$/);
     expect(d.links.ytmusic, d.slug).toMatch(/^https:\/\/music\.youtube\.com\/watch\?v=[\w-]{11}&list=/);
   }
-  const ids = songData.map(d => d.links.spotify);
-  expect(new Set(ids).size).toBe(ids.length);
+  for (const key of ['spotify', 'apple', 'ytmusic', 'deezer', 'bandcamp']) {
+    const urls = songData.map(d => d.links[key]).filter(Boolean);
+    expect(new Set(urls).size, key).toBe(urls.length);
+  }
+});
+
+// Spotify and YouTube ids say nothing about the song, so they are pinned to ids checked
+// against the live platforms (validation.md, pass 3): a swap between songs fails here.
+test('SONG-07: Spotify and YT Music track ids match the live-checked fixture', () => {
+  const fixture = require('./track-ids.fixture.json');
+  expect(Object.keys(fixture).sort()).toEqual(songData.map(d => d.slug).sort());
+  for (const d of songData) {
+    expect(d.links.spotify, d.slug).toBe(`https://open.spotify.com/track/${fixture[d.slug].spotify}`);
+    expect(d.links.ytmusic.split('v=')[1].split('&')[0], d.slug).toBe(fixture[d.slug].ytmusic);
+  }
+});
+
+// Apple and Deezer number an album's tracks in order, and Apple's URL carries the song name.
+test('SONG-07: Apple and Deezer track URLs belong to their song', () => {
+  for (const a of ['insane-driver', 'silicon-fortress']) {
+    const inOrder = SONGS.filter(s => s.album.slug === a).sort((x, y) => x.track.position - y.track.position)
+      .map(s => songData.find(d => d.slug === s.slug));
+    for (const d of inOrder) {
+      expect(d.links.apple.split('/')[5], d.slug).toBe(d.slug);
+      expect(d.links.apple, d.slug).toContain(`/${album(a).links.apple.split('/').pop()}?i=`);
+    }
+    for (const key of ['apple', 'deezer']) {
+      const ids = inOrder.map(d => Number(d.links[key].match(/(\d+)$/)[1]));
+      for (let i = 1; i < ids.length; i++) expect(ids[i], `${a} ${key} #${i + 1}`).toBeGreaterThan(ids[i - 1]);
+    }
+  }
 });
 
 test('SONG-01/02: the build has exactly the 22 song pages and the sitemap lists them', () => {
@@ -178,7 +207,7 @@ test.describe('without JavaScript', () => {
       expect(blocks).toHaveLength(1);
       const [rec] = blocks;
       expect(rec.name).toBe(s.track.title);
-      expect(rec.sameAs).toEqual(platforms.filter(p => (data.links || {})[p.key]).map(p => data.links[p.key]));
+      expect([...rec.sameAs].sort()).toEqual(Object.values(data.links || {}).sort());
       expect(rec.byArtist).toMatchObject({ '@type': 'MusicGroup', name: 'Insane Driver' });
       expect(rec.inAlbum).toMatchObject({ '@type': 'MusicAlbum', name: s.album.title, url: `${ORIGIN}/discography/${s.album.slug}/` });
       expect(rec.duration).toBe(iso(s.track.duration));

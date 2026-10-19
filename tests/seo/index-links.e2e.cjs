@@ -26,6 +26,12 @@ test.describe('without JavaScript', () => {
     }
   });
 
+  test('IDX-04 / SONG-07 counterpart: the index platform buttons keep their own subtitles', async ({ page }) => {
+    await page.goto('/discography/');
+    await expect(page.locator('.cyber-link-sub', { hasText: 'Play the track' })).toHaveCount(0);
+    await expect(page.locator('.cyber-link-sub').first()).toBeVisible();
+  });
+
   test('IDX-02: every single links to its release page, otherwise to its song page', async ({ page }) => {
     await page.goto('/discography/');
     for (const single of catalog.singles) {
