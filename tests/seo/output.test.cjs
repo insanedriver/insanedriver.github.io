@@ -49,6 +49,10 @@ test('SEO-02: the sitemap lists exactly the indexable pages', () => {
   assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
 });
 
+test('Success criteria: the sitemap lists 38 URLs (9 pages, 7 releases, 22 songs)', () => {
+  assert.equal(sitemapLocs().length, 38);
+});
+
 test('SEO-02: redirects, campaign pages and verification files stay out of the sitemap', () => {
   const paths = sitemapLocs().map(loc => loc.slice(ORIGIN.length));
   for (const p of paths) {

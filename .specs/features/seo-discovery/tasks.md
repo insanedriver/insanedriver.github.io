@@ -623,9 +623,9 @@ T20 → T21
 
 **Done when**:
 
-- [ ] An e2e test parses the block on one release and one song page and asserts names and absolute URLs.
-- [ ] Final sitemap test asserts 38 URLs.
-- [ ] Gate check passes: `npm run build && npm test`
+- [x] An e2e test parses the block on one release and one song page and asserts names and absolute URLs.
+- [x] Final sitemap test asserts 38 URLs.
+- [x] Gate check passes: `npm run build && npm test`
 
 **Tests**: e2e
 **Gate**: build

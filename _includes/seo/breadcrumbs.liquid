@@ -1,0 +1,15 @@
+{%- comment -%}
+CRUMB-01: Discography -> album (or release) -> song. Set crumb_release (title, url) and,
+on a song page, crumb_song (title, url) before including.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Discography", "item": "https://insanedriver.com.br/discography/" },
+    { "@type": "ListItem", "position": 2, "name": {{ crumb_release.title | jsonify }}, "item": "https://insanedriver.com.br{{ crumb_release.url }}" }{% if crumb_song %},
+    { "@type": "ListItem", "position": 3, "name": {{ crumb_song.title | jsonify }}, "item": "https://insanedriver.com.br{{ crumb_song.url }}" }{% endif %}
+  ]
+}
+</script>

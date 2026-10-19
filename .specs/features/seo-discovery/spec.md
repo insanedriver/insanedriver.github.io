@@ -273,7 +273,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | IDX-02 | P2: Discography index | T20 | Implementing |
 | IDX-03 | P2: Discography index | T20 | Implementing |
 | IDX-04 | P2: Discography index | T15, T20 | Implementing |
-| CRUMB-01 | P3: Breadcrumbs | Design | Pending |
+| CRUMB-01 | P3: Breadcrumbs | T21 | Implementing |
 
 **Coverage:** 48 total, 0 mapped to tasks, 48 unmapped ⚠️
 
