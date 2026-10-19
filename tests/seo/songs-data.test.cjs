@@ -10,6 +10,8 @@ const sentences = text => text.split(/(?<=[.!?])\s+/).filter(Boolean).length;
 const WITH_ABOUT = [
   'faceless-demons', 'keep-away', 'silicon-fortress', 'age-of-lies', 'insane-driver', 'desperate-prayer',
   'ghosts', 'imagined-realities', 'invisible-chains', 'distant-hearts', 'buried-thoughts',
+  'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'fallen-dreams', 'change', 'today-is-sunday',
+  'faithless-breath', 'make-decisions', 'tears-of-blood',
 ];
 const RELEASE_PAGES = [
   'silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
@@ -40,7 +42,7 @@ test('SONG-05: exactly Endless Path and Back to 1994 are instrumental', () => {
   for (const s of songs) assert.ok(s.instrumental === undefined || s.instrumental === true, s.slug);
 });
 
-test('SONG-06: About text, 2-3 sentences, exactly for the 11 agreed songs', () => {
+test('SONG-06: About text, 2-3 sentences, exactly for the 20 agreed songs', () => {
   assert.deepEqual(songs.filter(s => 'about' in s).map(s => s.slug).sort(), [...WITH_ABOUT].sort());
   for (const s of songs.filter(s => s.about)) {
     const n = sentences(s.about);

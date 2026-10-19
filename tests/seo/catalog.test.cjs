@@ -167,7 +167,7 @@ test('SONG-05: instrumentals have no sections and no lyrics text', () => {
 test('SONG-06: About text when songs.json has one, null otherwise', () => {
   const c = catalog();
   assert.equal(song(c, 'faceless-demons').about, songs.songs.find(s => s.slug === 'faceless-demons').about);
-  assert.equal(song(c, 'the-edge-of-life').about, null);
+  assert.equal(song(c, 'endless-path').about, null);
   assert.equal(song(c, 'back-to-1994').about, null);
 });
 
