@@ -138,6 +138,8 @@ T19 → T20
 
 ### T3: Vanilla mobile menu toggle
 
+**Status**: ✅ Done
+
 **What**: Add `assets/js/nav.js` (deferred, included by `base.html` and `home.html`). It toggles `in` on the `data-target`, `aria-expanded`, and `collapsed` on the button.
 **Where**: `assets/js/nav.js` (new)
 **Depends on**: None (phase order)
@@ -148,10 +150,10 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/nav.e2e.cjs` covers, on `/band/` and `/` at 375 px: open (PERF-09), close (PERF-10), toggle still works after an injected page-script error (PERF-12)
-- [ ] The same file asserts that at 1024 px `#navbar` is visible (PERF-40)
-- [ ] The existing `tests/site/header.e2e.cjs` and `tests/home/navbar*.e2e.cjs` pass
-- [ ] Full gate passes
+- [x] `tests/perf/nav.e2e.cjs` covers, on `/band/` and `/` at 375 px: open (PERF-09), close (PERF-10), toggle still works after an injected page-script error (PERF-12)
+- [x] The same file asserts that at 1024 px `#navbar` is visible (PERF-40)
+- [x] The existing `tests/site/header.e2e.cjs` and `tests/home/navbar*.e2e.cjs` pass
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

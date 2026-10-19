@@ -209,10 +209,10 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-06 | P1: Trackers | Design | Implementing |
 | PERF-07 | P1: JS | Design | Pending |
 | PERF-08 | P1: JS | Design | Pending |
-| PERF-09 | P1: JS | Design | Pending |
-| PERF-10 | P1: JS | Design | Pending |
+| PERF-09 | P1: JS | Design | Implementing |
+| PERF-10 | P1: JS | Design | Implementing |
 | PERF-11 | P1: JS | Design | Pending |
-| PERF-12 | P1: JS | Design | Pending |
+| PERF-12 | P1: JS | Design | Implementing |
 | PERF-13 | P1: CSS | Design | Pending |
 | PERF-14 | P1: CSS | Design | Pending |
 | PERF-15 | P1: CSS | Design | Pending |
@@ -240,7 +240,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-37 | P3: Guard | Design | Pending |
 | PERF-38 | P3: Guard | Design | Pending |
 | PERF-39 | P1: Trackers (edge) | Design | Implementing |
-| PERF-40 | P1: JS (edge) | Design | Pending |
+| PERF-40 | P1: JS (edge) | Design | Implementing |
 
 **Coverage:** 40 total, 0 mapped to tasks, 40 unmapped ⚠️ (mapped in Tasks)
 
