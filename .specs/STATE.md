@@ -21,12 +21,13 @@
 ## Handoff
 
 - **Feature**: seo-discovery (non-brand discovery: sitemap/robots/canonical/OG, genre-aware copy and MusicGroup, 7 release pages, 22 song pages with lyrics, video facade, breadcrumbs)
-- **Phase / Task**: Complete. T1-T23 (T22 `/band/` overflow and T23 verifier fix added during Execute), `1baa2d8`..`2746fba` on `feature/seo-discovery` branched from `master` at `465e649`.
-- **Verification**: Verifier PASS on iteration 2. 50/50 ACs with evidence, sensor 15/15 killed (pass 1: 15/18). Unit 147, Playwright 541-542/542 (HOME-23/24/29 loader timing tests flaky, also on master). Sitemap 38 URLs. Candidate lessons L-031..L-033.
+- **Phase / Task**: Complete. T1-T26 (T22 `/band/` overflow, T23 verifier fix, T24 per-track song links at the user's request, T25-T26 verifier fixes), `1baa2d8`..`52c33c8` on `feature/seo-discovery` branched from `master` at `465e649`.
+- **Verification**: Verifier PASS (pass 2 for T1-T23; pass 5 for T24-T26, fix loop closed on iteration 3/3). 50/50 ACs with evidence; T24 sensor 13/13 real mutants killed. Track URLs checked live except Bandcamp (Client Challenge). Unit 149, Playwright 547/547 (HOME-23/24/29 loader timing tests flaky, also on master). Sitemap 38 URLs. Candidate lessons L-031..L-036.
 - **Amendments during Execute (user-approved)**:
   - HOME-53 expects the new home og:title; footer Spotify moved to open.spotify.com and Bandcamp added, so HOME-52 expects 6 links.
   - Lyrics: EN in `_data/lyrics/<album>/<song>.txt` (rendered), PT in `.pt.txt` (stored, not rendered); originals moved to `../lyrics-originals/`.
   - SEO-12 (title formats) and SEO-13 (cover og:image) added from confirmed Assumptions after verifier pass 1.
+  - SONG-07 reworded (T24): song pages link to the track on Spotify/Apple/YT Music/Deezer (and Bandcamp for Silicon Fortress); Tidal, Amazon and 2016 Bandcamp fall back to the album. Track URLs live in `_data/songs.json`, pinned by `tests/seo/track-ids.fixture.json`.
 - **In-progress**: none
 - **Next step**: band reviews the drafted copy in the PR; push and open the PR (needs the user's go-ahead); after deploy, submit the sitemap in Search Console and run the Rich Results Test.
 - **Follow-ups (not done)**: `/dates/` Bandsintown widget over http; header menu still links play.spotify.com; HOME-23 flaky; optional `[Speech]` label in Firstly My Breakfast lyrics; LYR-01 source equality is a manual check.
