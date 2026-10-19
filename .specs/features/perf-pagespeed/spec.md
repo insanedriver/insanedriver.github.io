@@ -207,11 +207,11 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-04 | P1: Trackers | Design | Implementing |
 | PERF-05 | P1: Trackers | Design | Implementing |
 | PERF-06 | P1: Trackers | Design | Implementing |
-| PERF-07 | P1: JS | Design | Pending |
+| PERF-07 | P1: JS | Design | Implementing |
 | PERF-08 | P1: JS | Design | Pending |
 | PERF-09 | P1: JS | Design | Implementing |
 | PERF-10 | P1: JS | Design | Implementing |
-| PERF-11 | P1: JS | Design | Pending |
+| PERF-11 | P1: JS | Design | Implementing |
 | PERF-12 | P1: JS | Design | Implementing |
 | PERF-13 | P1: CSS | Design | Pending |
 | PERF-14 | P1: CSS | Design | Pending |

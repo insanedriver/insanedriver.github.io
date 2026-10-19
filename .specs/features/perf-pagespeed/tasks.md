@@ -163,6 +163,8 @@ T19 → T20
 
 ### T4: Drop the pack from page script includes
 
+**Status**: ✅ Done
+
 **What**: Remove `{% include 'js/pack' %}` from the `discography`, `home`, `photos`, `song` and `videos` includes, and add `defer` to every remaining tag (order kept).
 **Where**: `_includes/js/` (five includes, one pattern)
 **Depends on**: T3
@@ -173,9 +175,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/scripts.test.cjs` asserts that every built page using these includes has no jQuery/Bootstrap/Owl/`insane.js` and that every local `<script src>` has `defer`/`async`
-- [ ] The photos, discography, videos and home e2e suites pass
-- [ ] Full gate passes
+- [x] `tests/perf/scripts.test.cjs` asserts that every built page using these includes has no jQuery/Bootstrap/Owl/`insane.js` and that every local `<script src>` has `defer`/`async`
+- [x] The photos, discography, videos and home e2e suites pass
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
