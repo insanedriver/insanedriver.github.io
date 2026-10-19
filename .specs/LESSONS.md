@@ -210,6 +210,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: LYR-01 (spec-writing)
 - last seen: 2026-10-19T01:11:36Z
 
+### L-034 - When a test takes its expected values from the same hand-collected data file it checks, also pin those values to an independent source or derived invariant, or a swapped or off-by-one entry passes.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests/data` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 3 S4, S10 (tests/seo/song.e2e.cjs:156-158, :181) (tests/data)
+- last seen: 2026-10-19T03:47:41Z
+
+### L-035 - When a change adds a branch to an include shared by several pages, assert the unchanged output on the other pages too, not only on the page the change targets.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `templates` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 3 S6 (_includes/discography/links.liquid:6, tests/seo/release.e2e.cjs:65) (templates)
+- last seen: 2026-10-19T03:47:41Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

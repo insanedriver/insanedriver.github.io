@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 34,
+  "next_id": 36,
   "lessons": [
     {
       "id": "L-001",
@@ -603,6 +603,42 @@
       ],
       "created": "2026-10-19T01:11:36Z",
       "last_seen": "2026-10-19T01:11:36Z"
+    },
+    {
+      "id": "L-034",
+      "key": "surviving_mutant::when a test takes its expected values from the same hand collected data file it checks also pin those values to an independent source or derived invariant or a swapped or off by one entry passes",
+      "text": "When a test takes its expected values from the same hand-collected data file it checks, also pin those values to an independent source or derived invariant, or a swapped or off-by-one entry passes.",
+      "signal": "surviving_mutant",
+      "scope": "tests/data",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 3 S4, S10 (tests/seo/song.e2e.cjs:156-158, :181) (tests/data)"
+      ],
+      "created": "2026-10-19T03:47:41Z",
+      "last_seen": "2026-10-19T03:47:41Z"
+    },
+    {
+      "id": "L-035",
+      "key": "surviving_mutant::when a change adds a branch to an include shared by several pages assert the unchanged output on the other pages too not only on the page the change targets",
+      "text": "When a change adds a branch to an include shared by several pages, assert the unchanged output on the other pages too, not only on the page the change targets.",
+      "signal": "surviving_mutant",
+      "scope": "templates",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 3 S6 (_includes/discography/links.liquid:6, tests/seo/release.e2e.cjs:65) (templates)"
+      ],
+      "created": "2026-10-19T03:47:41Z",
+      "last_seen": "2026-10-19T03:47:41Z"
     }
   ]
 }

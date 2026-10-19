@@ -1,8 +1,11 @@
 # SEO Discovery Validation
 
-## Validation: seo-discovery - PASS
+## Validation: seo-discovery - FAIL
 
-**Verdict: PASS** (re-verification pass 2 of at most 3). All 50 acceptance criteria have `file:line` evidence that asserts the outcome the spec defines. The build gate is green: 147 unit and 542 e2e. The only e2e failure was HOME-23, a known flaky timing test outside the feature, and it passed on re-run. The discrimination sensor killed 15 of 15 mutants. These were the 3 survivors from pass 1, M18 on song pages, and 11 new mutants on surfaces pass 1 did not try. One spec-precision gap is still open: the LYR-01 source-equality clause. It was checked by hand again and the output is identical, so it does not block.
+**Overall verdict: FAIL** (pass 3, T24). Passes 1–2 were PASS at `2746fba`. T24 (`c05356f`) adds per-track links, and its implementation, data and gate are sound, but 3 of 10 sensor mutants survive. Two are data swaps in `_data/songs.json` and one is a release-page subtitle regression. See "Pass 3 (T24)" below. Fix tasks A and B are open.
+
+
+**Pass 2 verdict: PASS** (re-verification pass 2 of at most 3, superseded by pass 3). All 50 acceptance criteria have `file:line` evidence that asserts the outcome the spec defines. The build gate is green: 147 unit and 542 e2e. The only e2e failure was HOME-23, a known flaky timing test outside the feature, and it passed on re-run. The discrimination sensor killed 15 of 15 mutants. These were the 3 survivors from pass 1, M18 on song pages, and 11 new mutants on surfaces pass 1 did not try. One spec-precision gap is still open: the LYR-01 source-equality clause. It was checked by hand again and the output is identical, so it does not block.
 
 **Date**: 2026-10-18
 **Spec**: `.specs/features/seo-discovery/spec.md`
@@ -18,6 +21,107 @@ Fix task T23 (`db6bdf7`) did three things:
 - It added SEO-12 and SEO-13.
 - It pinned both in the song and release e2e tests.
 - It moved the filters into `lib/filters.js`, with unit tests.
+
+---
+
+## Pass 3 (T24)
+
+**Verdict: FAIL** (T24 fix loop, iteration 1 of at most 3). SONG-07 as reworded by T24 has `file:line` evidence for every clause, the live data is correct for all 22 songs, and the build gate is green: 149 unit and 543 e2e, 0 failures. But the discrimination sensor killed only 7 of 10 mutants. Three survived: two data swaps inside `_data/songs.json` and one release-page subtitle regression in the shared links include.
+
+**Date**: 2026-10-19
+**Diff range**: `2746fba..c05356f`. The feature code is the single commit `c05356f` (T24); `9eaad55` only touches the spec docs.
+**Verifier**: independent sub-agent (author ≠ verifier). Read-only over the real tree; mutations ran only in a throwaway `git worktree`.
+
+### SONG-07 spec-anchored check
+
+SONG-07 now reads: one link per platform in `_data/platforms.json` that has a URL for the album; the song's own track URL from `_data/songs.json` where it has one (button subtitle `Play the track`), otherwise the album URL; and `MusicRecording.sameAs` lists the song's track URLs.
+
+| Clause | Spec-defined outcome | `file:line` + assertion | Result |
+| --- | --- | --- | --- |
+| Track URL, else album URL | `href` = `songs.json` track URL, or the album URL when there is none | `tests/seo/song.e2e.cjs:156-158` - `expect(links).toEqual(platforms.filter(...).map(p => [p.key, track[p.key] \|\| s.album.links[p.key], ...]))` on all 22 pages; `tests/seo/catalog.test.cjs:208-210` - Ghosts Spotify equals its own URL and differs from the album's, Tidal equals the album's; `:220` - with no track links, `listen.links` deepEqual the album links | ✅ PASS |
+| Subtitle | `Play the track` on a primary button with a track URL; otherwise the platform's own `sub` | `tests/seo/song.e2e.cjs:157` - third tuple element `p.primary ? (track[p.key] ? 'Play the track' : p.sub) : null`, read from `.cyber-link-sub` (`:153`) | ✅ PASS for song pages. Every song has Spotify and Apple, so the `p.sub` fallback on a song page is never reached, and no test asserts the release-page subtitle (mutant S6 survived). |
+| `sameAs` | The song's track URLs | `tests/seo/song.e2e.cjs:181` - `expect(rec.sameAs).toEqual(platforms.filter(p => data.links[p.key]).map(...))`; `tests/seo/catalog.test.cjs:213` - `deepEqual(s.sameAs, Object.values(own))`; `:222` - `deepEqual(s.sameAs, [])` with no track links; `discography/song.liquid:146-147` omits the key when empty | ✅ PASS |
+| Only album platforms | No link for a platform whose album URL is null, even when the song has a track URL | `tests/seo/song.e2e.cjs:156` - expected list is `platforms.filter(p => s.album.links[p.key])`; `tests/seo/catalog.test.cjs:211` - `listen.links.pandora` equals `null`. Mutant S8 (a Pandora track URL on Ghosts) was killed by both. | ✅ PASS |
+| Data completeness | Spotify, Apple, YT Music and Deezer track URLs for every song; Bandcamp for Silicon Fortress | `tests/seo/song.e2e.cjs:159` - each of the 4 keys `toBeTruthy()`; `:50-55` - URL shape per platform; `:57` - Spotify ids unique; `:48-49` - Ghosts Spotify and Bandcamp pinned | ✅ PASS for presence and shape. Only Ghosts is pinned to real ids; a swap between two other songs passes (S4, S10). |
+
+Implementation: `lib/catalog.js:71-72` (`listen.links = Object.assign({}, album.links, song.links)`, `sameAs = Object.values(song.links)`), `_includes/discography/links.liquid:6` (subtitle), `discography/song.liquid:44` (passes `song.listen` as `release`), `discography/song.liquid:146-147` (`sameAs`).
+
+### Data spot-check against the live platforms (2026-10-19)
+
+Checked all 22 songs (11 per album), not just 4. The Verifier ran a throwaway script (not committed). For each song it queried:
+- the Spotify oEmbed (title),
+- the iTunes lookup `?id=<i>` (track name, album, track number),
+- the Deezer API `/track/<id>` (title, album, position),
+- the YouTube oEmbed for the YT Music `v` id (title).
+
+| Album | Songs | Spotify | Apple | Deezer | YT Music |
+| --- | --- | --- | --- | --- | --- |
+| Insane Driver | 11/11 | ✅ title matches | ✅ title, album `Insane Driver`, track # = position | ✅ title, album `Insane Driver`, position = tracklist | ✅ title matches |
+| Silicon Fortress | 11/11 | ✅ title matches | ✅ title, album `Silicon Fortress`, track # = position | ✅ title, album `Silicon Fortress`, position = tracklist | ✅ title matches |
+
+- **Mismatched songs: none.**
+- Spotify oEmbed returns no album, so the Verifier also read the embed page `releaseDate` for 4 tracks: Endless Path and Today Is Sunday are `2016-02-02`, Ghosts and Faceless Demons are `2021-08-27`. These are the base-album dates, not the 2018 deluxe.
+- Observation, not a defect: 9 YT Music ids are the official music or lyric videos, titled for example `Insane Driver - Ghosts [Official Lyric Video]`, not the plain art tracks. They play the right song inside the album playlist.
+- **Bandcamp could not be checked.** `insanedriverid.bandcamp.com/track/{ghosts-2,faceless-demons-2,back-to-1994}` returned HTTP 200 with a JS `Client Challenge` page, and the archive.org availability API returned 429. Only the URL shape and the Ghosts pin (`song.e2e.cjs:49`) back those 11 URLs.
+
+### Discrimination sensor
+
+**Isolation**:
+- **Scratch**: `git worktree add --detach <scratchpad>/verify-wt3 HEAD`, with `node_modules` symlinked.
+- **Per mutant**: `git checkout -- .`, apply the edit (each target asserted to occur once), `rm -rf docs`, `npm run build`, `npm run test:unit`, then `playwright test` on `song`, `release`, `index-links` and `head` e2e files.
+- **Baseline in the scratch**: 149/149 unit, 86/86 targeted e2e.
+- **Real tree**: `git status --porcelain` was recorded before and matched after `git worktree remove --force` and `git worktree prune`. No stash was used.
+
+| # | File:line | Mutation | Killed by | Killed? |
+| --- | --- | --- | --- | --- |
+| S1 | `lib/catalog.js:71` | Merge order reversed, so the album URL wins | `song.e2e.cjs:156` (22 failed); `catalog.test.cjs:208` | ✅ Killed |
+| S2 | `_includes/discography/links.liquid:6` | Subtitle always `p.sub` | `song.e2e.cjs:156` (22 failed) | ✅ Killed |
+| S3 | `discography/song.liquid:146-147` | `sameAs` dropped from MusicRecording | `song.e2e.cjs:181` (22 failed) | ✅ Killed |
+| S4 | `_data/songs.json:16,18` | Keep Away and Age of Lies Spotify URLs swapped | none: 149 unit and 86 e2e passed | ❌ Survived |
+| S5 | `lib/catalog.js:71` | Fallback removed (`Object.assign({}, song.links)`), so Tidal and Amazon vanish | `song.e2e.cjs:156` (22 failed); `catalog.test.cjs:210`, `:220` | ✅ Killed |
+| S6 | `_includes/discography/links.liquid:6` | Guard widened to `release.track[p.key] or release.links[p.key]`, so release pages and the index say `Play the track` | none: 149 unit and the **full** 543 e2e passed | ❌ Survived |
+| S7 | `lib/catalog.js:72` | `sameAs` also lists the album URLs | `song.e2e.cjs:181` (22 failed); `catalog.test.cjs:213`, `:222` | ✅ Killed |
+| S8 | `_data/songs.json` | Ghosts gets a Pandora track URL while the album's Pandora is null | `song.e2e.cjs:156` (1 failed); `catalog.test.cjs:211` | ✅ Killed |
+| S9 | `discography/song.liquid:44` | Song page passes `song.album` instead of `song.listen` (the pre-T24 behaviour) | `song.e2e.cjs:156` (22 failed) | ✅ Killed |
+| S10 | `_data/songs.json` | Tide of Fears Deezer id set to Buried Thoughts' (`118251268` → `118251270`) | none: 149 unit and 86 e2e passed | ❌ Survived |
+
+**Why they survive**:
+- **S4, S10**: `song.e2e.cjs:156-158` and `:181` take their expected values from `songs.json` itself, so cross-wiring between songs is invisible. Only Ghosts is pinned (`:48-49`), and only Spotify ids are checked for uniqueness (`:57`), so a duplicated Deezer id passes.
+- **S6**: T24 put a new branch into an include shared with `discography/release.liquid:49` and `discography/index.html:57`, but `release.e2e.cjs:65` reads only `[data-disc-link, href]`, never `.cyber-link-sub`.
+
+**Sensor depth**: expanded, 10 mutants over every T24 branch plus two data faults.
+**Result**: 7/10 killed, sensor **FAIL**.
+
+### Gate (real tree)
+
+- `npm run build`: exit 0.
+- `npm test`: exit 0. Unit 149 passed, 0 failed, 0 skipped. E2e 543 passed, 0 failed, 0 skipped (6.2 min). HOME-23, HOME-24 and HOME-29 passed on the first run, so nothing needed a re-run.
+- **Count**: 692, against 689 at pass 2. T24 added 2 unit tests (`catalog.test.cjs:204`, `:216`) and 1 e2e test (`song.e2e.cjs:46`), and extended the existing per-song test. No test was removed or weakened. The old SONG-07 assertion (`toEqual(linksOf(s.album))`) became the stricter tuple comparison.
+
+### Code quality
+
+| Check | Status |
+| --- | --- |
+| Minimum code / surgical | ✅ 3 lines in `lib/catalog.js`, one guard in the include, 2 template lines; data limited to `links` |
+| Matches patterns | ✅ Reuses the shared include by rebinding `release`, the same way `discography/index.html:57` does |
+| Every test maps to a requirement | ✅ All new tests are named and commented SONG-07 |
+| Order coupling | ⚠️ Cosmetic. `sameAs` follows the `songs.json` key order (`lib/catalog.js:72`), while `song.e2e.cjs:181` expects the `platforms.json` order. They agree today only because the data was written in platform order. |
+
+### Fix plan
+
+1. **Fix A (Major, S4/S10)**: pin every song's track ids to an independent source. Two options:
+   - a checked-in fixture of the 22 × 4 ids verified live in this pass;
+   - derived invariants: the Apple URL slug equals the song slug, and the Apple `i=` and Deezer ids increase with tracklist position within an album.
+
+   Also extend the uniqueness check to the Apple, Deezer, YT Music and Bandcamp URLs. Where: `tests/seo/song.e2e.cjs:46-58` or a `tests/seo/songs-data.test.cjs` unit test.
+2. **Fix B (Minor, S6)**: on every release page, assert that each primary `.cyber-link-sub` equals the platform's `sub` and that no page outside `/discography/<album>/<song>/` contains `Play the track`. Where: `tests/seo/release.e2e.cjs:65`.
+
+### Pass 3 summary
+
+- **Spec-anchored check**: SONG-07 5/5 clauses evidenced. The 50 other ACs are unchanged since pass 2; T24 touched none of their files except `song.e2e.cjs`, so pass 2's `song.e2e.cjs` line citations after `:45` have shifted. The assertions are unchanged. Re-cite them on the next pass.
+- **Data**: 88/88 Spotify, Apple, Deezer and YT Music track URLs open the right song. The 11 Bandcamp URLs could not be checked.
+- **Sensor**: 7/10 killed; S4, S6 and S10 survived.
+- **Gate**: 149 unit + 543 e2e = 692, 0 failed.
 
 ---
 
@@ -93,7 +197,7 @@ Pass 2 re-cited every line. Only `release.e2e.cjs` (after `:52`) and `song.e2e.c
 | SONG-04 | Full lyrics, one heading per label, source line breaks | `tests/seo/song.e2e.cjs:118` - `expect(clean).toEqual(expectedSequence(text))` (20 songs) | ✅ PASS |
 | SONG-05 | Instrumentals show `Instrumental` | `tests/seo/song.e2e.cjs:96-97` - `h2 toHaveText('Instrumental')`, `h3 toHaveCount(0)` | ✅ PASS |
 | SONG-06 | About text under `About the song` | `tests/seo/song.e2e.cjs:129-130` - visible + `toHaveText(data.about)`; `:132` - `toHaveCount(0)` | ✅ PASS |
-| SONG-07 | The album's platform links that have a URL | `tests/seo/song.e2e.cjs:137` - `toEqual(linksOf(s.album))` | ✅ PASS |
+| SONG-07 | (Reworded by T24) one link per album platform; track URL else album URL; `Play the track`; `sameAs` | `tests/seo/song.e2e.cjs:156-158`, `:181`; `tests/seo/catalog.test.cjs:204-222` (see Pass 3) | ✅ PASS (sensor gaps S4, S6, S10) |
 | SONG-08 | "Also released as" with title, year and links or page | `tests/seo/song.e2e.cjs:149` - `rows toEqual(alsoReleasedAs(s))`; `tests/seo/catalog.test.cjs:85-121` | ✅ PASS |
 | SONG-09 | One MusicRecording; name, byArtist, inAlbum, ISO duration, `lyrics.text` | `tests/seo/song.e2e.cjs:156-169` - `toHaveLength(1)`, fields exact, `lyrics.text toBe(file.trim())` | ✅ PASS |
 | SONG-10 | Prev/next links, omitted at the ends | `tests/seo/song.e2e.cjs:173-183` - href/text or `toHaveCount(0)`; `tests/seo/catalog.test.cjs:123-132` | ✅ PASS |
@@ -177,7 +281,7 @@ The Verifier checked the failure messages for each kill. Each mutant failed on t
 - N1: Expected `… Insane Driver Single`, Received `… Album`.
 
 **Sensor depth**: expanded. 4 mutants re-run the pass 1 survivors and their song-page twin, and 11 hit new surfaces: title type and year, the description cut bounds, robots, pre-save, GEN-06, GEN-05, IDX-02, IDX-03 and uploadDate.
-**Result**: 15/15 killed, sensor PASS.
+**Result (pass 2, historical)**: 15/15 killed, sensor PASS.
 
 ---
 
@@ -239,7 +343,7 @@ Cosmetic: `tests/seo/song.e2e.cjs:89` repeats the suffix-strip regex inline inst
 
 ## Summary
 
-**Overall**: ✅ Ready
+**Overall**: ❌ Not ready. Pass 3 (T24) sensor FAIL: fix tasks A and B. The pass 2 summary below is kept as history.
 
 **Spec-anchored check**: 50/50 ACs match the spec outcome; 1 spec-precision gap (LYR-01 source equality, verified by hand).
 **Sensor**: 15/15 mutants killed (M13, M17, M18, M18s, and N1–N11).
