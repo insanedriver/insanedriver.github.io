@@ -319,6 +319,8 @@ T19 → T20
 
 ### T10: Self-host Rajdhani and Share Tech Mono
 
+**Status**: ✅ Done
+
 **What**: Add the latin woff2 files under `assets/fonts/` and `less/fonts.less` (in core). Remove the Google Fonts `preconnect` and stylesheet from `head/styles.liquid`.
 **Where**: `less/fonts.less` (new)
 **Depends on**: None (phase order)
@@ -329,9 +331,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/fonts.test.cjs` asserts no `fonts.googleapis.com`/`fonts.gstatic.com` in built HTML or CSS
-- [ ] `tests/perf/fonts.e2e.cjs` asserts that on `/band/` and `/`, `document.fonts` reports Rajdhani 500/600/700 and Share Tech Mono loaded from same-origin URLs, and a `.cyber-panel-tab` computed `font-family` starts with the same family as before
-- [ ] Full gate passes
+- [x] `tests/perf/fonts.test.cjs` asserts no `fonts.googleapis.com`/`fonts.gstatic.com` in built HTML or CSS
+- [x] `tests/perf/fonts.e2e.cjs` asserts that on `/band/` and `/`, `document.fonts` reports Rajdhani 500/600/700 and Share Tech Mono loaded from same-origin URLs, and a `.cyber-panel-tab` computed `font-family` starts with the same family as before
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
