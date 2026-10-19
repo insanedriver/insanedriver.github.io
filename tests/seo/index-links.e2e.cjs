@@ -3,7 +3,7 @@ const catalog = require('../../_data/discography.json');
 
 // Spec Assumptions: the release pages (REL-01), and where a single without one folds:
 // into the song whose title is the single title without a trailing "(Acoustic)".
-const SINGLE_PAGES = ['waiting-for-you', 'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'];
+const SINGLE_PAGES = ['waiting-for-you', 'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'];
 const kebab = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const songSlug = t => kebab(t.replace(/\s*\((Deluxe Version|Acoustic Version|Acoustic)\)\s*$/i, ''));
 const songAlbum = slug => (catalog.albums.find(a => a.slug === 'silicon-fortress').tracks.some(t => songSlug(t.title) === slug)

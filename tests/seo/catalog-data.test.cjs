@@ -6,11 +6,11 @@ const catalogData = require('../../_data/catalog.js');
 
 const LYRICS = path.join(__dirname, '../../_data/lyrics');
 
-test('SONG-01/REL-01: the catalog data loads 22 songs and the 7 release pages from the real files', () => {
+test('SONG-01/REL-01: the catalog data loads 22 songs and the 8 release pages from the real files', () => {
   const c = catalogData();
   assert.equal(c.songs.length, 22);
   assert.deepEqual(c.releases.map(r => r.slug).sort(), [
-    'change-live', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
+    'change-live', 'fallen-dreams-acoustic', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
     'the-sun-will-rise', 'today-is-sunday-eder-franco', 'waiting-for-you',
   ]);
   assert.equal(typeof catalogData.build, 'function');

@@ -17,6 +17,8 @@ const SONGS = ['insane-driver', 'silicon-fortress'].flatMap(a => album(a).tracks
   album: album(a), track: t, slug: songSlug(t.title), url: `/discography/${a}/${songSlug(t.title)}/`,
 })));
 const iso = s => `PT${Math.floor(s / 60)}M${s % 60}S`;
+// The song's own single (same title) lends its cover; otherwise the album's.
+const coverOf = s => (catalog.singles.find(x => kebab(x.title) === s.slug) || s.album).cover;
 const norm = line => line.replace(/\s+/g, ' ').trim();
 const linksOf = release => platforms.filter(p => release.links[p.key]).map(p => release.links[p.key]);
 
@@ -26,7 +28,7 @@ const expectedSequence = text => text.split('\n').map(norm).filter(Boolean)
   .map(line => (/^\[.+\]$/.test(line) ? { label: line.slice(1, -1) } : { line }));
 
 // SONG-08: the spec's single-to-song mapping, recomputed here from discography.json.
-const DISTINCT = { 'today-is-sunday-eder-franco': 'today-is-sunday', 'change-live': 'change' };
+const DISTINCT = { 'today-is-sunday-eder-franco': 'today-is-sunday', 'change-live': 'change', 'fallen-dreams-acoustic': 'fallen-dreams' };
 const alsoReleasedAs = s => {
   const out = [];
   for (const single of catalog.singles) {
@@ -134,10 +136,11 @@ test.describe('without JavaScript', () => {
       const albumLink = page.locator(`a[href="/discography/${s.album.slug}/"]`, { hasText: s.album.title });
       await expect(albumLink.first()).toBeVisible();
 
-      // SEO-12 / SEO-13: the song title format and the album cover as og:image.
+      // SEO-12 / SEO-13: the song title format and the page cover as og:image.
       await expect(page).toHaveTitle(`${s.track.title.replace(/\s*\((Deluxe Version|Acoustic Version|Acoustic)\)\s*$/i, '')} Lyrics – Insane Driver`);
       await expect(page.locator('meta[property="og:image"]'))
-        .toHaveAttribute('content', `${ORIGIN}/assets/images/releases/${s.album.cover}`);
+        .toHaveAttribute('content', `${ORIGIN}/assets/images/releases/${coverOf(s)}`);
+      await expect(page.locator('.disc-release-art img')).toHaveAttribute('src', `/assets/images/releases/${coverOf(s)}`);
 
       // SONG-04 / SONG-05: the lyrics, section by section with the source line breaks, or "Instrumental".
       const lyrics = page.locator('[data-song-lyrics]');

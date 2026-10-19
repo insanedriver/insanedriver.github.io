@@ -3,7 +3,7 @@ const catalog = require('../../_data/discography.json');
 
 const ORIGIN = 'https://insanedriver.com.br';
 const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'];
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'];
 const all = [...catalog.albums, ...catalog.singles];
 const kebab = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const SONGS = ['insane-driver', 'silicon-fortress'].flatMap(a => {

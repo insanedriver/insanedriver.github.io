@@ -19,7 +19,7 @@ const ORIGIN = 'https://insanedriver.com.br';
 const INDEXABLE = ['/', '/band/', '/contact/', '/dates/', '/discography/', '/newsletter/', '/photos/', '/store/', '/videos/'];
 // REL-01: one page per release that does not fold into a song page.
 const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'].map(slug => `/discography/${slug}/`);
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'].map(slug => `/discography/${slug}/`);
 // SONG-01: one page per song of the two studio albums.
 const SONGS = [
   ...['endless-path', 'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'buried-thoughts', 'fallen-dreams',
@@ -49,8 +49,8 @@ test('SEO-02: the sitemap lists exactly the indexable pages', () => {
   assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
 });
 
-test('Success criteria: the sitemap lists 38 URLs (9 pages, 7 releases, 22 songs)', () => {
-  assert.equal(sitemapLocs().length, 38);
+test('Success criteria: the sitemap lists 39 URLs (9 pages, 8 releases, 22 songs)', () => {
+  assert.equal(sitemapLocs().length, 39);
 });
 
 test('SEO-02: redirects, campaign pages and verification files stay out of the sitemap', () => {

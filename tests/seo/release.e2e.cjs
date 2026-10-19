@@ -8,7 +8,7 @@ const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfo
 
 // REL-01: the release pages, and no others.
 const PAGES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live'];
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'];
 const all = [...catalog.albums, ...catalog.singles];
 const release = slug => all.find(r => r.slug === slug);
 const isAlbum = r => r.type !== 'SINGLE';

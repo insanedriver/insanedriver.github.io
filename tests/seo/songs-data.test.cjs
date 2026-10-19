@@ -15,7 +15,7 @@ const WITH_ABOUT = [
 ];
 const RELEASE_PAGES = [
   'silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live',
+  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic',
 ];
 
 test('SONG-01: 22 songs, one per track of the two studio albums, in tracklist order', () => {
@@ -50,7 +50,7 @@ test('SONG-06: About text, 2-3 sentences, exactly for the 20 agreed songs', () =
   }
 });
 
-test('REL-02: description copy for exactly the 7 release pages; album copy is 2-4 sentences naming the year', () => {
+test('REL-02: description copy for exactly the 8 release pages; album copy is 2-4 sentences naming the year', () => {
   assert.deepEqual(Object.keys(releases).sort(), [...RELEASE_PAGES].sort());
   for (const [slug, text] of Object.entries(releases)) {
     assert.ok(text.trim().length > 0, slug);

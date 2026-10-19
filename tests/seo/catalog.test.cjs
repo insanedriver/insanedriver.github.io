@@ -43,10 +43,10 @@ test('SONG-01: a song carries its title, album, position and duration from disco
   });
 });
 
-test('REL-01: release pages exactly for the 3 albums and the 4 singles that fold into no song', () => {
+test('REL-01: release pages exactly for the 3 albums and the 5 singles that fold into no song', () => {
   const c = catalog();
   assert.deepEqual(c.releases.map(r => r.slug).sort(), [
-    'change-live', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
+    'change-live', 'fallen-dreams-acoustic', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
     'the-sun-will-rise', 'today-is-sunday-eder-franco', 'waiting-for-you',
   ]);
   for (const r of c.releases) assert.equal(r.url, `/discography/${r.slug}/`);
@@ -70,11 +70,22 @@ test('REL-06: the Eder Franco and live releases link to the Today Is Sunday and 
   assert.equal(c.releases.find(r => r.slug === 'today-is-sunday-eder-franco').songUrl, '/discography/insane-driver/today-is-sunday/');
   assert.equal(c.releases.find(r => r.slug === 'change-live').songUrl, '/discography/insane-driver/change/');
   assert.equal(c.releases.find(r => r.slug === 'waiting-for-you').songUrl, null);
+  assert.equal(c.releases.find(r => r.slug === 'fallen-dreams-acoustic').songUrl, '/discography/insane-driver/fallen-dreams/');
+  assert.equal(song(c, 'fallen-dreams').alsoReleasedAs.find(e => e.title === 'Fallen Dreams (Acoustic)').url, '/discography/fallen-dreams-acoustic/');
+});
+
+test('the song page shows the cover of the single named after the song, else the album cover', () => {
+  const c = catalog();
+  assert.deepEqual(song(c, 'keep-away').cover, { file: 'keep-away.jpg', alt: 'Keep Away single cover' });
+  assert.deepEqual(song(c, 'silicon-fortress').cover, { file: 'silicon-fortress-single.jpg', alt: 'Silicon Fortress single cover' });
+  assert.deepEqual(song(c, 'tide-of-fears').cover, { file: 'tide-of-fears.jpg', alt: 'Tide of Fears single cover' });
+  assert.deepEqual(song(c, 'fallen-dreams').cover, { file: 'insane-driver.jpg', alt: 'Insane Driver cover' });
+  assert.deepEqual(song(c, 'faceless-demons').cover, { file: 'silicon-fortress.jpg', alt: 'Silicon Fortress cover' });
 });
 
 // Spec mapping: single slug -> song it folds into (Also released as, no page of its own).
 const FOLDS = {
-  'keep-away': 'keep-away', 'keep-away-acoustic': 'keep-away', 'fallen-dreams-acoustic': 'fallen-dreams',
+  'keep-away': 'keep-away', 'keep-away-acoustic': 'keep-away',
   'tide-of-fears': 'tide-of-fears', 'tide-of-fears-acoustic': 'tide-of-fears',
   'insane-driver-single': 'insane-driver', 'silicon-fortress-single': 'silicon-fortress',
   'invisible-chains': 'invisible-chains', 'age-of-lies': 'age-of-lies', 'ghosts': 'ghosts',
