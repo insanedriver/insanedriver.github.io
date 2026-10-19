@@ -28,8 +28,9 @@
   - Lyrics: EN in `_data/lyrics/<album>/<song>.txt` (rendered), PT in `.pt.txt` (stored, not rendered); originals moved to `../lyrics-originals/`.
   - SEO-12 (title formats) and SEO-13 (cover og:image) added from confirmed Assumptions after verifier pass 1.
   - SONG-07 reworded (T24): song pages link to the track on Spotify/Apple/YT Music/Deezer (and Bandcamp for Silicon Fortress); Tidal, Amazon and 2016 Bandcamp fall back to the album. Track URLs live in `_data/songs.json`, pinned by `tests/seo/track-ids.fixture.json`.
+- **After the verifier (user-requested, 2026-10-19)**: song video fills the panel width; About texts for the 9 debut lyric songs (Buried Thoughts rewritten); song pages show their own single's cover; Fallen Dreams (Acoustic) gets a release page (8 releases, sitemap 39 URLs); review fixes (deploy builds before unit tests, VideoObject without contentUrl, header logo href="/").
 - **In-progress**: none
-- **Next step**: band reviews the drafted copy in the PR; push and open the PR (needs the user's go-ahead); after deploy, submit the sitemap in Search Console and run the Rich Results Test.
+- **Next step**: PR open against master; after deploy, submit the sitemap in Search Console and run the Rich Results Test.
 - **Follow-ups (not done)**: `/dates/` Bandsintown widget over http; header menu still links play.spotify.com; HOME-23 flaky; optional `[Speech]` label in Firstly My Breakfast lyrics; LYR-01 source equality is a manual check.
 - **Blockers**: none
 - **Branch**: feature/seo-discovery
