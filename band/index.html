@@ -23,7 +23,11 @@ header_img_path: header_3.jpg
                             <span class="corner-tr"></span>
                             <span class="corner-bl"></span>
                             <div class="cyber-band-photo-wrapper">
-                                <img src="/assets/images/band.jpg" class="cyber-band-photo" alt="Insane Driver – Band Photo">
+                                <picture>
+                                    <source type="image/webp" sizes="100vw"
+                                        srcset="/assets/images/band-768.webp 768w, /assets/images/band-1280.webp 1280w, /assets/images/band-1920.webp 1920w">
+                                    <img src="/assets/images/band.jpg" class="cyber-band-photo" alt="Insane Driver – Band Photo" width="1920" height="1280" loading="lazy" decoding="async">
+                                </picture>
                                 <div class="cyber-photo-scanline"></div>
                                 <div class="cyber-photo-overlay"></div>
                             </div>

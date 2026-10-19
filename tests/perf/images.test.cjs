@@ -91,3 +91,18 @@ test('PERF-26: every base.html header is a <picture> with a 768/1280/1920 WebP s
     assert.equal(img.class, 'img-responsive', url);
   }
 });
+
+test('PERF-28: the band photo on /band/ is a <picture> with a WebP srcset and a sized, lazy, async JPEG', () => {
+  const picture = page('/band/').match(/<picture>(<source[^>]*>)(<img[^>]*class="?cyber-band-photo"?[^>]*>)<\/picture>/);
+  assert.ok(picture, 'band photo is not <picture><source><img></picture>');
+  const source = attrs(picture[1]);
+  const img = attrs(picture[2]);
+  assert.equal(source.type, 'image/webp');
+  assert.deepEqual(srcset(source.srcset), [768, 1280, 1920].map(w => [`/assets/images/band-${w}.webp`, `${w}w`]));
+  for (const [file] of srcset(source.srcset)) assert.ok(fs.existsSync(path.join(ROOT, file)), `missing ${file}`);
+  assert.equal(img.src, '/assets/images/band.jpg');
+  assert.equal(img.width, '1920');
+  assert.equal(img.height, '1280');
+  assert.equal(img.loading, 'lazy');
+  assert.equal(img.decoding, 'async');
+});

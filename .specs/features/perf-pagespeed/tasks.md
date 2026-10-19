@@ -436,6 +436,8 @@ T19 → T20
 
 ### T15: Band photo as lazy WebP
 
+**Status**: ✅ Done
+
 **What**: `band.jpg` on `/band/` becomes `<picture>` with a WebP srcset, `width`, `height`, `loading="lazy"` and `decoding="async"`.
 **Where**: `band/index.html`
 **Depends on**: T14
@@ -446,9 +448,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts the markup
-- [ ] e2e: a WebP is the one fetched once the photo is scrolled into view
-- [ ] Full gate passes
+- [x] `tests/perf/images.test.cjs` asserts the markup
+- [x] e2e: a WebP is the one fetched once the photo is scrolled into view
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

@@ -21,3 +21,22 @@ test('PERF-26: /band/ at 375 px fetches the 768 px WebP header, not the JPEG', a
   expect(box.width).toBe(375);
   expect(box.height).toBeCloseTo(375 * 320 / 1920, 0);
 });
+
+// Rendered size of the band photo before it became a <picture>, by viewport width.
+const BAND_PHOTO_BOX = { 375: [269, 179.33], 1440: [1314, 876] };
+
+for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
+  test(`PERF-28: at ${width} px the band photo loads as WebP once scrolled into view, at its original size`, async ({ page }) => {
+    await page.setViewportSize({ width: Number(width), height: 700 });
+    const seen = imageRequests(page);
+    await page.goto('/band/', { waitUntil: 'load' });
+    const photo = page.locator('.cyber-band-photo');
+    await photo.scrollIntoViewIfNeeded();
+    await expect(photo).toHaveJSProperty('complete', true);
+    expect(await photo.evaluate(img => new URL(img.currentSrc).pathname)).toMatch(/^\/assets\/images\/band-(768|1280|1920)\.webp$/);
+    expect(seen.filter(p => p.startsWith('/assets/images/band'))).toEqual([await photo.evaluate(img => new URL(img.currentSrc).pathname)]);
+    const box = await photo.boundingBox();
+    expect(box.width).toBeCloseTo(w, 0);
+    expect(box.height).toBeCloseTo(h, 0);
+  });
+}
