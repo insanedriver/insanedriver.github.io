@@ -26,16 +26,18 @@
     {% include 'header/menu' %}
 
     <div class="header-img">
-        <img src="/assets/images/{{header_img_path}}" class="img-responsive">
+        <img src="/assets/images/{{header_img_path}}" class="img-responsive" alt="">
     </div>
 
-    <h1 class="text-center subtitle-font page-header">{{page_title}}</h1>
+    <main>
+        <h1 class="text-center subtitle-font page-header">{{page_title}}</h1>
 
-    <div id="content">
-        <div class="container-fluid insane-content">
-            {{ content }}
+        <div id="content">
+            <div class="container-fluid insane-content">
+                {{ content }}
+            </div>
         </div>
-    </div>
+    </main>
 
     {% include 'footer/footer' %}
 
