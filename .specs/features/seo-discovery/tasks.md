@@ -548,8 +548,8 @@ T20 → T21
 
 **Done when**:
 
-- [ ] `tests/seo/video.e2e.cjs` asserts the facade on a song with video, none on a song without, no iframe and no YouTube request before click, the iframe after click, the plain link without JS, and the `VideoObject` fields.
-- [ ] Gate check passes: `npm test`
+- [x] `tests/seo/video.e2e.cjs` asserts the facade on a song with video, none on a song without, no iframe and no YouTube request before click, the iframe after click, the plain link without JS, and the `VideoObject` fields.
+- [x] Gate check passes: `npm test`
 
 **Tests**: e2e
 **Gate**: full
