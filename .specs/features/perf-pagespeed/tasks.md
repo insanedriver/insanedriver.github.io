@@ -187,6 +187,8 @@ T19 → T20
 
 ### T5: Drop the pack and insane.js from the remaining pages
 
+**Status**: ✅ Done
+
 **What**: Remove `jspath: js/pack` (band, newsletter, pre-save) and `jspath: js/insane` (store, contact, reward pages where applicable). Delete `_includes/js/pack.liquid` and `_includes/js/insane.liquid`.
 **Where**: `_includes/js/pack.liquid` (delete)
 **Depends on**: T4
@@ -197,9 +199,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/scripts.test.cjs` extended so PERF-07 holds on every built layout page except spotify-select-playlist
-- [ ] The band, newsletter, store and contact e2e suites pass
-- [ ] Full gate passes
+- [x] `tests/perf/scripts.test.cjs` extended so PERF-07 holds on every built layout page except spotify-select-playlist
+- [x] The band, newsletter, store and contact e2e suites pass
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

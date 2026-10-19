@@ -36,3 +36,13 @@ test('PERF-07/11: pages on the page-script includes load no jQuery, Bootstrap, O
     assertDeferred(url, html);
   }
 });
+
+const PLAYLIST = '/pre-save/spotify-select-playlist/';
+
+test('PERF-07: no layout page except the playlist picker references jQuery, Bootstrap, Owl or insane.js', () => {
+  const pages = layoutPages().filter(([url]) => url !== PLAYLIST);
+  const urls = pages.map(([url]) => url);
+  for (const url of ['/band/', '/newsletter/', '/pre-save/', '/store/', '/contact/', '/']) assert.ok(urls.includes(url), url);
+  assert.equal(pages.length, 43, urls.join(' '));
+  for (const [url, html] of pages) assert.deepEqual(removedIn(html), [], url);
+});
