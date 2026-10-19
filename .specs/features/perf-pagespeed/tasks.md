@@ -85,6 +85,8 @@ T19 → T20
 
 ### T1: Remove the Universal Analytics tag
 
+**Status**: ✅ Done
+
 **What**: Delete `_includes/head/analytics.liquid` and its include in both layouts.
 **Where**: `_includes/head/analytics.liquid` (delete)
 **Depends on**: None
@@ -95,8 +97,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/trackers.test.cjs` asserts that no built HTML page references `analytics.js` or `UA-60390716-1`
-- [ ] Quick gate passes; prior unit count + new tests pass
+- [x] `tests/perf/trackers.test.cjs` asserts that no built HTML page references `analytics.js` or `UA-60390716-1`
+- [x] Quick gate passes; prior unit count + new tests pass
 
 **Tests**: unit
 **Gate**: quick

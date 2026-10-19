@@ -201,7 +201,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| PERF-01 | P1: Trackers | Design | Pending |
+| PERF-01 | P1: Trackers | Design | Implementing |
 | PERF-02 | P1: Trackers | Design | Pending |
 | PERF-03 | P1: Trackers | Design | Pending |
 | PERF-04 | P1: Trackers | Design | Pending |
