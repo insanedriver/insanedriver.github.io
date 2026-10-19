@@ -211,6 +211,8 @@ T19 → T20
 
 ### T6: Slim the spotify-select-playlist scripts
 
+**Status**: ✅ Done
+
 **What**: Keep only `jquery.min.js` and `spotify-select-playlist.js`, both `defer`.
 **Where**: `_includes/js/spotify-select-playlist.liquid`
 **Depends on**: T5
@@ -221,8 +223,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/scripts.test.cjs` asserts PERF-08 on `/pre-save/spotify-select-playlist/`
-- [ ] Quick gate passes
+- [x] `tests/perf/scripts.test.cjs` asserts PERF-08 on `/pre-save/spotify-select-playlist/`
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick

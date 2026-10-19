@@ -7,8 +7,6 @@
     document.addEventListener('click', function (e) {
         var button = e.target.closest ? e.target.closest('[data-toggle="collapse"]') : null;
         if (!button) { return; }
-        // Bootstrap's own collapse plugin handles the toggle on pages that still load it.
-        if (window.jQuery && window.jQuery.fn && window.jQuery.fn.collapse) { return; }
         var target = document.querySelector(button.getAttribute('data-target'));
         if (!target) { return; }
         var open = !target.classList.contains('in');

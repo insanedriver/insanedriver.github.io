@@ -46,3 +46,19 @@ test('PERF-07: no layout page except the playlist picker references jQuery, Boot
   assert.equal(pages.length, 43, urls.join(' '));
   for (const [url, html] of pages) assert.deepEqual(removedIn(html), [], url);
 });
+
+test('PERF-08: the playlist picker loads jQuery, and no Bootstrap or Owl', () => {
+  const [[, html]] = layoutPages().filter(([url]) => url === PLAYLIST);
+  const srcs = scriptTags(html).map(s => s.src.split('?')[0]);
+  assert.ok(srcs.includes('/assets/js/jquery.min.js'), srcs.join(' '));
+  assert.ok(srcs.includes('/assets/js/spotify-select-playlist.js'), srcs.join(' '));
+  assert.ok(srcs.indexOf('/assets/js/jquery.min.js') < srcs.indexOf('/assets/js/spotify-select-playlist.js'), 'jQuery first');
+  assert.ok(!html.includes('bootstrap.min.js'), 'no bootstrap.min.js');
+  assert.ok(!html.includes('owl.carousel.min.js'), 'no owl.carousel.min.js');
+});
+
+test('PERF-11: every local <script src> on every layout page carries defer or async', () => {
+  const pages = layoutPages();
+  assert.equal(pages.length, 44);
+  for (const [url, html] of pages) assertDeferred(url, html);
+});
