@@ -266,6 +266,8 @@ T19 → T20
 
 ### T8: Link core plus the page bundle
 
+**Status**: ✅ Done
+
 **What**:
 - Add `_data/cssBundles.js`.
 - `head/styles.liquid` links `core.min.css` and `{{ page_id }}.min.css` when it is listed there.
@@ -281,9 +283,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/css.test.cjs` asserts that every built layout page links core + at most one bundle and no `style.min.css`, that `/` links `home` and that `/band/` links `band`
-- [ ] All existing theme/style e2e suites pass
-- [ ] Full gate passes
+- [x] `tests/perf/css.test.cjs` asserts that every built layout page links core + at most one bundle and no `style.min.css`, that `/` links `home` and that `/band/` links `band`
+- [x] All existing theme/style e2e suites pass
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

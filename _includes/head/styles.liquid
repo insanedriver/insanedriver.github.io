@@ -9,4 +9,5 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700&display=swap">
 
-<link rel="stylesheet" href="/assets/css/style.min.css?v=2.1">
+<link rel="stylesheet" href="/assets/css/core.min.css">
+{% if cssBundles contains page_id %}<link rel="stylesheet" href="/assets/css/{{ page_id }}.min.css">{% endif %}

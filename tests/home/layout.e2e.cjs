@@ -33,7 +33,7 @@ test('HOME-20: with JavaScript the loader gate is set before first paint and the
   const gateBeforeStyles = await page.evaluate(() => {
     const scripts = [...document.head.querySelectorAll('script:not([src])')];
     const gate = scripts.find(s => s.textContent.includes('home-loading'));
-    const css = document.head.querySelector('link[rel="stylesheet"][href*="style.min.css"]');
+    const css = document.head.querySelector('link[rel="stylesheet"][href*="core.min.css"]');
     return !!gate && !!css && !!(gate.compareDocumentPosition(css) & Node.DOCUMENT_POSITION_FOLLOWING);
   });
   expect(gateBeforeStyles).toBe(true);

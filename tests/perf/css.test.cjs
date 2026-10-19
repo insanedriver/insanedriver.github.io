@@ -77,3 +77,32 @@ test('PERF-18: core and every bundle are minified (no comments, no indentation)'
     assert.ok(!/\n[ \t]/.test(css), `${name} has indented lines`);
   }
 });
+
+// Stylesheet links of a built page, without the ?v= cache-bust suffix.
+const { layoutPages, page } = require('./built.cjs');
+const stylesheets = html => [...html.matchAll(/<link\b[^>]*rel="?stylesheet"?[^>]*>/g)]
+  .map(m => (m[0].match(/href="?([^"\s>]+)/) || [])[1].replace(/\?.*$/, ''));
+const BUNDLE_HREFS = BUNDLES.map(name => `/assets/css/${name}.min.css`);
+
+test('PERF-15: every layout page links core.min.css plus at most one page bundle, never style.min.css', () => {
+  const pages = layoutPages();
+  assert.ok(pages.length > 20, `only ${pages.length} layout pages found`);
+  for (const [url, html] of pages) {
+    const links = stylesheets(html);
+    assert.equal(links.filter(h => h === '/assets/css/core.min.css').length, 1, `${url}: core.min.css`);
+    assert.ok(links.filter(h => BUNDLE_HREFS.includes(h)).length <= 1, `${url}: more than one bundle`);
+    assert.ok(!html.includes('style.min.css'), `${url}: links style.min.css`);
+    // A page whose area has a bundle gets that bundle (release and song pages share discography).
+    const id = html.match(/<body id="?page_([\w-]+)/)[1];
+    if (BUNDLES.includes(id)) assert.ok(links.includes(`/assets/css/${id}.min.css`), `${url}: ${id} bundle`);
+  }
+});
+
+test('PERF-16: / links the home bundle and /band/ links the band bundle', () => {
+  const home = stylesheets(page('/'));
+  assert.ok(home.includes('/assets/css/home.min.css'), '/ links home.min.css');
+  assert.deepEqual(home.filter(h => BUNDLE_HREFS.includes(h)), ['/assets/css/home.min.css']);
+  const band = stylesheets(page('/band/'));
+  assert.ok(band.includes('/assets/css/band.min.css'), '/band/ links band.min.css');
+  assert.deepEqual(band.filter(h => BUNDLE_HREFS.includes(h)), ['/assets/css/band.min.css']);
+});
