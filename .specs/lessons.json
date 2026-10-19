@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 36,
+  "next_id": 37,
   "lessons": [
     {
       "id": "L-001",
@@ -639,6 +639,24 @@
       ],
       "created": "2026-10-19T03:47:41Z",
       "last_seen": "2026-10-19T03:47:41Z"
+    },
+    {
+      "id": "L-036",
+      "key": "surviving_mutant::when pinning hand collected ids pin every field that carries the same risk because a shape uniqueness or ordering check on the fields left out still lets a wrong in range value pass",
+      "text": "When pinning hand-collected ids, pin every field that carries the same risk, because a shape, uniqueness or ordering check on the fields left out still lets a wrong in-range value pass.",
+      "signal": "surviving_mutant",
+      "scope": "test-data",
+      "status": "candidate",
+      "features": [
+        "seo-discovery"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)"
+      ],
+      "created": "2026-10-19T04:18:44Z",
+      "last_seen": "2026-10-19T04:18:44Z"
     }
   ]
 }

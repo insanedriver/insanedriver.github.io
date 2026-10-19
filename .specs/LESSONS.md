@@ -222,6 +222,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Pass 3 S6 (_includes/discography/links.liquid:6, tests/seo/release.e2e.cjs:65) (templates)
 - last seen: 2026-10-19T03:47:41Z
 
+### L-036 - When pinning hand-collected ids, pin every field that carries the same risk, because a shape, uniqueness or ordering check on the fields left out still lets a wrong in-range value pass.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `test-data` · harmful: 0
+- features: seo-discovery
+- evidence: validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)
+- last seen: 2026-10-19T04:18:44Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
