@@ -345,8 +345,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit tests: the three quote forms rewritten; absolute and `data:` URLs untouched; missing file throws naming the path
-- [ ] Quick gate passes
+- [x] Unit tests: the three quote forms rewritten; absolute and `data:` URLs untouched; missing file throws naming the path
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
