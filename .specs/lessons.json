@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 42,
+  "next_id": 45,
   "lessons": [
     {
       "id": "L-001",
@@ -749,6 +749,60 @@
       ],
       "created": "2026-10-20T13:48:52Z",
       "last_seen": "2026-10-20T13:48:52Z"
+    },
+    {
+      "id": "L-042",
+      "key": "surviving_mutant::when a worker changes code outside the planned tasks add a test that fails if that change is reverted before the feature is verified",
+      "text": "When a worker changes code outside the planned tasks, add a test that fails if that change is reverted before the feature is verified.",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed-2"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "M15 assets/js/photoswipe-impl.js:17 (tests)"
+      ],
+      "created": "2026-10-20T21:27:42Z",
+      "last_seen": "2026-10-20T21:27:42Z"
+    },
+    {
+      "id": "L-043",
+      "key": "spec_precision_gap::when an ac forbids a network request name every user flow that could trigger it not only the initial page load",
+      "text": "When an AC forbids a network request, name every user flow that could trigger it, not only the initial page load.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed-2"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "PS2-08 tests/perf/images.e2e.cjs:115 (spec-writing)"
+      ],
+      "created": "2026-10-20T21:27:42Z",
+      "last_seen": "2026-10-20T21:27:42Z"
+    },
+    {
+      "id": "L-044",
+      "key": "surviving_mutant::when an e2e regression test depends on a page state such as an image not yet loaded assert that precondition before acting do not rely on lazy load timing or randomised order",
+      "text": "When an e2e regression test depends on a page state such as an image not yet loaded, assert that precondition before acting; do not rely on lazy-load timing or randomised order.",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed-2"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "M15b tests/perf/images.e2e.cjs:123 (PS2-23) (tests)"
+      ],
+      "created": "2026-10-20T21:54:35Z",
+      "last_seen": "2026-10-20T21:54:35Z"
     }
   ]
 }

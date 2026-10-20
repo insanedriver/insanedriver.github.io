@@ -20,12 +20,8 @@
 
 ## Handoff
 
-- **Feature**: perf-pagespeed (deferred GTM/Pixel trackers, jQuery/Bootstrap/Owl removed with a vanilla nav, per-page CSS bundles over a core under 200 KB, self-hosted woff2 fonts with swap, responsive WebP images with sizes, boot loader shortened to 0.6-1.5 s with a 2 s failsafe)
-- **Phase / Task**: Complete. T1-T20 plus fix iterations 1-3, `8740dc5`..`f40a350` on `feature/perf-pagespeed`.
-- **Verification**: Verifier PASS on iteration 4 (an extra pass the user approved after iteration 3 FAILed on surviving mutant N9). 40/40 ACs Verified. Sensor 8/8 killed in iteration 4. Unit 183/183, e2e 579/579 in two full runs. Candidate lessons L-037..L-041.
-- **In-progress**: none
-- **Next step**: open a PR against master (needs the user's go-ahead); after deploy, re-run PageSpeed Insights on `/` and `/band/`.
-- **Watch items**: the CSS-only failsafe window has 500 ms of slack (`tests/home/loader-style.e2e.cjs:48`); HOME-24/26/29/67/71 are historically flaky.
-- **Blockers**: none
-- **Branch**: feature/perf-pagespeed
-- **Previous handoff**: seo-discovery (PR against master; follow-ups: `/dates/` Bandsintown widget over http, header menu still links play.spotify.com, LYR-01 source check is manual).
+- **Feature**: perf-pagespeed-2 (home PageSpeed round 2: cover srcset 160/320/600, WebP gallery thumbnails and logos, home.min.css inlined, home font preloads, hero preload fetchpriority, navbar init without forced reflow)
+- **Phase / Task**: Complete. T1-T16 plus Verifier fixes `82110f7` (PS2-23, viewer placeholder WebP) and `e68b512`; range `e469660..HEAD` on `feature/perf-pagespeed-2`.
+- **Verification**: Verifier PASS on iteration 3. 23/23 ACs Verified. Unit 205/205, e2e 587/587. Lessons L-042..L-044.
+- **Known flakes (pre-existing, also on master)**: HOME-71 (`tests/home/phone-fit.e2e.cjs`) measures before the lazy cover has a width; loader timing tests HOME-24/26/28/67 and PERF-35 under machine load. A scripted `link.click()` on a `/photos/` archive link sometimes follows the link instead of opening the viewer.
+- **Next**: push the branch, open the PR, deploy, then measure the home with Lighthouse 12.6 against production (goal ≥ 90 mobile, ≥ 98 desktop).

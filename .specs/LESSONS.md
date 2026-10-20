@@ -258,6 +258,24 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md iteration 3 mutant N9 (_layouts/home.html:57 + 2000 -> + 1400; tests/home/loader-style.e2e.cjs:40) (e2e/playwright)
 - last seen: 2026-10-20T13:48:52Z
 
+### L-042 - When a worker changes code outside the planned tasks, add a test that fails if that change is reverted before the feature is verified.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: perf-pagespeed-2
+- evidence: M15 assets/js/photoswipe-impl.js:17 (tests)
+- last seen: 2026-10-20T21:27:42Z
+
+### L-043 - When an AC forbids a network request, name every user flow that could trigger it, not only the initial page load.
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: perf-pagespeed-2
+- evidence: PS2-08 tests/perf/images.e2e.cjs:115 (spec-writing)
+- last seen: 2026-10-20T21:27:42Z
+
+### L-044 - When an e2e regression test depends on a page state such as an image not yet loaded, assert that precondition before acting; do not rely on lazy-load timing or randomised order.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: perf-pagespeed-2
+- evidence: M15b tests/perf/images.e2e.cjs:123 (PS2-23) (tests)
+- last seen: 2026-10-20T21:54:35Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

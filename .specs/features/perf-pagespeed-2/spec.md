@@ -146,29 +146,29 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| PS2-01 | P1: Covers | Tasks | Implementing |
-| PS2-02 | P1: Covers | Tasks | Implementing |
-| PS2-03 | P1: Covers | Tasks | Implementing |
-| PS2-04 | P1: Covers | Tasks | Implementing |
-| PS2-05 | P1: Covers | Tasks | Implementing |
-| PS2-06 | P1: Thumbnails | Tasks | Implementing |
-| PS2-07 | P1: Thumbnails | Tasks | Implementing |
-| PS2-08 | P1: Thumbnails | Tasks | Implementing |
-| PS2-09 | P1: Logos | Tasks | Implementing |
-| PS2-10 | P1: Logos | Tasks | Implementing |
-| PS2-11 | P1: Logos | Tasks | Implementing |
-| PS2-12 | P1: Logos | Tasks | Implementing |
-| PS2-13 | P1: Logos | Tasks | Implementing |
-| PS2-14 | P1: Home CSS | Tasks | Implementing |
-| PS2-15 | P1: Home CSS | Tasks | Implementing |
-| PS2-16 | P1: Home CSS | Tasks | Implementing |
-| PS2-17 | P1: Home CSS | Tasks | Implementing |
-| PS2-18 | P1: Home CSS | Tasks | Implementing |
-| PS2-19 | P1: Home CSS | Tasks | Implementing |
-| PS2-20 | P1: Home CSS | Tasks | Implementing |
-| PS2-21 | P2: Reflow | Tasks | Implementing |
-| PS2-22 | P2: Reflow | Tasks | Implementing |
-| PS2-23 | P1: Thumbnails | Fix (Verifier F1) | Implementing |
+| PS2-01 | P1: Covers | Tasks | Verified |
+| PS2-02 | P1: Covers | Tasks | Verified |
+| PS2-03 | P1: Covers | Tasks | Verified |
+| PS2-04 | P1: Covers | Tasks | Verified |
+| PS2-05 | P1: Covers | Tasks | Verified |
+| PS2-06 | P1: Thumbnails | Tasks | Verified |
+| PS2-07 | P1: Thumbnails | Tasks | Verified |
+| PS2-08 | P1: Thumbnails | Tasks | Verified |
+| PS2-09 | P1: Logos | Tasks | Verified |
+| PS2-10 | P1: Logos | Tasks | Verified |
+| PS2-11 | P1: Logos | Tasks | Verified |
+| PS2-12 | P1: Logos | Tasks | Verified |
+| PS2-13 | P1: Logos | Tasks | Verified |
+| PS2-14 | P1: Home CSS | Tasks | Verified |
+| PS2-15 | P1: Home CSS | Tasks | Verified |
+| PS2-16 | P1: Home CSS | Tasks | Verified |
+| PS2-17 | P1: Home CSS | Tasks | Verified |
+| PS2-18 | P1: Home CSS | Tasks | Verified |
+| PS2-19 | P1: Home CSS | Tasks | Verified |
+| PS2-20 | P1: Home CSS | Tasks | Verified |
+| PS2-21 | P2: Reflow | Tasks | Verified |
+| PS2-22 | P2: Reflow | Tasks | Verified |
+| PS2-23 | P1: Thumbnails | Fix (Verifier F1) | Verified |
 
 **Coverage:** 23 total, 23 mapped to tasks, 0 unmapped
 
