@@ -158,3 +158,28 @@ test('PERF-29: every release cover on / is a <picture> with its WebP source; onl
   }
   assert.equal(covers.filter(tag => /home-release-cover/.test(tag)).length, 1);
 });
+
+test('PERF-30: every <img> on / and /band/ has width and height, and local ones match the file', async () => {
+  for (const url of ['/', '/band/']) {
+    const tags = [...page(url).matchAll(/<img\b[^>]*>/g)].map(m => attrs(m[0]));
+    assert.ok(tags.length > 3, `${url}: only ${tags.length} images`);
+    for (const img of tags) {
+      assert.match(img.width ?? '', /^\d+$/, `${url}: ${img.src} width`);
+      assert.match(img.height ?? '', /^\d+$/, `${url}: ${img.src} height`);
+      if (!img.src.startsWith('/')) continue;
+      const meta = await sharp(path.join(ROOT, img.src)).metadata();
+      // Same aspect ratio as the file (within one pixel of rounding).
+      assert.ok(Math.abs(Number(img.height) - Number(img.width) * meta.height / meta.width) <= 1,
+        `${url}: ${img.src} is ${img.width}x${img.height}, file is ${meta.width}x${meta.height}`);
+    }
+  }
+});
+
+test('PERF-30: the menu logo is 600x95 and lazy on every layout page', () => {
+  for (const [url, html] of layoutPages()) {
+    const logo = html.match(/<img\b[^>]*class="?logo-header"?[^>]*>/);
+    assert.ok(logo, `${url}: no menu logo`);
+    const img = attrs(logo[0]);
+    assert.deepEqual([img.width, img.height, img.loading], ['600', '95', 'lazy'], url);
+  }
+});

@@ -184,7 +184,7 @@ jspath: js/home
             <span class="home-visual-grid">
                 {% for photo in highlights %}
                 <span class="home-visual-frame">
-                    <img src="{{ photo.thumbnail }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
+                    <img src="{{ photo.thumbnail }}" width="{{ photo.thumbnailWidth }}" height="{{ photo.thumbnailHeight }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
                 </span>
                 {% endfor %}
             </span>

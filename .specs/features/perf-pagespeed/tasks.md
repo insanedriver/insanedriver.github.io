@@ -509,6 +509,8 @@ T19 → T20
 
 ### T18: Dimensions on every image
 
+**Status**: ✅ Done
+
 **What**: The menu logo gets `width="600" height="95" loading="lazy"`. Any remaining `<img>` on `/` and `/band/` without dimensions gets them.
 **Where**: `_includes/header/menu.liquid`
 **Depends on**: T17
@@ -519,8 +521,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts that every `<img>` in built `/` and `/band/` has `width` and `height`
-- [ ] Full gate passes
+- [x] `tests/perf/images.test.cjs` asserts that every `<img>` in built `/` and `/band/` has `width` and `height`
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
