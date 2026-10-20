@@ -20,35 +20,45 @@ async function trackers(page) {
 }
 
 // Holds the page header image back, so the window load event waits for it.
-const holdLoad = (page, ms) => page.route(/\/assets\/images\/header_\d(-\d+)?\.(jpg|webp)/, async route => {
+const HEADER_IMAGE = /\/assets\/images\/header_\d(-\d+)?\.(jpg|webp)/;
+const holdLoad = (page, ms, image = HEADER_IMAGE) => page.route(image, async route => {
   await new Promise(r => setTimeout(r, ms));
   await route.continue();
 });
 
+// One page per layout that includes the tracker partial: base.html and home.html.
+// The home layout has no page header; its hero image is what load waits on.
+const LAYOUTS = [
+  ['/band/', HEADER_IMAGE],
+  ['/', /\/assets\/images\/home\/hero-/]
+];
+
 const counts = log => [log.gtm.length, log.fb.length];
 
-test('PERF-02/03: no tracker is requested before load, then gtm.js and fbevents.js once each after idle', async ({ page }) => {
-  const log = await trackers(page);
-  await page.goto('/band/', { waitUntil: 'load' });
-  await expect.poll(() => counts(log), { timeout: 4000 }).toEqual([1, 1]);
-  expect(log.gtm[0].url).toBe(GTM);
-  expect(log.fb[0].url).toBe(FB);
-  expect(log.gtm[0].at).toBeGreaterThanOrEqual(log.loadAt);
-  expect(log.fb[0].at).toBeGreaterThanOrEqual(log.loadAt);
-  // Within the 2 s idle timeout of load.
-  expect(log.gtm[0].at - log.loadAt).toBeLessThan(2500);
-  await page.waitForTimeout(2500);
-  expect(counts(log)).toEqual([1, 1]);
-});
+for (const [url, image] of LAYOUTS) {
+  test(`PERF-02/03 ${url}: no tracker is requested before load, then gtm.js and fbevents.js once each after idle`, async ({ page }) => {
+    const log = await trackers(page);
+    await page.goto(url, { waitUntil: 'load' });
+    await expect.poll(() => counts(log), { timeout: 4000 }).toEqual([1, 1]);
+    expect(log.gtm[0].url).toBe(GTM);
+    expect(log.fb[0].url).toBe(FB);
+    expect(log.gtm[0].at).toBeGreaterThanOrEqual(log.loadAt);
+    expect(log.fb[0].at).toBeGreaterThanOrEqual(log.loadAt);
+    // Within the 2 s idle timeout of load.
+    expect(log.gtm[0].at - log.loadAt).toBeLessThan(2500);
+    await page.waitForTimeout(2500);
+    expect(counts(log)).toEqual([1, 1]);
+  });
 
-test('PERF-02: while load is held back, nothing is requested', async ({ page }) => {
-  const log = await trackers(page);
-  await holdLoad(page, 2000);
-  await page.goto('/band/', { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(1000);
-  expect(await page.evaluate(() => document.readyState)).not.toBe('complete');
-  expect(counts(log)).toEqual([0, 0]);
-});
+  test(`PERF-02 ${url}: while load is held back, nothing is requested`, async ({ page }) => {
+    const log = await trackers(page);
+    await holdLoad(page, 2000, image);
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(1000);
+    expect(await page.evaluate(() => document.readyState)).not.toBe('complete');
+    expect(counts(log)).toEqual([0, 0]);
+  });
+}
 
 test('PERF-05: gtm.start and the Pixel init + PageView are queued at parse time and seen by the scripts', async ({ page }) => {
   const log = await trackers(page);
