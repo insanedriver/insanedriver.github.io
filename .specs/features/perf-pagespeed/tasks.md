@@ -559,6 +559,8 @@ T19 → T20
 
 ### T20: Regression guard
 
+**Status**: ✅ Done
+
 **What**: Add `tests/perf/guard.test.cjs`. It walks every built layout page and fails on any removed script, `style.min.css`, Google Fonts or Glyphicons reference, or on a `core.min.css` larger than 200 KB.
 **Where**: `tests/perf/guard.test.cjs` (new)
 **Depends on**: T19
@@ -569,8 +571,8 @@ T19 → T20
 
 **Done when**:
 
-- [ ] The guard passes on the current tree and fails on a hand-injected `jquery.min.js` reference (checked in a scratch copy, not committed)
-- [ ] Build gate passes
+- [x] The guard passes on the current tree and fails on a hand-injected `jquery.min.js` reference (checked in a scratch copy, not committed)
+- [x] Build gate passes
 
 **Tests**: unit
 **Gate**: build
