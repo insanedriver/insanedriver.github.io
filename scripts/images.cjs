@@ -28,6 +28,12 @@ const cover = file => ({
   ],
 });
 
+// The gallery thumbnails listed in _data/photos.json, as repo-relative paths.
+function thumbnails() {
+  const photos = require('../_data/photos.json');
+  return [...new Set(photos.map(p => p.thumbnail).filter(Boolean))].map(url => url.replace(/^\//, '')).sort();
+}
+
 // The covers the home shows: the hero release, the NOW::STREAMING pool and the archive albums.
 function homeCovers() {
   const release = require('../_data/homeRelease.js')();
@@ -44,6 +50,7 @@ const manifest = () => [
   native('bodybg.jpg'),
   native('footer.jpg'),
   ...homeCovers().map(cover),
+  ...thumbnails().map(src => ({ src, outputs: [{ file: src.replace(/\.jpe?g$/, '.webp'), width: null }] })),
 ];
 
 async function encode(src, width, out) {

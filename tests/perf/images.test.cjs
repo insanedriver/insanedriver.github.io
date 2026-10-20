@@ -49,6 +49,21 @@ test('PS2-01 / PS2-05: every home cover has -160, -320 and 600 px WebP outputs a
   }
 });
 
+test('PS2-06: every photos.json thumbnail has a WebP of the same pixel size next to it', async () => {
+  const thumbs = [...new Set(require('../../_data/photos.json').map(p => p.thumbnail))];
+  assert.ok(thumbs.length > 10, `only ${thumbs.length} thumbnails`);
+  const files = outputs();
+  for (const url of thumbs) {
+    const webp = url.replace(/^\//, '').replace(/\.jpg$/, '.webp');
+    assert.ok(files.some(out => out.file === webp), `manifest lacks ${webp}`);
+    assert.ok(fs.existsSync(path.join(ROOT, webp)), `missing ${webp}`);
+    const jpeg = await sharp(path.join(ROOT, url)).metadata();
+    const meta = await sharp(path.join(ROOT, webp)).metadata();
+    assert.equal(meta.format, 'webp', webp);
+    assert.deepEqual([meta.width, meta.height], [jpeg.width, jpeg.height], webp);
+  }
+});
+
 test('PERF-31: every manifest output exists as a WebP at the manifest width', async () => {
   const all = outputs();
   assert.ok(all.length >= 7 * 3 + 3 + 2 + 4, `only ${all.length} outputs`);

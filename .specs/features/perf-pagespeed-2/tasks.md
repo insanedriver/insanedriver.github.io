@@ -99,8 +99,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Test asserts one `tn_X.webp` per referenced thumbnail with the JPEG's width and height
-- [ ] Quick gate passes
+- [x] Test asserts one `tn_X.webp` per referenced thumbnail with the JPEG's width and height
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
