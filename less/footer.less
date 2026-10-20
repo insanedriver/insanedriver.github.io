@@ -65,6 +65,11 @@ footer h5 {
     margin: 0 auto;
     width: 30%;
     height: 30%;
+    /* The PNG's 600:95 shape, so the 300 px WebP (rounded to 300x48) draws at the same
+       height. content-box keeps the 20px top padding out of the ratio (no side padding,
+       so the width is unchanged). */
+    box-sizing: content-box;
+    aspect-ratio: 600 / 95;
 }
 @media (max-width: 768px) {
     .logo-footer {

@@ -114,3 +114,20 @@ test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and req
   }
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
+
+// Rendered size of the footer logo before it became a <picture>, by viewport width.
+const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [342, 74.14] };
+
+for (const [width, [w, h]] of Object.entries(FOOTER_LOGO_BOX)) {
+  test(`PS2-11: at ${width} px the footer logo loads as WebP at its original size`, async ({ page }) => {
+    await page.setViewportSize({ width: Number(width), height: 800 });
+    await page.goto('/videos/', { waitUntil: 'load' });
+    const logo = page.locator('.logo-footer');
+    await logo.scrollIntoViewIfNeeded();
+    await expect(logo).toHaveJSProperty('complete', true);
+    expect(await logo.evaluate(img => new URL(img.currentSrc).pathname)).toMatch(/^\/assets\/images\/logo_horizontal-(300|600)\.webp$/);
+    const box = await logo.boundingBox();
+    expect(box.width).toBeCloseTo(w, 1);
+    expect(box.height).toBeCloseTo(h, 1);
+  });
+}

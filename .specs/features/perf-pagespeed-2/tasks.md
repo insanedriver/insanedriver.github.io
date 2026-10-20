@@ -300,8 +300,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test asserts the structure on every layout page
-- [ ] Full gate passes
+- [x] Unit test asserts the structure on every layout page
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

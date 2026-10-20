@@ -298,3 +298,20 @@ test('PS2-10: the hero title logo on / is a <picture> with the logo_loading WebP
   assert.ok(title, 'no hero title');
   assertLoadingLogoPicture(title[1], 'hero title');
 });
+
+test('PS2-11: the footer logo on every layout page is a <picture> with a 300/600 w WebP srcset, sizes and the PNG as src', () => {
+  const pages = layoutPages();
+  assert.ok(pages.some(([url]) => url === '/') && pages.length > 20, `only ${pages.length} layout pages`);
+  for (const [url, html] of pages) {
+    const picture = html.match(/<picture>(<source[^>]*>)(<img[^>]*class="?[^">]*logo-footer[^>]*>)<\/picture>/);
+    assert.ok(picture, `${url}: footer logo is not <picture><source><img></picture>`);
+    const source = attrs(picture[1]);
+    const img = attrs(picture[2]);
+    assert.equal(source.type, 'image/webp', url);
+    assert.deepEqual(srcset(source.srcset), [300, 600].map(w => [`/assets/images/logo_horizontal-${w}.webp`, `${w}w`]), url);
+    // Follows the footer CSS: 150px up to 768 px, 30% of the footer column above.
+    assert.equal(source.sizes, '(max-width: 768px) 150px, 30vw', url);
+    assert.equal(img.src, '/assets/images/logo_horizontal.png', url);
+    assert.deepEqual([img.width, img.height, img.alt], ['600', '95', 'Insane Driver'], url);
+  }
+});
