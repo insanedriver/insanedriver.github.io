@@ -117,12 +117,27 @@ test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and req
 
 test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail', async ({ page }) => {
   const jpegs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  // The last archive photo is the first one's previous neighbour. Kept unrendered (and,
+  // with a fixed shuffle, out of the highlights) its lazy thumbnail never loads, so the
+  // viewer has no currentSrc to reuse for it.
+  await page.addInitScript(() => { Math.random = () => 0; });
+  await page.route('**/photos/', async route => {
+    const res = await route.fetch();
+    const html = (await res.text()).replace('</head>', '<style>.photos-archive figure:last-of-type{display:none}</style></head>');
+    await route.fulfill({ response: res, body: html });
+  });
   const seen = imageRequests(page);
-  await page.goto('/photos/', { waitUntil: 'load' });
-  // The first archive photo: its neighbours include the last one, never scrolled into view.
-  await page.locator('[data-photo-open]').first().click();
+  await page.goto('/photos/', { waitUntil: 'networkidle' });
+  const archive = page.locator('.photos-archive [data-photo-open]');
+  expect(await archive.last().locator('img').evaluate(img => img.currentSrc)).toBe('');
+  // Opened through the viewer's own entry point (the one the archive click handler calls):
+  // a click here races the page and sometimes follows the link to the full JPEG instead.
+  await page.waitForFunction(() => typeof window.openInsanePhoto === 'function');
+  expect(await archive.first().evaluate(link => window.openInsanePhoto(link.dataset.photoOpen, link))).toBe(true);
   await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);
-  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(0);
+  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(1);
+  const placeholders = await page.locator('.pswp__img--placeholder').evaluateAll(imgs => imgs.map(img => new URL(img.src).pathname));
+  for (const src of placeholders) expect(src).toMatch(/\.webp$/);
   await page.waitForLoadState('networkidle');
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
