@@ -28,14 +28,26 @@ test('HOME-20: while the gate class is set the loader covers the viewport with a
   expect(await page.evaluate(() => !!document.elementFromPoint(640, 400).closest('#home-loader'))).toBe(true);
 });
 
+// The release clocks start at the head gate (IDHomeBootAt), so the windows are
+// timed from there, not from when goto returns.
+const untilBoot = (page, ms) => page.waitForFunction(t => performance.now() - window.IDHomeBootAt >= t, ms);
+const bootElapsed = page => page.evaluate(() => performance.now() - window.IDHomeBootAt);
+
+// Checked once each, not retried: a later failsafe must not pass by waiting.
+async function expectFailsafeWindow(page) {
+  const loader = page.locator('#home-loader');
+  await untilBoot(page, 1500);
+  expect(await loader.isVisible()).toBe(true);
+  expect(await bootElapsed(page), 'visible check ran too late to mean anything').toBeLessThan(1900);
+  await untilBoot(page, 2500);
+  expect(await loader.isHidden()).toBe(true);
+}
+
 test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 2.5s', async ({ page }) => {
   await page.route('**/assets/js/home.js*', route => route.abort());
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#home-loader')).toBeVisible();
-  await page.waitForTimeout(1500);
-  await expect(page.locator('#home-loader')).toBeVisible();
-  await page.waitForTimeout(1000);
-  await expect(page.locator('#home-loader')).toBeHidden();
+  await expectFailsafeWindow(page);
   expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
   expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
 });
@@ -59,11 +71,7 @@ test('PERF-35: with home.js and the inline release both gone, CSS alone hides th
     Object.defineProperty(window, 'IDHomeRelease', { configurable: true, get: () => function () {}, set: () => {} });
   });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  // Checked once each, not retried: a later failsafe must not pass by waiting.
-  await page.waitForTimeout(1500);
-  expect(await page.locator('#home-loader').isVisible()).toBe(true);
-  await page.waitForTimeout(1000);
-  expect(await page.locator('#home-loader').isHidden()).toBe(true);
+  await expectFailsafeWindow(page);
   expect(await page.evaluate(() => window.IDHomeReleased)).toBeUndefined();
   expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
 });

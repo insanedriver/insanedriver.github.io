@@ -596,6 +596,8 @@ Existing tests whose target moved with the feature. Each keeps its assertions; o
 - F1: PERF-02/03 trackers held-load and once-after-idle e2e also run on `/` (home hero held), plus a unit check that every layout page names `gtm.js` and `fbevents.js` once, only inside the deferred loader. Kills mutant E9.
 - F2: PERF-35 CSS failsafe pinned: computed `animation-delay` is `2s` (normal and reduced motion), and CSS alone hides the loader between 2 s and 2.5 s with `home.js` and `IDHomeRelease` neutralized. Kills mutant E7.
 
+**Fix iteration 2** (Verifier FAIL, `validation.md` Fix 1): HOME-23 edge and the PERF-35 CSS-only window in `tests/home/loader-style.e2e.cjs` are timed from the boot clock (`performance.now() - window.IDHomeBootAt`), not from `domcontentloaded`. Same bounds: visible at 1.5 s (checked before 1.9 s), hidden at 2.5 s, each checked once without retry. E7 and E8 still killed.
+
 ## Task Granularity Check
 
 | Task | Scope | Status |
