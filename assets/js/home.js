@@ -164,6 +164,7 @@
         // Every node the swap writes to, found before anything changes.
         var panel = section.closest('[data-home-streaming-hud]');
         var cover = section.querySelector('[data-home-streaming-cover]');
+        var source = section.querySelector('[data-home-streaming-source]');
         var title = section.querySelector('[data-home-streaming-title]');
         var date = section.querySelector('[data-home-streaming-date]');
         var list = section.querySelector('[data-home-streaming-links]');
@@ -173,6 +174,8 @@
 
         section.setAttribute('data-home-streaming', single.slug);
         if (panel) { panel.setAttribute('data-hud', 'SIGNAL.' + single.slug.toUpperCase() + ' // STREAMING_'); }
+        // The WebP <source> wins over src, so it is swapped too (PERF-29).
+        if (source) { source.srcset = '/assets/images/releases/' + single.cover.replace(/\.jpg$/, '.webp'); }
         cover.src = '/assets/images/releases/' + single.cover;
         cover.alt = single.title + ' cover';
         cover.width = single.coverWidth;

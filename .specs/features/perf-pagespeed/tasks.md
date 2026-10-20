@@ -485,6 +485,8 @@ T19 → T20
 
 ### T17: WebP release covers on the home
 
+**Status**: ✅ Done
+
 **What**: The latest-release, streaming and album covers in `index.html` become `<picture>` with a WebP source. The first cover stays eager; the rest stay lazy.
 **Where**: `index.html`
 **Depends on**: T16
@@ -495,9 +497,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts a WebP source for every cover on `/`
-- [ ] The existing home e2e suites pass, including `shuffle.e2e.cjs` (the streaming cover swap must also swap the WebP source)
-- [ ] Full gate passes
+- [x] `tests/perf/images.test.cjs` asserts a WebP source for every cover on `/`
+- [x] The existing home e2e suites pass, including `shuffle.e2e.cjs` (the streaming cover swap must also swap the WebP source)
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

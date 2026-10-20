@@ -136,3 +136,25 @@ test('PERF-27: the home bodybg layer keeps its gradient and adds the WebP image-
   // Same gradient layer, with the image-set in place of the plain url().
   assert.equal(layers[1].replace(imageSet('bodybg'), 'X'), layers[0].replace(/url\(['"]?\.\.\/images\/bodybg\.jpg['"]?\)$/, 'X'));
 });
+
+test('PERF-29: every release cover on / is a <picture> with its WebP source; only the hero release cover is eager', () => {
+  const html = page('/');
+  const covers = [...html.matchAll(/<img[^>]*src="?\/assets\/images\/releases\/[^>]*>/g)].map(m => m[0]);
+  const albums = require('../../_data/discography.json').albums;
+  // Hero release + NOW::STREAMING + one per archive album.
+  assert.equal(covers.length, 2 + albums.length);
+  for (const tag of covers) {
+    const img = attrs(tag);
+    const picture = html.match(new RegExp(`<picture>(<source[^>]*>)${tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</picture>`));
+    assert.ok(picture, `${img.src} is not inside <picture><source>`);
+    const source = attrs(picture[1]);
+    assert.equal(source.type, 'image/webp', img.src);
+    assert.equal(source.srcset, img.src.replace(/\.jpg$/, '.webp'), img.src);
+    assert.ok(fs.existsSync(path.join(ROOT, source.srcset)), `missing ${source.srcset}`);
+    assert.match(img.width, /^\d+$/, `${img.src} width`);
+    assert.match(img.height, /^\d+$/, `${img.src} height`);
+    if (/home-release-cover/.test(img.class)) assert.equal(img.loading, undefined, 'the hero release cover must stay eager');
+    else assert.equal(img.loading, 'lazy', `${img.src} loading`);
+  }
+  assert.equal(covers.filter(tag => /home-release-cover/.test(tag)).length, 1);
+});

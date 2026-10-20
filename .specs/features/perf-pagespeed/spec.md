@@ -135,7 +135,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 2. The `base.html` header image SHALL render as `<picture>` with a WebP `<source srcset>` of the three widths, a JPEG `<img>` fallback, `width`, `height`, `sizes="100vw"`, `fetchpriority="high"` and no `loading="lazy"`.  <!-- PERF-26 -->
 3. The `#content` background and the footer background SHALL use WebP via `image-set()` with the JPEG as fallback.  <!-- PERF-27 -->
 4. `band.jpg` on `/band/` SHALL render as `<picture>` with a WebP source, `width`, `height`, `loading="lazy"` and `decoding="async"`.  <!-- PERF-28 -->
-5. The release covers on the home SHALL be served as WebP with `width`, `height` and `loading="lazy"`.  <!-- PERF-29 -->
+5. The release covers on the home SHALL be served as WebP with `width` and `height`; the latest-release cover in the hero SHALL stay eager, and the NOW::STREAMING and album covers SHALL carry `loading="lazy"`.  <!-- PERF-29 -->
 6. Every `<img>` in the built HTML of `/` and `/band/` SHALL have `width` and `height` attributes.  <!-- PERF-30 -->
 7. IF a WebP variant is missing for an image referenced by these rules THEN the unit test SHALL fail.  <!-- PERF-31 -->
 
@@ -229,7 +229,7 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-26 | P1: Images | Design | Implementing |
 | PERF-27 | P1: Images | Design | Implementing |
 | PERF-28 | P1: Images | Design | Implementing |
-| PERF-29 | P1: Images | Design | Pending |
+| PERF-29 | P1: Images | Design | Implementing |
 | PERF-30 | P1: Images | Design | Pending |
 | PERF-31 | P1: Images | Design | Implementing |
 | PERF-32 | P2: Loader | Design | Pending |

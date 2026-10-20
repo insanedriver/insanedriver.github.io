@@ -52,3 +52,21 @@ for (const [path, images] of [['/band/', ['bodybg']], ['/videos/', ['bodybg', 'f
     for (const name of ['bodybg', 'footer']) expect(seen).not.toContain(`/assets/images/${name}.jpg`);
   });
 }
+
+test('PERF-29: the home shows the hero cover as WebP, and a shuffled NOW::STREAMING cover as its own WebP', async ({ page }) => {
+  const { pool } = require('../../_data/homeShuffle.js')();
+  const release = require('../../_data/homeRelease.js')();
+  const pick = pool[pool.length - 1];
+  await page.addInitScript(v => { Math.random = () => v; }, (pool.length - 0.5) / pool.length);
+  const seen = imageRequests(page);
+  await page.goto('/', { waitUntil: 'load' });
+  const hero = page.locator('.home-release-cover');
+  await expect(hero).toHaveJSProperty('complete', true);
+  expect(await hero.evaluate(img => new URL(img.currentSrc).pathname)).toBe(`/assets/images/releases/${release.cover.replace(/\.jpg$/, '.webp')}`);
+  const cover = page.locator('[data-home-streaming-cover]');
+  await expect(cover).toHaveAttribute('src', `/assets/images/releases/${pick.cover}`);
+  await cover.scrollIntoViewIfNeeded();
+  await expect.poll(() => cover.evaluate(img => img.complete && img.currentSrc && new URL(img.currentSrc).pathname))
+    .toBe(`/assets/images/releases/${pick.cover.replace(/\.jpg$/, '.webp')}`);
+  expect(seen.filter(p => p.startsWith('/assets/images/releases/') && p.endsWith('.jpg'))).toEqual([]);
+});
