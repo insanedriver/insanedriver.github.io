@@ -7,10 +7,10 @@
 }(this, function () {
 
     var BOOT_KEY = 'id-home-booted';
-    var LOADER_MIN = 1200;
-    var LOADER_MAX = 3500;
+    var LOADER_MIN = 600;
+    var LOADER_MAX = 1500;
     // The CSS failsafe and the inline body script release the page here.
-    var LOADER_FAILSAFE = 4000;
+    var LOADER_FAILSAFE = 2000;
     var LOADER_REPEAT = 400;
     var NAV_SOLID_AFTER = 40;
 
@@ -85,8 +85,8 @@
         return albumId ? 'https://open.spotify.com/embed/album/' + albumId : null;
     }
 
-    // First view: no sooner than 1.2s, as soon as ready after that, never
-    // later than 3.5s. Repeat view in the same session: a 0.4s flash.
+    // First view: no sooner than 0.6s, as soon as ready after that, never
+    // later than 1.5s. Repeat view in the same session: a 0.4s flash.
     function loaderDismissAt(opts) {
         var start = opts.startedAt;
         if (opts.repeat) {
