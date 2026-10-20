@@ -201,48 +201,48 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| PERF-01 | P1: Trackers | Design | Implementing |
-| PERF-02 | P1: Trackers | Design | Implementing |
-| PERF-03 | P1: Trackers | Design | Implementing |
-| PERF-04 | P1: Trackers | Design | Implementing |
-| PERF-05 | P1: Trackers | Design | Implementing |
-| PERF-06 | P1: Trackers | Design | Implementing |
-| PERF-07 | P1: JS | Design | Implementing |
-| PERF-08 | P1: JS | Design | Implementing |
-| PERF-09 | P1: JS | Design | Implementing |
-| PERF-10 | P1: JS | Design | Implementing |
-| PERF-11 | P1: JS | Design | Implementing |
-| PERF-12 | P1: JS | Design | Implementing |
-| PERF-13 | P1: CSS | Design | Implementing |
-| PERF-14 | P1: CSS | Design | Implementing |
-| PERF-15 | P1: CSS | Design | Implementing |
-| PERF-16 | P1: CSS | Design | Implementing |
-| PERF-17 | P1: CSS | Design | Implementing |
-| PERF-18 | P1: CSS | Design | Implementing |
-| PERF-19 | P1: Fonts | Design | Implementing |
-| PERF-20 | P1: Fonts | Design | Implementing |
-| PERF-21 | P1: Fonts | Design | Implementing |
-| PERF-22 | P1: Fonts | Design | Implementing |
-| PERF-23 | P1: Fonts | Design | Implementing |
-| PERF-24 | P1: Fonts | Design | Implementing |
-| PERF-25 | P1: Images | Design | Implementing |
-| PERF-26 | P1: Images | Design | Implementing |
-| PERF-27 | P1: Images | Design | Implementing |
-| PERF-28 | P1: Images | Design | Implementing |
-| PERF-29 | P1: Images | Design | Implementing |
-| PERF-30 | P1: Images | Design | Implementing |
-| PERF-31 | P1: Images | Design | Implementing |
-| PERF-32 | P2: Loader | Design | Implementing |
-| PERF-33 | P2: Loader | Design | Implementing |
-| PERF-34 | P2: Loader | Design | Implementing |
-| PERF-35 | P2: Loader | Design | Implementing |
-| PERF-36 | P2: Loader | Design | Implementing |
-| PERF-37 | P3: Guard | Design | Implementing |
-| PERF-38 | P3: Guard | Design | Implementing |
-| PERF-39 | P1: Trackers (edge) | Design | Implementing |
-| PERF-40 | P1: JS (edge) | Design | Implementing |
+| PERF-01 | P1: Trackers | T1 | Implementing |
+| PERF-02 | P1: Trackers | T2 | Implementing |
+| PERF-03 | P1: Trackers | T2 | Implementing |
+| PERF-04 | P1: Trackers | T2 | Implementing |
+| PERF-05 | P1: Trackers | T2 | Implementing |
+| PERF-06 | P1: Trackers | T2 | Implementing |
+| PERF-07 | P1: JS | T4, T5 | Implementing |
+| PERF-08 | P1: JS | T6 | Implementing |
+| PERF-09 | P1: JS | T3 | Implementing |
+| PERF-10 | P1: JS | T3 | Implementing |
+| PERF-11 | P1: JS | T4, T6 | Implementing |
+| PERF-12 | P1: JS | T3 | Implementing |
+| PERF-13 | P1: CSS | T7 | Implementing |
+| PERF-14 | P1: CSS | T7 | Implementing |
+| PERF-15 | P1: CSS | T8 | Implementing |
+| PERF-16 | P1: CSS | T8 | Implementing |
+| PERF-17 | P1: CSS | T7 | Implementing |
+| PERF-18 | P1: CSS | T7 | Implementing |
+| PERF-19 | P1: Fonts | T11 | Implementing |
+| PERF-20 | P1: Fonts | T10 | Implementing |
+| PERF-21 | P1: Fonts | T10 | Implementing |
+| PERF-22 | P1: Fonts | T11 | Implementing |
+| PERF-23 | P1: Fonts | T9 | Implementing |
+| PERF-24 | P1: Fonts | T12 | Implementing |
+| PERF-25 | P1: Images | T13 | Implementing |
+| PERF-26 | P1: Images | T14 | Implementing |
+| PERF-27 | P1: Images | T16 | Implementing |
+| PERF-28 | P1: Images | T15 | Implementing |
+| PERF-29 | P1: Images | T17 | Implementing |
+| PERF-30 | P1: Images | T18 | Implementing |
+| PERF-31 | P1: Images | T13 | Implementing |
+| PERF-32 | P2: Loader | T19 | Implementing |
+| PERF-33 | P2: Loader | T19 | Implementing |
+| PERF-34 | P2: Loader | T19 | Implementing |
+| PERF-35 | P2: Loader | T19 | Implementing |
+| PERF-36 | P2: Loader | T19 | Implementing |
+| PERF-37 | P3: Guard | T20 | Implementing |
+| PERF-38 | P3: Guard | T20 | Implementing |
+| PERF-39 | P1: Trackers (edge) | T2 | Implementing |
+| PERF-40 | P1: JS (edge) | T3 | Implementing |
 
-**Coverage:** 40 total, 0 mapped to tasks, 40 unmapped ⚠️ (mapped in Tasks)
+**Coverage:** 40 total, 40 mapped to tasks, 0 unmapped
 
 ---
 

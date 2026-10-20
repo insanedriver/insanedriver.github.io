@@ -178,6 +178,8 @@ Bundle selection: `_data/cssBundles.js` returns the area names found in `less/pa
 | Bootstrap collapse animation lost | `_includes/header/menu.liquid:4` | The mobile menu opens instantly instead of sliding | Accepted as the only visible change besides the loader. Called out to the user |
 | `insaneFont` was a 157 KB base64 data URI in `insane-font.less` | `less/insane-font.less` | Inlined, it alone pushed core past 200 KB (PERF-17) | Extracted to `assets/fonts/War-is-Over.woff2` + `.woff` (SPEC_DEVIATION marker in the file) |
 | `contact.less` had 37 unscoped `.cyber-*` rules after a stray `}`, so every page got them | `less/contact.less` | Moving contact into its bundle would unstyle the cyber panels on other pages | Moved verbatim to `less/cyber-global.less`, imported by `core.less` |
+| `.navbar` `border-radius: 0` (≥768 px) lived in `blog.less`, so the split would confine it to the blog bundle | `less/header.less:56` | Bootstrap's rounded navbar corners would return on every other page | Moved from `blog.less` to `header.less` (core) |
+| `.cyber-band-photo` got `width`/`height` attributes (PERF-28, T15) | `less/band.less:325` | The `height` attribute stretched the photo | `height: auto` on `.cyber-band-photo` keeps the original box |
 | `band.less`/`contact.less` have no `prefers-reduced-motion` | memory: cyberpunk theme system | Infinite animations cost CPU | Out of scope. The CSS moves into its bundle unchanged |
 
 ---

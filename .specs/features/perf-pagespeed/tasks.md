@@ -580,6 +580,22 @@ T19 → T20
 
 ---
 
+## Approved test retargets
+
+Existing tests whose target moved with the feature. Each keeps its assertions; only the file, selector, route or timing bound changed.
+
+- `tests/home/legacy.test.cjs` (HOME-70) and `tests/home/layout.e2e.cjs:36` → the new CSS files (`core.min.css` + page bundles) instead of `style.min.css` (T8)
+- STORE-24 (`tests/store/store-data.test.cjs`) and BIT-18 (`tests/newsletter/cleanup.test.cjs`) → read `less/core.less` + `less/pages/*.less` instead of `less/style.less` (T7)
+- `tests/perf/trackers.e2e.cjs` `holdLoad` route → header image `jpg|webp` (T14)
+- HOME-04 selector → `.home-hero-photo source` (T17)
+- HOME-29 → hero image held ~1400 ms so the loader stays up while sampled (T19)
+- Loader bounds → 600 / 1500 / 2000 ms (T19)
+
+**Fix iteration 1** (Verifier FAIL, `validation.md`):
+
+- F1: PERF-02/03 trackers held-load and once-after-idle e2e also run on `/` (home hero held), plus a unit check that every layout page names `gtm.js` and `fbevents.js` once, only inside the deferred loader. Kills mutant E9.
+- F2: PERF-35 CSS failsafe pinned: computed `animation-delay` is `2s` (normal and reduced motion), and CSS alone hides the loader between 2 s and 2.5 s with `home.js` and `IDHomeRelease` neutralized. Kills mutant E7.
+
 ## Task Granularity Check
 
 | Task | Scope | Status |
