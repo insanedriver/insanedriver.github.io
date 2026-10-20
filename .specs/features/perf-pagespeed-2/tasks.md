@@ -278,8 +278,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test asserts the title `<picture>`; hero style e2e green
-- [ ] Full gate passes
+- [x] Unit test asserts the title `<picture>`; hero style e2e green
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

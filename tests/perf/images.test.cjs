@@ -292,3 +292,9 @@ test('PS2-10: the loader logo on / is a <picture> with the logo_loading WebP sou
   assert.ok(loader, 'no loader logo');
   assertLoadingLogoPicture(loader[1], 'loader');
 });
+
+test('PS2-10: the hero title logo on / is a <picture> with the logo_loading WebP source and the PNG as src', () => {
+  const title = page('/').match(/<h1 class="?home-title"? id="?home-title"?>([\s\S]*?)<\/h1>/);
+  assert.ok(title, 'no hero title');
+  assertLoadingLogoPicture(title[1], 'hero title');
+});
