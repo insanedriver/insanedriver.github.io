@@ -75,6 +75,7 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 1. `npm run images` SHALL generate a WebP with the same pixel size next to every `thumbnail` file referenced in `_data/photos.json` (`tn_X.jpg` → `tn_X.webp`).  <!-- PS2-06 -->
 2. Every thumbnail `<img>` on the built `/` and `/photos/` SHALL sit in a `<picture>` whose `<source type="image/webp">` points to that WebP, with the JPEG kept as the `<img src>`.  <!-- PS2-07 -->
 3. WHEN `/photos/` is loaded in Chromium THEN the grid thumbnails SHALL be fetched as `.webp` and no `tn_*.jpg` SHALL be requested.  <!-- PS2-08 -->
+4. WHEN the visitor opens a photo in the `/photos/` viewer THEN the system SHALL NOT request any thumbnail JPEG referenced in `_data/photos.json`, including the placeholders of neighbours not yet scrolled into view.  <!-- PS2-23 -->
 
 **Independent Test**: Build, grep the two pages; load `/photos/` in Playwright and inspect requests.
 
@@ -167,8 +168,9 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 | PS2-20 | P1: Home CSS | Tasks | Implementing |
 | PS2-21 | P2: Reflow | Tasks | Implementing |
 | PS2-22 | P2: Reflow | Tasks | Implementing |
+| PS2-23 | P1: Thumbnails | Fix (Verifier F1) | Implementing |
 
-**Coverage:** 22 total, 22 mapped to tasks, 0 unmapped
+**Coverage:** 23 total, 23 mapped to tasks, 0 unmapped
 
 ---
 

@@ -115,6 +115,18 @@ test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and req
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
 
+test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail', async ({ page }) => {
+  const jpegs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  const seen = imageRequests(page);
+  await page.goto('/photos/', { waitUntil: 'load' });
+  // The first archive photo: its neighbours include the last one, never scrolled into view.
+  await page.locator('[data-photo-open]').first().click();
+  await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);
+  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(0);
+  await page.waitForLoadState('networkidle');
+  expect(seen.filter(p => jpegs.has(p))).toEqual([]);
+});
+
 // Rendered size of the footer logo before it became a <picture>, by viewport width.
 const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [342, 74.14] };
 

@@ -12,9 +12,11 @@
         var items = figures.map(function (figure) {
             var link = figure.querySelector('a');
             var image = link.querySelector('img');
+            var webp = link.querySelector('source[type="image/webp"]');
             var size = link.dataset.size.split(/x/i).map(Number);
+            // Placeholder: the thumbnail already shown, else its WebP (lazy ones not yet loaded).
             return {
-                src: link.getAttribute('href'), msrc: image.currentSrc || image.getAttribute('src'),
+                src: link.getAttribute('href'), msrc: image.currentSrc || (webp && webp.getAttribute('srcset')) || image.getAttribute('src'),
                 w: size[0] || image.naturalWidth, h: size[1] || image.naturalHeight,
                 title: figure.querySelector('figcaption').textContent, el: image
             };
