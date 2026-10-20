@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 37,
+  "next_id": 42,
   "lessons": [
     {
       "id": "L-001",
@@ -429,17 +429,19 @@
       "text": "When a guard ORs several conditions, give each condition a test where it alone is true, or the other conditions mask its removal.",
       "signal": "surviving_mutant",
       "scope": "tests",
-      "status": "candidate",
+      "status": "confirmed",
       "features": [
-        "home-cyberpunk"
+        "home-cyberpunk",
+        "perf-pagespeed"
       ],
-      "recurrence": 1,
+      "recurrence": 2,
       "harmful": 0,
       "evidence": [
-        "validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)"
+        "validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)",
+        "validation.md mutant E7 (less/home.less:1413,1588); tests/home/loader-style.e2e.cjs:31-40 (tests)"
       ],
       "created": "2026-10-06T03:26:23Z",
-      "last_seen": "2026-10-06T03:26:23Z"
+      "last_seen": "2026-10-20T01:56:18Z"
     },
     {
       "id": "L-025",
@@ -657,6 +659,96 @@
       ],
       "created": "2026-10-19T04:18:44Z",
       "last_seen": "2026-10-19T04:18:44Z"
+    },
+    {
+      "id": "L-037",
+      "key": "surviving_mutant::when two layouts include the same behavior partial run the behavior s browser test on a page of each layout or a regression in the untested layout ships unseen",
+      "text": "When two layouts include the same behavior partial, run the behavior's browser test on a page of each layout, or a regression in the untested layout ships unseen.",
+      "signal": "surviving_mutant",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e)"
+      ],
+      "created": "2026-10-20T01:56:18Z",
+      "last_seen": "2026-10-20T01:56:18Z"
+    },
+    {
+      "id": "L-038",
+      "key": "spec_deviation::measure a size budget an ac sets against the real inputs during design since one inlined asset such as a base64 font can exceed it alone",
+      "text": "Measure a size budget an AC sets against the real inputs during Design, since one inlined asset such as a base64 font can exceed it alone.",
+      "signal": "spec_deviation",
+      "scope": "css",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "less/insane-font.less:1 SPEC_DEVIATION (PERF-17) (css)"
+      ],
+      "created": "2026-10-20T01:56:18Z",
+      "last_seen": "2026-10-20T01:56:18Z"
+    },
+    {
+      "id": "L-039",
+      "key": "spec_deviation::before a task renames or replaces a file url selector target or timing grep the existing tests for it and list their retargets in that task",
+      "text": "Before a task renames or replaces a file, URL, selector target or timing, grep the existing tests for it and list their retargets in that task.",
+      "signal": "spec_deviation",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md Traceability: STORE-24, BIT-18, HOME-04, HOME-29, trackers holdLoad retargets (commits 6aea43e, eed7444, a5fa69e, 5209c41) (tests)"
+      ],
+      "created": "2026-10-20T01:56:18Z",
+      "last_seen": "2026-10-20T01:56:18Z"
+    },
+    {
+      "id": "L-040",
+      "key": "gate_fail::time a browser test s timing window from the page s own start timestamp not from when navigation returns or server latency eats the margin",
+      "text": "Time a browser test's timing window from the page's own start timestamp, not from when navigation returns, or server latency eats the margin.",
+      "signal": "gate_fail",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/home/loader-style.e2e.cjs:36 (HOME-23 edge, 1/2 full runs) (e2e)"
+      ],
+      "created": "2026-10-20T02:29:48Z",
+      "last_seen": "2026-10-20T02:29:48Z"
+    },
+    {
+      "id": "L-041",
+      "key": "surviving_mutant::assert that an overlay is not yet released through its state release flag done class inert not through playwright isvisible which still reports true while an opacity fade out is running",
+      "text": "Assert that an overlay is not yet released through its state (release flag, done class, inert), not through Playwright isVisible, which still reports true while an opacity fade-out is running.",
+      "signal": "surviving_mutant",
+      "scope": "e2e/playwright",
+      "status": "candidate",
+      "features": [
+        "perf-pagespeed"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md iteration 3 mutant N9 (_layouts/home.html:57 + 2000 -> + 1400; tests/home/loader-style.e2e.cjs:40) (e2e/playwright)"
+      ],
+      "created": "2026-10-20T13:48:52Z",
+      "last_seen": "2026-10-20T13:48:52Z"
     }
   ]
 }
