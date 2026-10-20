@@ -188,8 +188,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] `tests/home/shuffle.e2e.cjs` asserts the swapped `srcset` equals the new single's three widths
-- [ ] Build gate passes (end of phase)
+- [x] `tests/home/shuffle.e2e.cjs` asserts the swapped `srcset` equals the new single's three widths
+- [x] Build gate passes (end of phase)
 
 **Tests**: e2e
 **Gate**: build

@@ -175,7 +175,7 @@
         section.setAttribute('data-home-streaming', single.slug);
         if (panel) { panel.setAttribute('data-hud', 'SIGNAL.' + single.slug.toUpperCase() + ' // STREAMING_'); }
         // The WebP <source> wins over src, so it is swapped too (PERF-29).
-        if (source) { source.srcset = '/assets/images/releases/' + single.cover.replace(/\.jpg$/, '.webp'); }
+        if (source) { source.srcset = core.coverSrcset(single.cover); }
         cover.src = '/assets/images/releases/' + single.cover;
         cover.alt = single.title + ' cover';
         cover.width = single.coverWidth;
