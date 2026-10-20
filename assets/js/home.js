@@ -37,7 +37,7 @@
             }, 450);
         }
 
-        // Arrived late: the head gate or the 4s failsafe already let the
+        // Arrived late: the head gate or the 2s failsafe already let the
         // visitor in. Finish the release; never lock the page again.
         if (window.IDHomeReleased || el.classList.contains('is-done') || now() >= startedAt + core.LOADER_FAILSAFE) {
             core.markVisited(storage);

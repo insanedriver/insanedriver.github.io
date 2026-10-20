@@ -532,6 +532,8 @@ T19 → T20
 
 ### T19: Faster home loader
 
+**Status**: ✅ Done
+
 **What**:
 - `home-core.js`: `LOADER_MIN` 600, `LOADER_MAX` 1500, `LOADER_FAILSAFE` 2000.
 - `home.less`: failsafe `2s`.
@@ -545,9 +547,9 @@ T19 → T20
 
 **Done when**:
 
-- [ ] `tests/home/home-core.test.cjs` and `tests/home/loader*.e2e.cjs` updated to the new bounds only (no assertion removed)
-- [ ] Each of PERF-32..36 is mapped to a test
-- [ ] Full gate passes
+- [x] `tests/home/home-core.test.cjs` and `tests/home/loader*.e2e.cjs` updated to the new bounds only (no assertion removed)
+- [x] Each of PERF-32..36 is mapped to a test
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

@@ -53,8 +53,8 @@
     </div>
 
     <div class="home-page" data-home-page>
-        <!-- Inert under the loader before home.js runs; released through IDHomeRelease at the 4s CSS failsafe if home.js never does. -->
-        <script>(function (page) { if (!/\bhome-loading\b/.test(document.documentElement.className)) { return; } if (window.IDHomeReleased) { window.IDHomeRelease(); return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 4000 : 0; setTimeout(window.IDHomeRelease, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
+        <!-- Inert under the loader before home.js runs; released through IDHomeRelease at the 2s CSS failsafe if home.js never does. -->
+        <script>(function (page) { if (!/\bhome-loading\b/.test(document.documentElement.className)) { return; } if (window.IDHomeReleased) { window.IDHomeRelease(); return; } page.inert = true; var at = typeof window.IDHomeBootAt === 'number' ? window.IDHomeBootAt + 2000 : 0; setTimeout(window.IDHomeRelease, Math.max(0, at - (window.performance && performance.now ? performance.now() : 0))); })(document.currentScript.parentNode);</script>
         {% include 'header/menu' %}
 
         <main id="home-main">

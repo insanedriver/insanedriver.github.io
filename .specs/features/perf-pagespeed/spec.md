@@ -232,11 +232,11 @@ Lighthouse 12.6 (mobile, 2026-10-19) scores the home 56 (LCP 9.4 s) and `/band/`
 | PERF-29 | P1: Images | Design | Implementing |
 | PERF-30 | P1: Images | Design | Implementing |
 | PERF-31 | P1: Images | Design | Implementing |
-| PERF-32 | P2: Loader | Design | Pending |
-| PERF-33 | P2: Loader | Design | Pending |
-| PERF-34 | P2: Loader | Design | Pending |
-| PERF-35 | P2: Loader | Design | Pending |
-| PERF-36 | P2: Loader | Design | Pending |
+| PERF-32 | P2: Loader | Design | Implementing |
+| PERF-33 | P2: Loader | Design | Implementing |
+| PERF-34 | P2: Loader | Design | Implementing |
+| PERF-35 | P2: Loader | Design | Implementing |
+| PERF-36 | P2: Loader | Design | Implementing |
 | PERF-37 | P3: Guard | Design | Pending |
 | PERF-38 | P3: Guard | Design | Pending |
 | PERF-39 | P1: Trackers (edge) | Design | Implementing |

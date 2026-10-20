@@ -28,11 +28,11 @@ test('HOME-20: while the gate class is set the loader covers the viewport with a
   expect(await page.evaluate(() => !!document.elementFromPoint(640, 400).closest('#home-loader'))).toBe(true);
 });
 
-test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 4.5s', async ({ page }) => {
+test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 2.5s', async ({ page }) => {
   await page.route('**/assets/js/home.js*', route => route.abort());
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#home-loader')).toBeVisible();
-  await page.waitForTimeout(3500);
+  await page.waitForTimeout(1500);
   await expect(page.locator('#home-loader')).toBeVisible();
   await page.waitForTimeout(1000);
   await expect(page.locator('#home-loader')).toBeHidden();
