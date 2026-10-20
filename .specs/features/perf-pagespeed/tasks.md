@@ -598,6 +598,8 @@ Existing tests whose target moved with the feature. Each keeps its assertions; o
 
 **Fix iteration 2** (Verifier FAIL, `validation.md` Fix 1): HOME-23 edge and the PERF-35 CSS-only window in `tests/home/loader-style.e2e.cjs` are timed from the boot clock (`performance.now() - window.IDHomeBootAt`), not from `domcontentloaded`. Same bounds: visible at 1.5 s (checked before 1.9 s), hidden at 2.5 s, each checked once without retry. E7 and E8 still killed.
 
+**Fix iteration 3** (Verifier FAIL, `validation.md` Fix 1, extra re-verify approved by the user): the failsafe window's ≥1.5 s check also asserts the release has not happened (`IDHomeReleased` undefined, no `is-done`, no `aria-hidden`, page still `inert`), since `isVisible()` ignores the release fade. Kills mutant N9 (inline release `+ 1400`); E8 still killed.
+
 ## Task Granularity Check
 
 | Task | Scope | Status |

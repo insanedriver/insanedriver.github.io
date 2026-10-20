@@ -38,6 +38,11 @@ async function expectFailsafeWindow(page) {
   const loader = page.locator('#home-loader');
   await untilBoot(page, 1500);
   expect(await loader.isVisible()).toBe(true);
+  // isVisible ignores the release fade, so the release state is checked too.
+  expect(await page.evaluate(() => {
+    const el = document.getElementById('home-loader');
+    return [window.IDHomeReleased, el.classList.contains('is-done'), el.getAttribute('aria-hidden'), document.querySelector('[data-home-page]').inert];
+  })).toEqual([undefined, false, null, true]);
   expect(await bootElapsed(page), 'visible check ran too late to mean anything').toBeLessThan(1900);
   await untilBoot(page, 2500);
   expect(await loader.isHidden()).toBe(true);
