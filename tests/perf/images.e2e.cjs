@@ -92,3 +92,25 @@ test('PS2-03: at 412 x 915, DPR 1.75 the release card and archive covers fetch n
   for (const url of full) expect(seen, url).not.toContain(url);
   await context.close();
 });
+
+test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and requests no JPEG thumbnail', async ({ page }) => {
+  const photos = require('../../_data/photos.json');
+  const highlights = require('../../_data/highlights.js')();
+  const jpegs = new Set(photos.map(p => p.thumbnail));
+  // A fixed shuffle, so photos.js swaps the highlight buttons to other photos.
+  await page.addInitScript(() => { Math.random = () => 0; });
+  const seen = imageRequests(page);
+  await page.goto('/photos/', { waitUntil: 'load' });
+  const thumbs = page.locator('.photos-thumbnail img, .photos-archive img');
+  expect(await thumbs.count()).toBe(highlights.length + photos.length);
+  await expect(page.locator('.photos-thumbnail img').first()).not.toHaveAttribute('src', highlights[0].thumbnail);
+  for (const img of await thumbs.all()) await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => thumbs.evaluateAll(imgs => imgs.every(img => img.complete && img.currentSrc))).toBe(true);
+  // Each shows the WebP of its own JPEG src, including the re-shuffled highlight buttons.
+  const shown = await thumbs.evaluateAll(imgs => imgs.map(img => [new URL(img.currentSrc).pathname, img.getAttribute('src')]));
+  for (const [current, src] of shown) {
+    expect(current, src).toBe(src.replace(/\.jpg$/, '.webp'));
+    expect(seen, src).toContain(current);
+  }
+  expect(seen.filter(p => jpegs.has(p))).toEqual([]);
+});

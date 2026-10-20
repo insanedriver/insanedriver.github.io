@@ -267,3 +267,10 @@ test('PS2-07: every gallery teaser thumbnail on / is a <picture> with its WebP s
   const highlights = require('../../_data/highlights.js')();
   assert.deepEqual(thumbnailPictures('/').map(tag => attrs(tag).src), highlights.map(p => p.thumbnail));
 });
+
+test('PS2-07: every highlight-button and grid thumbnail on /photos/ is a <picture> with its WebP source and the JPEG as src', () => {
+  const highlights = require('../../_data/highlights.js')();
+  const photos = require('../../_data/photos.json');
+  // The highlight buttons come first, then the archive grid.
+  assert.deepEqual(thumbnailPictures('/photos/').map(tag => attrs(tag).src), [...highlights, ...photos].map(p => p.thumbnail));
+});

@@ -85,6 +85,7 @@
             var size = link && link.getAttribute('data-size') ? link.getAttribute('data-size').split(/x/i).map(Number) : [6000, 4000];
             var img = link ? link.querySelector('img') : null;
             var thumb = img ? img.getAttribute('src') : src;
+            var thumbSource = link ? link.querySelector('source') : null;
             var alt = img ? img.getAttribute('alt') : '';
 
             var slide = slides[idx];
@@ -121,6 +122,8 @@
                     thumbImg.setAttribute('width', String(size[0]));
                     thumbImg.setAttribute('height', String(size[1]));
                 }
+                var thumbBtnSource = thumbBtn.querySelector('source');
+                if (thumbBtnSource && thumbSource) thumbBtnSource.setAttribute('srcset', thumbSource.getAttribute('srcset'));
             }
         });
     }

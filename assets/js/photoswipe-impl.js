@@ -14,7 +14,7 @@
             var image = link.querySelector('img');
             var size = link.dataset.size.split(/x/i).map(Number);
             return {
-                src: link.getAttribute('href'), msrc: image.getAttribute('src'),
+                src: link.getAttribute('href'), msrc: image.currentSrc || image.getAttribute('src'),
                 w: size[0] || image.naturalWidth, h: size[1] || image.naturalHeight,
                 title: figure.querySelector('figcaption').textContent, el: image
             };

@@ -233,9 +233,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test asserts the structure on `docs/photos/index.html`
-- [ ] E2E: `/photos/` requests `.webp` thumbnails and no `tn_*.jpg`; `viewer.e2e.cjs` and `visual.e2e.cjs` green
-- [ ] Full gate passes
+- [x] Unit test asserts the structure on `docs/photos/index.html`
+- [x] E2E: `/photos/` requests `.webp` thumbnails and no `tn_*.jpg`; `viewer.e2e.cjs` and `visual.e2e.cjs` green
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
