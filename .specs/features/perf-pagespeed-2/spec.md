@@ -145,11 +145,11 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| PS2-01 | P1: Covers | Tasks | Pending |
+| PS2-01 | P1: Covers | Tasks | Implementing |
 | PS2-02 | P1: Covers | Tasks | Pending |
 | PS2-03 | P1: Covers | Tasks | Pending |
 | PS2-04 | P1: Covers | Tasks | Pending |
-| PS2-05 | P1: Covers | Tasks | Pending |
+| PS2-05 | P1: Covers | Tasks | Implementing |
 | PS2-06 | P1: Thumbnails | Tasks | Pending |
 | PS2-07 | P1: Thumbnails | Tasks | Pending |
 | PS2-08 | P1: Thumbnails | Tasks | Pending |

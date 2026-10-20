@@ -18,6 +18,15 @@ const native = file => ({
   src: `${IMAGES}/${file}`,
   outputs: [{ file: `${IMAGES}/${file.replace(/\.(jpe?g|png)$/, '.webp')}`, width: null }],
 });
+// A cover is shown from 74 to ~420 px: 160 and 320 px variants, plus the 600 px original as <cover>.webp.
+const COVER_WIDTHS = [160, 320];
+const cover = file => ({
+  src: `${IMAGES}/releases/${file}`,
+  outputs: [
+    ...COVER_WIDTHS.map(width => ({ file: `${IMAGES}/releases/${file.replace(/\.jpg$/, `-${width}.webp`)}`, width })),
+    { file: `${IMAGES}/releases/${file.replace(/\.jpg$/, '.webp')}`, width: null },
+  ],
+});
 
 // The covers the home shows: the hero release, the NOW::STREAMING pool and the archive albums.
 function homeCovers() {
@@ -34,7 +43,7 @@ const manifest = () => [
   resized('band'),
   native('bodybg.jpg'),
   native('footer.jpg'),
-  ...homeCovers().map(cover => native(`releases/${cover}`)),
+  ...homeCovers().map(cover),
 ];
 
 async function encode(src, width, out) {

@@ -76,9 +76,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] `tests/perf/images.test.cjs` asserts the three outputs per home cover at 160/320/600 px wide, and fails when one is missing
-- [ ] Variants committed; re-running `npm run images` changes no file
-- [ ] Quick gate passes
+- [x] `tests/perf/images.test.cjs` asserts the three outputs per home cover at 160/320/600 px wide, and fails when one is missing
+- [x] Variants committed; re-running `npm run images` changes no file
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick

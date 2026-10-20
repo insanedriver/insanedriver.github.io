@@ -30,6 +30,25 @@ test('PERF-25: the manifest covers every header, band, bodybg, footer and the ho
   }
 });
 
+test('PS2-01 / PS2-05: every home cover has -160, -320 and 600 px WebP outputs at 160, 320 and 600 px wide', async () => {
+  const files = outputs();
+  const release = require('../../_data/homeRelease.js')();
+  const pool = require('../../_data/homeShuffle.js')().pool;
+  const albums = require('../../_data/discography.json').albums;
+  const covers = [...new Set([release.cover, ...pool.map(s => s.cover), ...albums.map(a => a.cover)])];
+  for (const cover of covers) {
+    for (const [suffix, width] of [['-160', 160], ['-320', 320], ['', 600]]) {
+      const file = `assets/images/releases/${cover.replace(/\.jpg$/, `${suffix}.webp`)}`;
+      // In the manifest, so a variant dropped from it fails here.
+      assert.ok(files.some(out => out.file === file && out.width === (width === 600 ? null : width)), `manifest lacks ${file}`);
+      assert.ok(fs.existsSync(path.join(ROOT, file)), `missing ${file}`);
+      const meta = await sharp(path.join(ROOT, file)).metadata();
+      assert.equal(meta.format, 'webp', file);
+      assert.equal(meta.width, width, `${file} width`);
+    }
+  }
+});
+
 test('PERF-31: every manifest output exists as a WebP at the manifest width', async () => {
   const all = outputs();
   assert.ok(all.length >= 7 * 3 + 3 + 2 + 4, `only ${all.length} outputs`);
