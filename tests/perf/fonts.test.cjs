@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { builtPages, layoutPages } = require('./built.cjs');
+const { builtPages, layoutPages, page } = require('./built.cjs');
 
 const CSS_DIR = path.join(__dirname, '../../assets/css');
 // Every stylesheet the build emits (core + page bundles).
@@ -77,12 +77,45 @@ const fontPreloads = html => [...html.matchAll(/<link\b[^>]*rel="?preload"?[^>]*
   .filter(tag => /\bas="?font"?/.test(tag))
   .map(tag => (tag.match(/href="?([^"\s>]+)/) || [])[1].replace(/\?.*$/, ''));
 
-test('PERF-24: the only font preload in the built HTML is the Font Awesome woff2', () => {
+// PS2-17: the home also preloads its three critical-chain fonts.
+const HOME_FONTS = ['/assets/fonts/rajdhani-500.woff2', '/assets/fonts/rajdhani-700.woff2', '/assets/fonts/share-tech-mono-400.woff2'];
+
+test('PERF-24: the only font preload in the built HTML is the Font Awesome woff2 (plus the PS2-17 fonts on /)', () => {
   for (const [url, html] of builtPages()) {
-    for (const href of fontPreloads(html)) assert.equal(href, '/assets/fonts/fontawesome-webfont.woff2', `${url} preloads ${href}`);
+    const allowed = url === '/' ? ['/assets/fonts/fontawesome-webfont.woff2', ...HOME_FONTS] : ['/assets/fonts/fontawesome-webfont.woff2'];
+    for (const href of fontPreloads(html)) assert.ok(allowed.includes(href), `${url} preloads ${href}`);
     assert.ok(!html.includes('Mars-Mission.ttf') && !html.includes('glyphicons-halflings-regular.woff2'), `${url}: preloads a removed font`);
   }
   for (const [url, html] of layoutPages()) {
-    assert.deepEqual(fontPreloads(html), ['/assets/fonts/fontawesome-webfont.woff2'], `${url}: icon font preload`);
+    assert.deepEqual(fontPreloads(html).filter(h => !(url === '/' && HOME_FONTS.includes(h))), ['/assets/fonts/fontawesome-webfont.woff2'], `${url}: icon font preload`);
   }
+});
+
+const preloadTags = html => [...html.matchAll(/<link\b[^>]*rel="?preload"?[^>]*>/g)].map(m => m[0]);
+const attr = (tag, name) => { const m = tag.match(new RegExp(`\\s${name}(?:=(?:"([^"]*)"|([^\\s>]*)))?(?=[\\s>])`)); return m ? (m[1] ?? m[2] ?? '') : null; };
+
+test('PS2-17: / preloads Rajdhani 500/700 and Share Tech Mono 400 as font/woff2 with crossorigin', () => {
+  const tags = preloadTags(page('/'));
+  for (const href of HOME_FONTS) {
+    const tag = tags.find(t => attr(t, 'href') === href);
+    assert.ok(tag, `/ preloads ${href}`);
+    assert.equal(attr(tag, 'as'), 'font', `${href}: as`);
+    assert.equal(attr(tag, 'type'), 'font/woff2', `${href}: type`);
+    assert.notEqual(attr(tag, 'crossorigin'), null, `${href}: crossorigin`);
+    assert.ok(fs.existsSync(path.join(__dirname, '../..', href)), `${href} exists`);
+  }
+});
+
+test('PS2-18: no page other than / preloads the three home fonts', () => {
+  const others = builtPages().filter(([url]) => url !== '/');
+  assert.ok(others.length > 20, `only ${others.length} pages`);
+  for (const [url, html] of others) {
+    for (const href of HOME_FONTS) assert.ok(!fontPreloads(html).includes(href), `${url} preloads ${href}`);
+  }
+});
+
+test('PS2-19: the home hero image preload carries fetchpriority="high"', () => {
+  const hero = preloadTags(page('/')).filter(t => attr(t, 'as') === 'image' && /hero-\d+\.webp/.test(attr(t, 'imagesrcset') || ''));
+  assert.equal(hero.length, 1, 'one hero preload');
+  assert.equal(attr(hero[0], 'fetchpriority'), 'high');
 });

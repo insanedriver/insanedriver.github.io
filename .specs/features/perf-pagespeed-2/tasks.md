@@ -390,8 +390,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test: the home has the three preloads with `as`, `type` and `crossorigin`, and the hero preload has `fetchpriority="high"`; no other page preloads those fonts
-- [ ] Quick gate passes
+- [x] Unit test: the home has the three preloads with `as`, `type` and `crossorigin`, and the hero preload has `fetchpriority="high"`; no other page preloads those fonts
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
