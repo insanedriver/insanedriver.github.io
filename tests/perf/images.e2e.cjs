@@ -62,11 +62,33 @@ test('PERF-29: the home shows the hero cover as WebP, and a shuffled NOW::STREAM
   await page.goto('/', { waitUntil: 'load' });
   const hero = page.locator('.home-release-cover');
   await expect(hero).toHaveJSProperty('complete', true);
-  expect(await hero.evaluate(img => new URL(img.currentSrc).pathname)).toBe(`/assets/images/releases/${release.cover.replace(/\.jpg$/, '.webp')}`);
+  // At 1280 px the card is 112 px wide: the 160 w file.
+  expect(await hero.evaluate(img => new URL(img.currentSrc).pathname)).toBe(`/assets/images/releases/${release.cover.replace(/\.jpg$/, '-160.webp')}`);
   const cover = page.locator('[data-home-streaming-cover]');
   await expect(cover).toHaveAttribute('src', `/assets/images/releases/${pick.cover}`);
   await cover.scrollIntoViewIfNeeded();
   await expect.poll(() => cover.evaluate(img => img.complete && img.currentSrc && new URL(img.currentSrc).pathname))
-    .toBe(`/assets/images/releases/${pick.cover.replace(/\.jpg$/, '.webp')}`);
+    .toMatch(new RegExp(`^/assets/images/releases/${pick.cover.replace(/\.jpg$/, '')}(-160|-320)?\\.webp$`));
   expect(seen.filter(p => p.startsWith('/assets/images/releases/') && p.endsWith('.jpg'))).toEqual([]);
+});
+
+test('PS2-03: at 412 x 915, DPR 1.75 the release card and archive covers fetch no 600 w cover', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 1.75 });
+  const page = await context.newPage();
+  await page.route('**/*', route => ['127.0.0.1', 'localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  const seen = imageRequests(page);
+  await page.goto('/', { waitUntil: 'load' });
+  // Bring every lazy cover into view.
+  for (const img of await page.locator('.home-archive-art img').all()) await img.scrollIntoViewIfNeeded();
+  const covers = page.locator('.home-release-cover, .home-archive-art img');
+  expect(await covers.count()).toBeGreaterThan(3);
+  await expect.poll(() => covers.evaluateAll(imgs => imgs.every(img => img.complete))).toBe(true);
+  const current = await covers.evaluateAll(imgs => imgs.map(img => new URL(img.currentSrc).pathname));
+  for (const pathname of current) expect(pathname, pathname).toMatch(/-(160|320)\.webp$/);
+  // The 600 w candidate of each of their sources must never have been requested.
+  const full = await page.locator('.home-release-cover, .home-archive-art img').evaluateAll(imgs =>
+    imgs.map(img => img.parentElement.querySelector('source').srcset.split(',').map(c => c.trim()).find(c => c.endsWith(' 600w')).split(' ')[0]));
+  expect(full.length).toBe(current.length);
+  for (const url of full) expect(seen, url).not.toContain(url);
+  await context.close();
 });

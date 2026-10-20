@@ -165,9 +165,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test on `docs/index.html`: every cover `<source>` has the three descriptors and a non-empty `sizes`
-- [ ] E2E at 412 × 915, DPR 1.75: no 600 w cover fetched for the card or archive
-- [ ] Full gate passes
+- [x] Unit test on `docs/index.html`: every cover `<source>` has the three descriptors and a non-empty `sizes`
+- [x] E2E at 412 × 915, DPR 1.75: no 600 w cover fetched for the card or archive
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

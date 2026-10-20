@@ -195,14 +195,29 @@ test('PERF-29: every release cover on / is a <picture> with its WebP source; onl
     assert.ok(picture, `${img.src} is not inside <picture><source>`);
     const source = attrs(picture[1]);
     assert.equal(source.type, 'image/webp', img.src);
-    assert.equal(source.srcset, img.src.replace(/\.jpg$/, '.webp'), img.src);
-    assert.ok(fs.existsSync(path.join(ROOT, source.srcset)), `missing ${source.srcset}`);
+    assert.ok(source.srcset.endsWith(`${img.src.replace(/\.jpg$/, '.webp')} 600w`), `${img.src}: 600w file is not the original WebP`);
     assert.match(img.width, /^\d+$/, `${img.src} width`);
     assert.match(img.height, /^\d+$/, `${img.src} height`);
     if (/home-release-cover/.test(img.class)) assert.equal(img.loading, undefined, 'the hero release cover must stay eager');
     else assert.equal(img.loading, 'lazy', `${img.src} loading`);
   }
   assert.equal(covers.filter(tag => /home-release-cover/.test(tag)).length, 1);
+});
+
+test('PS2-02: every cover <source> on / lists the 160, 320 and 600 w files and has a non-empty sizes', () => {
+  const html = page('/');
+  const sources = [...html.matchAll(/<source[^>]*srcset="?\/assets\/images\/releases\/[^>]*>/g)].map(m => attrs(m[0]));
+  const albums = require('../../_data/discography.json').albums;
+  // Hero release + NOW::STREAMING + one per archive album.
+  assert.equal(sources.length, 2 + albums.length);
+  for (const source of sources) {
+    const list = srcset(source.srcset);
+    assert.deepEqual(list.map(([, w]) => w), ['160w', '320w', '600w'], source.srcset);
+    const base = list[2][0].replace(/\.webp$/, '');
+    assert.deepEqual(list.map(([url]) => url), [`${base}-160.webp`, `${base}-320.webp`, `${base}.webp`], source.srcset);
+    for (const [file] of list) assert.ok(fs.existsSync(path.join(ROOT, file)), `missing ${file}`);
+    assert.ok((source.sizes || '').trim() !== '', `${source.srcset}: empty sizes`);
+  }
 });
 
 test('PERF-30: every <img> on / and /band/ has width and height, and local ones match the file', async () => {

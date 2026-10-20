@@ -147,7 +147,7 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 | -------------- | ----- | ----- | ------ |
 | PS2-01 | P1: Covers | Tasks | Implementing |
 | PS2-02 | P1: Covers | Tasks | Implementing |
-| PS2-03 | P1: Covers | Tasks | Pending |
+| PS2-03 | P1: Covers | Tasks | Implementing |
 | PS2-04 | P1: Covers | Tasks | Implementing |
 | PS2-05 | P1: Covers | Tasks | Implementing |
 | PS2-06 | P1: Thumbnails | Tasks | Implementing |

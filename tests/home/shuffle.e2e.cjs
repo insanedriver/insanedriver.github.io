@@ -2,6 +2,7 @@ const { test, expect } = require('../photos/browser.cjs');
 const platforms = require('../../_data/platforms.json');
 const { pool } = require('../../_data/homeShuffle.js')();
 const { panelByTab, loaderGone } = require('./helpers.cjs');
+const core = require('../../assets/js/home-core.js');
 
 const panel = page => panelByTab(page, 'NOW::STREAMING');
 const pinRandom = (page, value) => page.addInitScript(v => { Math.random = () => v; }, value);
@@ -19,7 +20,8 @@ async function serveShuffle(page, body) {
   });
 }
 
-async function expectShows(page, single) {
+// srcset: what the cover <source> should list; swapped covers still carry the plain WebP until T6.
+async function expectShows(page, single, srcset = `/assets/images/releases/${single.cover.replace(/\.jpg$/, '.webp')}`) {
   const p = panel(page);
   await expect(p.locator('[data-home-streaming]')).toHaveAttribute('data-home-streaming', single.slug);
   await expect(p.locator('.cyber-panel-body')).toHaveAttribute('data-hud', `SIGNAL.${single.slug.toUpperCase()} // STREAMING_`);
@@ -31,7 +33,7 @@ async function expectShows(page, single) {
   await expect(cover).toHaveAttribute('width', String(single.coverWidth));
   await expect(cover).toHaveAttribute('height', String(single.coverHeight));
   // PERF-29: the WebP <source> follows the swapped cover.
-  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', `/assets/images/releases/${single.cover.replace(/\.jpg$/, '.webp')}`);
+  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', srcset);
   const keys = platforms.filter(pl => single.links[pl.key]).map(pl => pl.key);
   const anchors = p.locator('[data-home-link]');
   expect(await anchors.evaluateAll(els => els.map(el => el.getAttribute('data-home-link')))).toEqual(keys);
@@ -90,7 +92,7 @@ test('HOME-16: PREVIEW opens the Spotify embed of the shuffled single', async ({
 async function expectDefaultStillWired(page) {
   await page.route(/open\.spotify\.com\/embed\//, route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stub</title>' }));
   await page.context().route(/music\.apple\.com/, route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stub</title>' }));
-  await expectShows(page, pool[0]);
+  await expectShows(page, pool[0], core.coverSrcset(pool[0].cover));
   await loaderGone(page);
   await panel(page).getByRole('button', { name: 'PREVIEW' }).click();
   await expect(page.locator('[data-home-preview] iframe')).toHaveAttribute('src', `https://open.spotify.com/embed/album/${pool[0].embedId}`);

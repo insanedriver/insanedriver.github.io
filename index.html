@@ -37,7 +37,7 @@ jspath: js/home
         {% if release %}
         <article class="home-release-card" data-home-release="{{ release.slug }}" aria-labelledby="home-release-title">
             <span class="home-release-flag" aria-hidden="true">NEW RELEASE</span>
-            <picture><source type="image/webp" srcset="/assets/images/releases/{{ release.cover | replace: '.jpg', '.webp' }}"><img class="home-release-cover" src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" decoding="async"></picture>
+            <picture><source type="image/webp" srcset="{{ release.cover | coverSrcset }}" sizes="(max-width: 767px) 76px, 112px"><img class="home-release-cover" src="/assets/images/releases/{{ release.cover }}" width="{{ release.coverWidth }}" height="{{ release.coverHeight }}" alt="{{ release.title | escape }} cover" decoding="async"></picture>
             <div class="home-release-body">
                 <span class="home-release-meta">{{ release.typeLabel }} // {{ release.year }}</span>
                 <h2 class="home-release-title" id="home-release-title">{{ release.title | escape }}</h2>
@@ -73,7 +73,7 @@ jspath: js/home
             <span class="corner-bl"></span>
     <section class="home-streaming" data-home-streaming="{{ single.slug }}" aria-labelledby="home-streaming-title">
         <div class="home-streaming-art">
-            <picture><source type="image/webp" srcset="/assets/images/releases/{{ single.cover | replace: '.jpg', '.webp' }}" data-home-streaming-source><img src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async" data-home-streaming-cover></picture>
+            <picture><source type="image/webp" srcset="{{ single.cover | coverSrcset }}" sizes="(max-width: 859px) min(100vw - 84px, 402px), (max-width: 1599px) 322px, 402px" data-home-streaming-source><img src="/assets/images/releases/{{ single.cover }}" width="{{ single.coverWidth }}" height="{{ single.coverHeight }}" alt="{{ single.title | escape }} cover" loading="lazy" decoding="async" data-home-streaming-cover></picture>
             <span class="home-art-corner" aria-hidden="true"></span>
         </div>
         <div class="home-streaming-body">
@@ -154,7 +154,7 @@ jspath: js/home
             <li>
                 <a class="home-archive-item" href="/discography/#{{ album.slug }}" data-home-teaser="album" data-home-slug="{{ album.slug }}">
                     <span class="home-archive-art">
-                        <picture><source type="image/webp" srcset="/assets/images/releases/{{ album.cover | replace: '.jpg', '.webp' }}"><img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="" loading="lazy" decoding="async"></picture>
+                        <picture><source type="image/webp" srcset="{{ album.cover | coverSrcset }}" sizes="(max-width: 767px) calc((100vw - 126px) / 3), calc((100vw - 208px) / 3)"><img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="" loading="lazy" decoding="async"></picture>
                     </span>
                     <span class="home-archive-year">{{ album.year }}</span>
                     <span class="home-archive-title">{{ album.title | escape }}</span>
