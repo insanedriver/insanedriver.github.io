@@ -143,8 +143,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] `tests/home/home-core.test.cjs` asserts the exact string for a `.jpg` cover
-- [ ] Quick gate passes
+- [x] `tests/home/home-core.test.cjs` asserts the exact string for a `.jpg` cover
+- [x] Quick gate passes
 
 **Tests**: unit
 **Gate**: quick
