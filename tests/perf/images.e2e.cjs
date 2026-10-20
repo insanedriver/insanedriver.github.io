@@ -131,3 +131,15 @@ for (const [width, [w, h]] of Object.entries(FOOTER_LOGO_BOX)) {
     expect(box.height).toBeCloseTo(h, 1);
   });
 }
+
+test('PS2-13: the home requests neither logo_loading.png nor logo_horizontal.png', async ({ page }) => {
+  const seen = [];
+  page.on('request', req => seen.push(new URL(req.url()).pathname));
+  await page.goto('/', { waitUntil: 'load' });
+  await page.locator('footer').scrollIntoViewIfNeeded();
+  // The logos and the title / loader masks were drawn, from the WebP files.
+  await expect.poll(() => seen).toEqual(expect.arrayContaining(['/assets/images/logo_loading.webp', '/assets/images/logo_horizontal-600.webp']));
+  await page.waitForLoadState('networkidle');
+  expect(seen).not.toContain('/assets/images/logo_loading.png');
+  expect(seen).not.toContain('/assets/images/logo_horizontal.png');
+});

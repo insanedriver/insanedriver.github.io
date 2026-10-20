@@ -315,3 +315,25 @@ test('PS2-11: the footer logo on every layout page is a <picture> with a 300/600
     assert.deepEqual([img.width, img.height, img.alt], ['600', '95', 'Insane Driver'], url);
   }
 });
+
+test('PS2-12: every logo_loading mask in home.min.css keeps the PNG url() and then adds an image-set() with the WebP first', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'assets/css/home.min.css'), 'utf8');
+  const rules = [...css.matchAll(/([^{}]*)\{([^{}]*logo_loading[^{}]*)\}/g)];
+  assert.deepEqual(rules.map(r => r[1]), [
+    '#page_home .home-title-glitch::before,#page_home .home-title-glitch::after',
+    '#page_home .home-loader-logo::before,#page_home .home-loader-logo::after',
+  ]);
+  const url = ext => `url\\(['"]?\\.\\./images/logo_loading\\.${ext}['"]?\\)`;
+  const rest = ' center / contain no-repeat';
+  for (const [, selector, body] of rules) {
+    const decls = body.split(';');
+    assert.ok(decls.filter(d => /logo_loading/.test(d)).every(d => /^(-webkit-)?mask:/.test(d)), `${selector}: logo_loading outside a mask`);
+    for (const [prop, fn] of [['-webkit-mask', '-webkit-image-set'], ['mask', 'image-set']]) {
+      const masks = decls.filter(d => d.startsWith(`${prop}:`));
+      assert.equal(masks.length, 2, `${selector}: ${prop}: ${masks.join(' | ')}`);
+      assert.match(masks[0], new RegExp(`^${prop}:${url('png')}${rest}$`), `${selector}: plain ${prop} fallback`);
+      assert.match(masks[1], new RegExp(`^${prop}:${fn}\\(${url('webp')}\\s*type\\(['"]image/webp['"]\\)\\s*,\\s*${url('png')}\\s*type\\(['"]image/png['"]\\)\\)${rest}$`),
+        `${selector}: ${prop} image-set with the WebP first`);
+    }
+  }
+});

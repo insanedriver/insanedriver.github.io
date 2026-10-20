@@ -322,9 +322,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test on the emitted `home.min.css` asserts `image-set()` lists the WebP before the PNG
-- [ ] E2E: the home requests neither `logo_loading.png` nor `logo_horizontal.png`
-- [ ] Build gate passes (end of phase)
+- [x] Unit test on the emitted `home.min.css` asserts `image-set()` lists the WebP before the PNG
+- [x] E2E: the home requests neither `logo_loading.png` nor `logo_horizontal.png`
+- [x] Build gate passes (end of phase)
 
 **Tests**: e2e
 **Gate**: build

@@ -9,6 +9,9 @@
 
     @home-ink: #03080e;
     @home-logo: url("../images/logo_loading.png");
+    // Declared after the plain @home-logo mask: engines without image-set() in a mask drop it and keep the PNG.
+    @home-logo-set: image-set(url("../images/logo_loading.webp") type("image/webp"), url("../images/logo_loading.png") type("image/png"));
+    @home-logo-webkit-set: -webkit-image-set(url("../images/logo_loading.webp") type("image/webp"), url("../images/logo_loading.png") type("image/png"));
 
     background: @home-ink;
 
@@ -391,6 +394,8 @@
             inset: 0;
             -webkit-mask: @home-logo center / contain no-repeat;
             mask: @home-logo center / contain no-repeat;
+            -webkit-mask: @home-logo-webkit-set center / contain no-repeat;
+            mask: @home-logo-set center / contain no-repeat;
             mix-blend-mode: screen;
         }
 
@@ -1468,6 +1473,8 @@
             inset: 0;
             -webkit-mask: @home-logo center / contain no-repeat;
             mask: @home-logo center / contain no-repeat;
+            -webkit-mask: @home-logo-webkit-set center / contain no-repeat;
+            mask: @home-logo-set center / contain no-repeat;
             mix-blend-mode: screen;
             pointer-events: none;
         }
