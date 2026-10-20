@@ -210,9 +210,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test on `docs/index.html` asserts the structure for every thumbnail
-- [ ] Teaser/panels style e2e stay green
-- [ ] Full gate passes
+- [x] Unit test on `docs/index.html` asserts the structure for every thumbnail
+- [x] Teaser/panels style e2e stay green
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full

@@ -244,3 +244,26 @@ test('PERF-30: the menu logo is 600x95 and lazy on every layout page', () => {
     assert.deepEqual([img.width, img.height, img.loading], ['600', '95', 'lazy'], url);
   }
 });
+
+// PS2-07: the photos.json thumbnail <img> tags on `url`, after checking each sits in
+// <picture><source type="image/webp" srcset="<thumbnail>.webp"> with the JPEG kept as its src.
+const thumbnailPictures = url => {
+  const html = page(url);
+  const thumbs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  const tags = [...html.matchAll(/<img\b[^>]*>/g)].map(m => m[0]).filter(tag => thumbs.has(attrs(tag).src));
+  for (const tag of tags) {
+    const img = attrs(tag);
+    const picture = html.match(new RegExp(`<picture>(<source[^>]*>)${tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</picture>`));
+    assert.ok(picture, `${url}: ${img.src} is not inside <picture><source>`);
+    const source = attrs(picture[1]);
+    assert.equal(source.type, 'image/webp', `${url}: ${img.src}`);
+    assert.equal(source.srcset, img.src.replace(/\.jpg$/, '.webp'), `${url}: ${img.src}`);
+    assert.ok(fs.existsSync(path.join(ROOT, source.srcset)), `${url}: missing ${source.srcset}`);
+  }
+  return tags;
+};
+
+test('PS2-07: every gallery teaser thumbnail on / is a <picture> with its WebP source and the JPEG as src', () => {
+  const highlights = require('../../_data/highlights.js')();
+  assert.deepEqual(thumbnailPictures('/').map(tag => attrs(tag).src), highlights.map(p => p.thumbnail));
+});
