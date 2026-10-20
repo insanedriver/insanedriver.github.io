@@ -274,3 +274,21 @@ test('PS2-07: every highlight-button and grid thumbnail on /photos/ is a <pictur
   // The highlight buttons come first, then the archive grid.
   assert.deepEqual(thumbnailPictures('/photos/').map(tag => attrs(tag).src), [...highlights, ...photos].map(p => p.thumbnail));
 });
+
+// PS2-10: `inner` is exactly <picture><source type="image/webp" srcset="logo_loading.webp"><img src="logo_loading.png"></picture>.
+const assertLoadingLogoPicture = (inner, where) => {
+  const picture = inner.match(/^<picture>(<source[^>]*>)(<img[^>]*>)<\/picture>/);
+  assert.ok(picture, `${where} logo is not <picture><source><img></picture>: ${inner}`);
+  const source = attrs(picture[1]);
+  const img = attrs(picture[2]);
+  assert.equal(source.type, 'image/webp', where);
+  assert.equal(source.srcset, '/assets/images/logo_loading.webp', where);
+  assert.equal(img.src, '/assets/images/logo_loading.png', where);
+  assert.deepEqual([img.width, img.height, img.alt], ['300', '204', 'Insane Driver'], where);
+};
+
+test('PS2-10: the loader logo on / is a <picture> with the logo_loading WebP source and the PNG as src', () => {
+  const loader = page('/').match(/<div class="?home-loader-logo"?>([\s\S]*?)<\/div>/);
+  assert.ok(loader, 'no loader logo');
+  assertLoadingLogoPicture(loader[1], 'loader');
+});
