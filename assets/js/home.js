@@ -143,7 +143,9 @@
             window.requestAnimationFrame(update);
         }, { passive: true });
         window.addEventListener('load', update);
-        update();
+        // First check in a frame, not during init, so it forces no layout.
+        pending = true;
+        window.requestAnimationFrame(update);
     }
 
     // NOW::STREAMING: swap the server-rendered single for one drawn from the

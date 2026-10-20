@@ -412,8 +412,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] E2E: `pageYOffset` is not read before the first animation frame (getter spy via init script); a page scrolled past the threshold has `is-solid` after one frame
-- [ ] Build gate passes
+- [x] E2E: `pageYOffset` is not read before the first animation frame (getter spy via init script); a page scrolled past the threshold has `is-solid` after one frame
+- [x] Build gate passes
 
 **Tests**: e2e
 **Gate**: build

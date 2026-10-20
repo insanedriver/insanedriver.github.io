@@ -165,8 +165,8 @@ After `perf-pagespeed` (PR #46), PageSpeed still flags the home. Images are over
 | PS2-18 | P1: Home CSS | Tasks | Implementing |
 | PS2-19 | P1: Home CSS | Tasks | Implementing |
 | PS2-20 | P1: Home CSS | Tasks | Implementing |
-| PS2-21 | P2: Reflow | Tasks | Pending |
-| PS2-22 | P2: Reflow | Tasks | Pending |
+| PS2-21 | P2: Reflow | Tasks | Implementing |
+| PS2-22 | P2: Reflow | Tasks | Implementing |
 
 **Coverage:** 22 total, 0 mapped to tasks, 22 unmapped ⚠️
 
