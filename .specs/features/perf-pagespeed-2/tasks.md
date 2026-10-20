@@ -121,8 +121,8 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Test asserts the three files, their widths and `hasAlpha`
-- [ ] Build gate passes (end of phase)
+- [x] Test asserts the three files, their widths and `hasAlpha`
+- [x] Build gate passes (end of phase)
 
 **Tests**: unit
 **Gate**: build

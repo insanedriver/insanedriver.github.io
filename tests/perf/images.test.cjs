@@ -64,6 +64,18 @@ test('PS2-06: every photos.json thumbnail has a WebP of the same pixel size next
   }
 });
 
+test('PS2-09: the band logos have WebP outputs at 300 / 300 / 600 px wide that keep the alpha channel', async () => {
+  const files = outputs();
+  for (const [file, width] of [['logo_loading.webp', 300], ['logo_horizontal-300.webp', 300], ['logo_horizontal-600.webp', 600]]) {
+    assert.ok(files.some(out => out.file === `assets/images/${file}`), `manifest lacks ${file}`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'assets/images', file)), `missing ${file}`);
+    const meta = await sharp(path.join(ROOT, 'assets/images', file)).metadata();
+    assert.equal(meta.format, 'webp', file);
+    assert.equal(meta.width, width, `${file} width`);
+    assert.equal(meta.hasAlpha, true, `${file} alpha`);
+  }
+});
+
 test('PERF-31: every manifest output exists as a WebP at the manifest width', async () => {
   const all = outputs();
   assert.ok(all.length >= 7 * 3 + 3 + 2 + 4, `only ${all.length} outputs`);

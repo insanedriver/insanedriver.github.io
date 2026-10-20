@@ -50,6 +50,8 @@ const manifest = () => [
   native('bodybg.jpg'),
   native('footer.jpg'),
   ...homeCovers().map(cover),
+  native('logo_loading.png'),
+  { src: `${IMAGES}/logo_horizontal.png`, outputs: [300, 600].map(width => ({ file: `${IMAGES}/logo_horizontal-${width}.webp`, width })) },
   ...thumbnails().map(src => ({ src, outputs: [{ file: src.replace(/\.jpe?g$/, '.webp'), width: null }] })),
 ];
 
