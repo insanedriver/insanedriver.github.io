@@ -94,15 +94,50 @@ test('PERF-15: every layout page links core.min.css plus at most one page bundle
     assert.ok(!html.includes('style.min.css'), `${url}: links style.min.css`);
     // A page whose area has a bundle gets that bundle (release and song pages share discography).
     const id = html.match(/<body id="?page_([\w-]+)/)[1];
-    if (BUNDLES.includes(id)) assert.ok(links.includes(`/assets/css/${id}.min.css`), `${url}: ${id} bundle`);
+    // PS2-14: the home inlines its bundle instead (asserted below).
+    if (BUNDLES.includes(id) && id !== 'home') assert.ok(links.includes(`/assets/css/${id}.min.css`), `${url}: ${id} bundle`);
   }
 });
 
-test('PERF-16: / links the home bundle and /band/ links the band bundle', () => {
+test('PERF-16: / links no page bundle (PS2-14 inlines it) and /band/ links the band bundle', () => {
   const home = stylesheets(page('/'));
-  assert.ok(home.includes('/assets/css/home.min.css'), '/ links home.min.css');
-  assert.deepEqual(home.filter(h => BUNDLE_HREFS.includes(h)), ['/assets/css/home.min.css']);
+  assert.deepEqual(home.filter(h => BUNDLE_HREFS.includes(h)), []);
   const band = stylesheets(page('/band/'));
   assert.ok(band.includes('/assets/css/band.min.css'), '/band/ links band.min.css');
   assert.deepEqual(band.filter(h => BUNDLE_HREFS.includes(h)), ['/assets/css/band.min.css']);
+});
+
+// Contents of every <style> element inside <head>.
+const headStyles = html => [...html.split(/<\/head>/)[0].matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(m => m[1]);
+
+test('PS2-14: / inlines the full emitted home.min.css in a <head> <style> and does not link it', () => {
+  const html = page('/');
+  assert.ok(!html.includes('/assets/css/home.min.css'), '/ references home.min.css');
+  // The emitted bundle, compared with its url(../X) values resolved to /assets/X (PS2-15).
+  const expected = read('home').replace(/url\((["']?)\.\.\//g, 'url($1/assets/');
+  assert.ok(headStyles(html).some(css => css === expected), 'no <head> <style> holds the full home bundle');
+});
+
+test('PS2-15: the inlined home CSS has no url(../ and every rewritten url points at the same /assets/ file', () => {
+  const inlined = headStyles(page('/')).find(css => css.includes('#page_home'));
+  assert.ok(inlined, 'no inlined home CSS');
+  assert.ok(!/url\(\s*["']?\.\.\//.test(inlined), 'inlined CSS has url(../');
+  const external = [...read('home').matchAll(/url\(\s*["']?\.\.\/([^"')]+)/g)].map(m => m[1]);
+  assert.ok(external.length > 0, 'home.min.css has no relative url()');
+  for (const rel of external) {
+    assert.ok(inlined.includes(`/assets/${rel}`), `inlined CSS lacks /assets/${rel}`);
+    assert.ok(fs.existsSync(path.join(__dirname, '../../assets', rel)), `assets/${rel} exists`);
+  }
+});
+
+test('PS2-16: every other layout page with a page bundle still links it with <link rel="stylesheet">', () => {
+  let checked = 0;
+  for (const [url, html] of layoutPages()) {
+    const id = html.match(/<body id="?page_([\w-]+)/)[1];
+    if (!BUNDLES.includes(id) || id === 'home') continue;
+    assert.ok(stylesheets(html).includes(`/assets/css/${id}.min.css`), `${url}: ${id} bundle link`);
+    assert.ok(!headStyles(html).some(css => css.includes(`#page_${id}`)), `${url}: ${id} bundle inlined`);
+    checked++;
+  }
+  assert.ok(checked >= BUNDLES.length - 1, `only ${checked} bundle pages checked`);
 });

@@ -367,9 +367,9 @@ T13 → T14 → T15 → T16
 
 **Done when**:
 
-- [ ] Unit test: `docs/index.html` has the inlined CSS, no `home.min.css` link, no `url(../`; other bundle pages still link theirs
-- [ ] Home style e2e suites green
-- [ ] Full gate passes
+- [x] Unit test: `docs/index.html` has the inlined CSS, no `home.min.css` link, no `url(../`; other bundle pages still link theirs
+- [x] Home style e2e suites green
+- [x] Full gate passes
 
 **Tests**: e2e
 **Gate**: full
