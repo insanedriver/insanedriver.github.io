@@ -20,25 +20,25 @@ const dismissedAfter = page => page.waitForFunction(() => window.__homeDoneAt, n
 
 const skipEvents = page => page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'home_loader_skip'));
 
-test('HOME-22: a first view keeps the boot on screen at least 1.2s, then leaves once ready', async ({ page }) => {
+test('HOME-22: a first view keeps the boot on screen at least 0.6s, then leaves once ready', async ({ page }) => {
   await page.goto('/', { waitUntil: 'commit' });
   const ms = await dismissedAfter(page);
-  expect(ms).toBeGreaterThanOrEqual(1200);
-  expect(ms).toBeLessThan(3500);
+  expect(ms).toBeGreaterThanOrEqual(600);
+  expect(ms).toBeLessThan(1500);
 });
 
-test('HOME-22: a hero image that lands after 1.2s holds the boot until it arrives', async ({ page }) => {
+test('HOME-22: a hero image that lands after 0.6s holds the boot until it arrives', async ({ page }) => {
   await page.route(/\/assets\/images\/home\/hero-/, async route => {
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise(r => setTimeout(r, 1000));
     await route.continue();
   });
   await page.goto('/', { waitUntil: 'commit' });
   const ms = await dismissedAfter(page);
-  expect(ms).toBeGreaterThanOrEqual(2000);
-  expect(ms).toBeLessThan(3000);
+  expect(ms).toBeGreaterThanOrEqual(1000);
+  expect(ms).toBeLessThan(1500);
 });
 
-test('HOME-22: a dismiss timer that fires early still holds the boot until 1.2s', async ({ page }) => {
+test('HOME-22: a dismiss timer that fires early still holds the boot until 0.6s', async ({ page }) => {
   // Fake clock, paused, so the page only moves when the test says so.
   await page.clock.install({ time: 0 });
   await page.clock.pauseAt(1000);
@@ -46,7 +46,7 @@ test('HOME-22: a dismiss timer that fires early still holds the boot until 1.2s'
   // make every long timer fire 200ms early.
   await page.addInitScript(() => {
     const set = window.setTimeout;
-    window.setTimeout = function (fn, ms, ...args) { return set.call(this, fn, ms >= 1000 ? ms - 200 : ms, ...args); };
+    window.setTimeout = function (fn, ms, ...args) { return set.call(this, fn, ms >= 500 ? ms - 200 : ms, ...args); };
   });
   await page.goto('/', { waitUntil: 'commit' });
   await page.waitForFunction(() => {
@@ -55,19 +55,19 @@ test('HOME-22: a dismiss timer that fires early still holds the boot until 1.2s'
   });
   const elapsed = () => page.evaluate(() => performance.now() - window.IDHomeBootAt);
   const done = () => page.evaluate(() => document.getElementById('home-loader').classList.contains('is-done'));
-  await page.clock.runFor(1199);
-  expect(await elapsed()).toBe(1199);
+  await page.clock.runFor(599);
+  expect(await elapsed()).toBe(599);
   expect(await done()).toBe(false);
   await page.clock.runFor(1);
-  expect(await dismissedAfter(page)).toBe(1200);
+  expect(await dismissedAfter(page)).toBe(600);
 });
 
-test('HOME-23: a hero image that never arrives still releases the page at 3.5s', async ({ page }) => {
+test('HOME-23: a hero image that never arrives still releases the page at 1.5s', async ({ page }) => {
   await page.route(/\/assets\/images\/home\/hero-/, () => { /* never answer */ });
   await page.goto('/', { waitUntil: 'commit' });
   const ms = await dismissedAfter(page);
-  expect(ms).toBeGreaterThanOrEqual(3400);
-  expect(ms).toBeLessThanOrEqual(3600);
+  expect(ms).toBeGreaterThanOrEqual(1400);
+  expect(ms).toBeLessThanOrEqual(1600);
 });
 
 // A repeat view under a paused fake clock: real timer lag on a busy machine
@@ -144,7 +144,7 @@ test('HOME-25: blocked sessionStorage means a full boot and no error', async ({ 
   });
   await page.goto('/', { waitUntil: 'commit' });
   const ms = await dismissedAfter(page);
-  expect(ms).toBeGreaterThanOrEqual(1200);
+  expect(ms).toBeGreaterThanOrEqual(600);
   expect(errors).toEqual([]);
 });
 
@@ -155,7 +155,7 @@ for (const how of ['Escape', 'click']) {
     if (how === 'Escape') await page.keyboard.press('Escape');
     else await page.mouse.click(300, 300);
     const ms = await dismissedAfter(page);
-    expect(ms).toBeLessThan(1200);
+    expect(ms).toBeLessThan(600);
     expect(await skipEvents(page)).toEqual([{ event: 'home_loader_skip' }]);
   });
 }
@@ -218,6 +218,11 @@ test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
 
   test('HOME-29: the progress bar does not move while the loader is up, then fills on dismissal', async ({ page }) => {
+    // Hold the hero image so the loader stays up to the 1.5s cap while the bar is sampled.
+    await page.route(/\/assets\/images\/home\/hero-/, async route => {
+      await new Promise(r => setTimeout(r, 1400));
+      await route.continue();
+    });
     await page.goto('/', { waitUntil: 'commit' });
     await expect(page.locator('#home-loader')).toBeVisible();
     const bar = page.locator('[data-home-loader-bar]');
@@ -282,8 +287,8 @@ async function afterLateHomeJs(page) {
 
 const settled = { relocked: false, inert: false, loading: false, done: true, aria: 'true', visited: '1' };
 
-test('HOME-64/65/66: a first view whose home.js lands after the 4s failsafe is not locked again', async ({ page }) => {
-  await lateHomeJs(page, 4500);
+test('HOME-64/65/66: a first view whose home.js lands after the 2s failsafe is not locked again', async ({ page }) => {
+  await lateHomeJs(page, 2500);
   await page.goto('/', { waitUntil: 'commit' });
   expect(await afterLateHomeJs(page)).toEqual(settled);
 });
@@ -326,10 +331,10 @@ for (const [how, act] of [
   });
 }
 
-test('HOME-64/66: home.js that starts past the 4s failsafe, before anything released the page, is not locked again', async ({ page }) => {
-  // Shift the boot clock back 5s as home.js starts: only the 4000ms rule can
+test('HOME-64/66: home.js that starts past the 2s failsafe, before anything released the page, is not locked again', async ({ page }) => {
+  // Shift the boot clock back 3s as home.js starts: only the 2000ms rule can
   // tell it the page is already out from under the loader.
-  await lateHomeJs(page, 0, `window.IDHomeBootAt = performance.now() - 5000;
+  await lateHomeJs(page, 0, `window.IDHomeBootAt = performance.now() - 3000;
 window.__preState = { released: !!window.IDHomeReleased, done: document.getElementById('home-loader').classList.contains('is-done') };
 `);
   await page.goto('/', { waitUntil: 'commit' });

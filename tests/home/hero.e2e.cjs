@@ -20,7 +20,7 @@ test('HOME-03: the hero carries the tagline', async ({ page }) => {
 
 test('HOME-04: the hero photo offers 768/1280/1920 in WebP and JPG and is not lazy', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  const webp = await page.locator('[data-home-hero] picture source[type="image/webp"]').getAttribute('srcset');
+  const webp = await page.locator('[data-home-hero] .home-hero-photo source[type="image/webp"]').getAttribute('srcset');
   const img = page.locator('[data-home-hero-img]');
   const jpg = await img.getAttribute('srcset');
   for (const w of widths) {

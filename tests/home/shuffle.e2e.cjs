@@ -30,6 +30,8 @@ async function expectShows(page, single) {
   await expect(cover).toHaveAttribute('alt', `${single.title} cover`);
   await expect(cover).toHaveAttribute('width', String(single.coverWidth));
   await expect(cover).toHaveAttribute('height', String(single.coverHeight));
+  // PERF-29: the WebP <source> follows the swapped cover.
+  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', `/assets/images/releases/${single.cover.replace(/\.jpg$/, '.webp')}`);
   const keys = platforms.filter(pl => single.links[pl.key]).map(pl => pl.key);
   const anchors = p.locator('[data-home-link]');
   expect(await anchors.evaluateAll(els => els.map(el => el.getAttribute('data-home-link')))).toEqual(keys);

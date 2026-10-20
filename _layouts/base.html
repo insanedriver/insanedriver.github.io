@@ -3,8 +3,7 @@
 
 <head>
 
-    {% include 'head/gtm' %}
-    {% include 'head/fbpixel' %}
+    {% include 'head/trackers' %}
 
     {% include 'head/metatags' %}
     {% include 'head/seo' %}
@@ -16,7 +15,6 @@
     {% endif %}
 
     {% include 'head/ie8' %}
-    {% include 'head/analytics' %}
 </head>
 
 <body id="page_{{page_id}}">
@@ -26,7 +24,12 @@
     {% include 'header/menu' %}
 
     <div class="header-img">
-        <img src="/assets/images/{{header_img_path}}" class="img-responsive" alt="">
+        {% assign header_base = header_img_path | replace: '.jpg', '' %}
+        <picture>
+            <source type="image/webp" sizes="100vw"
+                srcset="/assets/images/{{ header_base }}-768.webp 768w, /assets/images/{{ header_base }}-1280.webp 1280w, /assets/images/{{ header_base }}-1920.webp 1920w">
+            <img src="/assets/images/{{header_img_path}}" class="img-responsive" alt="" width="1920" height="320" fetchpriority="high">
+        </picture>
     </div>
 
     <main>
@@ -40,6 +43,8 @@
     </main>
 
     {% include 'footer/footer' %}
+
+    <script src="/assets/js/nav.js" defer></script>
 
     {% if jspath != null %}
     {% include jspath %}

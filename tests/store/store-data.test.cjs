@@ -11,9 +11,14 @@ test('STORE-24: the pre-order styles, script and script include are gone', () =>
   }
 });
 
-test('STORE-24: style.less no longer imports preorder.less', () => {
-  const style = fs.readFileSync(path.join(root, 'less/style.less'), 'utf8');
-  assert.doesNotMatch(style, /@import\s+["']preorder\.less["']/);
+// The Less entries: core.less and every page bundle (they replaced style.less).
+const ENTRIES = ['less/core.less', ...fs.readdirSync(path.join(root, 'less/pages')).map(f => `less/pages/${f}`)];
+
+test('STORE-24: no Less entry imports preorder.less', () => {
+  for (const file of ENTRIES) {
+    const style = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.doesNotMatch(style, /@import\s+(?:\([^)]*\)\s*)?["'](?:\.\.\/)?preorder\.less["']/, file);
+  }
 });
 
 test('STORE-23: Silicon Fortress buyers are sent to the store', () => {

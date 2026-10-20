@@ -20,18 +20,12 @@
 
 ## Handoff
 
-- **Feature**: seo-discovery (non-brand discovery: sitemap/robots/canonical/OG, genre-aware copy and MusicGroup, 7 release pages, 22 song pages with lyrics, video facade, breadcrumbs)
-- **Phase / Task**: Complete. T1-T26 (T22 `/band/` overflow, T23 verifier fix, T24 per-track song links at the user's request, T25-T26 verifier fixes), `1baa2d8`..`52c33c8` on `feature/seo-discovery` branched from `master` at `465e649`.
-- **Verification**: Verifier PASS (pass 2 for T1-T23; pass 5 for T24-T26, fix loop closed on iteration 3/3). 50/50 ACs with evidence; T24 sensor 13/13 real mutants killed. Track URLs checked live except Bandcamp (Client Challenge). Unit 149, Playwright 547/547 (HOME-23/24/29 loader timing tests flaky, also on master). Sitemap 38 URLs. Candidate lessons L-031..L-036.
-- **Amendments during Execute (user-approved)**:
-  - HOME-53 expects the new home og:title; footer Spotify moved to open.spotify.com and Bandcamp added, so HOME-52 expects 6 links.
-  - Lyrics: EN in `_data/lyrics/<album>/<song>.txt` (rendered), PT in `.pt.txt` (stored, not rendered); originals moved to `../lyrics-originals/`.
-  - SEO-12 (title formats) and SEO-13 (cover og:image) added from confirmed Assumptions after verifier pass 1.
-  - SONG-07 reworded (T24): song pages link to the track on Spotify/Apple/YT Music/Deezer (and Bandcamp for Silicon Fortress); Tidal, Amazon and 2016 Bandcamp fall back to the album. Track URLs live in `_data/songs.json`, pinned by `tests/seo/track-ids.fixture.json`.
-- **After the verifier (user-requested, 2026-10-19)**: song video fills the panel width; About texts for the 9 debut lyric songs (Buried Thoughts rewritten); song pages show their own single's cover; Fallen Dreams (Acoustic) gets a release page (8 releases, sitemap 39 URLs); review fixes (deploy builds before unit tests, VideoObject without contentUrl, header logo href="/").
+- **Feature**: perf-pagespeed (deferred GTM/Pixel trackers, jQuery/Bootstrap/Owl removed with a vanilla nav, per-page CSS bundles over a core under 200 KB, self-hosted woff2 fonts with swap, responsive WebP images with sizes, boot loader shortened to 0.6-1.5 s with a 2 s failsafe)
+- **Phase / Task**: Complete. T1-T20 plus fix iterations 1-3, `8740dc5`..`f40a350` on `feature/perf-pagespeed`.
+- **Verification**: Verifier PASS on iteration 4 (an extra pass the user approved after iteration 3 FAILed on surviving mutant N9). 40/40 ACs Verified. Sensor 8/8 killed in iteration 4. Unit 183/183, e2e 579/579 in two full runs. Candidate lessons L-037..L-041.
 - **In-progress**: none
-- **Next step**: PR open against master; after deploy, submit the sitemap in Search Console and run the Rich Results Test.
-- **Follow-ups (not done)**: `/dates/` Bandsintown widget over http; header menu still links play.spotify.com; HOME-23 flaky; optional `[Speech]` label in Firstly My Breakfast lyrics; LYR-01 source equality is a manual check.
+- **Next step**: open a PR against master (needs the user's go-ahead); after deploy, re-run PageSpeed Insights on `/` and `/band/`.
+- **Watch items**: the CSS-only failsafe window has 500 ms of slack (`tests/home/loader-style.e2e.cjs:48`); HOME-24/26/29/67/71 are historically flaky.
 - **Blockers**: none
-- **Branch**: feature/seo-discovery
-- **Previous handoff**: newsletter-bandsintown.
+- **Branch**: feature/perf-pagespeed
+- **Previous handoff**: seo-discovery (PR against master; follow-ups: `/dates/` Bandsintown widget over http, header menu still links play.spotify.com, LYR-01 source check is manual).

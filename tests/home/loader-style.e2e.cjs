@@ -28,16 +28,57 @@ test('HOME-20: while the gate class is set the loader covers the viewport with a
   expect(await page.evaluate(() => !!document.elementFromPoint(640, 400).closest('#home-loader'))).toBe(true);
 });
 
-test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 4.5s', async ({ page }) => {
+// The release clocks start at the head gate (IDHomeBootAt), so the windows are
+// timed from there, not from when goto returns.
+const untilBoot = (page, ms) => page.waitForFunction(t => performance.now() - window.IDHomeBootAt >= t, ms);
+const bootElapsed = page => page.evaluate(() => performance.now() - window.IDHomeBootAt);
+
+// Checked once each, not retried: a later failsafe must not pass by waiting.
+async function expectFailsafeWindow(page) {
+  const loader = page.locator('#home-loader');
+  await untilBoot(page, 1500);
+  expect(await loader.isVisible()).toBe(true);
+  // isVisible ignores the release fade, so the release state is checked too.
+  expect(await page.evaluate(() => {
+    const el = document.getElementById('home-loader');
+    return [window.IDHomeReleased, el.classList.contains('is-done'), el.getAttribute('aria-hidden'), document.querySelector('[data-home-page]').inert];
+  })).toEqual([undefined, false, null, true]);
+  expect(await bootElapsed(page), 'visible check ran too late to mean anything').toBeLessThan(1900);
+  await untilBoot(page, 2500);
+  expect(await loader.isHidden()).toBe(true);
+}
+
+test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 2.5s', async ({ page }) => {
   await page.route('**/assets/js/home.js*', route => route.abort());
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('#home-loader')).toBeVisible();
-  await page.waitForTimeout(3500);
-  await expect(page.locator('#home-loader')).toBeVisible();
-  await page.waitForTimeout(1000);
-  await expect(page.locator('#home-loader')).toBeHidden();
+  await expectFailsafeWindow(page);
   expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
   expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
+});
+
+// The loader's own failsafe animation: name and delay as computed under the gate class.
+const failsafe = page => page.locator('#home-loader').evaluate(el => {
+  const cs = getComputedStyle(el);
+  return [cs.animationName, cs.animationDelay];
+});
+
+test('PERF-35: the CSS failsafe is a 2s animation delay on the loader', async ({ page }) => {
+  await holdLoader(page);
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  expect(await failsafe(page)).toEqual(['home-loader-failsafe', '2s']);
+});
+
+test('PERF-35: with home.js and the inline release both gone, CSS alone hides the loader between 2s and 2.5s', async ({ page }) => {
+  await page.route('**/assets/js/home.js*', route => route.abort());
+  // Every IDHomeRelease call becomes a no-op, so only the CSS animation is left.
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'IDHomeRelease', { configurable: true, get: () => function () {}, set: () => {} });
+  });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expectFailsafeWindow(page);
+  expect(await page.evaluate(() => window.IDHomeReleased)).toBeUndefined();
+  expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
 });
 
 test('HOME-33: loader animations use home- keyframes', async ({ page }) => {
@@ -56,6 +97,12 @@ test.describe('reduced motion', () => {
     expect(await page.locator('#home-loader').evaluate(el => getComputedStyle(el).animationName)).toBe('home-loader-failsafe');
     // Boot lines are simply shown, not revealed.
     expect(await page.locator('.home-loader-log li').last().evaluate(el => getComputedStyle(el).opacity)).toBe('1');
+  });
+
+  test('PERF-35: the 2s CSS failsafe delay survives reduced motion', async ({ page }) => {
+    await holdLoader(page);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    expect(await failsafe(page)).toEqual(['home-loader-failsafe', '2s']);
   });
 
   test('HOME-29: the exit is an opacity fade of at most 200ms', async ({ page }) => {

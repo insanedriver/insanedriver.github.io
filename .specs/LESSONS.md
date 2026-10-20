@@ -14,6 +14,12 @@ Corroborated across multiple features. Safe to apply as guidance.
 - evidence: PXCP-04 vs spec.md Assumptions row 'Secondary accent color' (spec-writing) (+1 more)
 - last seen: 2026-09-30T03:35:42Z
 
+### L-024 - When a guard ORs several conditions, give each condition a test where it alone is true, or the other conditions mask its removal.
+- signal: `surviving_mutant` · recurrence: 2 feature(s) · scope: `tests` · harmful: 0
+- features: home-cyberpunk, perf-pagespeed
+- evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests) (+1 more)
+- last seen: 2026-10-20T01:56:18Z
+
 ## Candidates (under observation - do NOT load as guidance yet)
 
 Seen once or not yet corroborated. Tracked, not trusted.
@@ -150,12 +156,6 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Round 6 M15/M16 (assets/js/home.js:139-145) (tests) (+1 more)
 - last seen: 2026-10-06T03:26:23Z
 
-### L-024 - When a guard ORs several conditions, give each condition a test where it alone is true, or the other conditions mask its removal.
-- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
-- features: home-cyberpunk
-- evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests)
-- last seen: 2026-10-06T03:26:23Z
-
 ### L-025 - When a timing AC's bound sits within ~100ms of a timer's target, assert it under a paused fake clock; a real-time bound flakes under main-thread load even when the time is read exactly.
 - signal: `gate_fail` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
 - features: home-cyberpunk
@@ -227,6 +227,36 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - features: seo-discovery
 - evidence: validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)
 - last seen: 2026-10-19T04:18:44Z
+
+### L-037 - When two layouts include the same behavior partial, run the behavior's browser test on a page of each layout, or a regression in the untested layout ships unseen.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: perf-pagespeed
+- evidence: validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e)
+- last seen: 2026-10-20T01:56:18Z
+
+### L-038 - Measure a size budget an AC sets against the real inputs during Design, since one inlined asset such as a base64 font can exceed it alone.
+- signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `css` · harmful: 0
+- features: perf-pagespeed
+- evidence: less/insane-font.less:1 SPEC_DEVIATION (PERF-17) (css)
+- last seen: 2026-10-20T01:56:18Z
+
+### L-039 - Before a task renames or replaces a file, URL, selector target or timing, grep the existing tests for it and list their retargets in that task.
+- signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: perf-pagespeed
+- evidence: validation.md Traceability: STORE-24, BIT-18, HOME-04, HOME-29, trackers holdLoad retargets (commits 6aea43e, eed7444, a5fa69e, 5209c41) (tests)
+- last seen: 2026-10-20T01:56:18Z
+
+### L-040 - Time a browser test's timing window from the page's own start timestamp, not from when navigation returns, or server latency eats the margin.
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: perf-pagespeed
+- evidence: tests/home/loader-style.e2e.cjs:36 (HOME-23 edge, 1/2 full runs) (e2e)
+- last seen: 2026-10-20T02:29:48Z
+
+### L-041 - Assert that an overlay is not yet released through its state (release flag, done class, inert), not through Playwright isVisible, which still reports true while an opacity fade-out is running.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `e2e/playwright` · harmful: 0
+- features: perf-pagespeed
+- evidence: validation.md iteration 3 mutant N9 (_layouts/home.html:57 + 2000 -> + 1400; tests/home/loader-style.e2e.cjs:40) (e2e/playwright)
+- last seen: 2026-10-20T13:48:52Z
 
 ## Quarantined (failed when applied - ignore)
 

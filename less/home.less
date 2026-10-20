@@ -671,6 +671,9 @@
         background:
             linear-gradient(to bottom, @home-ink 0, rgba(3, 8, 14, 0.55) 90px, rgba(3, 8, 14, 0) 220px),
             url("../images/bodybg.jpg");
+        background:
+            linear-gradient(to bottom, @home-ink 0, rgba(3, 8, 14, 0.55) 90px, rgba(3, 8, 14, 0) 220px),
+            image-set(url("../images/bodybg.webp") type("image/webp"), url("../images/bodybg.jpg") type("image/jpeg"));
     }
 
     .cyber-zone {
@@ -1403,11 +1406,11 @@
         clip-path: inset(0 0 0 0);
     }
 
-    // The only way in: the gate class. The failsafe hides the loader at 4s
+    // The only way in: the gate class. The failsafe hides the loader at 2s
     // should home.js never arrive to dismiss it.
     html.home-loading & .home-loader {
         display: flex;
-        animation: home-loader-failsafe 0s linear 4s forwards;
+        animation: home-loader-failsafe 0s linear 2s forwards;
     }
 
     // CRT power-off: the screen collapses to a bright line, then goes.
@@ -1582,6 +1585,6 @@
     // The failsafe moves nothing (zero duration), so it outranks the
     // reduced-motion reset: a broken script must never trap anyone.
     html.home-loading & .home-loader {
-        animation: home-loader-failsafe 0s linear 4s forwards !important;
+        animation: home-loader-failsafe 0s linear 2s forwards !important;
     }
 }

@@ -79,17 +79,17 @@ test('HOME-24: a repeat view dismisses 400ms after start', () => {
   assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: null, repeat: true }), 1400);
 });
 
-test('HOME-22: a first view never dismisses before 1.2s, even when ready early', () => {
-  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 1300, repeat: false }), 2200);
+test('HOME-22: a first view never dismisses before 0.6s, even when ready early', () => {
+  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 1300, repeat: false }), 1600);
 });
 
-test('HOME-22: a first view dismisses when ready if that falls between 1.2s and 3.5s', () => {
-  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 3000, repeat: false }), 3000);
+test('HOME-22: a first view dismisses when ready if that falls between 0.6s and 1.5s', () => {
+  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 2000, repeat: false }), 2000);
 });
 
-test('HOME-23: a first view dismisses at 3.5s when ready comes late or never', () => {
-  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 6000, repeat: false }), 4500);
-  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: null, repeat: false }), 4500);
+test('HOME-23: a first view dismisses at 1.5s when ready comes late or never', () => {
+  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: 6000, repeat: false }), 2500);
+  assert.equal(core.loaderDismissAt({ startedAt: 1000, readyAt: null, repeat: false }), 2500);
 });
 
 test('HOME-24: a stored boot flag marks a repeat view', () => {
