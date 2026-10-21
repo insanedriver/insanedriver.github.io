@@ -143,7 +143,9 @@
             window.requestAnimationFrame(update);
         }, { passive: true });
         window.addEventListener('load', update);
-        update();
+        // First check in a frame, not during init, so it forces no layout.
+        pending = true;
+        window.requestAnimationFrame(update);
     }
 
     // NOW::STREAMING: swap the server-rendered single for one drawn from the
@@ -175,7 +177,7 @@
         section.setAttribute('data-home-streaming', single.slug);
         if (panel) { panel.setAttribute('data-hud', 'SIGNAL.' + single.slug.toUpperCase() + ' // STREAMING_'); }
         // The WebP <source> wins over src, so it is swapped too (PERF-29).
-        if (source) { source.srcset = '/assets/images/releases/' + single.cover.replace(/\.jpg$/, '.webp'); }
+        if (source) { source.srcset = core.coverSrcset(single.cover); }
         cover.src = '/assets/images/releases/' + single.cover;
         cover.alt = single.title + ' cover';
         cover.width = single.coverWidth;
