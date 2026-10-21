@@ -33,6 +33,12 @@ test('HOME-63: home.js leaves the release contract to window.IDHomeRelease', () 
 function renderLayout(key) {
   const source = read('_layouts/home.html');
   const engine = Liquid({ root: [path.join(ROOT, '_includes')], extname: '.liquid', dynamicPartials: true });
+  // The inlineCss shortcode .eleventy.js registers (PS2-14).
+  const { inlineCss } = require('../../lib/inline-css.js');
+  engine.registerTag('inlineCss', {
+    parse(token) { this.name = token.args.trim().replace(/^['"]|['"]$/g, ''); },
+    render() { return inlineCss(this.name); }
+  });
   return engine.parseAndRender(source, { homeBoot: { key: key }, content: '' });
 }
 

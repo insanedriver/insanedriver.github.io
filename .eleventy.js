@@ -4,6 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const { selectSitemapEntries } = require("./lib/sitemap");
 const { jsonify, metaDescription } = require("./lib/filters");
+const { coverSrcset } = require("./assets/js/home-core.js");
+const { inlineCss } = require("./lib/inline-css");
 
 // Cache busting: appends ?v=<content hash> to local /assets/*.css|js references,
 // so browsers refetch a file exactly when its content changes.
@@ -62,6 +64,10 @@ module.exports = function (eleventyConfig) {
 
     // JSON-LD values, with "<" escaped
     eleventyConfig.addFilter("jsonify", jsonify);
+    eleventyConfig.addFilter("coverSrcset", coverSrcset);
+
+    // PS2-14: a page bundle inlined in a <style>
+    eleventyConfig.addShortcode("inlineCss", name => inlineCss(name));
 
     // SEO-07: descriptions cut to 160 characters
     eleventyConfig.addFilter("metaDescription", metaDescription);

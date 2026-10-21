@@ -2,6 +2,7 @@ const { test, expect } = require('../photos/browser.cjs');
 const platforms = require('../../_data/platforms.json');
 const { pool } = require('../../_data/homeShuffle.js')();
 const { panelByTab, loaderGone } = require('./helpers.cjs');
+const core = require('../../assets/js/home-core.js');
 
 const panel = page => panelByTab(page, 'NOW::STREAMING');
 const pinRandom = (page, value) => page.addInitScript(v => { Math.random = () => v; }, value);
@@ -30,8 +31,10 @@ async function expectShows(page, single) {
   await expect(cover).toHaveAttribute('alt', `${single.title} cover`);
   await expect(cover).toHaveAttribute('width', String(single.coverWidth));
   await expect(cover).toHaveAttribute('height', String(single.coverHeight));
-  // PERF-29: the WebP <source> follows the swapped cover.
-  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', `/assets/images/releases/${single.cover.replace(/\.jpg$/, '.webp')}`);
+  // PERF-29 / PS2-04: the WebP <source> follows the swapped cover, at the same three widths.
+  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', core.coverSrcset(single.cover));
+  const base = `/assets/images/releases/${single.cover.replace(/\.jpg$/, '')}`;
+  await expect(p.locator('picture source').first()).toHaveAttribute('srcset', `${base}-160.webp 160w, ${base}-320.webp 320w, ${base}.webp 600w`);
   const keys = platforms.filter(pl => single.links[pl.key]).map(pl => pl.key);
   const anchors = p.locator('[data-home-link]');
   expect(await anchors.evaluateAll(els => els.map(el => el.getAttribute('data-home-link')))).toEqual(keys);

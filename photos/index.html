@@ -43,7 +43,7 @@ header_img_path: header_6.jpg
         <div class="photos-thumbnails" data-photo-controls hidden aria-label="Choose a highlight">
             {% for photo in highlights %}
             <button type="button" class="photos-thumbnail" data-photo-select="{{ forloop.index0 }}" aria-label="Show highlight {{ forloop.index }}: {{ photo.caption | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
-                <img src="{{ photo.thumbnail }}" alt="" width="{{ photo.width }}" height="{{ photo.height }}" loading="lazy">
+                <picture><source type="image/webp" srcset="{{ photo.thumbnail | replace: '.jpg', '.webp' }}"><img src="{{ photo.thumbnail }}" alt="" width="{{ photo.width }}" height="{{ photo.height }}" loading="lazy"></picture>
                 <span aria-hidden="true">0{{ forloop.index }}</span>
             </button>
             {% endfor %}
@@ -70,7 +70,7 @@ header_img_path: header_6.jpg
             {% for photo in photos %}
             <figure itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject" data-photo-id="{{ photo.id }}" data-category="{{ photo.category }}">
                 <a href="{{ photo.src }}" itemprop="contentUrl" data-size="{{ photo.width }}x{{ photo.height }}" data-photo-open="{{ photo.id }}" aria-label="Enlarge: {{ photo.alt | escape }}">
-                    <img src="{{ photo.thumbnail }}" width="{{ photo.width }}" height="{{ photo.height }}" itemprop="thumbnail" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async">
+                    <picture><source type="image/webp" srcset="{{ photo.thumbnail | replace: '.jpg', '.webp' }}"><img src="{{ photo.thumbnail }}" width="{{ photo.width }}" height="{{ photo.height }}" itemprop="thumbnail" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async"></picture>
                     <span class="photos-expand" aria-hidden="true">&#8599;</span>
                 </a>
                 <figcaption itemprop="caption description">{{ photo.caption | escape }}</figcaption>

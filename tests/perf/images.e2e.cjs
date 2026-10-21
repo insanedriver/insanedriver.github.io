@@ -62,11 +62,111 @@ test('PERF-29: the home shows the hero cover as WebP, and a shuffled NOW::STREAM
   await page.goto('/', { waitUntil: 'load' });
   const hero = page.locator('.home-release-cover');
   await expect(hero).toHaveJSProperty('complete', true);
-  expect(await hero.evaluate(img => new URL(img.currentSrc).pathname)).toBe(`/assets/images/releases/${release.cover.replace(/\.jpg$/, '.webp')}`);
+  // At 1280 px the card is 112 px wide: the 160 w file.
+  expect(await hero.evaluate(img => new URL(img.currentSrc).pathname)).toBe(`/assets/images/releases/${release.cover.replace(/\.jpg$/, '-160.webp')}`);
   const cover = page.locator('[data-home-streaming-cover]');
   await expect(cover).toHaveAttribute('src', `/assets/images/releases/${pick.cover}`);
   await cover.scrollIntoViewIfNeeded();
   await expect.poll(() => cover.evaluate(img => img.complete && img.currentSrc && new URL(img.currentSrc).pathname))
-    .toBe(`/assets/images/releases/${pick.cover.replace(/\.jpg$/, '.webp')}`);
+    .toMatch(new RegExp(`^/assets/images/releases/${pick.cover.replace(/\.jpg$/, '')}(-160|-320)?\\.webp$`));
   expect(seen.filter(p => p.startsWith('/assets/images/releases/') && p.endsWith('.jpg'))).toEqual([]);
+});
+
+test('PS2-03: at 412 x 915, DPR 1.75 the release card and archive covers fetch no 600 w cover', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 1.75 });
+  const page = await context.newPage();
+  await page.route('**/*', route => ['127.0.0.1', 'localhost'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
+  const seen = imageRequests(page);
+  await page.goto('/', { waitUntil: 'load' });
+  // Bring every lazy cover into view.
+  for (const img of await page.locator('.home-archive-art img').all()) await img.scrollIntoViewIfNeeded();
+  const covers = page.locator('.home-release-cover, .home-archive-art img');
+  expect(await covers.count()).toBeGreaterThan(3);
+  await expect.poll(() => covers.evaluateAll(imgs => imgs.every(img => img.complete))).toBe(true);
+  const current = await covers.evaluateAll(imgs => imgs.map(img => new URL(img.currentSrc).pathname));
+  for (const pathname of current) expect(pathname, pathname).toMatch(/-(160|320)\.webp$/);
+  // The 600 w candidate of each of their sources must never have been requested.
+  const full = await page.locator('.home-release-cover, .home-archive-art img').evaluateAll(imgs =>
+    imgs.map(img => img.parentElement.querySelector('source').srcset.split(',').map(c => c.trim()).find(c => c.endsWith(' 600w')).split(' ')[0]));
+  expect(full.length).toBe(current.length);
+  for (const url of full) expect(seen, url).not.toContain(url);
+  await context.close();
+});
+
+test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and requests no JPEG thumbnail', async ({ page }) => {
+  const photos = require('../../_data/photos.json');
+  const highlights = require('../../_data/highlights.js')();
+  const jpegs = new Set(photos.map(p => p.thumbnail));
+  // A fixed shuffle, so photos.js swaps the highlight buttons to other photos.
+  await page.addInitScript(() => { Math.random = () => 0; });
+  const seen = imageRequests(page);
+  await page.goto('/photos/', { waitUntil: 'load' });
+  const thumbs = page.locator('.photos-thumbnail img, .photos-archive img');
+  expect(await thumbs.count()).toBe(highlights.length + photos.length);
+  await expect(page.locator('.photos-thumbnail img').first()).not.toHaveAttribute('src', highlights[0].thumbnail);
+  for (const img of await thumbs.all()) await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => thumbs.evaluateAll(imgs => imgs.every(img => img.complete && img.currentSrc))).toBe(true);
+  // Each shows the WebP of its own JPEG src, including the re-shuffled highlight buttons.
+  const shown = await thumbs.evaluateAll(imgs => imgs.map(img => [new URL(img.currentSrc).pathname, img.getAttribute('src')]));
+  for (const [current, src] of shown) {
+    expect(current, src).toBe(src.replace(/\.jpg$/, '.webp'));
+    expect(seen, src).toContain(current);
+  }
+  expect(seen.filter(p => jpegs.has(p))).toEqual([]);
+});
+
+test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail', async ({ page }) => {
+  const jpegs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  // The last archive photo is the first one's previous neighbour. Kept unrendered (and,
+  // with a fixed shuffle, out of the highlights) its lazy thumbnail never loads, so the
+  // viewer has no currentSrc to reuse for it.
+  await page.addInitScript(() => { Math.random = () => 0; });
+  await page.route('**/photos/', async route => {
+    const res = await route.fetch();
+    const html = (await res.text()).replace('</head>', '<style>.photos-archive figure:last-of-type{display:none}</style></head>');
+    await route.fulfill({ response: res, body: html });
+  });
+  const seen = imageRequests(page);
+  await page.goto('/photos/', { waitUntil: 'networkidle' });
+  const archive = page.locator('.photos-archive [data-photo-open]');
+  expect(await archive.last().locator('img').evaluate(img => img.currentSrc)).toBe('');
+  // Opened through the viewer's own entry point (the one the archive click handler calls):
+  // a click here races the page and sometimes follows the link to the full JPEG instead.
+  await page.waitForFunction(() => typeof window.openInsanePhoto === 'function');
+  expect(await archive.first().evaluate(link => window.openInsanePhoto(link.dataset.photoOpen, link))).toBe(true);
+  await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);
+  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(1);
+  const placeholders = await page.locator('.pswp__img--placeholder').evaluateAll(imgs => imgs.map(img => new URL(img.src).pathname));
+  for (const src of placeholders) expect(src).toMatch(/\.webp$/);
+  await page.waitForLoadState('networkidle');
+  expect(seen.filter(p => jpegs.has(p))).toEqual([]);
+});
+
+// Rendered size of the footer logo before it became a <picture>, by viewport width.
+const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [342, 74.14] };
+
+for (const [width, [w, h]] of Object.entries(FOOTER_LOGO_BOX)) {
+  test(`PS2-11: at ${width} px the footer logo loads as WebP at its original size`, async ({ page }) => {
+    await page.setViewportSize({ width: Number(width), height: 800 });
+    await page.goto('/videos/', { waitUntil: 'load' });
+    const logo = page.locator('.logo-footer');
+    await logo.scrollIntoViewIfNeeded();
+    await expect(logo).toHaveJSProperty('complete', true);
+    expect(await logo.evaluate(img => new URL(img.currentSrc).pathname)).toMatch(/^\/assets\/images\/logo_horizontal-(300|600)\.webp$/);
+    const box = await logo.boundingBox();
+    expect(box.width).toBeCloseTo(w, 1);
+    expect(box.height).toBeCloseTo(h, 1);
+  });
+}
+
+test('PS2-13: the home requests neither logo_loading.png nor logo_horizontal.png', async ({ page }) => {
+  const seen = [];
+  page.on('request', req => seen.push(new URL(req.url()).pathname));
+  await page.goto('/', { waitUntil: 'load' });
+  await page.locator('footer').scrollIntoViewIfNeeded();
+  // The logos and the title / loader masks were drawn, from the WebP files.
+  await expect.poll(() => seen).toEqual(expect.arrayContaining(['/assets/images/logo_loading.webp', '/assets/images/logo_horizontal-600.webp']));
+  await page.waitForLoadState('networkidle');
+  expect(seen).not.toContain('/assets/images/logo_loading.png');
+  expect(seen).not.toContain('/assets/images/logo_horizontal.png');
 });

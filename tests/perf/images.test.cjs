@@ -30,6 +30,52 @@ test('PERF-25: the manifest covers every header, band, bodybg, footer and the ho
   }
 });
 
+test('PS2-01 / PS2-05: every home cover has -160, -320 and 600 px WebP outputs at 160, 320 and 600 px wide', async () => {
+  const files = outputs();
+  const release = require('../../_data/homeRelease.js')();
+  const pool = require('../../_data/homeShuffle.js')().pool;
+  const albums = require('../../_data/discography.json').albums;
+  const covers = [...new Set([release.cover, ...pool.map(s => s.cover), ...albums.map(a => a.cover)])];
+  for (const cover of covers) {
+    for (const [suffix, width] of [['-160', 160], ['-320', 320], ['', 600]]) {
+      const file = `assets/images/releases/${cover.replace(/\.jpg$/, `${suffix}.webp`)}`;
+      // In the manifest, so a variant dropped from it fails here.
+      assert.ok(files.some(out => out.file === file && out.width === (width === 600 ? null : width)), `manifest lacks ${file}`);
+      assert.ok(fs.existsSync(path.join(ROOT, file)), `missing ${file}`);
+      const meta = await sharp(path.join(ROOT, file)).metadata();
+      assert.equal(meta.format, 'webp', file);
+      assert.equal(meta.width, width, `${file} width`);
+    }
+  }
+});
+
+test('PS2-06: every photos.json thumbnail has a WebP of the same pixel size next to it', async () => {
+  const thumbs = [...new Set(require('../../_data/photos.json').map(p => p.thumbnail))];
+  assert.ok(thumbs.length > 10, `only ${thumbs.length} thumbnails`);
+  const files = outputs();
+  for (const url of thumbs) {
+    const webp = url.replace(/^\//, '').replace(/\.jpg$/, '.webp');
+    assert.ok(files.some(out => out.file === webp), `manifest lacks ${webp}`);
+    assert.ok(fs.existsSync(path.join(ROOT, webp)), `missing ${webp}`);
+    const jpeg = await sharp(path.join(ROOT, url)).metadata();
+    const meta = await sharp(path.join(ROOT, webp)).metadata();
+    assert.equal(meta.format, 'webp', webp);
+    assert.deepEqual([meta.width, meta.height], [jpeg.width, jpeg.height], webp);
+  }
+});
+
+test('PS2-09: the band logos have WebP outputs at 300 / 300 / 600 px wide that keep the alpha channel', async () => {
+  const files = outputs();
+  for (const [file, width] of [['logo_loading.webp', 300], ['logo_horizontal-300.webp', 300], ['logo_horizontal-600.webp', 600]]) {
+    assert.ok(files.some(out => out.file === `assets/images/${file}`), `manifest lacks ${file}`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'assets/images', file)), `missing ${file}`);
+    const meta = await sharp(path.join(ROOT, 'assets/images', file)).metadata();
+    assert.equal(meta.format, 'webp', file);
+    assert.equal(meta.width, width, `${file} width`);
+    assert.equal(meta.hasAlpha, true, `${file} alpha`);
+  }
+});
+
 test('PERF-31: every manifest output exists as a WebP at the manifest width', async () => {
   const all = outputs();
   assert.ok(all.length >= 7 * 3 + 3 + 2 + 4, `only ${all.length} outputs`);
@@ -149,14 +195,29 @@ test('PERF-29: every release cover on / is a <picture> with its WebP source; onl
     assert.ok(picture, `${img.src} is not inside <picture><source>`);
     const source = attrs(picture[1]);
     assert.equal(source.type, 'image/webp', img.src);
-    assert.equal(source.srcset, img.src.replace(/\.jpg$/, '.webp'), img.src);
-    assert.ok(fs.existsSync(path.join(ROOT, source.srcset)), `missing ${source.srcset}`);
+    assert.ok(source.srcset.endsWith(`${img.src.replace(/\.jpg$/, '.webp')} 600w`), `${img.src}: 600w file is not the original WebP`);
     assert.match(img.width, /^\d+$/, `${img.src} width`);
     assert.match(img.height, /^\d+$/, `${img.src} height`);
     if (/home-release-cover/.test(img.class)) assert.equal(img.loading, undefined, 'the hero release cover must stay eager');
     else assert.equal(img.loading, 'lazy', `${img.src} loading`);
   }
   assert.equal(covers.filter(tag => /home-release-cover/.test(tag)).length, 1);
+});
+
+test('PS2-02: every cover <source> on / lists the 160, 320 and 600 w files and has a non-empty sizes', () => {
+  const html = page('/');
+  const sources = [...html.matchAll(/<source[^>]*srcset="?\/assets\/images\/releases\/[^>]*>/g)].map(m => attrs(m[0]));
+  const albums = require('../../_data/discography.json').albums;
+  // Hero release + NOW::STREAMING + one per archive album.
+  assert.equal(sources.length, 2 + albums.length);
+  for (const source of sources) {
+    const list = srcset(source.srcset);
+    assert.deepEqual(list.map(([, w]) => w), ['160w', '320w', '600w'], source.srcset);
+    const base = list[2][0].replace(/\.webp$/, '');
+    assert.deepEqual(list.map(([url]) => url), [`${base}-160.webp`, `${base}-320.webp`, `${base}.webp`], source.srcset);
+    for (const [file] of list) assert.ok(fs.existsSync(path.join(ROOT, file)), `missing ${file}`);
+    assert.ok((source.sizes || '').trim() !== '', `${source.srcset}: empty sizes`);
+  }
 });
 
 test('PERF-30: every <img> on / and /band/ has width and height, and local ones match the file', async () => {
@@ -181,5 +242,98 @@ test('PERF-30: the menu logo is 600x95 and lazy on every layout page', () => {
     assert.ok(logo, `${url}: no menu logo`);
     const img = attrs(logo[0]);
     assert.deepEqual([img.width, img.height, img.loading], ['600', '95', 'lazy'], url);
+  }
+});
+
+// PS2-07: the photos.json thumbnail <img> tags on `url`, after checking each sits in
+// <picture><source type="image/webp" srcset="<thumbnail>.webp"> with the JPEG kept as its src.
+const thumbnailPictures = url => {
+  const html = page(url);
+  const thumbs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  const tags = [...html.matchAll(/<img\b[^>]*>/g)].map(m => m[0]).filter(tag => thumbs.has(attrs(tag).src));
+  for (const tag of tags) {
+    const img = attrs(tag);
+    const picture = html.match(new RegExp(`<picture>(<source[^>]*>)${tag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</picture>`));
+    assert.ok(picture, `${url}: ${img.src} is not inside <picture><source>`);
+    const source = attrs(picture[1]);
+    assert.equal(source.type, 'image/webp', `${url}: ${img.src}`);
+    assert.equal(source.srcset, img.src.replace(/\.jpg$/, '.webp'), `${url}: ${img.src}`);
+    assert.ok(fs.existsSync(path.join(ROOT, source.srcset)), `${url}: missing ${source.srcset}`);
+  }
+  return tags;
+};
+
+test('PS2-07: every gallery teaser thumbnail on / is a <picture> with its WebP source and the JPEG as src', () => {
+  const highlights = require('../../_data/highlights.js')();
+  assert.deepEqual(thumbnailPictures('/').map(tag => attrs(tag).src), highlights.map(p => p.thumbnail));
+});
+
+test('PS2-07: every highlight-button and grid thumbnail on /photos/ is a <picture> with its WebP source and the JPEG as src', () => {
+  const highlights = require('../../_data/highlights.js')();
+  const photos = require('../../_data/photos.json');
+  // The highlight buttons come first, then the archive grid.
+  assert.deepEqual(thumbnailPictures('/photos/').map(tag => attrs(tag).src), [...highlights, ...photos].map(p => p.thumbnail));
+});
+
+// PS2-10: `inner` is exactly <picture><source type="image/webp" srcset="logo_loading.webp"><img src="logo_loading.png"></picture>.
+const assertLoadingLogoPicture = (inner, where) => {
+  const picture = inner.match(/^<picture>(<source[^>]*>)(<img[^>]*>)<\/picture>/);
+  assert.ok(picture, `${where} logo is not <picture><source><img></picture>: ${inner}`);
+  const source = attrs(picture[1]);
+  const img = attrs(picture[2]);
+  assert.equal(source.type, 'image/webp', where);
+  assert.equal(source.srcset, '/assets/images/logo_loading.webp', where);
+  assert.equal(img.src, '/assets/images/logo_loading.png', where);
+  assert.deepEqual([img.width, img.height, img.alt], ['300', '204', 'Insane Driver'], where);
+};
+
+test('PS2-10: the loader logo on / is a <picture> with the logo_loading WebP source and the PNG as src', () => {
+  const loader = page('/').match(/<div class="?home-loader-logo"?>([\s\S]*?)<\/div>/);
+  assert.ok(loader, 'no loader logo');
+  assertLoadingLogoPicture(loader[1], 'loader');
+});
+
+test('PS2-10: the hero title logo on / is a <picture> with the logo_loading WebP source and the PNG as src', () => {
+  const title = page('/').match(/<h1 class="?home-title"? id="?home-title"?>([\s\S]*?)<\/h1>/);
+  assert.ok(title, 'no hero title');
+  assertLoadingLogoPicture(title[1], 'hero title');
+});
+
+test('PS2-11: the footer logo on every layout page is a <picture> with a 300/600 w WebP srcset, sizes and the PNG as src', () => {
+  const pages = layoutPages();
+  assert.ok(pages.some(([url]) => url === '/') && pages.length > 20, `only ${pages.length} layout pages`);
+  for (const [url, html] of pages) {
+    const picture = html.match(/<picture>(<source[^>]*>)(<img[^>]*class="?[^">]*logo-footer[^>]*>)<\/picture>/);
+    assert.ok(picture, `${url}: footer logo is not <picture><source><img></picture>`);
+    const source = attrs(picture[1]);
+    const img = attrs(picture[2]);
+    assert.equal(source.type, 'image/webp', url);
+    assert.deepEqual(srcset(source.srcset), [300, 600].map(w => [`/assets/images/logo_horizontal-${w}.webp`, `${w}w`]), url);
+    // Follows the footer CSS: 150px up to 768 px, 30% of the footer column above.
+    assert.equal(source.sizes, '(max-width: 768px) 150px, 30vw', url);
+    assert.equal(img.src, '/assets/images/logo_horizontal.png', url);
+    assert.deepEqual([img.width, img.height, img.alt], ['600', '95', 'Insane Driver'], url);
+  }
+});
+
+test('PS2-12: every logo_loading mask in home.min.css keeps the PNG url() and then adds an image-set() with the WebP first', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'assets/css/home.min.css'), 'utf8');
+  const rules = [...css.matchAll(/([^{}]*)\{([^{}]*logo_loading[^{}]*)\}/g)];
+  assert.deepEqual(rules.map(r => r[1]), [
+    '#page_home .home-title-glitch::before,#page_home .home-title-glitch::after',
+    '#page_home .home-loader-logo::before,#page_home .home-loader-logo::after',
+  ]);
+  const url = ext => `url\\(['"]?\\.\\./images/logo_loading\\.${ext}['"]?\\)`;
+  const rest = ' center / contain no-repeat';
+  for (const [, selector, body] of rules) {
+    const decls = body.split(';');
+    assert.ok(decls.filter(d => /logo_loading/.test(d)).every(d => /^(-webkit-)?mask:/.test(d)), `${selector}: logo_loading outside a mask`);
+    for (const [prop, fn] of [['-webkit-mask', '-webkit-image-set'], ['mask', 'image-set']]) {
+      const masks = decls.filter(d => d.startsWith(`${prop}:`));
+      assert.equal(masks.length, 2, `${selector}: ${prop}: ${masks.join(' | ')}`);
+      assert.match(masks[0], new RegExp(`^${prop}:${url('png')}${rest}$`), `${selector}: plain ${prop} fallback`);
+      assert.match(masks[1], new RegExp(`^${prop}:${fn}\\(${url('webp')}\\s*type\\(['"]image/webp['"]\\)\\s*,\\s*${url('png')}\\s*type\\(['"]image/png['"]\\)\\)${rest}$`),
+        `${selector}: ${prop} image-set with the WebP first`);
+    }
   }
 });

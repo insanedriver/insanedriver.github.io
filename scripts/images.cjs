@@ -18,6 +18,21 @@ const native = file => ({
   src: `${IMAGES}/${file}`,
   outputs: [{ file: `${IMAGES}/${file.replace(/\.(jpe?g|png)$/, '.webp')}`, width: null }],
 });
+// A cover is shown from 74 to ~420 px: 160 and 320 px variants, plus the 600 px original as <cover>.webp.
+const COVER_WIDTHS = [160, 320];
+const cover = file => ({
+  src: `${IMAGES}/releases/${file}`,
+  outputs: [
+    ...COVER_WIDTHS.map(width => ({ file: `${IMAGES}/releases/${file.replace(/\.jpg$/, `-${width}.webp`)}`, width })),
+    { file: `${IMAGES}/releases/${file.replace(/\.jpg$/, '.webp')}`, width: null },
+  ],
+});
+
+// The gallery thumbnails listed in _data/photos.json, as repo-relative paths.
+function thumbnails() {
+  const photos = require('../_data/photos.json');
+  return [...new Set(photos.map(p => p.thumbnail).filter(Boolean))].map(url => url.replace(/^\//, '')).sort();
+}
 
 // The covers the home shows: the hero release, the NOW::STREAMING pool and the archive albums.
 function homeCovers() {
@@ -34,7 +49,10 @@ const manifest = () => [
   resized('band'),
   native('bodybg.jpg'),
   native('footer.jpg'),
-  ...homeCovers().map(cover => native(`releases/${cover}`)),
+  ...homeCovers().map(cover),
+  native('logo_loading.png'),
+  { src: `${IMAGES}/logo_horizontal.png`, outputs: [300, 600].map(width => ({ file: `${IMAGES}/logo_horizontal-${width}.webp`, width })) },
+  ...thumbnails().map(src => ({ src, outputs: [{ file: src.replace(/\.jpe?g$/, '.webp'), width: null }] })),
 ];
 
 async function encode(src, width, out) {

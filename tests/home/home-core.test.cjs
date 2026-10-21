@@ -201,3 +201,8 @@ test('HOME-59: an entry missing a field the panel writes is rejected', () => {
   assert.equal(core.isShuffleEntry(null), false, 'null entry');
   assert.equal(core.isShuffleEntry('waiting-for-you'), false, 'string entry');
 });
+
+test('PS2-02/04: coverSrcset lists the 160, 320 and 600 px WebP files of a .jpg cover', () => {
+  assert.equal(core.coverSrcset('x.jpg'),
+    '/assets/images/releases/x-160.webp 160w, /assets/images/releases/x-320.webp 320w, /assets/images/releases/x.webp 600w');
+});
