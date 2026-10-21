@@ -152,7 +152,7 @@ jspath: js/home
         <ul class="home-archive-list">
             {% for album in discography.albums %}
             <li>
-                <a class="home-archive-item" href="/discography/#{{ album.slug }}" data-home-teaser="album" data-home-slug="{{ album.slug }}">
+                <a class="home-archive-item" href="/discography/{{ album.slug }}/" data-home-teaser="album" data-home-slug="{{ album.slug }}">
                     <span class="home-archive-art">
                         <picture><source type="image/webp" srcset="{{ album.cover | coverSrcset }}" sizes="(max-width: 767px) calc((100vw - 126px) / 3), calc((100vw - 208px) / 3)"><img src="/assets/images/releases/{{ album.cover }}" width="{{ album.coverWidth }}" height="{{ album.coverHeight }}" alt="" loading="lazy" decoding="async"></picture>
                     </span>
