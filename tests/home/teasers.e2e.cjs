@@ -19,7 +19,7 @@ async function assertTeasers(page) {
   const albums = panelByTab(page, 'DISC::ARCHIVE').locator('[data-home-teaser="album"]');
   await expect(albums).toHaveCount(3);
   expect(await albums.evaluateAll(els => els.map(el => el.getAttribute('href'))))
-    .toEqual(['/discography/#silicon-fortress', '/discography/#insane-driver-deluxe', '/discography/#insane-driver']);
+    .toEqual(['/discography/silicon-fortress/', '/discography/insane-driver-deluxe/', '/discography/insane-driver/']);
   for (let i = 0; i < catalog.albums.length; i++) {
     const a = catalog.albums[i];
     const item = albums.nth(i);
