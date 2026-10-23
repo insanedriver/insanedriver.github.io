@@ -191,7 +191,9 @@ T5 → T6
 
 ---
 
-### T6: HUD finish for the lyrics bento
+### T6: HUD finish for the lyrics bento ✅
+
+> Executed as tests only: the HUD rules are scoped to `.song-page--bento`, which T3 puts on lyrics pages, and LISTEN NOW carries the `song-bento-quickplay` class (T4), so no style change was needed and `discography.min.css` is unchanged.
 
 **What**: LISTEN NOW style parity and the HUD ACs on the lyrics layout.
 **Where**: `less/song-bento.less`

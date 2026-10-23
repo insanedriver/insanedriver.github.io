@@ -147,15 +147,15 @@ The ten song pages that have lyrics but no official video (`song.video` unset, `
 | NOVID-11 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
 | NOVID-12 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
 | NOVID-13 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
-| NOVID-14 | P1: Metadata bar and LISTEN NOW | Design | Pending |
+| NOVID-14 | P1: Metadata bar and LISTEN NOW | T6 | Implementing |
 | NOVID-15 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
 | NOVID-16 | P1: Lyrics terminal and dossier | T3 | Implementing |
 | NOVID-17 | P1: Lyrics terminal and dossier | T3 | Implementing |
 | NOVID-18 | P1: Lyrics terminal and dossier | T5 | Implementing |
 | NOVID-19 | P1: Lyrics terminal and dossier | T5 | Implementing |
 | NOVID-20 | P1: Lyrics terminal and dossier | T5 | Implementing |
-| NOVID-21 | P2: Neon HUD finish and accessibility | Design | Pending |
-| NOVID-22 | P2: Neon HUD finish and accessibility | Design | Pending |
+| NOVID-21 | P2: Neon HUD finish and accessibility | T6 | Implementing |
+| NOVID-22 | P2: Neon HUD finish and accessibility | T6 | Implementing |
 | NOVID-23 | P2: Neon HUD finish and accessibility | T4 | Implementing |
 
 **ID format:** `NOVID-NN`.
