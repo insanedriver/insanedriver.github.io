@@ -259,7 +259,7 @@ T8 → T9 → T10
 
 ---
 
-### T9: HUD finish
+### T9: HUD finish ✅
 
 **What**: Badge h1 font, SiliconFont tabs, panel background grid, lyrics markers and chorus italics, zero radius, focus ring, text colors, reduced motion - in `less/song-bento.less`.
 **Where**: `less/song-bento.less`

@@ -281,3 +281,116 @@ for (const width of [1280, 375]) {
     }
   });
 }
+
+// ── HUD finish (T9) ──
+
+const SCOPES = '[data-song-bento], [data-song-meta], .song-nav';
+
+test('BENTO-08/37: the title badge uses insaneFont and the panel tabs use SiliconFont', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  const first = font => font.split(',')[0].trim().replace(/["']/g, '');
+  expect(first(await page.locator('h1').evaluate(el => getComputedStyle(el).fontFamily))).toBe('insaneFont');
+  const tabs = await page.locator('[data-song-bento] .cyber-panel-tab').evaluateAll(els => els.map(el => getComputedStyle(el).fontFamily));
+  expect(tabs).toHaveLength(4);
+  for (const f of tabs) expect(first(f)).toBe('SiliconFont');
+});
+
+test('BENTO-23: a hovered Panel B button takes its brand border color', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  const spotify = page.locator('.song-bento-panel--b [data-disc-link="spotify"]');
+  await spotify.hover();
+  await expect.poll(() => spotify.evaluate(el => getComputedStyle(el).borderTopColor)).toBe('rgb(29, 185, 84)');
+});
+
+test('BENTO-28: section markers are colored by family and chorus lines are italic', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  const COLORS = { verse: 'rgb(0, 243, 255)', other: 'rgb(0, 243, 255)', bridge: 'rgb(255, 0, 234)', chorus: 'rgb(252, 238, 10)' };
+  const rows = await page.locator('[data-song-bento] .song-lyrics-section').evaluateAll(els => els.map(el => {
+    const fam = (el.className.match(/song-lyrics-section--(\w+)/) || [])[1] || null;
+    const h3 = el.querySelector('h3');
+    const before = h3 ? getComputedStyle(h3, '::before') : null;
+    const p = el.querySelector('p');
+    return { fam, marker: before && before.content !== 'none' ? before.backgroundColor : null, italic: p ? getComputedStyle(p).fontStyle : null };
+  }));
+  expect(rows.map(r => r.fam)).toEqual(['verse', 'bridge', 'chorus', 'verse', 'bridge', 'chorus']);
+  for (const r of rows) {
+    expect(r.marker, r.fam).toBe(COLORS[r.fam]);
+    if (r.italic !== null) expect(r.italic, r.fam).toBe(r.fam === 'chorus' ? 'italic' : 'normal');
+  }
+  // A non-chorus "Prayer" section on Desperate Prayer is "other": cyan.
+  await page.goto(SONGS.find(s => s.slug === 'desperate-prayer').url);
+  const prayer = page.locator('[data-song-bento] .song-lyrics-section--other h3').first();
+  await expect(prayer).toHaveText('Prayer');
+  expect(await prayer.evaluate(el => getComputedStyle(el, '::before').backgroundColor)).toBe(COLORS.other);
+});
+
+test('BENTO-36: nothing in the bento, the metadata bar or the sequencer has rounded corners', async ({ page }) => {
+  for (const s of [KEEP_AWAY, GHOSTS]) {
+    await page.goto(s.url);
+    const rounded = await page.evaluate(sel => {
+      const out = [];
+      for (const root of document.querySelectorAll(sel)) {
+        for (const el of [root, ...root.querySelectorAll('*')]) {
+          for (const pseudo of [null, '::before', '::after']) {
+            const cs = getComputedStyle(el, pseudo);
+            const r = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomLeftRadius, cs.borderBottomRightRadius];
+            if (r.some(v => v !== '0px')) out.push(`${el.className || el.tagName}${pseudo || ''}: ${r.join(' ')}`);
+          }
+        }
+      }
+      return out;
+    }, SCOPES);
+    expect(rounded, s.url).toEqual([]);
+  }
+});
+
+test('BENTO-38: keyboard focus shows the yellow 3px ring with a 4px offset', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  await page.keyboard.press('Tab');
+  for (const sel of ['[data-song-quickplay]', '.song-bento-panel--b [data-disc-link="spotify"]', '.song-bento-panel--b [data-disc-link="tidal"]', '[data-song-video]', '.song-nav a[rel="next"]']) {
+    await page.locator(sel).evaluate(el => el.focus());
+    // The platform buttons transition every property over .3s, outline included.
+    await expect.poll(() => page.locator(sel).evaluate(el => {
+      const cs = getComputedStyle(el);
+      return [el.matches(':focus-visible'), cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.outlineOffset];
+    }), { message: sel }).toEqual([true, 'solid', '3px', 'rgb(252, 238, 10)', '4px']);
+  }
+});
+
+test.describe('reduced motion', () => {
+  test.use({ reducedMotion: 'reduce' });
+  test('BENTO-39: nothing animates in the bento or the metadata bar', async ({ page }) => {
+    await page.goto(KEEP_AWAY.url);
+    const moving = await page.evaluate(() => {
+      const out = [];
+      for (const root of document.querySelectorAll('[data-song-bento], [data-song-meta]')) {
+        for (const el of [root, ...root.querySelectorAll('*')]) {
+          for (const pseudo of [null, '::before', '::after']) {
+            const name = getComputedStyle(el, pseudo).animationName;
+            if (name !== 'none') out.push(`${el.className}${pseudo || ''}: ${name}`);
+          }
+        }
+      }
+      return out;
+    });
+    expect(moving).toEqual([]);
+  });
+});
+
+test('BENTO-39: without the preference the live dot pulses', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  expect(await page.locator('.song-bento-dot').evaluate(el => getComputedStyle(el).animationName)).not.toBe('none');
+});
+
+test('BENTO-40/41: panel bodies carry the smoke background and 25px grid; reading text is frost', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  const bodies = await page.locator('[data-song-bento] .cyber-panel-body').evaluateAll(els => els.map(el => {
+    const cs = getComputedStyle(el);
+    return [cs.backgroundColor, (cs.backgroundImage.match(/linear-gradient/g) || []).length, cs.backgroundSize.split(', ')];
+  }));
+  expect(bodies).toHaveLength(4);
+  for (const b of bodies) expect(b).toEqual(['rgba(10, 10, 10, 0.85)', 2, ['25px 25px', '25px 25px']]);
+  const colors = await page.locator('[data-song-bento] .song-lyrics-section p, [data-song-bento] [data-song-about] p')
+    .evaluateAll(els => [...new Set(els.map(el => getComputedStyle(el).color))]);
+  expect(colors).toEqual(['rgb(233, 237, 242)']);
+});

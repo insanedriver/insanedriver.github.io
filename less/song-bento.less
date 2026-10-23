@@ -155,4 +155,50 @@
     }
 
     .song-lyrics, .song-about, .song-also { max-width: none; }
+
+    // ── HUD finish ──
+
+    // Panel tabs in Mars Mission (SiliconFont, declared in less/typography.less).
+    .cyber-panel-tab { font-family: SiliconFont, 'Rajdhani', sans-serif; }
+
+    // No rounded corners anywhere in the HUD: the blinking tab dot becomes a square.
+    .tab-icon { border-radius: 0; }
+
+    @keyframes song-bento-pulse {
+        0%, 100% { opacity: 1; text-shadow: 0 0 8px #00f3ff; }
+        50%      { opacity: .35; text-shadow: none; }
+    }
+    .song-bento-dot { display: inline-block; animation: song-bento-pulse 1.6s ease-in-out infinite; }
+
+    // Lyrics markers: cyan verse (and any other label), magenta bridge, yellow chorus.
+    .song-lyrics-section h3::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 10px;
+        vertical-align: 1px;
+        background-color: #00f3ff;
+    }
+    .song-lyrics-section--bridge h3::before { background-color: #ff00ea; }
+    .song-lyrics-section--chorus {
+        h3::before { background-color: #fcee0a; }
+        p { font-style: italic; }
+    }
+}
+
+// The badge sits in the base layout's <h1>, outside the song shell.
+#page_discography .song-title-badge {
+    display: table;
+    margin: 20px auto;
+    padding: 10px 32px;
+    font-family: insaneFont, SiliconFont, 'Rajdhani', sans-serif;
+    // War is Over has capitals only.
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #fff;
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid #00f3ff;
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+    text-shadow: 2px 0 rgba(255, 0, 234, 0.7), -2px 0 rgba(0, 243, 255, 0.7);
 }
