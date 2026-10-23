@@ -210,7 +210,7 @@ T8 → T9 → T10
 
 ---
 
-### T7: Bento markup
+### T7: Bento markup ✅
 
 **What**: `_includes/discography/song-bento.liquid` (meta bar + panels A, B, D, C) included by `song.liquid` for video songs; non-video branch unchanged.
 **Where**: `_includes/discography/song-bento.liquid`

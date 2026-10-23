@@ -19,8 +19,12 @@ eleventyComputed:
   og_image: "/assets/images/releases/{{ song.cover.file }}"
 ---
 {%- assign release = song.album -%}
-<div class="disc-shell disc-page song-page cyber-zone" data-disc>
+<div class="disc-shell disc-page song-page{% if song.video %} song-page--bento{% endif %} cyber-zone" data-disc>
     <div class="cyber-zone-inner">
+
+    {% if song.video %}
+    {% include 'discography/song-bento' %}
+    {% else %}
 
     <div class="cyber-panel">
         <div class="cyber-panel-tab"><span class="tab-icon"></span> TRACK::{% if song.position < 10 %}0{% endif %}{{ song.position }}</div>
@@ -50,30 +54,6 @@ eleventyComputed:
         </div>
     </div>
 
-    {% if song.video %}
-    <div class="cyber-separator"></div>
-
-    <div class="cyber-panel">
-        <div class="cyber-panel-tab"><span class="tab-icon"></span> SONG::VIDEO</div>
-        <div class="cyber-panel-body cyber-panel-body--song" data-hud="{{ song.video.type }}_">
-            <span class="top-accent"></span>
-            <span class="corner-tl"></span>
-            <span class="corner-tr"></span>
-            <span class="corner-bl"></span>
-    <section class="song-video-block" aria-labelledby="song-video-title">
-        <h2 id="song-video-title" class="song-heading">Video</h2>
-        <div class="song-video-frame-box">
-            <a class="song-video" data-song-video data-video-id="{{ song.video.id }}" data-video-title="{{ song.video.title | escape }}" href="https://www.youtube.com/watch?v={{ song.video.id }}" target="_blank" rel="noopener">
-                <img src="https://i.ytimg.com/vi/{{ song.video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy">
-                <span class="song-video-play" aria-hidden="true"><i class="fa fa-play"></i></span>
-                <span class="song-video-caption"><span class="disc-eyebrow">Play video</span> <span class="song-video-name">{{ song.video.title | escape }}</span></span>
-            </a>
-        </div>
-    </section>
-        </div>
-    </div>
-    {% endif %}
-
     <div class="cyber-separator"></div>
 
     <div class="cyber-panel">
@@ -89,6 +69,8 @@ eleventyComputed:
 
         </div>
     </div>
+
+    {% endif %}
 
     {% include 'discography/song-nav' %}
 
