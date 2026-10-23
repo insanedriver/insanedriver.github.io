@@ -183,10 +183,10 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 | BENTO-07 | P1: Metadata bar | Tasks | In Tasks |
 | BENTO-08 | P1: Metadata bar | Tasks | In Tasks |
 | BENTO-09 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-10 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-11 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-12 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-13 | P1: Metadata bar | Tasks | In Tasks |
+| BENTO-10 | P1: Metadata bar | T10 | Implemented |
+| BENTO-11 | P1: Metadata bar | T10 | Implemented |
+| BENTO-12 | P1: Metadata bar | T10 | Implemented |
+| BENTO-13 | P1: Metadata bar | T10 | Implemented |
 | BENTO-14 | P1: Watch and listen | Tasks | In Tasks |
 | BENTO-15 | P1: Watch and listen | Tasks | In Tasks |
 | BENTO-16 | P1: Watch and listen | Tasks | In Tasks |
@@ -215,7 +215,7 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 | BENTO-40 | P2: HUD finish | Tasks | In Tasks |
 | BENTO-41 | P2: HUD finish | Tasks | In Tasks |
 | BENTO-42 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-43 | P2: HUD finish | Tasks | In Tasks |
+| BENTO-43 | P2: HUD finish | T10 | Implemented |
 
 **ID format:** `BENTO-NN`. BENTO-29 is unused (cue sections keep their current style, covered by SONG-04).
 

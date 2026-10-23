@@ -394,3 +394,68 @@ test('BENTO-40/41: panel bodies carry the smoke background and 25px grid; readin
     .evaluateAll(els => [...new Set(els.map(el => getComputedStyle(el).color))]);
   expect(colors).toEqual(['rgb(233, 237, 242)']);
 });
+
+// ── QUICK PLAY (T10) ──
+
+const YOUTUBE = /(^|\.)(youtube\.com|youtube-nocookie\.com)$/;
+const EMBED = s => `https://www.youtube-nocookie.com/embed/${s.video.id}?autoplay=1`;
+const panelAInView = page => page.evaluate(() => {
+  const top = document.getElementById('song-video').getBoundingClientRect().top;
+  return top >= -1 && top < innerHeight;
+});
+
+test.describe('QUICK PLAY on a phone-sized viewport (Panel A starts below the fold)', () => {
+  test.use({ viewport: { width: 375, height: 700 } });
+
+  test('BENTO-10/11/43: QUICK PLAY scrolls to Panel A, starts the video in place and reports the click', async ({ page }) => {
+    const hits = [];
+    page.on('request', req => { if (YOUTUBE.test(new URL(req.url()).hostname)) hits.push(req.url()); });
+    await page.goto(KEEP_AWAY.url, { waitUntil: 'load' });
+    // BENTO-43: nothing from YouTube before activation.
+    await page.waitForTimeout(300);
+    expect(hits).toEqual([]);
+    expect(await panelAInView(page)).toBe(false);
+
+    await page.locator('[data-song-quickplay]').click();
+    const frame = page.locator('#song-video iframe');
+    await expect(frame).toHaveCount(1);
+    await expect(frame).toHaveAttribute('src', EMBED(KEEP_AWAY));
+    await expect(page.locator('[data-song-video]')).toHaveCount(0);
+    await expect.poll(() => panelAInView(page)).toBe(true);
+    expect(new URL(page.url()).pathname).toBe(KEEP_AWAY.url);
+    expect(page.context().pages()).toHaveLength(1);
+    expect(hits.some(u => u.startsWith(EMBED(KEEP_AWAY).split('?')[0]))).toBe(true);
+    // BENTO-11
+    const events = await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'song_quick_play'));
+    expect(events).toEqual([{ event: 'song_quick_play', song: 'keep-away' }]);
+  });
+
+  test('BENTO-12: with the video already playing, QUICK PLAY only scrolls back and keeps one iframe', async ({ page }) => {
+    await page.goto(KEEP_AWAY.url);
+    await page.locator('[data-song-video]').click();
+    await expect(page.locator('#song-video iframe')).toHaveCount(1);
+    await page.evaluate(() => scrollTo(0, 0));
+    await expect.poll(() => panelAInView(page)).toBe(false);
+    await page.locator('[data-song-quickplay]').click();
+    await expect.poll(() => panelAInView(page)).toBe(true);
+    await page.locator('[data-song-quickplay]').click();
+    await expect(page.locator('iframe')).toHaveCount(1);
+    await expect(page.locator('#song-video iframe')).toHaveAttribute('src', EMBED(KEEP_AWAY));
+  });
+});
+
+test.describe('QUICK PLAY under reduced motion', () => {
+  test.use({ viewport: { width: 375, height: 700 }, reducedMotion: 'reduce' });
+
+  test('BENTO-13: the jump to Panel A is instant', async ({ page }) => {
+    await page.goto(GHOSTS.url);
+    expect(await panelAInView(page)).toBe(false);
+    // Click and measure in the same task: a smooth scroll would still be at the top.
+    const inView = await page.evaluate(() => {
+      document.querySelector('[data-song-quickplay]').click();
+      const top = document.getElementById('song-video').getBoundingClientRect().top;
+      return top >= -1 && top < innerHeight;
+    });
+    expect(inView).toBe(true);
+  });
+});

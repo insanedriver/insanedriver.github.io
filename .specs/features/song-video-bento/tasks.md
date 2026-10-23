@@ -283,7 +283,7 @@ T8 → T9 → T10
 
 ---
 
-### T10: QUICK PLAY
+### T10: QUICK PLAY ✅
 
 **What**: Extract `activate(facade)` in `assets/js/song.js`; QUICK PLAY scrolls to Panel A, activates the video once, pushes `song_quick_play`, respects reduced motion.
 **Where**: `assets/js/song.js`
