@@ -1,0 +1,158 @@
+// Song pages with a video (/discography/<album>/<song>/, song.video set): the
+// "Bento Grid HUD" - a metadata bar, then panels A (video) and B (audio uplink)
+// over D (dossier) and C (lyrics). DOM order is A, B, D, C so phones read video,
+// streaming, dossier, lyrics; the desktop grid moves C to the left of D.
+// Everything is scoped to .song-page--bento: songs without a video are untouched.
+#page_discography .song-page--bento {
+
+    // ── Grid ──
+
+    .song-bento {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "a" "b" "d" "c";
+        gap: 2.5rem;
+
+        @media (min-width: 992px) {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            grid-template-areas: "a a a a b b" "c c c d d d";
+            gap: 3rem 2rem;
+        }
+    }
+
+    .song-bento-panel {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        margin-bottom: 0;
+
+        > .cyber-panel-body { flex: 1 1 auto; }
+    }
+
+    .song-bento-panel--a { grid-area: a; }
+    .song-bento-panel--b { grid-area: b; }
+    .song-bento-panel--c { grid-area: c; }
+    .song-bento-panel--d { grid-area: d; }
+
+    .song-bento-sticky {
+        @media (min-width: 992px) {
+            position: sticky;
+            top: 2rem;
+        }
+    }
+
+    // ── Metadata bar ──
+
+    .song-bento-meta { margin-bottom: 2.5rem; }
+
+    .song-bento-meta-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        align-items: center;
+
+        .disc-release-art { max-width: 200px; }
+
+        @media (min-width: 768px) {
+            grid-template-columns: 160px minmax(0, 1fr) auto;
+            gap: 28px;
+            .disc-release-art { max-width: none; }
+        }
+    }
+
+    .song-bento-meta-body { min-width: 0; }
+    .song-bento-meta-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        margin: 0 0 8px;
+    }
+    .song-bento-intel .fans-of { margin-top: 4px; }
+
+    // Doubled class + element: outranks `.disc-page a:not(...):not(...)` link colors.
+    a.song-bento-quickplay.song-bento-quickplay {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: #00f3ff;
+        color: #03080e;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-decoration: none;
+        clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        transition: background-color .2s;
+
+        &:hover, &:focus { background: #fcee0a; color: #03080e; }
+    }
+
+    // ── Panel content ──
+
+    .song-bento-telemetry {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 6px 16px;
+        margin: 0 0 16px;
+    }
+
+    .song-bento-telemetry, .song-bento-telemetry-item, .song-bento-foot {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 2px;
+        color: #9cbbc2;
+        overflow-wrap: anywhere;
+    }
+
+    .song-bento-live { color: #00f3ff; }
+
+    .song-bento-video-title {
+        margin: 16px 0 0;
+        color: #fff;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    .song-bento-foot {
+        margin: 20px 0 0;
+        padding-top: 12px;
+        border-top: 1px solid rgba(0, 243, 255, 0.2);
+        color: rgba(0, 243, 255, 0.6);
+    }
+
+    // Panel B: primary buttons in 2 columns until the panel is the narrow third
+    // column of the desktop grid; secondary buttons always 2 x 2.
+    .song-bento-uplink {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        @media (min-width: 992px) { grid-template-columns: minmax(0, 1fr); }
+    }
+    .song-bento-uplink-secondary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-bottom: 0;
+    }
+    .song-bento-uplink, .song-bento-uplink-secondary {
+        .cyber-link-name, .cyber-link-sub { max-width: 100%; overflow-wrap: anywhere; text-align: center; }
+    }
+    // Two narrow columns on phones: tighter tracking keeps "BANDCAMP" on one line.
+    @media (max-width: 767px) {
+        .song-bento-uplink {
+            .cyber-link-name { font-size: 1.6rem; letter-spacing: 2px; }
+            .cyber-link-sub { letter-spacing: 1px; }
+        }
+    }
+    .song-bento-uplink .cyber-link-btn--primary {
+        min-height: 0;
+        @media (min-width: 992px) {
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 4px 14px;
+            padding: 1.2rem 1.6rem;
+            .cyber-link-sub { flex-basis: 100%; }
+        }
+    }
+
+    .song-lyrics, .song-about, .song-also { max-width: none; }
+}

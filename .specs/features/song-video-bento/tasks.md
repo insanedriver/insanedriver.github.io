@@ -235,7 +235,7 @@ T8 → T9 → T10
 
 ---
 
-### T8: Bento layout
+### T8: Bento layout ✅
 
 **What**: `less/song-bento.less` grid, responsive stacking, Panel B columns, sticky dossier; imported by `less/pages/discography.less`.
 **Where**: `less/song-bento.less`

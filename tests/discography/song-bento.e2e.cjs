@@ -205,3 +205,79 @@ test.describe('without JavaScript', () => {
   });
 });
 
+
+// ── Layout (T8) ──
+
+const GHOSTS = SONGS.find(s => s.slug === 'ghosts');
+const rects = page => page.evaluate(() => {
+  const grid = document.querySelector('[data-song-bento]');
+  const box = el => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, left: r.left, width: r.width, bottom: r.bottom + scrollY }; };
+  const out = { grid: box(grid) };
+  for (const l of ['a', 'b', 'c', 'd']) out[l] = box(grid.querySelector(`.song-bento-panel--${l}`));
+  return out;
+});
+
+for (const width of [1280, 992]) {
+  for (const s of [KEEP_AWAY, GHOSTS]) {
+    test(`BENTO-03/04/33: ${s.url} at ${width}px is a 2+1 / 1+1 bento`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(s.url);
+      const r = await rects(page);
+      // BENTO-03: A and B on one row, A left, A two-thirds.
+      expect(Math.abs(r.a.top - r.b.top)).toBeLessThanOrEqual(2);
+      expect(r.a.left).toBeLessThan(r.b.left);
+      const ratio = r.a.width / (r.a.width + r.b.width);
+      expect(ratio).toBeGreaterThanOrEqual(0.64);
+      expect(ratio).toBeLessThanOrEqual(0.69);
+      // BENTO-04: C and D on the next row, C left, equal widths.
+      expect(Math.abs(r.c.top - r.d.top)).toBeLessThanOrEqual(2);
+      expect(r.c.top).toBeGreaterThanOrEqual(Math.max(r.a.bottom, r.b.bottom));
+      expect(r.c.left).toBeLessThan(r.d.left);
+      expect(Math.abs(r.c.width - r.d.width)).toBeLessThanOrEqual(2);
+      // BENTO-33: the dossier content is sticky.
+      expect(await page.locator('.song-bento-panel--d .song-bento-sticky').evaluate(el => getComputedStyle(el).position)).toBe('sticky');
+    });
+  }
+}
+
+for (const width of [991, 768, 375]) {
+  test(`BENTO-05/24: at ${width}px the panels stack A, B, D, C and Panel B shows 2 primary columns`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(KEEP_AWAY.url);
+    const r = await rects(page);
+    for (const l of ['a', 'b', 'd', 'c']) expect(Math.abs(r[l].width - r.grid.width), l).toBeLessThanOrEqual(2);
+    expect(r.a.bottom).toBeLessThanOrEqual(r.b.top + 1);
+    expect(r.b.bottom).toBeLessThanOrEqual(r.d.top + 1);
+    expect(r.d.bottom).toBeLessThanOrEqual(r.c.top + 1);
+    const cols = await page.locator('.song-bento-panel--b .cyber-link-btn--primary').evaluateAll(els => els.map(el => {
+      const b = el.getBoundingClientRect(); return { left: Math.round(b.left), width: b.width };
+    }));
+    expect(new Set(cols.map(c => c.left)).size).toBe(2);
+    expect(Math.max(...cols.map(c => c.width)) - Math.min(...cols.map(c => c.width))).toBeLessThanOrEqual(1);
+  });
+}
+
+for (const width of [375, 768, 992, 1280]) {
+  test(`BENTO-06: no horizontal overflow on any song page at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    for (const s of SONGS) {
+      await page.goto(s.url);
+      const { scroll, client } = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+      expect(scroll, s.url).toBe(client);
+    }
+  });
+}
+
+for (const width of [1280, 375]) {
+  test(`BENTO-14/30: at ${width}px the video frame is 16:9 and the lyrics are not clipped`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(KEEP_AWAY.url);
+    const frame = await page.locator('.song-bento-panel--a .song-video-frame-box').boundingBox();
+    expect(Math.abs(frame.width / frame.height - 16 / 9) / (16 / 9)).toBeLessThanOrEqual(0.01);
+    for (const sel of ['.song-bento-panel--c .cyber-panel-body', '.song-bento-panel--c [data-song-lyrics]']) {
+      const box = await page.locator(sel).evaluate(el => ({ overflow: getComputedStyle(el).overflowY, scroll: el.scrollHeight, client: el.clientHeight }));
+      expect(box.overflow, sel).toBe('visible');
+      expect(box.scroll, sel).toBe(box.client);
+    }
+  });
+}
