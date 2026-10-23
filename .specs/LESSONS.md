@@ -276,6 +276,24 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: M15b tests/perf/images.e2e.cjs:123 (PS2-23) (tests)
 - last seen: 2026-10-20T21:54:35Z
 
+### L-045 - When an AC says an action stays on the same URL, assert the full URL including the hash, not only the pathname.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: song-video-bento
+- evidence: validation.md M3; assets/js/song.js:31; tests/discography/song-bento.e2e.cjs:425 (BENTO-10) (tests)
+- last seen: 2026-10-23T15:11:13Z
+
+### L-046 - When new links rely on a delegated tracking handler bound to an ancestor attribute, click one of them in a test and assert the pushed event, or losing the ancestor silently drops the tracking.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `e2e-tracking` · harmful: 0
+- features: song-video-bento
+- evidence: validation.md M5; discography/song.liquid:22; BENTO-21 (e2e-tracking)
+- last seen: 2026-10-23T15:11:13Z
+
+### L-047 - When an AC sets a rule for every item of a list whose variants render differently, such as primary and compact buttons, state which variants the rule applies to.
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: song-video-bento
+- evidence: BENTO-20 vs tests/seo/song.e2e.cjs:201 (spec-writing)
+- last seen: 2026-10-23T15:11:13Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

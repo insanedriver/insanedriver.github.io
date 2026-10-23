@@ -174,48 +174,48 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| BENTO-01 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-02 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-03 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-04 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-05 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-06 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-07 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-08 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-09 | P1: Metadata bar | Tasks | In Tasks |
-| BENTO-10 | P1: Metadata bar | T10 | Implemented |
-| BENTO-11 | P1: Metadata bar | T10 | Implemented |
-| BENTO-12 | P1: Metadata bar | T10 | Implemented |
-| BENTO-13 | P1: Metadata bar | T10 | Implemented |
-| BENTO-14 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-15 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-16 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-17 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-18 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-19 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-20 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-21 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-22 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-23 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-24 | P1: Watch and listen | Tasks | In Tasks |
-| BENTO-25 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-26 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-27 | P1: Lyrics and dossier | T1, T4 | Implementing |
-| BENTO-28 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-30 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-31 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-32 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-33 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-34 | P2: Track sequencer | T5 | Implementing |
-| BENTO-35 | P2: Track sequencer | T2, T5 | Implementing |
-| BENTO-36 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-37 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-38 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-39 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-40 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-41 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-42 | P2: HUD finish | Tasks | In Tasks |
-| BENTO-43 | P2: HUD finish | T10 | Implemented |
+| BENTO-01 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-02 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-03 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-04 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-05 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-06 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-07 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-08 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-09 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-10 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-11 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-12 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-13 | P1: Metadata bar | T1-T10 | Verified |
+| BENTO-14 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-15 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-16 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-17 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-18 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-19 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-20 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-21 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-22 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-23 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-24 | P1: Watch and listen | T1-T10 | Verified |
+| BENTO-25 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-26 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-27 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-28 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-30 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-31 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-32 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-33 | P1: Lyrics and dossier | T1-T10 | Verified |
+| BENTO-34 | P2: Track sequencer | T1-T10 | Verified |
+| BENTO-35 | P2: Track sequencer | T1-T10 | Verified |
+| BENTO-36 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-37 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-38 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-39 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-40 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-41 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-42 | P2: HUD finish | T1-T10 | Verified |
+| BENTO-43 | P2: HUD finish | T1-T10 | Verified |
 
 **ID format:** `BENTO-NN`. BENTO-29 is unused (cue sections keep their current style, covered by SONG-04).
 
