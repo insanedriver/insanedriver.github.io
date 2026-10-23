@@ -213,7 +213,7 @@ test.describe('without JavaScript', () => {
       const listen = page.locator('[data-song-meta] a[data-song-listen]');
       await expect(listen).toHaveCount(1);
       await expect(page.locator('[data-song-listen]')).toHaveCount(1);
-      await expect(listen).toHaveText(/^\s*Listen now\s*$/i);
+      await expect(listen).toHaveText(/^\s*Listen now\s*$/);
       await expect(listen.locator('i.fa.fa-spotify')).toHaveCount(1);
       // Same rule as BENTO-19: the track URL when songs.json has one, else the album's.
       await expect(listen).toHaveAttribute('href', expectedUplink(s).find(p => p.key === 'spotify').url);
@@ -411,7 +411,7 @@ test('NOVID-18 fixture: Age of Lies has an "Also released as" and Faceless Demon
 });
 
 for (const width of [991, 768, 375]) {
-  test(`NOVID-06: at ${width}px the lyrics bento stacks C, B, D at full width`, async ({ page }) => {
+  test(`NOVID-06/15: at ${width}px the lyrics bento stacks C, B, D at full width and Panel B shows 2 primary columns`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(AGE_OF_LIES.url);
     const r = await lyricsRects(page);
@@ -422,10 +422,25 @@ for (const width of [991, 768, 375]) {
     expect(r.b.top).toBeGreaterThanOrEqual(r.c.bottom);
     expect(r.d.top).toBeGreaterThanOrEqual(r.b.bottom);
     expect((await stickyOf(page, 'b'))[0]).toBe('static');
+    // NOVID-15 → BENTO-24: Panel B primaries in 2 equal columns.
+    const cols = await page.locator('.song-bento-panel--b .cyber-link-btn--primary').evaluateAll(els => els.map(el => {
+      const b = el.getBoundingClientRect(); return { left: Math.round(b.left), width: b.width };
+    }));
+    expect(new Set(cols.map(c => c.left)).size).toBe(2);
+    expect(Math.max(...cols.map(c => c.width)) - Math.min(...cols.map(c => c.width))).toBeLessThanOrEqual(1);
   });
 }
 
 for (const width of [1280, 375]) {
+  test(`NOVID-16 → BENTO-30: at ${width}px the lyrics bento does not clip the lyrics`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(FACELESS.url);
+    for (const sel of ['.song-bento-panel--c .cyber-panel-body', '.song-bento-panel--c [data-song-lyrics]']) {
+      const box = await page.locator(sel).evaluate(el => ({ overflow: getComputedStyle(el).overflowY, scroll: el.scrollHeight, client: el.clientHeight }));
+      expect(box.overflow, sel).toBe('visible');
+      expect(box.scroll, sel).toBe(box.client);
+    }
+  });
   test(`NOVID-19: at ${width}px a lone About paragraph is at most 70 zero-glyphs wide`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(FACELESS.url);
