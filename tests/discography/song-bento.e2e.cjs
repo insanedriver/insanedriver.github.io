@@ -422,7 +422,9 @@ test.describe('QUICK PLAY on a phone-sized viewport (Panel A starts below the fo
     await expect(frame).toHaveAttribute('src', EMBED(KEEP_AWAY));
     await expect(page.locator('[data-song-video]')).toHaveCount(0);
     await expect.poll(() => panelAInView(page)).toBe(true);
+    // Same URL: no jump to #song-video either.
     expect(new URL(page.url()).pathname).toBe(KEEP_AWAY.url);
+    expect(new URL(page.url()).hash).toBe('');
     expect(page.context().pages()).toHaveLength(1);
     expect(hits.some(u => u.startsWith(EMBED(KEEP_AWAY).split('?')[0]))).toBe(true);
     // BENTO-11
@@ -441,6 +443,7 @@ test.describe('QUICK PLAY on a phone-sized viewport (Panel A starts below the fo
     await page.locator('[data-song-quickplay]').click();
     await expect(page.locator('iframe')).toHaveCount(1);
     await expect(page.locator('#song-video iframe')).toHaveAttribute('src', EMBED(KEEP_AWAY));
+    expect(new URL(page.url()).hash).toBe('');
   });
 });
 
@@ -458,4 +461,20 @@ test.describe('QUICK PLAY under reduced motion', () => {
     });
     expect(inView).toBe(true);
   });
+});
+
+// ── Panel B tracking ──
+
+test('BENTO-21: clicking a primary and a compact Panel B button pushes release_click for the song\'s release', async ({ page }) => {
+  await page.goto(KEEP_AWAY.url);
+  // The anchors target _blank; blocking the navigation keeps the assertions about the pushed event.
+  await page.evaluate(() => {
+    document.addEventListener('click', e => { const a = e.target.closest('a'); if (a) e.preventDefault(); });
+  });
+  await page.locator('.song-bento-panel--b .cyber-link-btn--primary[data-disc-link="spotify"]').click();
+  await page.locator('.song-bento-panel--b .cyber-link-btn--compact[data-disc-link="deezer"]').click();
+  expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'release_click'))).toEqual([
+    { event: 'release_click', platform: 'spotify', release: KEEP_AWAY.album.slug },
+    { event: 'release_click', platform: 'deezer', release: KEEP_AWAY.album.slug },
+  ]);
 });
