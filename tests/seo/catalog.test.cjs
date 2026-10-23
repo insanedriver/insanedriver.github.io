@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, sectionFamily, albumCode, uplink, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, albumCode, uplink, songLayout, listenUrl, build } = require('../../lib/catalog.js');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
@@ -315,4 +315,40 @@ test('BENTO-18/19: a built song carries its uplink from its listen links; withou
 test('BENTO-18: the Eleventy catalog data passes platforms.json in', () => {
   const data = require('../../_data/catalog.js')();
   assert.equal(data.songs.find(x => x.slug === 'keep-away').uplink[0].key, 'spotify');
+});
+
+// ── Song layout and LISTEN NOW (song-bento-no-video) ──
+
+test('NOVID-01/03: songLayout is video with a video, else stack for instrumentals, else lyrics', () => {
+  const video = { id: 'x' };
+  assert.equal(songLayout({ video, instrumental: false }), 'video');
+  assert.equal(songLayout({ video, instrumental: true }), 'video');
+  assert.equal(songLayout({ video: null, instrumental: true }), 'stack');
+  assert.equal(songLayout({ video: null, instrumental: false }), 'lyrics');
+});
+
+test('NOVID-01/03: built songs carry their layout; the 10 sung songs without a video use lyrics', () => {
+  const c = catalog();
+  assert.equal(song(c, 'keep-away').layout, 'video');
+  assert.equal(song(c, 'faceless-demons').layout, 'lyrics');
+  assert.equal(song(c, 'endless-path').layout, 'stack');
+  assert.deepEqual(c.songs.filter(s => s.layout === 'lyrics').map(s => s.slug).sort(), [
+    'age-of-lies', 'faceless-demons', 'faithless-breath', 'fallen-dreams', 'firstly-my-breakfast',
+    'insane-driver', 'invisible-chains', 'make-decisions', 'tears-of-blood', 'the-edge-of-life',
+  ]);
+  assert.deepEqual(c.songs.filter(s => s.layout === 'stack').map(s => s.slug).sort(), ['back-to-1994', 'endless-path']);
+});
+
+test('NOVID-12/13: listenUrl is the Spotify entry of the uplink, null without one', () => {
+  const spotify = { key: 'spotify', url: 'https://open.spotify.com/track/abc', primary: true };
+  const apple = { key: 'apple', url: 'https://music.apple.com/x', primary: true };
+  assert.equal(listenUrl([apple, spotify]), 'https://open.spotify.com/track/abc');
+  assert.equal(listenUrl([apple]), null);
+  assert.equal(listenUrl([]), null);
+});
+
+test('NOVID-12: built songs carry the Spotify track URL as listenUrl', () => {
+  const c = catalog({ platforms });
+  assert.equal(song(c, 'faceless-demons').listenUrl, 'https://open.spotify.com/track/5N0rDJGWRcp3LsWSD82Flk');
+  assert.equal(song(catalog(), 'faceless-demons').listenUrl, null);
 });
