@@ -1,9 +1,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, sectionFamily, albumCode, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, albumCode, uplink, build } = require('../../lib/catalog.js');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
+const platforms = require('../../_data/platforms.json');
 
 // Real catalog data; stand-in lyrics for every song that has words.
 const fakeLyrics = () => Object.fromEntries(songs.songs.filter(s => !s.instrumental)
@@ -267,4 +268,51 @@ test('BENTO-26/32/35: a song carries its two-digit number and catalog code', () 
   assert.equal(song(c, 'distant-hearts').catalogCode, 'SF-TRACK-11');
   assert.equal(song(c, 'keep-away').prev.number, '02');
   assert.equal(song(c, 'keep-away').next.number, '04');
+});
+
+const UPLINK_ORDER = ['spotify', 'apple', 'ytmusic', 'bandcamp', 'deezer', 'tidal', 'amazon', 'pandora'];
+const TRACK_SUB = { spotify: 'Play the track', apple: 'Play the track', ytmusic: 'Audio stream', bandcamp: 'Lossless download' };
+const allLinks = prefix => Object.fromEntries(UPLINK_ORDER.map(k => [k, `${prefix}/${k}`]));
+
+test('BENTO-18: uplink lists Spotify, Apple, YT Music, Bandcamp as primary, then Deezer, Tidal, Amazon, Pandora', () => {
+  const list = uplink(platforms, { links: allLinks('https://album'), track: {} });
+  assert.deepEqual(list.map(e => [e.key, e.primary]), [
+    ['spotify', true], ['apple', true], ['ytmusic', true], ['bandcamp', true],
+    ['deezer', false], ['tidal', false], ['amazon', false], ['pandora', false],
+  ]);
+  for (const e of list) {
+    const p = platforms.find(x => x.key === e.key);
+    assert.equal(e.name, p.name);
+    assert.equal(e.icon, p.icon);
+  }
+});
+
+test('BENTO-18 edge: a platform with no URL gets no entry', () => {
+  const links = Object.assign(allLinks('https://album'), { pandora: null, bandcamp: null });
+  assert.deepEqual(uplink(platforms, { links, track: {} }).map(e => e.key), ['spotify', 'apple', 'ytmusic', 'deezer', 'tidal', 'amazon']);
+});
+
+test('BENTO-19/20: each platform uses the listen URL; the sub label depends on whether it is the track URL', () => {
+  for (const key of UPLINK_ORDER) {
+    const p = platforms.find(x => x.key === key);
+    const withTrack = uplink(platforms, { links: Object.assign(allLinks('https://album'), { [key]: 'https://track' }), track: { [key]: 'https://track' } })
+      .find(e => e.key === key);
+    assert.equal(withTrack.url, 'https://track', key);
+    assert.equal(withTrack.sub, TRACK_SUB[key] || p.sub, key);
+    const fallback = uplink(platforms, { links: allLinks('https://album'), track: {} }).find(e => e.key === key);
+    assert.equal(fallback.url, `https://album/${key}`, key);
+    assert.equal(fallback.sub, p.sub, key);
+  }
+});
+
+test('BENTO-18/19: a built song carries its uplink from its listen links; without platforms it is empty', () => {
+  const s = song(catalog({ platforms }), 'keep-away');
+  assert.deepEqual(s.uplink.map(e => e.url), UPLINK_ORDER.map(k => s.listen.links[k]).filter(Boolean));
+  assert.equal(s.uplink[0].sub, 'Play the track');
+  assert.deepEqual(song(catalog(), 'keep-away').uplink, []);
+});
+
+test('BENTO-18: the Eleventy catalog data passes platforms.json in', () => {
+  const data = require('../../_data/catalog.js')();
+  assert.equal(data.songs.find(x => x.slug === 'keep-away').uplink[0].key, 'spotify');
 });

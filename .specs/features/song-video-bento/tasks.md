@@ -110,7 +110,7 @@ T8 → T9 → T10
 
 ---
 
-### T3: Audio uplink list
+### T3: Audio uplink list ✅
 
 **What**: Export `uplink(platforms, listen)`, pass `platforms.json` from `_data/catalog.js`, set `song.uplink`.
 **Where**: `lib/catalog.js`
