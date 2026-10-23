@@ -13,17 +13,19 @@ header_img_path: header_4.jpg
 og_type: music.song
 eleventyComputed:
   page_title: "{{ song.title }}"
-  page_header_class: "{% if song.video %}song-title-badge{% endif %}"
+  page_header_class: "{% if song.layout != 'stack' %}song-title-badge{% endif %}"
   seo_title: "{{ song.title }} Lyrics – Insane Driver"
   page_description: "{% if song.about %}{{ song.about | metaDescription }}{% elsif song.instrumental %}{{ song.title }} is the instrumental track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }}, hard rock and heavy metal from Brazil.{% else %}{{ 'Lyrics of \"' | append: song.title | append: '\", track ' | append: song.position | append: \" of Insane Driver's \" | append: song.album.year | append: ' album ' | append: song.album.title | append: ' – hard rock, heavy metal and metalcore from São Paulo, Brazil.' | metaDescription }}{% endif %}"
   og_image: "/assets/images/releases/{{ song.cover.file }}"
 ---
 {%- assign release = song.album -%}
-<div class="disc-shell disc-page song-page{% if song.video %} song-page--bento{% endif %} cyber-zone" data-disc>
+<div class="disc-shell disc-page song-page{% if song.layout != 'stack' %} song-page--bento{% endif %} cyber-zone" data-disc>
     <div class="cyber-zone-inner">
 
-    {% if song.video %}
+    {% if song.layout == 'video' %}
     {% include 'discography/song-bento' %}
+    {% elsif song.layout == 'lyrics' %}
+    {% include 'discography/song-bento-lyrics' %}
     {% else %}
 
     <div class="cyber-panel">

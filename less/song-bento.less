@@ -2,7 +2,8 @@
 // "Bento Grid HUD" - a metadata bar, then panels A (video) and B (audio uplink)
 // over D (dossier) and C (lyrics). DOM order is A, B, D, C so phones read video,
 // streaming, dossier, lyrics; the desktop grid moves C to the left of D.
-// Everything is scoped to .song-page--bento: songs without a video are untouched.
+// Sung songs without a video use the same panels in the order C, B, D (.song-bento--lyrics).
+// Everything is scoped to .song-page--bento: instrumentals without a video are untouched.
 #page_discography .song-page--bento {
 
     // ── Grid ──

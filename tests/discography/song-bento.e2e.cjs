@@ -17,6 +17,13 @@ const SONGS = ['insane-driver', 'silicon-fortress'].flatMap(a => {
 });
 const KEEP_AWAY = SONGS.find(s => s.slug === 'keep-away');
 const TEARS = SONGS.find(s => s.slug === 'tears-of-blood');
+// song-bento-no-video: sung songs without a video, and instrumentals without one.
+const LYRICS_SONGS = SONGS.filter(s => !s.video && !songData.find(d => d.slug === s.slug).instrumental);
+const INSTRUMENTALS = SONGS.filter(s => !s.video && songData.find(d => d.slug === s.slug).instrumental);
+const FACELESS = SONGS.find(s => s.slug === 'faceless-demons');
+const LYRICS_TABS = ['PANEL C // LYRICS TERMINAL', 'PANEL B // AUDIO UPLINK', 'PANEL D // SONG DOSSIER'];
+// BENTO-27 from the spec: Verse* / Chorus* / Bridge* or Interlude / anything else.
+const expectedFamily = label => /^verse/i.test(label) ? 'verse' : /^chorus/i.test(label) ? 'chorus' : (/^bridge/i.test(label) || /^interlude$/i.test(label)) ? 'bridge' : 'other';
 const FAMILY_CLASSES = ['song-lyrics-section--verse', 'song-lyrics-section--chorus', 'song-lyrics-section--bridge', 'song-lyrics-section--other'];
 
 // Classes of each labelled / unlabelled lyrics section, in page order.
@@ -45,6 +52,26 @@ const expectedUplink = s => {
     const sub = track[key] && TRACK_SUB[key] ? TRACK_SUB[key] : platforms.find(p => p.key === key).sub;
     return { key, url, primary, sub };
   }).filter(Boolean);
+};
+
+// BENTO-18..22 (and NOVID-15): the Panel B anchors of song s, in order, with their URL, kind, sub label and attributes.
+const expectUplink = async (b, s) => {
+  const shown = await b.locator('a[data-disc-link]').evaluateAll(els => els.map(el => ({
+    key: el.getAttribute('data-disc-link'), url: el.getAttribute('href'),
+    primary: el.classList.contains('cyber-link-btn--primary'), compact: el.classList.contains('cyber-link-btn--compact'),
+    sub: el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
+    target: el.getAttribute('target'), rel: el.getAttribute('rel'), slug: el.getAttribute('data-disc-slug'),
+  })));
+  const want = expectedUplink(s);
+  expect(shown.map(x => x.key)).toEqual(want.map(x => x.key));
+  for (const [i, x] of shown.entries()) {
+    expect(x.url, x.key).toBe(want[i].url);
+    expect([x.primary, x.compact], x.key).toEqual([want[i].primary, !want[i].primary]);
+    if (want[i].primary) expect(x.sub, x.key).toBe(want[i].sub);
+    expect([x.target, x.rel], x.key).toEqual(['_blank', 'noopener']);
+    expect(x.slug, x.key).toBeTruthy();
+  }
+  expect(norm(await b.textContent())).toContain('STATUS: ONLINE // ALL NODES ACTIVE');
 };
 
 // BENTO-26: sections of the lyrics file - one per [label], plus one for lines before the first label.
@@ -99,25 +126,8 @@ test.describe('without JavaScript', () => {
       // BENTO-17: no fabricated technical claims anywhere on the page.
       expect(await page.locator('body').textContent()).not.toMatch(/1080P|24-Bit|High-Res|Bitrate/i);
 
-      // BENTO-18..21: Panel B buttons.
-      const b = panel('B');
-      const shown = await b.locator('a[data-disc-link]').evaluateAll(els => els.map(el => ({
-        key: el.getAttribute('data-disc-link'), url: el.getAttribute('href'),
-        primary: el.classList.contains('cyber-link-btn--primary'), compact: el.classList.contains('cyber-link-btn--compact'),
-        sub: el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
-        target: el.getAttribute('target'), rel: el.getAttribute('rel'), slug: el.getAttribute('data-disc-slug'),
-      })));
-      const want = expectedUplink(s);
-      expect(shown.map(x => x.key)).toEqual(want.map(x => x.key));
-      for (const [i, x] of shown.entries()) {
-        expect(x.url, x.key).toBe(want[i].url);
-        expect([x.primary, x.compact], x.key).toEqual([want[i].primary, !want[i].primary]);
-        if (want[i].primary) expect(x.sub, x.key).toBe(want[i].sub);
-        expect([x.target, x.rel], x.key).toEqual(['_blank', 'noopener']);
-        expect(x.slug, x.key).toBeTruthy();
-      }
-      // BENTO-22
-      expect(norm(await b.textContent())).toContain('STATUS: ONLINE // ALL NODES ACTIVE');
+      // BENTO-18..22: Panel B buttons and status line.
+      await expectUplink(panel('B'), s);
 
       // BENTO-26 / BENTO-25: Panel C holds the lyrics and their counters.
       const c = panel('C');
@@ -136,15 +146,74 @@ test.describe('without JavaScript', () => {
     });
   }
 
-  for (const s of [SONGS.find(x => x.slug === 'faceless-demons'), SONGS.find(x => x.slug === 'endless-path')]) {
-    test(`BENTO-02: ${s.url} (no video) keeps the stacked layout`, async ({ page }) => {
+  for (const s of INSTRUMENTALS) {
+    test(`BENTO-02/NOVID-03: ${s.url} (instrumental, no video) keeps the stacked layout`, async ({ page }) => {
       await page.goto(s.url);
       await expect(page.locator('[data-song-bento]')).toHaveCount(0);
       await expect(page.locator('[data-song-meta]')).toHaveCount(0);
       await expect(page.locator('.cyber-panel-tab', { hasText: 'PANEL A' })).toHaveCount(0);
       await expect(page.locator('[data-song-lyrics]')).toHaveCount(1);
+      expect(await page.locator('h1').evaluate(el => el.classList.contains('song-title-badge'))).toBe(false);
     });
   }
+
+  for (const s of LYRICS_SONGS) {
+    test(`NOVID-01/02/10/11/15/16/17: ${s.url} renders the lyrics bento`, async ({ page }) => {
+      await page.goto(s.url);
+      const NN = two(s.track.position);
+
+      // NOVID-01: one grid, three panels, tabs in DOM order C, B, D.
+      const grid = page.locator('[data-song-bento]');
+      await expect(grid).toHaveCount(1);
+      expect((await grid.locator('.cyber-panel-tab').allTextContents()).map(norm)).toEqual(LYRICS_TABS);
+      const panel = letter => grid.locator('.cyber-panel', { has: page.locator('.cyber-panel-tab', { hasText: `PANEL ${letter} //` }) });
+
+      // NOVID-02: nothing of the video bento.
+      await expect(page.locator('.cyber-panel-tab', { hasText: 'PANEL A' })).toHaveCount(0);
+      await expect(page.locator('#song-video')).toHaveCount(0);
+      await expect(page.locator('[data-song-quickplay]')).toHaveCount(0);
+
+      // NOVID-10: metadata bar as BENTO-07.
+      const meta = page.locator('[data-song-meta]');
+      await expect(meta).toHaveCount(1);
+      await expect(meta.locator('.disc-release-art img')).toHaveAttribute('src', /^\/assets\/images\/releases\//);
+      const metaText = norm(await meta.textContent());
+      expect(metaText).toContain(`Track ${NN} // ${s.album.year}`);
+      expect(metaText).toContain(`Runtime ${runtime(s.track.duration)}`);
+      expect(metaText).toContain('Recommended intel');
+      await expect(meta.locator(`a[href="/discography/${s.album.slug}/"]`)).toHaveText(s.album.title);
+      await expect(meta.getByText(FANS_OF, { exact: true })).toHaveCount(1);
+
+      // NOVID-11: the h1 is the title badge.
+      expect(await page.locator('h1').evaluate(el => ({ text: el.textContent.trim(), badge: el.classList.contains('song-title-badge') })))
+        .toEqual({ text: s.track.title, badge: true });
+
+      // NOVID-15: Panel B as BENTO-18..22.
+      await expectUplink(panel('B'), s);
+
+      // NOVID-16: Panel C as BENTO-25/26 (sequence itself: SONG-04 on every page).
+      const c = panel('C');
+      await expect(c.locator('[data-song-lyrics]')).toHaveCount(1);
+      const cText = norm(await c.textContent());
+      expect(cText).toContain(`[${sectionCount(s)} SECTIONS]`);
+      expect(cText).toContain(`HUD.LOG::LYR_${NN}`);
+
+      // NOVID-17: Panel D holds About, "Also released as" and the catalog line.
+      const d = panel('D');
+      await expect(d.locator('[data-song-about]')).toHaveCount(1);
+      await expect(page.locator('[data-song-about]')).toHaveCount(1);
+      await expect(d.locator('[data-song-also]')).toHaveCount(await page.locator('[data-song-also]').count());
+      expect(norm(await d.textContent())).toContain(`CATALOG: ${initials(s.album.title)}-TRACK-${NN} // ALL EDITIONS LISTED`);
+    });
+  }
+
+  test('NOVID-16: lyrics bento sections carry their family class (BENTO-27)', async ({ page }) => {
+    await page.goto(FACELESS.url);
+    const fams = await sectionFamilies(page);
+    expect(fams.length).toBeGreaterThan(0);
+    for (const f of fams) expect(f.families, f.label).toEqual(f.label === null ? [] : [`song-lyrics-section--${expectedFamily(f.label)}`]);
+    expect(fams.some(f => f.families[0] === 'song-lyrics-section--chorus')).toBe(true);
+  });
 
   for (const s of SONGS) {
     test(`BENTO-34/35: ${s.url} has a full-width sequencer after the last panel`, async ({ page }) => {
@@ -167,7 +236,7 @@ test.describe('without JavaScript', () => {
     });
   }
 
-  test('BENTO-08: a video song h1 is the title badge; other h1s keep their classes', async ({ page }) => {
+  test('BENTO-08/NOVID-11: a video or lyrics song h1 is the title badge; other h1s keep their classes', async ({ page }) => {
     const BASE = ['text-center', 'subtitle-font', 'page-header'];
     const h1 = async url => {
       await page.goto(url);
@@ -177,7 +246,10 @@ test.describe('without JavaScript', () => {
     for (const s of SONGS.filter(x => x.video)) {
       expect(await h1(s.url), s.url).toEqual({ text: s.track.title, classes: [...BASE, 'song-title-badge'] });
     }
-    for (const s of SONGS.filter(x => !x.video)) {
+    for (const s of LYRICS_SONGS) {
+      expect(await h1(s.url), s.url).toEqual({ text: s.track.title, classes: [...BASE, 'song-title-badge'] });
+    }
+    for (const s of INSTRUMENTALS) {
       expect((await h1(s.url)).classes, s.url).toEqual(BASE);
     }
     for (const url of ['/band/', '/discography/', '/discography/silicon-fortress/']) {

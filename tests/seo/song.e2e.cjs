@@ -192,8 +192,9 @@ test.describe('without JavaScript', () => {
         el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
       ]));
       const track = data.links || {};
-      if (videos.some(v => v.slug === s.slug)) {
-        // BENTO-18..20: a video song lists them in the Audio Uplink order, with its own sub labels.
+      if (videos.some(v => v.slug === s.slug) || !data.instrumental) {
+        // BENTO-18..20 / NOVID-15: a bento song (video, or sung without one) lists them in the
+        // Audio Uplink order, with its own sub labels.
         const TRACK_SUB = { spotify: 'Play the track', apple: 'Play the track', ytmusic: 'Audio stream', bandcamp: 'Lossless download' };
         const primary = ['spotify', 'apple', 'ytmusic', 'bandcamp'];
         expect(links).toEqual([...primary, 'deezer', 'tidal', 'amazon', 'pandora'].filter(k => s.album.links[k]).map(k => [

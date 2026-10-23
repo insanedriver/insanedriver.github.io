@@ -134,23 +134,23 @@ The ten song pages that have lyrics but no official video (`song.video` unset, `
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| NOVID-01 | P1: Lyrics beside the streaming matrix | T1 | Implementing |
-| NOVID-02 | P1: Lyrics beside the streaming matrix | Design | Pending |
-| NOVID-03 | P1: Lyrics beside the streaming matrix | T1 | Implementing |
+| NOVID-01 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
+| NOVID-02 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
+| NOVID-03 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
 | NOVID-04 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-05 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-06 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-07 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-08 | P1: Metadata bar and LISTEN NOW | Design | Pending |
 | NOVID-09 | P1: Lyrics beside the streaming matrix | Design | Pending |
-| NOVID-10 | P1: Metadata bar and LISTEN NOW | Design | Pending |
-| NOVID-11 | P1: Metadata bar and LISTEN NOW | Design | Pending |
+| NOVID-10 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
+| NOVID-11 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
 | NOVID-12 | P1: Metadata bar and LISTEN NOW | T1 | Implementing |
 | NOVID-13 | P1: Metadata bar and LISTEN NOW | T1 | Implementing |
 | NOVID-14 | P1: Metadata bar and LISTEN NOW | Design | Pending |
-| NOVID-15 | P1: Lyrics beside the streaming matrix | Design | Pending |
-| NOVID-16 | P1: Lyrics terminal and dossier | Design | Pending |
-| NOVID-17 | P1: Lyrics terminal and dossier | Design | Pending |
+| NOVID-15 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
+| NOVID-16 | P1: Lyrics terminal and dossier | T3 | Implementing |
+| NOVID-17 | P1: Lyrics terminal and dossier | T3 | Implementing |
 | NOVID-18 | P1: Lyrics terminal and dossier | Design | Pending |
 | NOVID-19 | P1: Lyrics terminal and dossier | Design | Pending |
 | NOVID-20 | P1: Lyrics terminal and dossier | Design | Pending |

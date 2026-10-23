@@ -111,7 +111,7 @@ T5 → T6
 
 ---
 
-### T3: Lyrics bento markup
+### T3: Lyrics bento markup ✅
 
 **What**: `song-bento-lyrics.liquid` (meta, C, B, D) rendered when `song.layout == 'lyrics'`; wrapper class and `page_header_class` driven by `song.layout`; Panel D wraps About/Also in `.song-bento-dossier` (+ `--split`); BENTO-02 and BENTO-08 text and tests narrowed to instrumental songs.
 **Where**: `_includes/discography/song-bento-lyrics.liquid`

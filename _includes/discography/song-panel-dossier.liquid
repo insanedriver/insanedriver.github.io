@@ -6,7 +6,9 @@
             <span class="corner-tr"></span>
             <span class="corner-bl"></span>
             <div class="song-bento-sticky">
+                <div class="song-bento-dossier{% if song.alsoReleasedAs.size > 0 %} song-bento-dossier--split{% endif %}">
                 {% include 'discography/song-dossier' %}
+                </div>
                 <p class="song-bento-foot">CATALOG: {{ song.catalogCode }} // ALL EDITIONS LISTED</p>
             </div>
         </div>
