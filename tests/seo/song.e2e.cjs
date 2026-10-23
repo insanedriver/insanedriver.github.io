@@ -187,7 +187,8 @@ test.describe('without JavaScript', () => {
 
       // SONG-07 + null-platform edge case: one link per album platform with a URL,
       // the track's own URL where songs.json has one, otherwise the album's.
-      const links = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => [
+      // LISTEN NOW (NOVID-12) repeats the Spotify link outside the platform list.
+      const links = await page.locator('[data-disc-link]:not([data-song-listen])').evaluateAll(els => els.map(el => [
         el.getAttribute('data-disc-link'), el.getAttribute('href'),
         el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
       ]));

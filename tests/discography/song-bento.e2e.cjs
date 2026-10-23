@@ -207,6 +207,29 @@ test.describe('without JavaScript', () => {
     });
   }
 
+  for (const s of LYRICS_SONGS) {
+    test(`NOVID-12/23: ${s.url} metadata bar has a plain LISTEN NOW link to the song on Spotify`, async ({ page }) => {
+      await page.goto(s.url);
+      const listen = page.locator('[data-song-meta] a[data-song-listen]');
+      await expect(listen).toHaveCount(1);
+      await expect(page.locator('[data-song-listen]')).toHaveCount(1);
+      await expect(listen).toHaveText(/^\s*Listen now\s*$/i);
+      await expect(listen.locator('i.fa.fa-spotify')).toHaveCount(1);
+      // Same rule as BENTO-19: the track URL when songs.json has one, else the album's.
+      await expect(listen).toHaveAttribute('href', expectedUplink(s).find(p => p.key === 'spotify').url);
+      await expect(listen).toHaveAttribute('target', '_blank');
+      await expect(listen).toHaveAttribute('rel', 'noopener');
+      await expect(listen).toHaveAttribute('data-disc-link', 'spotify');
+      await expect(listen).toHaveAttribute('data-disc-slug', s.album.slug);
+    });
+  }
+
+  test('NOVID-12: a video song has QUICK PLAY and no LISTEN NOW', async ({ page }) => {
+    await page.goto(KEEP_AWAY.url);
+    await expect(page.locator('[data-song-listen]')).toHaveCount(0);
+    await expect(page.locator('[data-song-quickplay]')).toHaveCount(1);
+  });
+
   test('NOVID-16: lyrics bento sections carry their family class (BENTO-27)', async ({ page }) => {
     await page.goto(FACELESS.url);
     const fams = await sectionFamilies(page);
@@ -550,5 +573,17 @@ test('BENTO-21: clicking a primary and a compact Panel B button pushes release_c
   expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'release_click'))).toEqual([
     { event: 'release_click', platform: 'spotify', release: KEEP_AWAY.album.slug },
     { event: 'release_click', platform: 'deezer', release: KEEP_AWAY.album.slug },
+  ]);
+});
+
+test('NOVID-08: clicking LISTEN NOW pushes one release_click for Spotify and the album', async ({ page }) => {
+  await page.goto(FACELESS.url);
+  // The anchor targets _blank; blocking the navigation keeps the assertions about the pushed event.
+  await page.evaluate(() => {
+    document.addEventListener('click', e => { const a = e.target.closest('a'); if (a) e.preventDefault(); });
+  });
+  await page.locator('[data-song-listen]').click();
+  expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'release_click'))).toEqual([
+    { event: 'release_click', platform: 'spotify', release: 'silicon-fortress' },
   ]);
 });

@@ -24,6 +24,8 @@
             </div>
             {% if song.video %}
             <a class="song-bento-quickplay" data-song-quickplay="{{ song.slug }}" href="#song-video"><i class="fa fa-play" aria-hidden="true"></i> Quick play</a>
+            {% elsif song.listenUrl %}
+            <a class="song-bento-quickplay song-bento-listen" data-song-listen href="{{ song.listenUrl }}" target="_blank" rel="noopener" data-disc-link="spotify" data-disc-slug="{{ song.listen.slug }}"><i class="fa fa-spotify" aria-hidden="true"></i> Listen now</a>
             {% endif %}
         </article>
     </div>

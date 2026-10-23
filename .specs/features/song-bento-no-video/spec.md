@@ -141,12 +141,12 @@ The ten song pages that have lyrics but no official video (`song.video` unset, `
 | NOVID-05 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-06 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-07 | P1: Lyrics beside the streaming matrix | Design | Pending |
-| NOVID-08 | P1: Metadata bar and LISTEN NOW | Design | Pending |
+| NOVID-08 | P1: Metadata bar and LISTEN NOW | T4 | Implementing |
 | NOVID-09 | P1: Lyrics beside the streaming matrix | Design | Pending |
 | NOVID-10 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
 | NOVID-11 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
-| NOVID-12 | P1: Metadata bar and LISTEN NOW | T1 | Implementing |
-| NOVID-13 | P1: Metadata bar and LISTEN NOW | T1 | Implementing |
+| NOVID-12 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
+| NOVID-13 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
 | NOVID-14 | P1: Metadata bar and LISTEN NOW | Design | Pending |
 | NOVID-15 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
 | NOVID-16 | P1: Lyrics terminal and dossier | T3 | Implementing |
@@ -156,7 +156,7 @@ The ten song pages that have lyrics but no official video (`song.video` unset, `
 | NOVID-20 | P1: Lyrics terminal and dossier | Design | Pending |
 | NOVID-21 | P2: Neon HUD finish and accessibility | Design | Pending |
 | NOVID-22 | P2: Neon HUD finish and accessibility | Design | Pending |
-| NOVID-23 | P2: Neon HUD finish and accessibility | Design | Pending |
+| NOVID-23 | P2: Neon HUD finish and accessibility | T4 | Implementing |
 
 **ID format:** `NOVID-NN`.
 

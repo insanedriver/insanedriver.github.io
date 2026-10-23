@@ -136,7 +136,7 @@ T5 → T6
 
 ---
 
-### T4: LISTEN NOW
+### T4: LISTEN NOW ✅
 
 **What**: The meta partial renders `[data-song-listen]` (`href` = `song.listenUrl`, `release_click` attributes) when the song has no video and `song.listenUrl` is set.
 **Where**: `_includes/discography/song-bento-meta.liquid`
