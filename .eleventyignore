@@ -17,3 +17,4 @@ lib/
 less/README.md
 test-results/
 playwright-report/
+.stitch/
