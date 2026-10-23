@@ -34,7 +34,9 @@
     .song-bento-panel--c { grid-area: c; }
     .song-bento-panel--d { grid-area: d; }
 
-    .song-bento-sticky {
+    // Panels B and D both wrap their content in .song-bento-sticky; the layout picks
+    // which one pins beside the long column.
+    .song-bento--video .song-bento-panel--d .song-bento-sticky {
         @media (min-width: 992px) {
             position: sticky;
             top: 2rem;

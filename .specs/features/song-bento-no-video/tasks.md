@@ -86,7 +86,7 @@ T5 → T6
 
 ---
 
-### T2: Extract bento partials
+### T2: Extract bento partials ✅
 
 **What**: Split `song-bento.liquid` into `song-bento-meta.liquid` and `song-panel-uplink/dossier/lyrics.liquid`; the video composition includes them, adds `song-bento--video`, and Panel B wraps its content in `.song-bento-sticky`; sticky rule scoped to `.song-bento--video .song-bento-panel--d`.
 **Where**: `_includes/discography/song-bento.liquid`

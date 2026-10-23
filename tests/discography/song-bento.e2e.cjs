@@ -236,6 +236,8 @@ for (const width of [1280, 992]) {
       expect(Math.abs(r.c.width - r.d.width)).toBeLessThanOrEqual(2);
       // BENTO-33: the dossier content is sticky.
       expect(await page.locator('.song-bento-panel--d .song-bento-sticky').evaluate(el => getComputedStyle(el).position)).toBe('sticky');
+      // NOVID-07 (video side): Panel B shares the sticky wrapper but only the lyrics layout pins it.
+      expect(await page.locator('.song-bento-panel--b .song-bento-sticky').evaluate(el => getComputedStyle(el).position)).toBe('static');
     });
   }
 }
