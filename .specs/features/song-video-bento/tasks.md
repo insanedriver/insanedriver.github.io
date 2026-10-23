@@ -137,7 +137,7 @@ T8 → T9 → T10
 
 ---
 
-### T4: Extract lyrics and dossier partials
+### T4: Extract lyrics and dossier partials ✅
 
 **What**: Move lyrics and About/Also markup into `_includes/discography/song-lyrics.liquid` and `song-dossier.liquid`, adding `song-lyrics-section--{family}` classes; `song.liquid` includes them.
 **Where**: `_includes/discography/song-lyrics.liquid`
