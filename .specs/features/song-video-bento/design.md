@@ -100,9 +100,9 @@ graph TD
 
 ### `less/song-bento.less`
 
-- **Purpose**: Grid, responsive stacking, HUD finish, Mars Mission face.
+- **Purpose**: Grid, responsive stacking, HUD finish.
 - **Key rules**:
-  - `@font-face { font-family: 'Mars Mission'; src: url(../fonts/Mars-Mission.woff2) format('woff2'); font-display: swap; }`
+  - Tabs use `font-family: SiliconFont` (Mars Mission, already declared in `less/typography.less`); badge h1 uses `insaneFont`.
   - `.song-bento { display: grid; grid-template-columns: 1fr; grid-template-areas: "a" "b" "d" "c"; }`; `@media (min-width: 992px) { grid-template-columns: repeat(6, 1fr); areas: "a a a a b b" "c c c d d d"; }`.
   - Panel B primary `.disc-links` 2 columns below 992px, 1 column at ≥ 992px.
   - `.song-bento-sticky { position: sticky; top: 2rem; }` at ≥ 992px only.

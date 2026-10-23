@@ -44,7 +44,7 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 | Mobile (< 768) | Single column: meta bar, A, B (2-col buttons), D, C; full lyrics | Grilling Q7/Q8 of PRD §6 | y |
 | Lyrics markers | Verse*/Prayer/other → cyan; Bridge*/Interlude → magenta; Chorus* → yellow with italic lines; unlabeled → no marker; cue sections keep the dimmed cue style | Grilling Q11 | y |
 | Panel A badge | `● OFFICIAL {video.type}` (e.g. `● OFFICIAL LYRIC VIDEO`), pulsing dot | Grilling Q12: video types vary | y |
-| Panel tab font | `Mars Mission` (7.4 KB woff2, `font-display: swap`), declared only in the discography bundle | Grilling Q8 | y |
+| Panel tab font | `SiliconFont` - Mars Mission, already declared in `less/typography.less` (core bundle) with `font-display: swap`; no new `@font-face` | Grilling Q8; found during T6 that the face already ships site-wide | y |
 | Track navigation | New full-width bar after the panels, on every song page (video or not) | Grilling Q9 | y |
 | Input validation, failure states, idempotency, auth, concurrency, data lifecycle, external-dependency failure | N/A because the page is static HTML built from frozen JSON, takes no input and writes nothing; the only external dependency (YouTube) is behind the existing facade, which degrades to a watch-page link | Static site | y |
 | Observability | Covered by BENTO-11 (QUICK PLAY event) and BENTO-21 (existing `release_click`) | Existing GTM channel | y |
@@ -151,7 +151,7 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 **Acceptance Criteria**:
 
 1. WHERE the song has a video every element inside `[data-song-bento]`, `[data-song-meta]` and `.song-nav` SHALL have a computed `border-radius` of `0px` on all corners. <!-- BENTO-36 -->
-2. The panel tabs inside `[data-song-bento]` SHALL use the `Mars Mission` font family, declared with `font-display: swap` from `/assets/fonts/Mars-Mission.woff2`. <!-- BENTO-37 -->
+2. The panel tabs inside `[data-song-bento]` SHALL use the `SiliconFont` font family (Mars Mission, already declared in `core.min.css` from `/assets/fonts/Mars-Mission.woff2` with `font-display: swap`). <!-- BENTO-37 -->
 3. WHEN a Panel B anchor, the QUICK PLAY anchor, the video facade or a `.song-nav` link receives keyboard focus THEN it SHALL show `outline: 3px solid rgb(252, 238, 10)` with `outline-offset: 4px`. <!-- BENTO-38 -->
 4. WHILE `prefers-reduced-motion: reduce` is set every element inside `[data-song-bento]` and `[data-song-meta]` SHALL have computed `animation-name: none`. <!-- BENTO-39 -->
 5. The panel bodies inside `[data-song-bento]` SHALL have background color `rgba(10, 10, 10, 0.85)` and a background image with a 25px grid. <!-- BENTO-40 -->

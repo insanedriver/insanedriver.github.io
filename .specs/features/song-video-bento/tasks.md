@@ -186,13 +186,13 @@ T8 → T9 → T10
 
 ---
 
-### T6: Title badge hook
+### T6: Title badge hook ✅
 
 **What**: `base.html` h1 appends `{{ page_header_class }}`; `song.liquid` computes `song-title-badge` for video songs.
 **Where**: `_layouts/base.html`
 **Depends on**: T5
 **Reuses**: `eleventyComputed` in `song.liquid`
-**Requirement**: BENTO-08
+**Requirement**: BENTO-08 (class hook)
 
 **Tools**:
 
@@ -261,11 +261,11 @@ T8 → T9 → T10
 
 ### T9: HUD finish
 
-**What**: Mars Mission face, tab font, panel background grid, lyrics markers and chorus italics, zero radius, focus ring, text colors, reduced motion - in `less/song-bento.less`.
+**What**: Badge h1 font, SiliconFont tabs, panel background grid, lyrics markers and chorus italics, zero radius, focus ring, text colors, reduced motion - in `less/song-bento.less`.
 **Where**: `less/song-bento.less`
 **Depends on**: T8
 **Reuses**: Focus ring from `less/home.less:626`, brand hovers in `less/cyber-links.less`
-**Requirement**: BENTO-23, 28, 36, 37, 38, 39, 40, 41
+**Requirement**: BENTO-08 (font), 23, 28, 36, 37, 38, 39, 40, 41
 
 **Tools**:
 
@@ -274,7 +274,7 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] e2e asserts each AC on computed styles (hover Spotify border, marker colors per family, italic chorus, radius 0 on every element in scope, `Mars Mission` loaded, focus outline via keyboard, `animation-name: none` under reduced motion, panel background, text colors)
+- [ ] e2e asserts each AC on computed styles (hover Spotify border, marker colors per family, italic chorus, radius 0 on every element in scope, h1 in `insaneFont`, tabs in `SiliconFont`, focus outline via keyboard, `animation-name: none` under reduced motion, panel background, text colors)
 - [ ] Gate check passes: full gate
 
 **Tests**: e2e

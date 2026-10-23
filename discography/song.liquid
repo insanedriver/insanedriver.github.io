@@ -13,6 +13,7 @@ header_img_path: header_4.jpg
 og_type: music.song
 eleventyComputed:
   page_title: "{{ song.title }}"
+  page_header_class: "{% if song.video %}song-title-badge{% endif %}"
   seo_title: "{{ song.title }} Lyrics – Insane Driver"
   page_description: "{% if song.about %}{{ song.about | metaDescription }}{% elsif song.instrumental %}{{ song.title }} is the instrumental track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }}, hard rock and heavy metal from Brazil.{% else %}{{ 'Lyrics of \"' | append: song.title | append: '\", track ' | append: song.position | append: \" of Insane Driver's \" | append: song.album.year | append: ' album ' | append: song.album.title | append: ' – hard rock, heavy metal and metalcore from São Paulo, Brazil.' | metaDescription }}{% endif %}"
   og_image: "/assets/images/releases/{{ song.cover.file }}"

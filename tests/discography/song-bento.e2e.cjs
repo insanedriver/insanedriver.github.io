@@ -48,6 +48,24 @@ test.describe('without JavaScript', () => {
     });
   }
 
+  test('BENTO-08: a video song h1 is the title badge; other h1s keep their classes', async ({ page }) => {
+    const BASE = ['text-center', 'subtitle-font', 'page-header'];
+    const h1 = async url => {
+      await page.goto(url);
+      await expect(page.locator('h1')).toHaveCount(1);
+      return page.locator('h1').evaluate(el => ({ text: el.textContent.trim(), classes: [...el.classList] }));
+    };
+    for (const s of SONGS.filter(x => x.video)) {
+      expect(await h1(s.url), s.url).toEqual({ text: s.track.title, classes: [...BASE, 'song-title-badge'] });
+    }
+    for (const s of SONGS.filter(x => !x.video)) {
+      expect((await h1(s.url)).classes, s.url).toEqual(BASE);
+    }
+    for (const url of ['/band/', '/discography/', '/discography/silicon-fortress/']) {
+      expect((await h1(url)).classes, url).toEqual(BASE);
+    }
+  });
+
   test('BENTO-27: each labelled lyrics section carries exactly one family class', async ({ page }) => {
     await page.goto(KEEP_AWAY.url);
     expect(await sectionFamilies(page)).toEqual([
