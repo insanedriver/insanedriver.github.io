@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 45,
+  "next_id": 48,
   "lessons": [
     {
       "id": "L-001",
@@ -803,6 +803,60 @@
       ],
       "created": "2026-10-20T21:54:35Z",
       "last_seen": "2026-10-20T21:54:35Z"
+    },
+    {
+      "id": "L-045",
+      "key": "surviving_mutant::when an ac says an action stays on the same url assert the full url including the hash not only the pathname",
+      "text": "When an AC says an action stays on the same URL, assert the full URL including the hash, not only the pathname.",
+      "signal": "surviving_mutant",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "song-video-bento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M3; assets/js/song.js:31; tests/discography/song-bento.e2e.cjs:425 (BENTO-10) (tests)"
+      ],
+      "created": "2026-10-23T15:11:13Z",
+      "last_seen": "2026-10-23T15:11:13Z"
+    },
+    {
+      "id": "L-046",
+      "key": "surviving_mutant::when new links rely on a delegated tracking handler bound to an ancestor attribute click one of them in a test and assert the pushed event or losing the ancestor silently drops the tracking",
+      "text": "When new links rely on a delegated tracking handler bound to an ancestor attribute, click one of them in a test and assert the pushed event, or losing the ancestor silently drops the tracking.",
+      "signal": "surviving_mutant",
+      "scope": "e2e-tracking",
+      "status": "candidate",
+      "features": [
+        "song-video-bento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M5; discography/song.liquid:22; BENTO-21 (e2e-tracking)"
+      ],
+      "created": "2026-10-23T15:11:13Z",
+      "last_seen": "2026-10-23T15:11:13Z"
+    },
+    {
+      "id": "L-047",
+      "key": "spec_precision_gap::when an ac sets a rule for every item of a list whose variants render differently such as primary and compact buttons state which variants the rule applies to",
+      "text": "When an AC sets a rule for every item of a list whose variants render differently, such as primary and compact buttons, state which variants the rule applies to.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "song-video-bento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "BENTO-20 vs tests/seo/song.e2e.cjs:201 (spec-writing)"
+      ],
+      "created": "2026-10-23T15:11:13Z",
+      "last_seen": "2026-10-23T15:11:13Z"
     }
   ]
 }

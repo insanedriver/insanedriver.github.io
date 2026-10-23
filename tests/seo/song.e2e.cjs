@@ -4,6 +4,7 @@ const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
 const platforms = require('../../_data/platforms.json');
 const songData = require('../../_data/songs.json').songs;
+const videos = require('../../_data/videos.json');
 
 const ORIGIN = 'https://insanedriver.com.br';
 const DOCS = path.join(__dirname, '../../docs');
@@ -191,9 +192,19 @@ test.describe('without JavaScript', () => {
         el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
       ]));
       const track = data.links || {};
-      expect(links).toEqual(platforms.filter(p => s.album.links[p.key]).map(p => [
-        p.key, track[p.key] || s.album.links[p.key], p.primary ? (track[p.key] ? 'Play the track' : p.sub) : null,
-      ]));
+      if (videos.some(v => v.slug === s.slug)) {
+        // BENTO-18..20: a video song lists them in the Audio Uplink order, with its own sub labels.
+        const TRACK_SUB = { spotify: 'Play the track', apple: 'Play the track', ytmusic: 'Audio stream', bandcamp: 'Lossless download' };
+        const primary = ['spotify', 'apple', 'ytmusic', 'bandcamp'];
+        expect(links).toEqual([...primary, 'deezer', 'tidal', 'amazon', 'pandora'].filter(k => s.album.links[k]).map(k => [
+          k, track[k] || s.album.links[k],
+          primary.includes(k) ? (track[k] ? TRACK_SUB[k] : platforms.find(p => p.key === k).sub) : null,
+        ]));
+      } else {
+        expect(links).toEqual(platforms.filter(p => s.album.links[p.key]).map(p => [
+          p.key, track[p.key] || s.album.links[p.key], p.primary ? (track[p.key] ? 'Play the track' : p.sub) : null,
+        ]));
+      }
       for (const key of ['spotify', 'apple', 'ytmusic', 'deezer']) expect(track[key], `${s.slug} ${key}`).toBeTruthy();
 
       // SONG-08: "Also released as" with title, year and the release's own links or page.

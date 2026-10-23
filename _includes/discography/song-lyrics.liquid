@@ -1,0 +1,17 @@
+    {% if song.instrumental %}
+    <section class="song-lyrics" aria-labelledby="song-lyrics-title" data-song-lyrics>
+        <h2 id="song-lyrics-title" class="song-heading">Instrumental</h2>
+        <p class="song-instrumental">{{ song.title | escape }} is an instrumental track: it has no lyrics.</p>
+    </section>
+    {% else %}
+    <section class="song-lyrics" aria-labelledby="song-lyrics-title" data-song-lyrics>
+        <h2 id="song-lyrics-title" class="song-heading">Lyrics</h2>
+        {% for section in song.sections %}
+        <section class="song-lyrics-section{% if section.family %} song-lyrics-section--{{ section.family }}{% endif %}">
+            {%- if section.label -%}<h3{% if section.lines.size == 0 %} class="song-lyrics-cue"{% endif %}>{{ section.label | escape }}</h3>{%- endif -%}
+            {%- if section.lines.size > 0 -%}<p>{% for line in section.lines %}{{ line | escape }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>{%- endif -%}
+        </section>
+        {% endfor %}
+    </section>
+    {% endif %}
+

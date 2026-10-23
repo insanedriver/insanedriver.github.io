@@ -20,6 +20,7 @@ module.exports = () => build({
     songs: require('./songs.json'),
     lyrics: readLyrics(path.join(__dirname, 'lyrics')),
     videos: require('./videos.json'),
+    platforms: require('./platforms.json'),
 });
 module.exports.build = build;
 module.exports.readLyrics = readLyrics;

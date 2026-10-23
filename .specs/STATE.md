@@ -20,8 +20,8 @@
 
 ## Handoff
 
-- **Feature**: perf-pagespeed-2 (home PageSpeed round 2: cover srcset 160/320/600, WebP gallery thumbnails and logos, home.min.css inlined, home font preloads, hero preload fetchpriority, navbar init without forced reflow)
-- **Phase / Task**: Complete. T1-T16 plus Verifier fixes `82110f7` (PS2-23, viewer placeholder WebP) and `e68b512`; range `e469660..HEAD` on `feature/perf-pagespeed-2`.
-- **Verification**: Verifier PASS on iteration 3. 23/23 ACs Verified. Unit 205/205, e2e 587/587. Lessons L-042..L-044.
-- **Known flakes (pre-existing, also on master)**: HOME-71 (`tests/home/phone-fit.e2e.cjs`) measures before the lazy cover has a width; loader timing tests HOME-24/26/28/67 and PERF-35 under machine load. A scripted `link.click()` on a `/photos/` archive link sometimes follows the link instead of opening the viewer.
-- **Next**: push the branch, open the PR, deploy, then measure the home with Lighthouse 12.6 against production (goal ≥ 90 mobile, ≥ 98 desktop).
+- **Feature**: song-video-bento (bento grid for song pages with a video: meta bar with QUICK PLAY, panels A video / B audio uplink / D dossier / C lyrics, track sequencer bar, neon HUD finish)
+- **Phase / Task**: Complete. T1-T10 plus `5eb1729` (rebuilt discography.min.css: T8/T9 had committed a stale bundle) and Verifier fixes `42a9930` (BENTO-10/12 hash, BENTO-21 click test) and `d7973f0` (BENTO-20 wording); range `6b06e2c^..d7973f0` on `feature/song-video-bento`.
+- **Verification**: Verifier PASS on iteration 2. 42/42 ACs Verified. Unit 214/214, scoped e2e 275/275; sensor 7/7 killed. Candidate lessons L-045..L-047.
+- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` networkidle) failed 4/4 in this environment on 2026-10-23, unrelated to this feature.
+- **Next**: push the branch and open the PR (needs the user's go-ahead).

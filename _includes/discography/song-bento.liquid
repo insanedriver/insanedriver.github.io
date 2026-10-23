@@ -1,0 +1,114 @@
+{%- assign secs = song.duration | modulo: 60 -%}
+<div class="cyber-panel song-bento-meta" data-song-meta>
+    <div class="cyber-panel-tab"><span class="tab-icon"></span> TRACK::{{ song.number }}</div>
+    <div class="cyber-panel-body" data-hud="SONG.{{ song.slug | upcase }} // {{ song.album.year }}_">
+        <span class="top-accent"></span>
+        <span class="corner-tl"></span>
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <article class="song-bento-meta-row" data-song="{{ song.slug }}">
+            <div class="disc-release-art">
+                <img src="/assets/images/releases/{{ song.cover.file }}" width="600" height="600" alt="{{ song.cover.alt | escape }}" decoding="async">
+                <span class="disc-art-corner" aria-hidden="true"></span>
+            </div>
+            <div class="song-bento-meta-body">
+                <p class="song-bento-meta-line">
+                    <span class="disc-eyebrow">Track {{ song.number }} // {{ song.album.year }}</span>
+                    <span class="song-bento-telemetry-item">Runtime {{ song.duration | divided_by: 60 | floor }}:{% if secs < 10 %}0{% endif %}{{ secs }}</span>
+                </p>
+                <p class="song-album">From the album <a href="{{ song.album.url }}" data-song-album>{{ song.album.title | escape }}</a> ({{ song.album.year }})</p>
+                <div class="song-bento-intel">
+                    <span class="disc-eyebrow">Recommended intel</span>
+                    {% include 'seo/fans-of' %}
+                </div>
+            </div>
+            <a class="song-bento-quickplay" data-song-quickplay="{{ song.slug }}" href="#song-video"><i class="fa fa-play" aria-hidden="true"></i> Quick play</a>
+        </article>
+    </div>
+</div>
+
+<div class="song-bento" data-song-bento>
+
+    <section class="cyber-panel song-bento-panel song-bento-panel--a" id="song-video" aria-labelledby="song-video-title">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL A // VIDEO TRANSMISSION</div>
+        <div class="cyber-panel-body" data-hud="DIRECT FEED_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <h2 id="song-video-title" class="sr-only">Video</h2>
+            <p class="song-bento-telemetry">
+                <span class="song-bento-live"><span class="song-bento-dot" aria-hidden="true">●</span> OFFICIAL {{ song.video.type }}</span>
+                <span class="song-bento-telemetry-item">REC::{{ song.video.id }} // {{ song.video.type }}</span>
+            </p>
+            <div class="song-video-frame-box">
+                <a class="song-video" data-song-video data-video-id="{{ song.video.id }}" data-video-title="{{ song.video.title | escape }}" href="https://www.youtube.com/watch?v={{ song.video.id }}" target="_blank" rel="noopener">
+                    <img src="https://i.ytimg.com/vi/{{ song.video.id }}/hqdefault.jpg" width="480" height="360" alt="" loading="lazy">
+                    <span class="song-video-play" aria-hidden="true"><i class="fa fa-play"></i></span>
+                    <span class="song-video-caption"><span class="disc-eyebrow">Play video</span> <span class="song-video-name">{{ song.video.title | escape }}</span></span>
+                </a>
+            </div>
+            <p class="song-bento-video-title">{{ song.video.title | escape }}</p>
+            <p class="song-bento-foot">SOURCE: YOUTUBE // {{ song.video.id }}</p>
+        </div>
+    </section>
+
+    <section class="cyber-panel song-bento-panel song-bento-panel--b" aria-labelledby="song-uplink-title">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL B // AUDIO UPLINK</div>
+        <div class="cyber-panel-body" data-hud="STREAM MATRIX_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <h2 id="song-uplink-title" class="disc-eyebrow song-links-title">Listen to the song</h2>
+            <div class="disc-links song-bento-uplink">
+                {% for p in song.uplink %}{% if p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ p.url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ song.listen.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    <span class="cyber-link-sub">{{ p.sub }}</span>
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+            <div class="disc-links disc-links--secondary song-bento-uplink-secondary">
+                {% for p in song.uplink %}{% unless p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ p.url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ song.listen.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                </a>
+                {% endunless %}{% endfor %}
+            </div>
+            <p class="song-bento-foot">STATUS: ONLINE // ALL NODES ACTIVE</p>
+        </div>
+    </section>
+
+    <section class="cyber-panel song-bento-panel song-bento-panel--d">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL D // SONG DOSSIER</div>
+        <div class="cyber-panel-body" data-hud="DOSSIER_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <div class="song-bento-sticky">
+                {% include 'discography/song-dossier' %}
+                <p class="song-bento-foot">CATALOG: {{ song.catalogCode }} // ALL EDITIONS LISTED</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cyber-panel song-bento-panel song-bento-panel--c">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL C // LYRICS TERMINAL</div>
+        <div class="cyber-panel-body" data-hud="LYRICS_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <p class="song-bento-telemetry">
+                <span class="song-bento-telemetry-item">[{{ song.sections.size }} SECTIONS]</span>
+                <span class="song-bento-telemetry-item">HUD.LOG::LYR_{{ song.number }}</span>
+            </p>
+            {% include 'discography/song-lyrics' %}
+        </div>
+    </section>
+
+</div>

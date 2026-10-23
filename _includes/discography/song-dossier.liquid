@@ -1,0 +1,22 @@
+    {% if song.about %}
+    <section class="song-about" aria-labelledby="song-about-title" data-song-about>
+        <h2 id="song-about-title" class="song-heading">About the song</h2>
+        <p>{{ song.about | escape }}</p>
+    </section>
+    {% endif %}
+
+    {% if song.alsoReleasedAs.size > 0 %}
+    <section class="song-also" aria-labelledby="song-also-title" data-song-also>
+        <h2 id="song-also-title" class="song-heading">Also released as</h2>
+        <ul class="song-also-list">
+            {% for other in song.alsoReleasedAs %}
+            <li class="song-also-item">
+                <span class="song-also-title">{% if other.url %}<a href="{{ other.url }}">{{ other.title | escape }}</a>{% else %}{{ other.title | escape }}{% endif %}</span>
+                <span class="song-also-year">{{ other.year }}</span>
+                {% unless other.url %}<span class="disc-single-links">{% for p in platforms %}{% assign url = other.links[p.key] %}{% if url %}<a class="disc-single-link cyber-link--{{ p.key }}" href="{{ url }}" target="_blank" rel="noopener" aria-label="{{ other.title | escape }} on {{ p.name }}"><i class="fa {{ p.icon }}" aria-hidden="true"></i></a>{% endif %}{% endfor %}</span>{% endunless %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+

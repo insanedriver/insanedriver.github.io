@@ -1,9 +1,10 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, albumCode, uplink, build } = require('../../lib/catalog.js');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
+const platforms = require('../../_data/platforms.json');
 
 // Real catalog data; stand-in lyrics for every song that has words.
 const fakeLyrics = () => Object.fromEntries(songs.songs.filter(s => !s.instrumental)
@@ -134,9 +135,9 @@ test('SONG-08: the deluxe edition is listed on each of the 11 debut songs and on
 test('SONG-10: previous and next tracks of the album, omitted on the first and last track', () => {
   const c = catalog();
   assert.equal(song(c, 'back-to-1994').prev, null);
-  assert.deepEqual(song(c, 'back-to-1994').next, { title: 'Faceless Demons', url: '/discography/silicon-fortress/faceless-demons/' });
-  assert.deepEqual(song(c, 'faceless-demons').prev, { title: 'Back To 1994', url: '/discography/silicon-fortress/back-to-1994/' });
-  assert.deepEqual(song(c, 'distant-hearts').prev, { title: 'Invisible Chains', url: '/discography/silicon-fortress/invisible-chains/' });
+  assert.deepEqual(song(c, 'back-to-1994').next, { title: 'Faceless Demons', url: '/discography/silicon-fortress/faceless-demons/', number: '02' });
+  assert.deepEqual(song(c, 'faceless-demons').prev, { title: 'Back To 1994', url: '/discography/silicon-fortress/back-to-1994/', number: '01' });
+  assert.deepEqual(song(c, 'distant-hearts').prev, { title: 'Invisible Chains', url: '/discography/silicon-fortress/invisible-chains/', number: '10' });
   assert.equal(song(c, 'distant-hearts').next, null);
   assert.equal(song(c, 'endless-path').prev, null);
   assert.equal(song(c, 'tears-of-blood').next, null);
@@ -147,8 +148,8 @@ test('SONG-04: labelled sections become label + lines, blank lines inside a sect
   lyrics['silicon-fortress/ghosts'] = '[Verse 1]\nSearching for\nSomething\n\n[Chorus]\nYou know\n\nDon\'t leave me\n';
   const s = song(catalog({ lyrics }), 'ghosts');
   assert.deepEqual(s.sections, [
-    { label: 'Verse 1', lines: ['Searching for', 'Something'] },
-    { label: 'Chorus', lines: ['You know', '', 'Don\'t leave me'] },
+    { label: 'Verse 1', lines: ['Searching for', 'Something'], family: 'verse' },
+    { label: 'Chorus', lines: ['You know', '', 'Don\'t leave me'], family: 'chorus' },
   ]);
   assert.equal(s.lyricsText, '[Verse 1]\nSearching for\nSomething\n\n[Chorus]\nYou know\n\nDon\'t leave me');
   assert.equal(s.instrumental, false);
@@ -159,10 +160,10 @@ test('SONG-04: lines before the first label, or a file with no labels, form an u
   lyrics['insane-driver/change'] = 'When you see yourself\nWhat do you seek?\n\nChorus I\nLine\n';
   lyrics['insane-driver/fallen-dreams'] = 'Intro line\n\n[Chorus]\nHow could I know?\n';
   const c = catalog({ lyrics });
-  assert.deepEqual(song(c, 'change').sections, [{ label: null, lines: ['When you see yourself', 'What do you seek?', '', 'Chorus I', 'Line'] }]);
+  assert.deepEqual(song(c, 'change').sections, [{ label: null, lines: ['When you see yourself', 'What do you seek?', '', 'Chorus I', 'Line'], family: null }]);
   assert.deepEqual(song(c, 'fallen-dreams').sections, [
-    { label: null, lines: ['Intro line'] },
-    { label: 'Chorus', lines: ['How could I know?'] },
+    { label: null, lines: ['Intro line'], family: null },
+    { label: 'Chorus', lines: ['How could I know?'], family: 'chorus' },
   ]);
 });
 
@@ -231,4 +232,87 @@ test('SONG-07 data: a song without track links uses the album links and has no s
   assert.deepEqual(s.listen.links, album.links);
   assert.deepEqual(s.listen.track, {});
   assert.deepEqual(s.sameAs, []);
+});
+
+// BENTO-27: each label family on its own, so no branch masks another (L-024).
+test('BENTO-27: sectionFamily maps a label to verse, chorus, bridge or other, and no label to null', () => {
+  for (const label of ['Verse', 'Verse 1', 'Verse 2']) assert.equal(sectionFamily(label), 'verse', label);
+  for (const label of ['Chorus', 'Chorus 1', 'Chorus 2']) assert.equal(sectionFamily(label), 'chorus', label);
+  for (const label of ['Bridge', 'Bridge 1', 'Bridge 3']) assert.equal(sectionFamily(label), 'bridge', label);
+  assert.equal(sectionFamily('Interlude'), 'bridge');
+  assert.equal(sectionFamily('Prayer'), 'other');
+  assert.equal(sectionFamily('Outro'), 'other');
+  assert.equal(sectionFamily(null), null);
+});
+
+test('BENTO-27: built sections carry their family', () => {
+  const lyrics = Object.assign(fakeLyrics(), { 'silicon-fortress/keep-away': 'intro line\n[Verse 1]\na\n[Bridge]\nb\n[Chorus]\nc\n[Interlude]\n[Prayer]\nd\n' });
+  const s = song(catalog({ lyrics }), 'keep-away');
+  assert.deepEqual(s.sections.map(x => [x.label, x.family]), [
+    [null, null], ['Verse 1', 'verse'], ['Bridge', 'bridge'], ['Chorus', 'chorus'], ['Interlude', 'bridge'], ['Prayer', 'other'],
+  ]);
+});
+
+test('BENTO-32: albumCode is the uppercase initials of the album title words', () => {
+  assert.equal(albumCode('Silicon Fortress'), 'SF');
+  assert.equal(albumCode('Insane Driver'), 'ID');
+  assert.equal(albumCode('insane driver deluxe'), 'IDD');
+});
+
+test('BENTO-26/32/35: a song carries its two-digit number and catalog code', () => {
+  const c = catalog();
+  assert.equal(song(c, 'keep-away').number, '03');
+  assert.equal(song(c, 'keep-away').catalogCode, 'SF-TRACK-03');
+  assert.equal(song(c, 'today-is-sunday').catalogCode, 'ID-TRACK-08');
+  assert.equal(song(c, 'distant-hearts').number, '11');
+  assert.equal(song(c, 'distant-hearts').catalogCode, 'SF-TRACK-11');
+  assert.equal(song(c, 'keep-away').prev.number, '02');
+  assert.equal(song(c, 'keep-away').next.number, '04');
+});
+
+const UPLINK_ORDER = ['spotify', 'apple', 'ytmusic', 'bandcamp', 'deezer', 'tidal', 'amazon', 'pandora'];
+const TRACK_SUB = { spotify: 'Play the track', apple: 'Play the track', ytmusic: 'Audio stream', bandcamp: 'Lossless download' };
+const allLinks = prefix => Object.fromEntries(UPLINK_ORDER.map(k => [k, `${prefix}/${k}`]));
+
+test('BENTO-18: uplink lists Spotify, Apple, YT Music, Bandcamp as primary, then Deezer, Tidal, Amazon, Pandora', () => {
+  const list = uplink(platforms, { links: allLinks('https://album'), track: {} });
+  assert.deepEqual(list.map(e => [e.key, e.primary]), [
+    ['spotify', true], ['apple', true], ['ytmusic', true], ['bandcamp', true],
+    ['deezer', false], ['tidal', false], ['amazon', false], ['pandora', false],
+  ]);
+  for (const e of list) {
+    const p = platforms.find(x => x.key === e.key);
+    assert.equal(e.name, p.name);
+    assert.equal(e.icon, p.icon);
+  }
+});
+
+test('BENTO-18 edge: a platform with no URL gets no entry', () => {
+  const links = Object.assign(allLinks('https://album'), { pandora: null, bandcamp: null });
+  assert.deepEqual(uplink(platforms, { links, track: {} }).map(e => e.key), ['spotify', 'apple', 'ytmusic', 'deezer', 'tidal', 'amazon']);
+});
+
+test('BENTO-19/20: each platform uses the listen URL; the sub label depends on whether it is the track URL', () => {
+  for (const key of UPLINK_ORDER) {
+    const p = platforms.find(x => x.key === key);
+    const withTrack = uplink(platforms, { links: Object.assign(allLinks('https://album'), { [key]: 'https://track' }), track: { [key]: 'https://track' } })
+      .find(e => e.key === key);
+    assert.equal(withTrack.url, 'https://track', key);
+    assert.equal(withTrack.sub, TRACK_SUB[key] || p.sub, key);
+    const fallback = uplink(platforms, { links: allLinks('https://album'), track: {} }).find(e => e.key === key);
+    assert.equal(fallback.url, `https://album/${key}`, key);
+    assert.equal(fallback.sub, p.sub, key);
+  }
+});
+
+test('BENTO-18/19: a built song carries its uplink from its listen links; without platforms it is empty', () => {
+  const s = song(catalog({ platforms }), 'keep-away');
+  assert.deepEqual(s.uplink.map(e => e.url), UPLINK_ORDER.map(k => s.listen.links[k]).filter(Boolean));
+  assert.equal(s.uplink[0].sub, 'Play the track');
+  assert.deepEqual(song(catalog(), 'keep-away').uplink, []);
+});
+
+test('BENTO-18: the Eleventy catalog data passes platforms.json in', () => {
+  const data = require('../../_data/catalog.js')();
+  assert.equal(data.songs.find(x => x.slug === 'keep-away').uplink[0].key, 'spotify');
 });
