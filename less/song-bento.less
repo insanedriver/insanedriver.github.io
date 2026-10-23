@@ -21,6 +21,15 @@
         }
     }
 
+    // Songs without a video: lyrics where the video goes, the dossier across the bottom.
+    .song-bento--lyrics {
+        grid-template-areas: "c" "b" "d";
+
+        @media (min-width: 992px) {
+            grid-template-areas: "c c c c b b" "d d d d d d";
+        }
+    }
+
     .song-bento-panel {
         display: flex;
         flex-direction: column;
@@ -37,11 +46,26 @@
 
     // Panels B and D both wrap their content in .song-bento-sticky; the layout picks
     // which one pins beside the long column.
-    .song-bento--video .song-bento-panel--d .song-bento-sticky {
+    .song-bento--video .song-bento-panel--d .song-bento-sticky,
+    .song-bento--lyrics .song-bento-panel--b .song-bento-sticky {
         @media (min-width: 992px) {
             position: sticky;
             top: 2rem;
         }
+    }
+
+    // Lyrics layout dossier: About under the lyrics column, "Also released as" under
+    // Panel B (same 4:2 split and column gap as the grid); a lone About keeps a reading measure.
+    .song-bento--lyrics {
+        .song-bento-dossier--split {
+            @media (min-width: 992px) {
+                display: grid;
+                grid-template-columns: minmax(0, 4fr) minmax(0, 2fr);
+                gap: 0 2rem;
+                align-items: start;
+            }
+        }
+        .song-about p { max-width: 70ch; }
     }
 
     // ── Metadata bar ──

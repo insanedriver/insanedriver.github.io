@@ -163,7 +163,7 @@ T5 → T6
 
 ---
 
-### T5: Lyrics bento layout
+### T5: Lyrics bento layout ✅
 
 **What**: `.song-bento--lyrics` grid, Panel B sticky, Panel D split and 70ch About.
 **Where**: `less/song-bento.less`

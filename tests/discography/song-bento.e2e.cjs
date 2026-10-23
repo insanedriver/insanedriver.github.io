@@ -354,6 +354,94 @@ for (const width of [991, 768, 375]) {
   });
 }
 
+// ── Lyrics bento layout (song-bento-no-video T5) ──
+
+const AGE_OF_LIES = SONGS.find(s => s.slug === 'age-of-lies');
+const lyricsRects = page => page.evaluate(() => {
+  const box = el => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, left: r.left, right: r.right, width: r.width, bottom: r.bottom + scrollY }; };
+  const grid = document.querySelector('[data-song-bento]');
+  const out = { grid: box(grid) };
+  for (const l of ['b', 'c', 'd']) out[l] = box(grid.querySelector(`.song-bento-panel--${l}`));
+  const one = sel => document.querySelector(sel) ? box(document.querySelector(sel)) : null;
+  out.about = one('.song-bento-panel--d [data-song-about]');
+  out.also = one('.song-bento-panel--d [data-song-also]');
+  out.catalog = one('.song-bento-panel--d .song-bento-foot');
+  return out;
+});
+const stickyOf = (page, l) => page.locator(`.song-bento-panel--${l} .song-bento-sticky`).evaluate(el => [getComputedStyle(el).position, getComputedStyle(el).top]);
+
+for (const width of [1280, 992]) {
+  for (const s of [FACELESS, AGE_OF_LIES]) {
+    test(`NOVID-04/05/07/18/20: ${s.url} at ${width}px puts the lyrics beside Panel B and the dossier below`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(s.url);
+      const r = await lyricsRects(page);
+      // NOVID-04: C and B on one row, C left, C two-thirds.
+      expect(Math.abs(r.c.top - r.b.top)).toBeLessThanOrEqual(2);
+      expect(r.c.left).toBeLessThan(r.b.left);
+      const ratio = r.c.width / (r.c.width + r.b.width);
+      expect(ratio).toBeGreaterThanOrEqual(0.64);
+      expect(ratio).toBeLessThanOrEqual(0.69);
+      // NOVID-05: D below both, from C's left edge to B's right edge.
+      expect(r.d.top).toBeGreaterThanOrEqual(Math.max(r.c.bottom, r.b.bottom));
+      expect(Math.abs(r.d.left - r.c.left)).toBeLessThanOrEqual(2);
+      expect(Math.abs(r.d.right - r.b.right)).toBeLessThanOrEqual(2);
+      // NOVID-07: B pins at 2rem (20px), D does not.
+      expect(await stickyOf(page, 'b')).toEqual(['sticky', '20px']);
+      expect((await stickyOf(page, 'd'))[0]).toBe('static');
+      // NOVID-18: About and "Also" side by side, About two-thirds.
+      if (r.also) {
+        expect(Math.abs(r.about.top - r.also.top)).toBeLessThanOrEqual(2);
+        expect(r.about.left).toBeLessThan(r.also.left);
+        const split = r.about.width / (r.about.width + r.also.width);
+        expect(split).toBeGreaterThanOrEqual(0.64);
+        expect(split).toBeLessThanOrEqual(0.69);
+      }
+      // NOVID-20: the catalog line below both.
+      expect(r.catalog.top).toBeGreaterThanOrEqual(Math.max(r.about.bottom, r.also ? r.also.bottom : 0));
+    });
+  }
+}
+
+test('NOVID-18 fixture: Age of Lies has an "Also released as" and Faceless Demons has none', async ({ page }) => {
+  await page.goto(AGE_OF_LIES.url);
+  await expect(page.locator('[data-song-also]')).toHaveCount(1);
+  await page.goto(FACELESS.url);
+  await expect(page.locator('[data-song-also]')).toHaveCount(0);
+});
+
+for (const width of [991, 768, 375]) {
+  test(`NOVID-06: at ${width}px the lyrics bento stacks C, B, D at full width`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(AGE_OF_LIES.url);
+    const r = await lyricsRects(page);
+    for (const l of ['c', 'b', 'd']) {
+      expect(Math.abs(r[l].left - r.grid.left), l).toBeLessThanOrEqual(1);
+      expect(Math.abs(r[l].width - r.grid.width), l).toBeLessThanOrEqual(1);
+    }
+    expect(r.b.top).toBeGreaterThanOrEqual(r.c.bottom);
+    expect(r.d.top).toBeGreaterThanOrEqual(r.b.bottom);
+    expect((await stickyOf(page, 'b'))[0]).toBe('static');
+  });
+}
+
+for (const width of [1280, 375]) {
+  test(`NOVID-19: at ${width}px a lone About paragraph is at most 70 zero-glyphs wide`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(FACELESS.url);
+    const [w, ch] = await page.locator('[data-song-about] p').evaluate(p => {
+      const probe = document.createElement('span');
+      probe.textContent = '0'.repeat(70);
+      probe.style.whiteSpace = 'nowrap';
+      p.appendChild(probe);
+      const zero = probe.getBoundingClientRect().width / 70;
+      probe.remove();
+      return [p.getBoundingClientRect().width, zero];
+    });
+    expect(w).toBeLessThanOrEqual(70 * ch + 1);
+  });
+}
+
 for (const width of [375, 768, 992, 1280]) {
   test(`BENTO-06: no horizontal overflow on any song page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
