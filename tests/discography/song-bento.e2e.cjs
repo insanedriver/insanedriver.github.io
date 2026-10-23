@@ -21,8 +21,32 @@ const sectionFamilies = page => page.locator('[data-song-lyrics] .song-lyrics-se
   families: names.filter(n => el.classList.contains(n)),
 })), FAMILY_CLASSES);
 
+const two = n => String(n).padStart(2, '0');
+const neighbour = (s, delta) => s.album.tracks.find(t => t.position === s.track.position + delta);
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
+
+  for (const s of SONGS) {
+    test(`BENTO-34/35: ${s.url} has a full-width sequencer after the last panel`, async ({ page }) => {
+      await page.goto(s.url);
+      const nav = page.locator('.song-nav');
+      await expect(nav).toHaveCount(1);
+      const placement = await nav.evaluate(el => {
+        const panels = [...document.querySelectorAll('.cyber-panel')];
+        const last = panels[panels.length - 1];
+        return { insidePanel: !!el.closest('.cyber-panel'), afterLast: !!(last.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) };
+      });
+      expect(placement).toEqual({ insidePanel: false, afterLast: true });
+      const text = async rel => (await page.locator(`.song-nav a[rel="${rel}"]`).textContent()).replace(/\s+/g, ' ').trim();
+      const prev = neighbour(s, -1);
+      const next = neighbour(s, 1);
+      if (prev) expect(await text('prev')).toBe(`← Previous track // ${two(prev.position)} ${prev.title}`);
+      else await expect(page.locator('.song-nav a[rel="prev"]')).toHaveCount(0);
+      if (next) expect(await text('next')).toBe(`Next track → // ${two(next.position)} ${next.title}`);
+      else await expect(page.locator('.song-nav a[rel="next"]')).toHaveCount(0);
+    });
+  }
 
   test('BENTO-27: each labelled lyrics section carries exactly one family class', async ({ page }) => {
     await page.goto(KEEP_AWAY.url);

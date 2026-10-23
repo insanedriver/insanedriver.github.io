@@ -206,8 +206,8 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 | BENTO-31 | P1: Lyrics and dossier | Tasks | In Tasks |
 | BENTO-32 | P1: Lyrics and dossier | Tasks | In Tasks |
 | BENTO-33 | P1: Lyrics and dossier | Tasks | In Tasks |
-| BENTO-34 | P2: Track sequencer | Tasks | In Tasks |
-| BENTO-35 | P2: Track sequencer | Tasks | In Tasks |
+| BENTO-34 | P2: Track sequencer | T5 | Implementing |
+| BENTO-35 | P2: Track sequencer | T2, T5 | Implementing |
 | BENTO-36 | P2: HUD finish | Tasks | In Tasks |
 | BENTO-37 | P2: HUD finish | Tasks | In Tasks |
 | BENTO-38 | P2: HUD finish | Tasks | In Tasks |

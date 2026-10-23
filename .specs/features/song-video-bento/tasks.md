@@ -162,7 +162,7 @@ T8 → T9 → T10
 
 ---
 
-### T5: Track sequencer bar
+### T5: Track sequencer bar ✅
 
 **What**: `_includes/discography/song-nav.liquid` with `← Previous track // NN` / `Next track → // NN`, rendered after the last panel on every song page.
 **Where**: `_includes/discography/song-nav.liquid`

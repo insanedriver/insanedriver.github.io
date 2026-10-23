@@ -86,14 +86,10 @@ eleventyComputed:
 
     {% include 'discography/song-dossier' %}
 
-    {% if song.prev or song.next %}
-    <nav class="song-nav" aria-label="{{ song.album.title | escape }} tracks">
-        {% if song.prev %}<a class="song-nav-link song-nav-prev" rel="prev" href="{{ song.prev.url }}"><span class="disc-eyebrow">&larr; Previous track</span> <span class="song-nav-title">{{ song.prev.title | escape }}</span></a>{% endif %}
-        {% if song.next %}<a class="song-nav-link song-nav-next" rel="next" href="{{ song.next.url }}"><span class="disc-eyebrow">Next track &rarr;</span> <span class="song-nav-title">{{ song.next.title | escape }}</span></a>{% endif %}
-    </nav>
-    {% endif %}
         </div>
     </div>
+
+    {% include 'discography/song-nav' %}
 
     </div>
 </div>
