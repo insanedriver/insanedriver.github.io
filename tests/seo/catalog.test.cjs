@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, build } = require('../../lib/catalog.js');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
@@ -147,8 +147,8 @@ test('SONG-04: labelled sections become label + lines, blank lines inside a sect
   lyrics['silicon-fortress/ghosts'] = '[Verse 1]\nSearching for\nSomething\n\n[Chorus]\nYou know\n\nDon\'t leave me\n';
   const s = song(catalog({ lyrics }), 'ghosts');
   assert.deepEqual(s.sections, [
-    { label: 'Verse 1', lines: ['Searching for', 'Something'] },
-    { label: 'Chorus', lines: ['You know', '', 'Don\'t leave me'] },
+    { label: 'Verse 1', lines: ['Searching for', 'Something'], family: 'verse' },
+    { label: 'Chorus', lines: ['You know', '', 'Don\'t leave me'], family: 'chorus' },
   ]);
   assert.equal(s.lyricsText, '[Verse 1]\nSearching for\nSomething\n\n[Chorus]\nYou know\n\nDon\'t leave me');
   assert.equal(s.instrumental, false);
@@ -159,10 +159,10 @@ test('SONG-04: lines before the first label, or a file with no labels, form an u
   lyrics['insane-driver/change'] = 'When you see yourself\nWhat do you seek?\n\nChorus I\nLine\n';
   lyrics['insane-driver/fallen-dreams'] = 'Intro line\n\n[Chorus]\nHow could I know?\n';
   const c = catalog({ lyrics });
-  assert.deepEqual(song(c, 'change').sections, [{ label: null, lines: ['When you see yourself', 'What do you seek?', '', 'Chorus I', 'Line'] }]);
+  assert.deepEqual(song(c, 'change').sections, [{ label: null, lines: ['When you see yourself', 'What do you seek?', '', 'Chorus I', 'Line'], family: null }]);
   assert.deepEqual(song(c, 'fallen-dreams').sections, [
-    { label: null, lines: ['Intro line'] },
-    { label: 'Chorus', lines: ['How could I know?'] },
+    { label: null, lines: ['Intro line'], family: null },
+    { label: 'Chorus', lines: ['How could I know?'], family: 'chorus' },
   ]);
 });
 
@@ -231,4 +231,23 @@ test('SONG-07 data: a song without track links uses the album links and has no s
   assert.deepEqual(s.listen.links, album.links);
   assert.deepEqual(s.listen.track, {});
   assert.deepEqual(s.sameAs, []);
+});
+
+// BENTO-27: each label family on its own, so no branch masks another (L-024).
+test('BENTO-27: sectionFamily maps a label to verse, chorus, bridge or other, and no label to null', () => {
+  for (const label of ['Verse', 'Verse 1', 'Verse 2']) assert.equal(sectionFamily(label), 'verse', label);
+  for (const label of ['Chorus', 'Chorus 1', 'Chorus 2']) assert.equal(sectionFamily(label), 'chorus', label);
+  for (const label of ['Bridge', 'Bridge 1', 'Bridge 3']) assert.equal(sectionFamily(label), 'bridge', label);
+  assert.equal(sectionFamily('Interlude'), 'bridge');
+  assert.equal(sectionFamily('Prayer'), 'other');
+  assert.equal(sectionFamily('Outro'), 'other');
+  assert.equal(sectionFamily(null), null);
+});
+
+test('BENTO-27: built sections carry their family', () => {
+  const lyrics = Object.assign(fakeLyrics(), { 'silicon-fortress/keep-away': 'intro line\n[Verse 1]\na\n[Bridge]\nb\n[Chorus]\nc\n[Interlude]\n[Prayer]\nd\n' });
+  const s = song(catalog({ lyrics }), 'keep-away');
+  assert.deepEqual(s.sections.map(x => [x.label, x.family]), [
+    [null, null], ['Verse 1', 'verse'], ['Bridge', 'bridge'], ['Chorus', 'chorus'], ['Interlude', 'bridge'], ['Prayer', 'other'],
+  ]);
 });
