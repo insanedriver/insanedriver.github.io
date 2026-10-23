@@ -20,8 +20,8 @@
 
 ## Handoff
 
-- **Feature**: song-video-bento (bento grid for song pages with a video: meta bar with QUICK PLAY, panels A video / B audio uplink / D dossier / C lyrics, track sequencer bar, neon HUD finish)
-- **Phase / Task**: Complete. T1-T10 plus `5eb1729` (rebuilt discography.min.css: T8/T9 had committed a stale bundle) and Verifier fixes `42a9930` (BENTO-10/12 hash, BENTO-21 click test) and `d7973f0` (BENTO-20 wording); range `6b06e2c^..d7973f0` on `feature/song-video-bento`.
-- **Verification**: Verifier PASS on iteration 2. 42/42 ACs Verified. Unit 214/214, scoped e2e 275/275; sensor 7/7 killed. Candidate lessons L-045..L-047.
-- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` networkidle) failed 4/4 in this environment on 2026-10-23, unrelated to this feature.
-- **Next**: push the branch and open the PR (needs the user's go-ahead).
+- **Feature**: song-bento-no-video (the 10 sung songs without a video use the bento: meta bar with LISTEN NOW, Panel C lyrics beside a sticky Panel B, full-width Panel D with About and "Also released as" split 4:2; instrumentals keep the stack)
+- **Phase / Task**: Complete. T1-T6 plus Verifier fix `699ede0` (BENTO-24/30 checks on the lyrics layout); range `ef05bd0..699ede0` on `feature/song-bento-no-video`, branched from `feature/song-video-bento`.
+- **Verification**: Verifier PASS on iteration 2. 23/23 ACs Verified. Unit 218/218, scoped e2e 315/315; sensor 10 killed, 1 equivalent (NOVID-13 guard: every song has Spotify today). L-037 promoted to confirmed; candidate L-048.
+- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` networkidle) fails every run in this environment.
+- **Next**: the user pushes `feature/song-video-bento` and opens its PR (auto mode blocked the push; body in the scratchpad), then pushes `feature/song-bento-no-video` and opens a PR stacked on it.

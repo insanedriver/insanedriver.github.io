@@ -134,33 +134,33 @@ The ten song pages that have lyrics but no official video (`song.video` unset, `
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| NOVID-01 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
-| NOVID-02 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
-| NOVID-03 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
-| NOVID-04 | P1: Lyrics beside the streaming matrix | T5 | Implementing |
-| NOVID-05 | P1: Lyrics beside the streaming matrix | T5 | Implementing |
-| NOVID-06 | P1: Lyrics beside the streaming matrix | T5 | Implementing |
-| NOVID-07 | P1: Lyrics beside the streaming matrix | T5 | Implementing |
-| NOVID-08 | P1: Metadata bar and LISTEN NOW | T4 | Implementing |
-| NOVID-09 | P1: Lyrics beside the streaming matrix | T5 | Implementing |
-| NOVID-10 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
-| NOVID-11 | P1: Metadata bar and LISTEN NOW | T3 | Implementing |
-| NOVID-12 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
-| NOVID-13 | P1: Metadata bar and LISTEN NOW | T1, T4 | Implementing |
-| NOVID-14 | P1: Metadata bar and LISTEN NOW | T6 | Implementing |
-| NOVID-15 | P1: Lyrics beside the streaming matrix | T3 | Implementing |
-| NOVID-16 | P1: Lyrics terminal and dossier | T3 | Implementing |
-| NOVID-17 | P1: Lyrics terminal and dossier | T3 | Implementing |
-| NOVID-18 | P1: Lyrics terminal and dossier | T5 | Implementing |
-| NOVID-19 | P1: Lyrics terminal and dossier | T5 | Implementing |
-| NOVID-20 | P1: Lyrics terminal and dossier | T5 | Implementing |
-| NOVID-21 | P2: Neon HUD finish and accessibility | T6 | Implementing |
-| NOVID-22 | P2: Neon HUD finish and accessibility | T6 | Implementing |
-| NOVID-23 | P2: Neon HUD finish and accessibility | T4 | Implementing |
+| NOVID-01 | P1: Lyrics beside the streaming matrix | T3 | Verified |
+| NOVID-02 | P1: Lyrics beside the streaming matrix | T3 | Verified |
+| NOVID-03 | P1: Lyrics beside the streaming matrix | T3 | Verified |
+| NOVID-04 | P1: Lyrics beside the streaming matrix | T5 | Verified |
+| NOVID-05 | P1: Lyrics beside the streaming matrix | T5 | Verified |
+| NOVID-06 | P1: Lyrics beside the streaming matrix | T5 | Verified |
+| NOVID-07 | P1: Lyrics beside the streaming matrix | T5 | Verified |
+| NOVID-08 | P1: Metadata bar and LISTEN NOW | T4 | Verified |
+| NOVID-09 | P1: Lyrics beside the streaming matrix | T5 | Verified |
+| NOVID-10 | P1: Metadata bar and LISTEN NOW | T3 | Verified |
+| NOVID-11 | P1: Metadata bar and LISTEN NOW | T3 | Verified |
+| NOVID-12 | P1: Metadata bar and LISTEN NOW | T1, T4 | Verified |
+| NOVID-13 | P1: Metadata bar and LISTEN NOW | T1, T4 | Verified |
+| NOVID-14 | P1: Metadata bar and LISTEN NOW | T6 | Verified |
+| NOVID-15 | P1: Lyrics beside the streaming matrix | T3 | Verified |
+| NOVID-16 | P1: Lyrics terminal and dossier | T3 | Verified |
+| NOVID-17 | P1: Lyrics terminal and dossier | T3 | Verified |
+| NOVID-18 | P1: Lyrics terminal and dossier | T5 | Verified |
+| NOVID-19 | P1: Lyrics terminal and dossier | T5 | Verified |
+| NOVID-20 | P1: Lyrics terminal and dossier | T5 | Verified |
+| NOVID-21 | P2: Neon HUD finish and accessibility | T6 | Verified |
+| NOVID-22 | P2: Neon HUD finish and accessibility | T6 | Verified |
+| NOVID-23 | P2: Neon HUD finish and accessibility | T4 | Verified |
 
 **ID format:** `NOVID-NN`.
 
-**Coverage:** 23 total, 0 mapped to tasks.
+**Coverage:** 23 total, 23 mapped to tasks (T1-T6), 23 verified.
 
 ---
 

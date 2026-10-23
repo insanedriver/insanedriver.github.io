@@ -20,6 +20,12 @@ Corroborated across multiple features. Safe to apply as guidance.
 - evidence: validation.md Round 7 E6, E10; assets/js/home.js:42 (tests) (+1 more)
 - last seen: 2026-10-20T01:56:18Z
 
+### L-037 - When two layouts include the same behavior partial, run the behavior's browser test on a page of each layout, or a regression in the untested layout ships unseen.
+- signal: `surviving_mutant` · recurrence: 2 feature(s) · scope: `e2e` · harmful: 0
+- features: perf-pagespeed, song-bento-no-video
+- evidence: validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e) (+1 more)
+- last seen: 2026-10-23T19:10:03Z
+
 ## Candidates (under observation - do NOT load as guidance yet)
 
 Seen once or not yet corroborated. Tracked, not trusted.
@@ -228,12 +234,6 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md Pass 4 N3/N6/N9; tests/seo/song.e2e.cjs:54,:84 (test-data)
 - last seen: 2026-10-19T04:18:44Z
 
-### L-037 - When two layouts include the same behavior partial, run the behavior's browser test on a page of each layout, or a regression in the untested layout ships unseen.
-- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
-- features: perf-pagespeed
-- evidence: validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e)
-- last seen: 2026-10-20T01:56:18Z
-
 ### L-038 - Measure a size budget an AC sets against the real inputs during Design, since one inlined asset such as a base64 font can exceed it alone.
 - signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `css` · harmful: 0
 - features: perf-pagespeed
@@ -293,6 +293,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - features: song-video-bento
 - evidence: BENTO-20 vs tests/seo/song.e2e.cjs:201 (spec-writing)
 - last seen: 2026-10-23T15:11:13Z
+
+### L-048 - When an AC imports other ACs by reference for a new context, map every imported AC to a test on that context, not only the ones the new tests already touch.
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: song-bento-no-video
+- evidence: NOVID-15 (BENTO-24), NOVID-16 (BENTO-30); validation.md Fix 1-2 (tests)
+- last seen: 2026-10-23T19:10:03Z
 
 ## Quarantined (failed when applied - ignore)
 
