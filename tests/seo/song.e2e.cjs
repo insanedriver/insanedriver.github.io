@@ -187,13 +187,15 @@ test.describe('without JavaScript', () => {
 
       // SONG-07 + null-platform edge case: one link per album platform with a URL,
       // the track's own URL where songs.json has one, otherwise the album's.
-      const links = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => [
+      // LISTEN NOW (NOVID-12) repeats the Spotify link outside the platform list.
+      const links = await page.locator('[data-disc-link]:not([data-song-listen])').evaluateAll(els => els.map(el => [
         el.getAttribute('data-disc-link'), el.getAttribute('href'),
         el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
       ]));
       const track = data.links || {};
-      if (videos.some(v => v.slug === s.slug)) {
-        // BENTO-18..20: a video song lists them in the Audio Uplink order, with its own sub labels.
+      if (videos.some(v => v.slug === s.slug) || !data.instrumental) {
+        // BENTO-18..20 / NOVID-15: a bento song (video, or sung without one) lists them in the
+        // Audio Uplink order, with its own sub labels.
         const TRACK_SUB = { spotify: 'Play the track', apple: 'Play the track', ytmusic: 'Audio stream', bandcamp: 'Lossless download' };
         const primary = ['spotify', 'apple', 'ytmusic', 'bandcamp'];
         expect(links).toEqual([...primary, 'deezer', 'tidal', 'amazon', 'pandora'].filter(k => s.album.links[k]).map(k => [

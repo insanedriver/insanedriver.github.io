@@ -1,0 +1,14 @@
+    <section class="cyber-panel song-bento-panel song-bento-panel--c">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL C // LYRICS TERMINAL</div>
+        <div class="cyber-panel-body" data-hud="LYRICS_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <p class="song-bento-telemetry">
+                <span class="song-bento-telemetry-item">[{{ song.sections.size }} SECTIONS]</span>
+                <span class="song-bento-telemetry-item">HUD.LOG::LYR_{{ song.number }}</span>
+            </p>
+            {% include 'discography/song-lyrics' %}
+        </div>
+    </section>

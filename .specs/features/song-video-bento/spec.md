@@ -65,7 +65,7 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 **Acceptance Criteria**:
 
 1. WHERE the song has a video the page SHALL render one `[data-song-bento]` grid holding four panels whose tabs read `PANEL A // VIDEO TRANSMISSION`, `PANEL B // AUDIO UPLINK`, `PANEL D // SONG DOSSIER`, `PANEL C // LYRICS TERMINAL`, in that DOM order. <!-- BENTO-01 -->
-2. IF the song has no video THEN the page SHALL render no `[data-song-bento]` element and no element with a `PANEL A` tab. <!-- BENTO-02 -->
+2. IF the song has no video THEN the page SHALL render no element with a `PANEL A` tab; IF it is also instrumental THEN the page SHALL render no `[data-song-bento]` element (narrowed by `song-bento-no-video`, NOVID-01/03). <!-- BENTO-02 -->
 3. WHILE the viewport is at least 992px wide the page SHALL place Panels A and B on the same row with A to the left, and A's width divided by the sum of both widths SHALL be between 0.64 and 0.69. <!-- BENTO-03 -->
 4. WHILE the viewport is at least 992px wide the page SHALL place Panels C and D on the same row below A/B, C to the left, with widths differing by at most 2px. <!-- BENTO-04 -->
 5. WHILE the viewport is narrower than 992px the page SHALL stack the panels at full grid width in the order A, B, D, C from top to bottom. <!-- BENTO-05 -->
@@ -95,7 +95,7 @@ A song page with an official video (`/discography/<album>/<song>/`, `song.video`
 **Acceptance Criteria**:
 
 1. WHERE the song has a video the page SHALL render a `[data-song-meta]` bar containing the cover image (`.disc-release-art img`, existing src), the text `Track NN // YYYY`, the text `Runtime M:SS`, a link to the album page with the album title, the label `Recommended intel` and the exact text `For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold`. <!-- BENTO-07 -->
-2. WHERE the song has a video the single `<h1>` SHALL keep the song title as its text, carry the class `song-title-badge` and render in the `insaneFont` family. <!-- BENTO-08 -->
+2. WHERE the song has a video the single `<h1>` SHALL keep the song title as its text, carry the class `song-title-badge` and render in the `insaneFont` family (sung songs without a video get the badge too: NOVID-11). <!-- BENTO-08 -->
 3. The metadata bar SHALL contain an anchor `[data-song-quickplay]` with text `Quick play` and `href="#song-video"`, and Panel A SHALL carry `id="song-video"`. <!-- BENTO-09 -->
 4. WHEN `[data-song-quickplay]` is clicked with JavaScript enabled THEN the page SHALL scroll Panel A into the viewport and replace the facade with the `https://www.youtube-nocookie.com/embed/{id}?autoplay=1` iframe, staying on the same URL. <!-- BENTO-10 -->
 5. WHEN `[data-song-quickplay]` is clicked THEN the page SHALL push `{event: 'song_quick_play', song: '<song slug>'}` to `window.dataLayer`. <!-- BENTO-11 -->

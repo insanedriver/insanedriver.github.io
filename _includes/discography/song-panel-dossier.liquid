@@ -1,0 +1,15 @@
+    <section class="cyber-panel song-bento-panel song-bento-panel--d">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL D // SONG DOSSIER</div>
+        <div class="cyber-panel-body" data-hud="DOSSIER_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <div class="song-bento-sticky">
+                <div class="song-bento-dossier{% if song.alsoReleasedAs.size > 0 %} song-bento-dossier--split{% endif %}">
+                {% include 'discography/song-dossier' %}
+                </div>
+                <p class="song-bento-foot">CATALOG: {{ song.catalogCode }} // ALL EDITIONS LISTED</p>
+            </div>
+        </div>
+    </section>

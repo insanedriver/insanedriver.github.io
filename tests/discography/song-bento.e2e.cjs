@@ -17,6 +17,13 @@ const SONGS = ['insane-driver', 'silicon-fortress'].flatMap(a => {
 });
 const KEEP_AWAY = SONGS.find(s => s.slug === 'keep-away');
 const TEARS = SONGS.find(s => s.slug === 'tears-of-blood');
+// song-bento-no-video: sung songs without a video, and instrumentals without one.
+const LYRICS_SONGS = SONGS.filter(s => !s.video && !songData.find(d => d.slug === s.slug).instrumental);
+const INSTRUMENTALS = SONGS.filter(s => !s.video && songData.find(d => d.slug === s.slug).instrumental);
+const FACELESS = SONGS.find(s => s.slug === 'faceless-demons');
+const LYRICS_TABS = ['PANEL C // LYRICS TERMINAL', 'PANEL B // AUDIO UPLINK', 'PANEL D // SONG DOSSIER'];
+// BENTO-27 from the spec: Verse* / Chorus* / Bridge* or Interlude / anything else.
+const expectedFamily = label => /^verse/i.test(label) ? 'verse' : /^chorus/i.test(label) ? 'chorus' : (/^bridge/i.test(label) || /^interlude$/i.test(label)) ? 'bridge' : 'other';
 const FAMILY_CLASSES = ['song-lyrics-section--verse', 'song-lyrics-section--chorus', 'song-lyrics-section--bridge', 'song-lyrics-section--other'];
 
 // Classes of each labelled / unlabelled lyrics section, in page order.
@@ -45,6 +52,26 @@ const expectedUplink = s => {
     const sub = track[key] && TRACK_SUB[key] ? TRACK_SUB[key] : platforms.find(p => p.key === key).sub;
     return { key, url, primary, sub };
   }).filter(Boolean);
+};
+
+// BENTO-18..22 (and NOVID-15): the Panel B anchors of song s, in order, with their URL, kind, sub label and attributes.
+const expectUplink = async (b, s) => {
+  const shown = await b.locator('a[data-disc-link]').evaluateAll(els => els.map(el => ({
+    key: el.getAttribute('data-disc-link'), url: el.getAttribute('href'),
+    primary: el.classList.contains('cyber-link-btn--primary'), compact: el.classList.contains('cyber-link-btn--compact'),
+    sub: el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
+    target: el.getAttribute('target'), rel: el.getAttribute('rel'), slug: el.getAttribute('data-disc-slug'),
+  })));
+  const want = expectedUplink(s);
+  expect(shown.map(x => x.key)).toEqual(want.map(x => x.key));
+  for (const [i, x] of shown.entries()) {
+    expect(x.url, x.key).toBe(want[i].url);
+    expect([x.primary, x.compact], x.key).toEqual([want[i].primary, !want[i].primary]);
+    if (want[i].primary) expect(x.sub, x.key).toBe(want[i].sub);
+    expect([x.target, x.rel], x.key).toEqual(['_blank', 'noopener']);
+    expect(x.slug, x.key).toBeTruthy();
+  }
+  expect(norm(await b.textContent())).toContain('STATUS: ONLINE // ALL NODES ACTIVE');
 };
 
 // BENTO-26: sections of the lyrics file - one per [label], plus one for lines before the first label.
@@ -99,25 +126,8 @@ test.describe('without JavaScript', () => {
       // BENTO-17: no fabricated technical claims anywhere on the page.
       expect(await page.locator('body').textContent()).not.toMatch(/1080P|24-Bit|High-Res|Bitrate/i);
 
-      // BENTO-18..21: Panel B buttons.
-      const b = panel('B');
-      const shown = await b.locator('a[data-disc-link]').evaluateAll(els => els.map(el => ({
-        key: el.getAttribute('data-disc-link'), url: el.getAttribute('href'),
-        primary: el.classList.contains('cyber-link-btn--primary'), compact: el.classList.contains('cyber-link-btn--compact'),
-        sub: el.querySelector('.cyber-link-sub') ? el.querySelector('.cyber-link-sub').textContent.trim() : null,
-        target: el.getAttribute('target'), rel: el.getAttribute('rel'), slug: el.getAttribute('data-disc-slug'),
-      })));
-      const want = expectedUplink(s);
-      expect(shown.map(x => x.key)).toEqual(want.map(x => x.key));
-      for (const [i, x] of shown.entries()) {
-        expect(x.url, x.key).toBe(want[i].url);
-        expect([x.primary, x.compact], x.key).toEqual([want[i].primary, !want[i].primary]);
-        if (want[i].primary) expect(x.sub, x.key).toBe(want[i].sub);
-        expect([x.target, x.rel], x.key).toEqual(['_blank', 'noopener']);
-        expect(x.slug, x.key).toBeTruthy();
-      }
-      // BENTO-22
-      expect(norm(await b.textContent())).toContain('STATUS: ONLINE // ALL NODES ACTIVE');
+      // BENTO-18..22: Panel B buttons and status line.
+      await expectUplink(panel('B'), s);
 
       // BENTO-26 / BENTO-25: Panel C holds the lyrics and their counters.
       const c = panel('C');
@@ -136,15 +146,97 @@ test.describe('without JavaScript', () => {
     });
   }
 
-  for (const s of [SONGS.find(x => x.slug === 'faceless-demons'), SONGS.find(x => x.slug === 'endless-path')]) {
-    test(`BENTO-02: ${s.url} (no video) keeps the stacked layout`, async ({ page }) => {
+  for (const s of INSTRUMENTALS) {
+    test(`BENTO-02/NOVID-03: ${s.url} (instrumental, no video) keeps the stacked layout`, async ({ page }) => {
       await page.goto(s.url);
       await expect(page.locator('[data-song-bento]')).toHaveCount(0);
       await expect(page.locator('[data-song-meta]')).toHaveCount(0);
       await expect(page.locator('.cyber-panel-tab', { hasText: 'PANEL A' })).toHaveCount(0);
       await expect(page.locator('[data-song-lyrics]')).toHaveCount(1);
+      expect(await page.locator('h1').evaluate(el => el.classList.contains('song-title-badge'))).toBe(false);
     });
   }
+
+  for (const s of LYRICS_SONGS) {
+    test(`NOVID-01/02/10/11/15/16/17: ${s.url} renders the lyrics bento`, async ({ page }) => {
+      await page.goto(s.url);
+      const NN = two(s.track.position);
+
+      // NOVID-01: one grid, three panels, tabs in DOM order C, B, D.
+      const grid = page.locator('[data-song-bento]');
+      await expect(grid).toHaveCount(1);
+      expect((await grid.locator('.cyber-panel-tab').allTextContents()).map(norm)).toEqual(LYRICS_TABS);
+      const panel = letter => grid.locator('.cyber-panel', { has: page.locator('.cyber-panel-tab', { hasText: `PANEL ${letter} //` }) });
+
+      // NOVID-02: nothing of the video bento.
+      await expect(page.locator('.cyber-panel-tab', { hasText: 'PANEL A' })).toHaveCount(0);
+      await expect(page.locator('#song-video')).toHaveCount(0);
+      await expect(page.locator('[data-song-quickplay]')).toHaveCount(0);
+
+      // NOVID-10: metadata bar as BENTO-07.
+      const meta = page.locator('[data-song-meta]');
+      await expect(meta).toHaveCount(1);
+      await expect(meta.locator('.disc-release-art img')).toHaveAttribute('src', /^\/assets\/images\/releases\//);
+      const metaText = norm(await meta.textContent());
+      expect(metaText).toContain(`Track ${NN} // ${s.album.year}`);
+      expect(metaText).toContain(`Runtime ${runtime(s.track.duration)}`);
+      expect(metaText).toContain('Recommended intel');
+      await expect(meta.locator(`a[href="/discography/${s.album.slug}/"]`)).toHaveText(s.album.title);
+      await expect(meta.getByText(FANS_OF, { exact: true })).toHaveCount(1);
+
+      // NOVID-11: the h1 is the title badge.
+      expect(await page.locator('h1').evaluate(el => ({ text: el.textContent.trim(), badge: el.classList.contains('song-title-badge') })))
+        .toEqual({ text: s.track.title, badge: true });
+
+      // NOVID-15: Panel B as BENTO-18..22.
+      await expectUplink(panel('B'), s);
+
+      // NOVID-16: Panel C as BENTO-25/26 (sequence itself: SONG-04 on every page).
+      const c = panel('C');
+      await expect(c.locator('[data-song-lyrics]')).toHaveCount(1);
+      const cText = norm(await c.textContent());
+      expect(cText).toContain(`[${sectionCount(s)} SECTIONS]`);
+      expect(cText).toContain(`HUD.LOG::LYR_${NN}`);
+
+      // NOVID-17: Panel D holds About, "Also released as" and the catalog line.
+      const d = panel('D');
+      await expect(d.locator('[data-song-about]')).toHaveCount(1);
+      await expect(page.locator('[data-song-about]')).toHaveCount(1);
+      await expect(d.locator('[data-song-also]')).toHaveCount(await page.locator('[data-song-also]').count());
+      expect(norm(await d.textContent())).toContain(`CATALOG: ${initials(s.album.title)}-TRACK-${NN} // ALL EDITIONS LISTED`);
+    });
+  }
+
+  for (const s of LYRICS_SONGS) {
+    test(`NOVID-12/23: ${s.url} metadata bar has a plain LISTEN NOW link to the song on Spotify`, async ({ page }) => {
+      await page.goto(s.url);
+      const listen = page.locator('[data-song-meta] a[data-song-listen]');
+      await expect(listen).toHaveCount(1);
+      await expect(page.locator('[data-song-listen]')).toHaveCount(1);
+      await expect(listen).toHaveText(/^\s*Listen now\s*$/);
+      await expect(listen.locator('i.fa.fa-spotify')).toHaveCount(1);
+      // Same rule as BENTO-19: the track URL when songs.json has one, else the album's.
+      await expect(listen).toHaveAttribute('href', expectedUplink(s).find(p => p.key === 'spotify').url);
+      await expect(listen).toHaveAttribute('target', '_blank');
+      await expect(listen).toHaveAttribute('rel', 'noopener');
+      await expect(listen).toHaveAttribute('data-disc-link', 'spotify');
+      await expect(listen).toHaveAttribute('data-disc-slug', s.album.slug);
+    });
+  }
+
+  test('NOVID-12: a video song has QUICK PLAY and no LISTEN NOW', async ({ page }) => {
+    await page.goto(KEEP_AWAY.url);
+    await expect(page.locator('[data-song-listen]')).toHaveCount(0);
+    await expect(page.locator('[data-song-quickplay]')).toHaveCount(1);
+  });
+
+  test('NOVID-16: lyrics bento sections carry their family class (BENTO-27)', async ({ page }) => {
+    await page.goto(FACELESS.url);
+    const fams = await sectionFamilies(page);
+    expect(fams.length).toBeGreaterThan(0);
+    for (const f of fams) expect(f.families, f.label).toEqual(f.label === null ? [] : [`song-lyrics-section--${expectedFamily(f.label)}`]);
+    expect(fams.some(f => f.families[0] === 'song-lyrics-section--chorus')).toBe(true);
+  });
 
   for (const s of SONGS) {
     test(`BENTO-34/35: ${s.url} has a full-width sequencer after the last panel`, async ({ page }) => {
@@ -167,7 +259,7 @@ test.describe('without JavaScript', () => {
     });
   }
 
-  test('BENTO-08: a video song h1 is the title badge; other h1s keep their classes', async ({ page }) => {
+  test('BENTO-08/NOVID-11: a video or lyrics song h1 is the title badge; other h1s keep their classes', async ({ page }) => {
     const BASE = ['text-center', 'subtitle-font', 'page-header'];
     const h1 = async url => {
       await page.goto(url);
@@ -177,7 +269,10 @@ test.describe('without JavaScript', () => {
     for (const s of SONGS.filter(x => x.video)) {
       expect(await h1(s.url), s.url).toEqual({ text: s.track.title, classes: [...BASE, 'song-title-badge'] });
     }
-    for (const s of SONGS.filter(x => !x.video)) {
+    for (const s of LYRICS_SONGS) {
+      expect(await h1(s.url), s.url).toEqual({ text: s.track.title, classes: [...BASE, 'song-title-badge'] });
+    }
+    for (const s of INSTRUMENTALS) {
       expect((await h1(s.url)).classes, s.url).toEqual(BASE);
     }
     for (const url of ['/band/', '/discography/', '/discography/silicon-fortress/']) {
@@ -236,6 +331,8 @@ for (const width of [1280, 992]) {
       expect(Math.abs(r.c.width - r.d.width)).toBeLessThanOrEqual(2);
       // BENTO-33: the dossier content is sticky.
       expect(await page.locator('.song-bento-panel--d .song-bento-sticky').evaluate(el => getComputedStyle(el).position)).toBe('sticky');
+      // NOVID-07 (video side): Panel B shares the sticky wrapper but only the lyrics layout pins it.
+      expect(await page.locator('.song-bento-panel--b .song-bento-sticky').evaluate(el => getComputedStyle(el).position)).toBe('static');
     });
   }
 }
@@ -254,6 +351,109 @@ for (const width of [991, 768, 375]) {
     }));
     expect(new Set(cols.map(c => c.left)).size).toBe(2);
     expect(Math.max(...cols.map(c => c.width)) - Math.min(...cols.map(c => c.width))).toBeLessThanOrEqual(1);
+  });
+}
+
+// ── Lyrics bento layout (song-bento-no-video T5) ──
+
+const AGE_OF_LIES = SONGS.find(s => s.slug === 'age-of-lies');
+const lyricsRects = page => page.evaluate(() => {
+  const box = el => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, left: r.left, right: r.right, width: r.width, bottom: r.bottom + scrollY }; };
+  const grid = document.querySelector('[data-song-bento]');
+  const out = { grid: box(grid) };
+  for (const l of ['b', 'c', 'd']) out[l] = box(grid.querySelector(`.song-bento-panel--${l}`));
+  const one = sel => document.querySelector(sel) ? box(document.querySelector(sel)) : null;
+  out.about = one('.song-bento-panel--d [data-song-about]');
+  out.also = one('.song-bento-panel--d [data-song-also]');
+  out.catalog = one('.song-bento-panel--d .song-bento-foot');
+  return out;
+});
+const stickyOf = (page, l) => page.locator(`.song-bento-panel--${l} .song-bento-sticky`).evaluate(el => [getComputedStyle(el).position, getComputedStyle(el).top]);
+
+for (const width of [1280, 992]) {
+  for (const s of [FACELESS, AGE_OF_LIES]) {
+    test(`NOVID-04/05/07/18/20: ${s.url} at ${width}px puts the lyrics beside Panel B and the dossier below`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(s.url);
+      const r = await lyricsRects(page);
+      // NOVID-04: C and B on one row, C left, C two-thirds.
+      expect(Math.abs(r.c.top - r.b.top)).toBeLessThanOrEqual(2);
+      expect(r.c.left).toBeLessThan(r.b.left);
+      const ratio = r.c.width / (r.c.width + r.b.width);
+      expect(ratio).toBeGreaterThanOrEqual(0.64);
+      expect(ratio).toBeLessThanOrEqual(0.69);
+      // NOVID-05: D below both, from C's left edge to B's right edge.
+      expect(r.d.top).toBeGreaterThanOrEqual(Math.max(r.c.bottom, r.b.bottom));
+      expect(Math.abs(r.d.left - r.c.left)).toBeLessThanOrEqual(2);
+      expect(Math.abs(r.d.right - r.b.right)).toBeLessThanOrEqual(2);
+      // NOVID-07: B pins at 2rem (20px), D does not.
+      expect(await stickyOf(page, 'b')).toEqual(['sticky', '20px']);
+      expect((await stickyOf(page, 'd'))[0]).toBe('static');
+      // NOVID-18: About and "Also" side by side, About two-thirds.
+      if (r.also) {
+        expect(Math.abs(r.about.top - r.also.top)).toBeLessThanOrEqual(2);
+        expect(r.about.left).toBeLessThan(r.also.left);
+        const split = r.about.width / (r.about.width + r.also.width);
+        expect(split).toBeGreaterThanOrEqual(0.64);
+        expect(split).toBeLessThanOrEqual(0.69);
+      }
+      // NOVID-20: the catalog line below both.
+      expect(r.catalog.top).toBeGreaterThanOrEqual(Math.max(r.about.bottom, r.also ? r.also.bottom : 0));
+    });
+  }
+}
+
+test('NOVID-18 fixture: Age of Lies has an "Also released as" and Faceless Demons has none', async ({ page }) => {
+  await page.goto(AGE_OF_LIES.url);
+  await expect(page.locator('[data-song-also]')).toHaveCount(1);
+  await page.goto(FACELESS.url);
+  await expect(page.locator('[data-song-also]')).toHaveCount(0);
+});
+
+for (const width of [991, 768, 375]) {
+  test(`NOVID-06/15: at ${width}px the lyrics bento stacks C, B, D at full width and Panel B shows 2 primary columns`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(AGE_OF_LIES.url);
+    const r = await lyricsRects(page);
+    for (const l of ['c', 'b', 'd']) {
+      expect(Math.abs(r[l].left - r.grid.left), l).toBeLessThanOrEqual(1);
+      expect(Math.abs(r[l].width - r.grid.width), l).toBeLessThanOrEqual(1);
+    }
+    expect(r.b.top).toBeGreaterThanOrEqual(r.c.bottom);
+    expect(r.d.top).toBeGreaterThanOrEqual(r.b.bottom);
+    expect((await stickyOf(page, 'b'))[0]).toBe('static');
+    // NOVID-15 → BENTO-24: Panel B primaries in 2 equal columns.
+    const cols = await page.locator('.song-bento-panel--b .cyber-link-btn--primary').evaluateAll(els => els.map(el => {
+      const b = el.getBoundingClientRect(); return { left: Math.round(b.left), width: b.width };
+    }));
+    expect(new Set(cols.map(c => c.left)).size).toBe(2);
+    expect(Math.max(...cols.map(c => c.width)) - Math.min(...cols.map(c => c.width))).toBeLessThanOrEqual(1);
+  });
+}
+
+for (const width of [1280, 375]) {
+  test(`NOVID-16 → BENTO-30: at ${width}px the lyrics bento does not clip the lyrics`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(FACELESS.url);
+    for (const sel of ['.song-bento-panel--c .cyber-panel-body', '.song-bento-panel--c [data-song-lyrics]']) {
+      const box = await page.locator(sel).evaluate(el => ({ overflow: getComputedStyle(el).overflowY, scroll: el.scrollHeight, client: el.clientHeight }));
+      expect(box.overflow, sel).toBe('visible');
+      expect(box.scroll, sel).toBe(box.client);
+    }
+  });
+  test(`NOVID-19: at ${width}px a lone About paragraph is at most 70 zero-glyphs wide`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(FACELESS.url);
+    const [w, ch] = await page.locator('[data-song-about] p').evaluate(p => {
+      const probe = document.createElement('span');
+      probe.textContent = '0'.repeat(70);
+      probe.style.whiteSpace = 'nowrap';
+      p.appendChild(probe);
+      const zero = probe.getBoundingClientRect().width / 70;
+      probe.remove();
+      return [p.getBoundingClientRect().width, zero];
+    });
+    expect(w).toBeLessThanOrEqual(70 * ch + 1);
   });
 }
 
@@ -395,6 +595,110 @@ test('BENTO-40/41: panel bodies carry the smoke background and 25px grid; readin
   expect(colors).toEqual(['rgb(233, 237, 242)']);
 });
 
+// ── Lyrics bento HUD finish (song-bento-no-video T6) ──
+
+const roundedIn = page => page.evaluate(sel => {
+  const out = [];
+  for (const root of document.querySelectorAll(sel)) {
+    for (const el of [root, ...root.querySelectorAll('*')]) {
+      for (const pseudo of [null, '::before', '::after']) {
+        const cs = getComputedStyle(el, pseudo);
+        const r = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomLeftRadius, cs.borderBottomRightRadius];
+        if (r.some(v => v !== '0px')) out.push(`${el.className || el.tagName}${pseudo || ''}: ${r.join(' ')}`);
+      }
+    }
+  }
+  return out;
+}, SCOPES);
+
+test('NOVID-14: LISTEN NOW looks like QUICK PLAY', async ({ page }) => {
+  const look = sel => page.locator(sel).evaluate(el => {
+    const cs = getComputedStyle(el);
+    return [cs.backgroundColor, cs.color, cs.clipPath];
+  });
+  await page.goto(KEEP_AWAY.url);
+  const quick = await look('[data-song-quickplay]');
+  await page.goto(FACELESS.url);
+  const listen = await look('[data-song-listen]');
+  expect(quick[0]).toBe('rgb(0, 243, 255)');
+  expect(quick[2]).not.toBe('none');
+  expect(listen).toEqual(quick);
+});
+
+test('NOVID-21: the lyrics bento has the HUD finish (BENTO-36/37/40/41)', async ({ page }) => {
+  for (const s of [FACELESS, AGE_OF_LIES]) {
+    await page.goto(s.url);
+    // BENTO-36: no rounded corners in the bento, the metadata bar or the sequencer.
+    expect(await roundedIn(page), s.url).toEqual([]);
+    // BENTO-37 / NOVID-11: tabs in SiliconFont, the badge in insaneFont.
+    const first = font => font.split(',')[0].trim().replace(/["']/g, '');
+    expect(first(await page.locator('h1').evaluate(el => getComputedStyle(el).fontFamily))).toBe('insaneFont');
+    const tabs = await page.locator('[data-song-bento] .cyber-panel-tab').evaluateAll(els => els.map(el => getComputedStyle(el).fontFamily));
+    expect(tabs).toHaveLength(3);
+    for (const f of tabs) expect(first(f)).toBe('SiliconFont');
+    // BENTO-40: smoke background and 25px grid on each panel body.
+    const bodies = await page.locator('[data-song-bento] .cyber-panel-body').evaluateAll(els => els.map(el => {
+      const cs = getComputedStyle(el);
+      return [cs.backgroundColor, (cs.backgroundImage.match(/linear-gradient/g) || []).length, cs.backgroundSize.split(', ')];
+    }));
+    expect(bodies).toHaveLength(3);
+    for (const b of bodies) expect(b).toEqual(['rgba(10, 10, 10, 0.85)', 2, ['25px 25px', '25px 25px']]);
+    // BENTO-41: lyrics and About text in frost.
+    const colors = await page.locator('[data-song-bento] .song-lyrics-section p, [data-song-bento] [data-song-about] p')
+      .evaluateAll(els => [...new Set(els.map(el => getComputedStyle(el).color))]);
+    expect(colors).toEqual(['rgb(233, 237, 242)']);
+  }
+});
+
+test('NOVID-16: lyrics bento markers are colored by family and chorus lines are italic (BENTO-28)', async ({ page }) => {
+  await page.goto(FACELESS.url);
+  const COLORS = { verse: 'rgb(0, 243, 255)', other: 'rgb(0, 243, 255)', bridge: 'rgb(255, 0, 234)', chorus: 'rgb(252, 238, 10)' };
+  const rows = await page.locator('[data-song-bento] .song-lyrics-section').evaluateAll(els => els.map(el => {
+    const fam = (el.className.match(/song-lyrics-section--(\w+)/) || [])[1] || null;
+    const h3 = el.querySelector('h3');
+    const before = h3 ? getComputedStyle(h3, '::before') : null;
+    const p = el.querySelector('p');
+    return { fam, marker: before && before.content !== 'none' ? before.backgroundColor : null, italic: p ? getComputedStyle(p).fontStyle : null };
+  }));
+  expect(new Set(rows.map(r => r.fam))).toEqual(new Set(['verse', 'bridge', 'chorus', 'other']));
+  for (const r of rows) {
+    expect(r.marker, r.fam).toBe(COLORS[r.fam]);
+    if (r.italic !== null) expect(r.italic, r.fam).toBe(r.fam === 'chorus' ? 'italic' : 'normal');
+  }
+});
+
+test('NOVID-22: keyboard focus on LISTEN NOW, Panel B and the sequencer shows the yellow ring', async ({ page }) => {
+  await page.goto(FACELESS.url);
+  await page.keyboard.press('Tab');
+  for (const sel of ['[data-song-listen]', '.song-bento-panel--b [data-disc-link="spotify"]', '.song-bento-panel--b [data-disc-link="tidal"]', '.song-nav a[rel="next"]']) {
+    await page.locator(sel).evaluate(el => el.focus());
+    await expect.poll(() => page.locator(sel).evaluate(el => {
+      const cs = getComputedStyle(el);
+      return [el.matches(':focus-visible'), cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.outlineOffset];
+    }), { message: sel }).toEqual([true, 'solid', '3px', 'rgb(252, 238, 10)', '4px']);
+  }
+});
+
+test.describe('reduced motion on the lyrics bento', () => {
+  test.use({ reducedMotion: 'reduce' });
+  test('NOVID-21: nothing animates in the lyrics bento or its metadata bar (BENTO-39)', async ({ page }) => {
+    await page.goto(FACELESS.url);
+    const moving = await page.evaluate(() => {
+      const out = [];
+      for (const root of document.querySelectorAll('[data-song-bento], [data-song-meta]')) {
+        for (const el of [root, ...root.querySelectorAll('*')]) {
+          for (const pseudo of [null, '::before', '::after']) {
+            const name = getComputedStyle(el, pseudo).animationName;
+            if (name !== 'none') out.push(`${el.className}${pseudo || ''}: ${name}`);
+          }
+        }
+      }
+      return out;
+    });
+    expect(moving).toEqual([]);
+  });
+});
+
 // ── QUICK PLAY (T10) ──
 
 const YOUTUBE = /(^|\.)(youtube\.com|youtube-nocookie\.com)$/;
@@ -476,5 +780,17 @@ test('BENTO-21: clicking a primary and a compact Panel B button pushes release_c
   expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'release_click'))).toEqual([
     { event: 'release_click', platform: 'spotify', release: KEEP_AWAY.album.slug },
     { event: 'release_click', platform: 'deezer', release: KEEP_AWAY.album.slug },
+  ]);
+});
+
+test('NOVID-08: clicking LISTEN NOW pushes one release_click for Spotify and the album', async ({ page }) => {
+  await page.goto(FACELESS.url);
+  // The anchor targets _blank; blocking the navigation keeps the assertions about the pushed event.
+  await page.evaluate(() => {
+    document.addEventListener('click', e => { const a = e.target.closest('a'); if (a) e.preventDefault(); });
+  });
+  await page.locator('[data-song-listen]').click();
+  expect(await page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'release_click'))).toEqual([
+    { event: 'release_click', platform: 'spotify', release: 'silicon-fortress' },
   ]);
 });

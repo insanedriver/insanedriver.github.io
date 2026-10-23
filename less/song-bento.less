@@ -2,7 +2,8 @@
 // "Bento Grid HUD" - a metadata bar, then panels A (video) and B (audio uplink)
 // over D (dossier) and C (lyrics). DOM order is A, B, D, C so phones read video,
 // streaming, dossier, lyrics; the desktop grid moves C to the left of D.
-// Everything is scoped to .song-page--bento: songs without a video are untouched.
+// Sung songs without a video use the same panels in the order C, B, D (.song-bento--lyrics).
+// Everything is scoped to .song-page--bento: instrumentals without a video are untouched.
 #page_discography .song-page--bento {
 
     // ── Grid ──
@@ -20,6 +21,15 @@
         }
     }
 
+    // Songs without a video: lyrics where the video goes, the dossier across the bottom.
+    .song-bento--lyrics {
+        grid-template-areas: "c" "b" "d";
+
+        @media (min-width: 992px) {
+            grid-template-areas: "c c c c b b" "d d d d d d";
+        }
+    }
+
     .song-bento-panel {
         display: flex;
         flex-direction: column;
@@ -34,11 +44,28 @@
     .song-bento-panel--c { grid-area: c; }
     .song-bento-panel--d { grid-area: d; }
 
-    .song-bento-sticky {
+    // Panels B and D both wrap their content in .song-bento-sticky; the layout picks
+    // which one pins beside the long column.
+    .song-bento--video .song-bento-panel--d .song-bento-sticky,
+    .song-bento--lyrics .song-bento-panel--b .song-bento-sticky {
         @media (min-width: 992px) {
             position: sticky;
             top: 2rem;
         }
+    }
+
+    // Lyrics layout dossier: About under the lyrics column, "Also released as" under
+    // Panel B (same 4:2 split and column gap as the grid); a lone About keeps a reading measure.
+    .song-bento--lyrics {
+        .song-bento-dossier--split {
+            @media (min-width: 992px) {
+                display: grid;
+                grid-template-columns: minmax(0, 4fr) minmax(0, 2fr);
+                gap: 0 2rem;
+                align-items: start;
+            }
+        }
+        .song-about p { max-width: 70ch; }
     }
 
     // ── Metadata bar ──

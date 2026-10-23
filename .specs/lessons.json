@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 48,
+  "next_id": 49,
   "lessons": [
     {
       "id": "L-001",
@@ -666,17 +666,19 @@
       "text": "When two layouts include the same behavior partial, run the behavior's browser test on a page of each layout, or a regression in the untested layout ships unseen.",
       "signal": "surviving_mutant",
       "scope": "e2e",
-      "status": "candidate",
+      "status": "confirmed",
       "features": [
-        "perf-pagespeed"
+        "perf-pagespeed",
+        "song-bento-no-video"
       ],
-      "recurrence": 1,
+      "recurrence": 2,
       "harmful": 0,
       "evidence": [
-        "validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e)"
+        "validation.md mutant E9 (_layouts/home.html:6); tests/perf/trackers.e2e.cjs:32,47 (e2e)",
+        "validation.md M9, M10; tests/discography/song-bento.e2e.cjs:340,456 (BENTO-24/30 on KEEP_AWAY only) (e2e)"
       ],
       "created": "2026-10-20T01:56:18Z",
-      "last_seen": "2026-10-20T01:56:18Z"
+      "last_seen": "2026-10-23T19:10:03Z"
     },
     {
       "id": "L-038",
@@ -857,6 +859,24 @@
       ],
       "created": "2026-10-23T15:11:13Z",
       "last_seen": "2026-10-23T15:11:13Z"
+    },
+    {
+      "id": "L-048",
+      "key": "ac_gap::when an ac imports other acs by reference for a new context map every imported ac to a test on that context not only the ones the new tests already touch",
+      "text": "When an AC imports other ACs by reference for a new context, map every imported AC to a test on that context, not only the ones the new tests already touch.",
+      "signal": "ac_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "song-bento-no-video"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "NOVID-15 (BENTO-24), NOVID-16 (BENTO-30); validation.md Fix 1-2 (tests)"
+      ],
+      "created": "2026-10-23T19:10:03Z",
+      "last_seen": "2026-10-23T19:10:03Z"
     }
   ]
 }

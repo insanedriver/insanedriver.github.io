@@ -1,0 +1,30 @@
+    <section class="cyber-panel song-bento-panel song-bento-panel--b" aria-labelledby="song-uplink-title">
+        <div class="cyber-panel-tab"><span class="tab-icon"></span> PANEL B // AUDIO UPLINK</div>
+        <div class="cyber-panel-body" data-hud="STREAM MATRIX_">
+            <span class="top-accent"></span>
+            <span class="corner-tl"></span>
+            <span class="corner-tr"></span>
+            <span class="corner-bl"></span>
+            <div class="song-bento-sticky">
+            <h2 id="song-uplink-title" class="disc-eyebrow song-links-title">Listen to the song</h2>
+            <div class="disc-links song-bento-uplink">
+                {% for p in song.uplink %}{% if p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--primary cyber-link--{{ p.key }}" href="{{ p.url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ song.listen.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                    <span class="cyber-link-sub">{{ p.sub }}</span>
+                </a>
+                {% endif %}{% endfor %}
+            </div>
+            <div class="disc-links disc-links--secondary song-bento-uplink-secondary">
+                {% for p in song.uplink %}{% unless p.primary %}
+                <a class="cyber-link-btn cyber-link-btn--compact cyber-link--{{ p.key }}" href="{{ p.url }}" target="_blank" rel="noopener" data-disc-link="{{ p.key }}" data-disc-slug="{{ song.listen.slug }}">
+                    <i class="fa {{ p.icon }}"></i>
+                    <span class="cyber-link-name">{{ p.name }}</span>
+                </a>
+                {% endunless %}{% endfor %}
+            </div>
+            <p class="song-bento-foot">STATUS: ONLINE // ALL NODES ACTIVE</p>
+            </div>
+        </div>
+    </section>
