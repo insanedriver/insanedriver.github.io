@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, sectionFamily, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, albumCode, build } = require('../../lib/catalog.js');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
@@ -134,9 +134,9 @@ test('SONG-08: the deluxe edition is listed on each of the 11 debut songs and on
 test('SONG-10: previous and next tracks of the album, omitted on the first and last track', () => {
   const c = catalog();
   assert.equal(song(c, 'back-to-1994').prev, null);
-  assert.deepEqual(song(c, 'back-to-1994').next, { title: 'Faceless Demons', url: '/discography/silicon-fortress/faceless-demons/' });
-  assert.deepEqual(song(c, 'faceless-demons').prev, { title: 'Back To 1994', url: '/discography/silicon-fortress/back-to-1994/' });
-  assert.deepEqual(song(c, 'distant-hearts').prev, { title: 'Invisible Chains', url: '/discography/silicon-fortress/invisible-chains/' });
+  assert.deepEqual(song(c, 'back-to-1994').next, { title: 'Faceless Demons', url: '/discography/silicon-fortress/faceless-demons/', number: '02' });
+  assert.deepEqual(song(c, 'faceless-demons').prev, { title: 'Back To 1994', url: '/discography/silicon-fortress/back-to-1994/', number: '01' });
+  assert.deepEqual(song(c, 'distant-hearts').prev, { title: 'Invisible Chains', url: '/discography/silicon-fortress/invisible-chains/', number: '10' });
   assert.equal(song(c, 'distant-hearts').next, null);
   assert.equal(song(c, 'endless-path').prev, null);
   assert.equal(song(c, 'tears-of-blood').next, null);
@@ -250,4 +250,21 @@ test('BENTO-27: built sections carry their family', () => {
   assert.deepEqual(s.sections.map(x => [x.label, x.family]), [
     [null, null], ['Verse 1', 'verse'], ['Bridge', 'bridge'], ['Chorus', 'chorus'], ['Interlude', 'bridge'], ['Prayer', 'other'],
   ]);
+});
+
+test('BENTO-32: albumCode is the uppercase initials of the album title words', () => {
+  assert.equal(albumCode('Silicon Fortress'), 'SF');
+  assert.equal(albumCode('Insane Driver'), 'ID');
+  assert.equal(albumCode('insane driver deluxe'), 'IDD');
+});
+
+test('BENTO-26/32/35: a song carries its two-digit number and catalog code', () => {
+  const c = catalog();
+  assert.equal(song(c, 'keep-away').number, '03');
+  assert.equal(song(c, 'keep-away').catalogCode, 'SF-TRACK-03');
+  assert.equal(song(c, 'today-is-sunday').catalogCode, 'ID-TRACK-08');
+  assert.equal(song(c, 'distant-hearts').number, '11');
+  assert.equal(song(c, 'distant-hearts').catalogCode, 'SF-TRACK-11');
+  assert.equal(song(c, 'keep-away').prev.number, '02');
+  assert.equal(song(c, 'keep-away').next.number, '04');
 });

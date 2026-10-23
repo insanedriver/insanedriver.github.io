@@ -85,7 +85,7 @@ T8 → T9 → T10
 
 ---
 
-### T2: Track number and catalog code
+### T2: Track number and catalog code ✅
 
 **What**: Add `number`, `catalogCode` to songs and `number` to `prev`/`next`; export `albumCode`.
 **Where**: `lib/catalog.js`
