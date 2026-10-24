@@ -61,10 +61,10 @@ test('DISC-14: the page has no horizontal scroll at 375px or 1280px', async ({ p
   }
 });
 
-test('DISC-38: BUY CD reads differently from the streaming buttons', async ({ page }) => {
-  await page.goto('/discography/');
-  const buy = page.locator('#silicon-fortress [data-disc-buy]');
-  const stream = page.locator('#silicon-fortress [data-disc-link="spotify"]');
+test('DISC-38: BUY CD reads differently from the streaming buttons on the release page', async ({ page }) => {
+  await page.goto('/discography/silicon-fortress/');
+  const buy = page.locator('.disc-release [data-disc-buy]');
+  const stream = page.locator('.disc-release [data-disc-link="spotify"]');
   await expect(buy).toHaveCSS('background-color', 'rgb(252, 238, 10)');
   await expect(buy).toHaveCSS('color', 'rgb(5, 5, 5)');
   expect(await buy.evaluate(el => getComputedStyle(el).backgroundColor))
