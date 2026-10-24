@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/discography-hub/design.md`
-**Status**: In Progress
+**Status**: Done
 
 ---
 
@@ -204,7 +204,7 @@ T5 → T6
 
 ---
 
-### T6: Amend superseded index ACs
+### T6: Amend superseded index ACs ✅
 
 **What**: Mark the DISC-* and IDX-* criteria that describe the old index as superseded by `discography-hub` (L-004), naming the replacing HUB-* IDs.
 **Where**: `.specs/features/discography-cyberpunk/spec.md`
@@ -226,6 +226,8 @@ T5 → T6
 **Gate**: build
 
 **Commit**: `docs(spec): mark the old discography index criteria as superseded`
+
+**Notes**: The build gate caught DISC-11 in `tests/band/cyber-links.e2e.cjs` still reading hub buttons; relocated to the release page in `0b4c9bf`. Build gate: unit 218/218, e2e 685/686; the one failure is PS2-23 (`/photos/` viewer), a known pre-existing flake in this environment.
 
 ---
 

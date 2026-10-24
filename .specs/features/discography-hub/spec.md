@@ -174,7 +174,7 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 | HUB-23 | P2: Layout | T2 | Implementing |
 | HUB-24 | P2: Layout | T5 | Implementing |
 
-**Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️
+**Coverage:** 24 total, 24 mapped to tasks (T1-T5), 0 unmapped.
 
 ---
 
