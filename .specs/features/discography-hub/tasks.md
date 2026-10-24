@@ -173,7 +173,7 @@ T5 → T6
 
 ---
 
-### T5: Hub card styles
+### T5: Hub card styles ✅
 
 **What**: Album grid (1 column, 3 from 992px), card finish, 3-line description clamp, single anchor card, removal of the dead index / singles-more / single-link rules; rewrite `theme.e2e.cjs` for the hub.
 **Where**: `less/discography.less`
@@ -199,6 +199,8 @@ T5 → T6
 **Gate**: full
 
 **Commit**: `style(discography): lay out the hub album and single cards`
+
+**Notes**: The cards' `clip-path` cut the shell's outside focus ring (`outline-offset: 4px`), so the cards draw it inside (`-3px`); HUB-22 text amended to require that. `.disc-single-links`/`.disc-single-link` stay: the song dossier still uses them. Gate: unit 218/218, e2e 320/320.
 
 ---
 

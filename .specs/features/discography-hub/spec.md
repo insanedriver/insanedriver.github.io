@@ -131,7 +131,7 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 **Acceptance Criteria**:
 
 1. HUB-21: WHEN the hub is loaded at 375, 768, 992 or 1280px THEN `document.documentElement.scrollWidth` SHALL NOT exceed the viewport width.
-2. HUB-22: WHEN a card receives keyboard focus THEN it SHALL show a visible outline (computed `outline-style` not `none`).
+2. HUB-22: WHEN a card receives keyboard focus THEN it SHALL show a visible outline (computed `outline-style` not `none`) drawn inside the card (negative `outline-offset`), since the card's `clip-path` cuts anything outside it.
 3. HUB-23: WHILE JavaScript is disabled every hub card SHALL still navigate to its page.
 4. HUB-24: The hub SHALL keep the shared cyber vocabulary: a transparent `.cyber-zone` shell and `.cyber-panel` panels, as DISC-08 requires today.
 
@@ -152,12 +152,12 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 | HUB-01 | P1: Album cards | T2 | Implementing |
 | HUB-02 | P1: Album cards | T2 | Implementing |
 | HUB-03 | P1: Album cards | T2 | Implementing |
-| HUB-04 | P1: Album cards | Tasks | Pending |
-| HUB-05 | P1: Album cards | Tasks | Pending |
+| HUB-04 | P1: Album cards | T5 | Implementing |
+| HUB-05 | P1: Album cards | T5 | Implementing |
 | HUB-06 | P1: Single cards | T3 | Implementing |
 | HUB-07 | P1: Single cards | T3 | Implementing |
 | HUB-08 | P1: Single cards | T3 | Implementing |
-| HUB-09 | P1: Single cards | Tasks | Pending |
+| HUB-09 | P1: Single cards | T5 | Implementing |
 | HUB-10 | P1: Hero | T2 | Implementing |
 | HUB-11 | P1: Hero | T2 | Implementing |
 | HUB-12 | P1: Release page | T1 | Implementing |
@@ -169,10 +169,10 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 | HUB-18 | P1: Structured data | T4 | Implementing |
 | HUB-19 | P1: Structured data | T4 | Implementing |
 | HUB-20 | P1: Structured data | T4 | Implementing |
-| HUB-21 | P2: Layout | Tasks | Pending |
-| HUB-22 | P2: Layout | Tasks | Pending |
+| HUB-21 | P2: Layout | T5 | Implementing |
+| HUB-22 | P2: Layout | T5 | Implementing |
 | HUB-23 | P2: Layout | T2 | Implementing |
-| HUB-24 | P2: Layout | Tasks | Pending |
+| HUB-24 | P2: Layout | T5 | Implementing |
 
 **Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️
 
