@@ -41,12 +41,12 @@ test('DISC-14: the panels escape the site-wide 56rem cap', async ({ page }) => {
   expect(width).toBeGreaterThan(900);
 });
 
-test('DISC-14: each release card stacks the cover above the buttons at 375px', async ({ page }) => {
+test('DISC-14: each release page stacks the cover above the buttons at 375px', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 720 });
-  await page.goto('/discography/');
   for (const album of catalog.albums) {
-    const art = await page.locator(`#${album.slug} .disc-release-art`).boundingBox();
-    const links = await page.locator(`#${album.slug} .disc-links`).first().boundingBox();
+    await page.goto(`/discography/${album.slug}/`);
+    const art = await page.locator('.disc-release-art').boundingBox();
+    const links = await page.locator('.disc-release .disc-links').first().boundingBox();
     expect(art.y + art.height).toBeLessThanOrEqual(links.y + 1);
     expect(Math.abs(art.x - links.x)).toBeLessThan(2);
   }
@@ -85,29 +85,7 @@ test('DISC-10: the shell is clipped, not scrollable', async ({ page }) => {
   expect(scrollable && canScroll > 0).toBe(false);
 });
 
-test('DISC-10: following an index anchor scrolls the page and leaves the header reachable', async ({ page }) => {
-  await page.goto('/discography/');
-  await page.locator('[data-disc-index-link="insane-driver"]').click();
-
-  const afterJump = await page.evaluate(() => ({
-    pageY: Math.round(window.scrollY),
-    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
-    cardTop: Math.round(document.querySelector('#insane-driver').getBoundingClientRect().top),
-  }));
-  expect(afterJump.pageY).toBeGreaterThan(0);
-  expect(afterJump.shellScrollTop).toBe(0);
-  expect(Math.abs(afterJump.cardTop)).toBeLessThan(80);
-
-  await page.evaluate(() => window.scrollTo(0, 0));
-  const backAtTop = await page.evaluate(() => ({
-    pageY: Math.round(window.scrollY),
-    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
-    navVisible: document.querySelector('nav.navbar').getBoundingClientRect().bottom > 0,
-    indexTop: Math.round(document.querySelector('.disc-index').getBoundingClientRect().top),
-  }));
-  expect(backAtTop).toMatchObject({ pageY: 0, shellScrollTop: 0, navVisible: true });
-  expect(backAtTop.indexTop).toBeGreaterThan(0);
-});
+// DISC-10's anchor-jump check retired with the index anchors (discography-hub HUB-11).
 
 test('DISC-14: the shell fills the viewport on a wide screen, like the band page', async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1000 });

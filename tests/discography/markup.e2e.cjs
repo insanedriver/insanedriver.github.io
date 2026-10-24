@@ -1,121 +1,93 @@
 const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
-const platforms = require('../../_data/platforms.json');
+const copy = require('../../_data/songs.json').releases;
 
 const albums = catalog.albums;
-const linked = album => platforms.filter(p => album.links[p.key]);
+const card = (page, album) => page.locator(`[data-disc-album="${album.slug}"]`);
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
-  test('DISC-01: one release card per album, in catalog order, anchored by slug', async ({ page }) => {
+  test('HUB-01: one album card per album, in catalog order', async ({ page }) => {
     await page.goto('/discography/');
-    const cards = page.locator('[data-disc-release]');
+    const cards = page.locator('[data-disc-album]');
     await expect(cards).toHaveCount(albums.length);
-    expect(await cards.evaluateAll(els => els.map(el => el.id))).toEqual(albums.map(a => a.slug));
+    expect(await cards.evaluateAll(els => els.map(el => el.dataset.discAlbum)))
+      .toEqual(['silicon-fortress', 'insane-driver-deluxe', 'insane-driver']);
   });
 
-  test('DISC-02/03: every non-null platform link renders and every null one does not', async ({ page }) => {
+  test('HUB-02: each album card is one anchor to its release page with no other link or button inside', async ({ page }) => {
     await page.goto('/discography/');
     for (const album of albums) {
-      const card = page.locator(`#${album.slug}`);
-      for (const p of platforms) {
-        const anchor = card.locator(`[data-disc-link="${p.key}"]`);
-        if (album.links[p.key]) {
-          await expect(anchor).toHaveCount(1);
-          await expect(anchor).toHaveAttribute('href', album.links[p.key]);
-        } else {
-          await expect(anchor).toHaveCount(0);
-        }
-      }
+      const a = card(page, album);
+      await expect(a).toHaveJSProperty('tagName', 'A');
+      await expect(a).toHaveAttribute('href', `/discography/${album.slug}/`);
+      await expect(a.locator('a, button')).toHaveCount(0);
     }
   });
 
-  test('DISC-03: the page renders exactly as many platform anchors as the catalog has links', async ({ page }) => {
-    await page.goto('/discography/');
-    const albumLinks = albums.reduce((n, a) => n + linked(a).length, 0);
-    const singleLinks = catalog.singles.reduce((n, s) => n + linked(s).filter(p => p.primary).length, 0);
-    await expect(page.locator('[data-disc-release] [data-disc-link]')).toHaveCount(albumLinks);
-    await expect(page.locator('[data-disc-link]')).toHaveCount(albumLinks + singleLinks);
-  });
-
-  test('DISC-04: Spotify and Apple Music come first and carry the primary modifier', async ({ page }) => {
+  test('HUB-03: each album card shows cover, type and year, title, track count, description and the CTA', async ({ page }) => {
     await page.goto('/discography/');
     for (const album of albums) {
-      const keys = await page.locator(`#${album.slug} [data-disc-link]`)
-        .evaluateAll(els => els.map(el => el.dataset.discLink));
-      expect(keys.slice(0, 2)).toEqual(['spotify', 'apple']);
-      for (const key of ['spotify', 'apple']) {
-        await expect(page.locator(`#${album.slug} [data-disc-link="${key}"]`)).toHaveClass(/cyber-link-btn--primary/);
-      }
-      for (const key of keys.slice(2)) {
-        await expect(page.locator(`#${album.slug} [data-disc-link="${key}"]`)).toHaveClass(/cyber-link-btn--compact/);
-      }
+      const a = card(page, album);
+      await expect(a.locator(`img[alt="${album.title} cover"]`)).toHaveCount(1);
+      const type = album.type === 'DELUXE' ? 'DELUXE EDITION' : 'ALBUM';
+      await expect(a.locator('[data-disc-album-type]')).toHaveText(`${type} // ${album.year}`);
+      await expect(a.locator('[data-disc-album-title]')).toHaveText(album.title);
+      await expect(a.locator('[data-disc-album-tracks]')).toHaveText(`${album.tracks.length} tracks`);
+      await expect(a.locator('.disc-album-cta')).toHaveText(/^OPEN RELEASE/);
     }
   });
 
-  test('DISC-05: every platform anchor opens in a new tab with rel=noopener', async ({ page }) => {
+  test('HUB-04: the card carries the full release description', async ({ page }) => {
     await page.goto('/discography/');
-    const attrs = await page.locator('[data-disc-link]')
-      .evaluateAll(els => els.map(el => [el.getAttribute('target'), el.getAttribute('rel')]));
-    expect(attrs.length).toBeGreaterThan(0);
-    for (const [target, rel] of attrs) {
-      expect(target).toBe('_blank');
-      expect(rel).toBe('noopener');
+    for (const album of albums) {
+      await expect(card(page, album).locator('[data-disc-album-description]')).toHaveText(copy[album.slug]);
     }
   });
 
-  test('DISC-06: no platform anchor points at an artist profile or a search page', async ({ page }) => {
+  test('HUB-10: the hero shows the heading and counts the catalog', async ({ page }) => {
     await page.goto('/discography/');
-    const hrefs = await page.locator('[data-disc-link]').evaluateAll(els => els.map(el => el.href));
-    for (const href of hrefs) {
-      expect(href).not.toMatch(/\/artist\/|\/artists\/|\/search|\/user\//);
-    }
+    await expect(page.locator('#disc-index-title')).toHaveText('Discography.');
+    await expect(page.locator('[data-disc-counter]')).toHaveText('03 RELEASES // 18 SINGLES');
   });
 
-  test('DISC-07: the listening links work with JavaScript disabled', async ({ page }) => {
+  test('HUB-11: the hub shell has no in-page anchor links', async ({ page }) => {
     await page.goto('/discography/');
-    const spotify = page.locator('#silicon-fortress [data-disc-link="spotify"]');
-    await expect(spotify).toBeVisible();
-    await expect(spotify).toHaveAttribute('href', catalog.albums[0].links.spotify);
+    await expect(page.locator('.disc-shell a[href^="#"]')).toHaveCount(0);
   });
 
-  test('DISC-08: the shell uses the cyber panel vocabulary', async ({ page }) => {
+  test('HUB-23: an album card navigates to its release page without JavaScript', async ({ page }) => {
+    await page.goto('/discography/');
+    await card(page, albums[0]).click();
+    await expect(page).toHaveURL(/\/discography\/silicon-fortress\/$/);
+    await expect(page.locator('h1')).toHaveText('Silicon Fortress');
+  });
+
+  test('HUB-24: the shell uses the cyber panel vocabulary', async ({ page }) => {
     await page.goto('/discography/');
     await expect(page.locator('.disc-shell.cyber-zone > .cyber-zone-inner')).toHaveCount(1);
-    const panelCount = albums.length + 2; // index panel + one per album + singles panel
+    const panelCount = 3; // hero + albums + singles
     await expect(page.locator('.cyber-panel')).toHaveCount(panelCount);
     for (const sel of ['.cyber-panel-tab', '.top-accent', '.corner-tl', '.corner-tr', '.corner-bl']) {
       await expect(page.locator(sel)).toHaveCount(panelCount);
     }
     const tabs = await page.locator('.cyber-panel-tab').evaluateAll(els => els.map(el => el.textContent.trim()));
-    expect(tabs).toEqual(['DISC::INDEX', 'REL::2021', 'REL::2018', 'REL::2016', 'DISC::SINGLES']);
-    const huds = await page.locator('.cyber-panel-body').evaluateAll(els => els.map(el => el.dataset.hud));
-    expect(huds[1]).toBe('RELEASE.SILICON-FORTRESS // 11 TRACKS_');
+    expect(tabs).toEqual(['DISC::INDEX', 'DISC::ALBUMS', 'DISC::SINGLES']);
   });
 
-  test('DISC-09/10: the index panel counts the catalog and anchors each album', async ({ page }) => {
-    await page.goto('/discography/');
-    await expect(page.locator('[data-disc-counter]')).toHaveText('03 RELEASES // 18 SINGLES');
-    const links = page.locator('[data-disc-index-link]');
-    await expect(links).toHaveCount(albums.length);
-    expect(await links.evaluateAll(els => els.map(el => el.getAttribute('href'))))
-      .toEqual(albums.map(a => `#${a.slug}`));
-  });
-
-  test('DISC-35/36/37: BUY CD points at the page that sells that record, and only there', async ({ page }) => {
-    await page.goto('/discography/');
-    await expect(page.locator('#silicon-fortress [data-disc-buy]')).toHaveAttribute('href', '/store/');
-    await expect(page.locator('#insane-driver [data-disc-buy]')).toHaveAttribute('href', '/store/');
-    await expect(page.locator('#insane-driver-deluxe [data-disc-buy]')).toHaveCount(0);
-    await expect(page.locator('[data-disc-buy]')).toHaveCount(2);
-  });
-
-  test('DISC-45: a release with fewer links renders no empty button slots', async ({ page }) => {
-    await page.goto('/discography/');
-    const deluxe = page.locator('#insane-driver-deluxe [data-disc-link]');
-    await expect(deluxe).toHaveCount(linked(catalog.albums[1]).length);
-    const emptyHrefs = await deluxe.evaluateAll(els => els.filter(el => !el.getAttribute('href')).length);
-    expect(emptyHrefs).toBe(0);
+  // DISC-05/06 now hold on the release pages, where the platform anchors live.
+  test('DISC-05/06: release-page platform anchors open in a new tab and never point at a profile or search', async ({ page }) => {
+    for (const slug of [...albums.map(a => a.slug), 'change-live']) {
+      await page.goto(`/discography/${slug}/`);
+      const anchors = await page.locator('.disc-release [data-disc-link]')
+        .evaluateAll(els => els.map(el => [el.getAttribute('target'), el.getAttribute('rel'), el.href]));
+      expect(anchors.length).toBeGreaterThan(0);
+      for (const [target, rel, href] of anchors) {
+        expect(target).toBe('_blank');
+        expect(rel).toBe('noopener');
+        expect(href).not.toMatch(/\/artist\/|\/artists\/|\/search|\/user\//);
+      }
+    }
   });
 });

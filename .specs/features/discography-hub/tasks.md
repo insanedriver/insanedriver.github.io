@@ -85,7 +85,7 @@ T5 → T6
 
 ---
 
-### T2: Hub hero and album cards
+### T2: Hub hero and album cards ✅
 
 **What**: Replace the `DISC::INDEX` anchor list with the hero and the per-album panels with one `DISC::ALBUMS` panel of card anchors (cover, type/year, title, tracks, description looked up from `catalog.releases`, `OPEN RELEASE →`); drop the per-album `MusicAlbum` JSON-LD; rewrite `markup.e2e.cjs`, the album parts of `seo.e2e.cjs` and `index-links.e2e.cjs`; move HOME-11/32's reference button to a release page.
 **Where**: `discography/index.html`
@@ -111,6 +111,8 @@ T5 → T6
 **Gate**: full
 
 **Commit**: `feat(discography): turn the index into a hub of album cards`
+
+**Notes**: HUB-11 narrowed to `.disc-shell` (the base layout's scroll-to-top `href="#"` sits outside it); AC text amended. Retired with the old index: DISC-01..04/07/09/10 anchor checks, DISC-29..32 hub tracklist/MusicAlbum, IDX-03/IDX-04 (REL-03/REL-04 cover them on the release pages). DISC-05/06 and DISC-14 cover stacking now run on the release pages. Gate: unit 218/218, e2e 316/316.
 
 ---
 

@@ -91,7 +91,7 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 **Acceptance Criteria**:
 
 1. HUB-10: The hub's first panel SHALL show the heading `Discography.` and the counter `03 RELEASES // 18 SINGLES`, computed from `discography.albums.size` (zero-padded below 10) and `discography.singles.size`.
-2. HUB-11: The hub SHALL contain no link whose `href` starts with `#`.
+2. HUB-11: The hub's `.disc-shell` SHALL contain no link whose `href` starts with `#` (the site-wide scroll-to-top link in the base layout is outside it).
 
 **Independent Test**: Open `/discography/` and read the counter; no in-page anchors.
 
@@ -149,29 +149,29 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| HUB-01 | P1: Album cards | Tasks | Pending |
-| HUB-02 | P1: Album cards | Tasks | Pending |
-| HUB-03 | P1: Album cards | Tasks | Pending |
+| HUB-01 | P1: Album cards | T2 | Implementing |
+| HUB-02 | P1: Album cards | T2 | Implementing |
+| HUB-03 | P1: Album cards | T2 | Implementing |
 | HUB-04 | P1: Album cards | Tasks | Pending |
 | HUB-05 | P1: Album cards | Tasks | Pending |
 | HUB-06 | P1: Single cards | Tasks | Pending |
 | HUB-07 | P1: Single cards | Tasks | Pending |
 | HUB-08 | P1: Single cards | Tasks | Pending |
 | HUB-09 | P1: Single cards | Tasks | Pending |
-| HUB-10 | P1: Hero | Tasks | Pending |
-| HUB-11 | P1: Hero | Tasks | Pending |
+| HUB-10 | P1: Hero | T2 | Implementing |
+| HUB-11 | P1: Hero | T2 | Implementing |
 | HUB-12 | P1: Release page | T1 | Implementing |
 | HUB-13 | P1: Release page | T1 | Implementing |
 | HUB-14 | P1: Release page | T1 | Implementing |
 | HUB-15 | P1: Release page | T1 | Implementing |
 | HUB-16 | P1: Release page | T1 | Implementing |
-| HUB-17 | P1: Structured data | Tasks | Pending |
+| HUB-17 | P1: Structured data | T2 | Implementing |
 | HUB-18 | P1: Structured data | Tasks | Pending |
 | HUB-19 | P1: Structured data | Tasks | Pending |
 | HUB-20 | P1: Structured data | Tasks | Pending |
 | HUB-21 | P2: Layout | Tasks | Pending |
 | HUB-22 | P2: Layout | Tasks | Pending |
-| HUB-23 | P2: Layout | Tasks | Pending |
+| HUB-23 | P2: Layout | T2 | Implementing |
 | HUB-24 | P2: Layout | Tasks | Pending |
 
 **Coverage:** 24 total, 0 mapped to tasks, 24 unmapped ⚠️
