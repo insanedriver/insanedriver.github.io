@@ -20,8 +20,8 @@
 
 ## Handoff
 
-- **Feature**: song-bento-no-video (the 10 sung songs without a video use the bento: meta bar with LISTEN NOW, Panel C lyrics beside a sticky Panel B, full-width Panel D with About and "Also released as" split 4:2; instrumentals keep the stack)
-- **Phase / Task**: Complete. T1-T6 plus Verifier fix `699ede0` (BENTO-24/30 checks on the lyrics layout); range `ef05bd0..699ede0` on `feature/song-bento-no-video`, branched from `feature/song-video-bento`.
-- **Verification**: Verifier PASS on iteration 2. 23/23 ACs Verified. Unit 218/218, scoped e2e 315/315; sensor 10 killed, 1 equivalent (NOVID-13 guard: every song has Spotify today). L-037 promoted to confirmed; candidate L-048.
-- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` networkidle) fails every run in this environment.
-- **Next**: the user pushes `feature/song-video-bento` and opens its PR (auto mode blocked the push; body in the scratchpad), then pushes `feature/song-bento-no-video` and opens a PR stacked on it.
+- **Feature**: discography-hub (`/discography/` becomes a hub: hero with the catalog counter, three album card links with a 3-line description and OPEN RELEASE, all 18 singles as card links, one CollectionPage JSON-LD; BUY CD and PREVIEW move onto the album release pages)
+- **Phase / Task**: Complete. T1-T6 plus `0b4c9bf` (DISC-11 relocated) and Verifier fix `fd57656`; range `master..feature/discography-hub`, branched from `master` at `c0bb895`.
+- **Verification**: Verifier PASS on iteration 2. 24/24 ACs Verified. Unit 218/218, scoped e2e 324/324; sensor 15 distinct mutants, all killed. Candidate lessons L-049/L-050 recorded.
+- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` viewer) fails every run in this environment.
+- **Next**: the user pushes `feature/discography-hub` and opens its PR against `master`.

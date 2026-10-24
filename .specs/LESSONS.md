@@ -300,6 +300,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: NOVID-15 (BENTO-24), NOVID-16 (BENTO-30); validation.md Fix 1-2 (tests)
 - last seen: 2026-10-23T19:10:03Z
 
+### L-049 - When a test forbids names that a data file defines, build the forbidden pattern from that data file instead of a hand-typed list, or a name the list missed passes.
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `tests/data` · harmful: 0
+- features: discography-hub
+- evidence: validation.md M10 / tests/discography/seo.e2e.cjs:44 (HUB-20) (tests/data)
+- last seen: 2026-10-24T01:27:22Z
+
+### L-050 - When the Assumptions table confirms that a component leaves something out, write that absence into the component's AC so a test can assert it.
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec-writing` · harmful: 0
+- features: discography-hub
+- evidence: validation.md HUB-07 / M6b (spec-writing)
+- last seen: 2026-10-24T01:27:22Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

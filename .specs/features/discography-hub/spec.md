@@ -149,30 +149,30 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| HUB-01 | P1: Album cards | T2 | Implementing |
-| HUB-02 | P1: Album cards | T2 | Implementing |
-| HUB-03 | P1: Album cards | T2 | Implementing |
-| HUB-04 | P1: Album cards | T5 | Implementing |
-| HUB-05 | P1: Album cards | T5 | Implementing |
-| HUB-06 | P1: Single cards | T3 | Implementing |
-| HUB-07 | P1: Single cards | T3 | Implementing |
-| HUB-08 | P1: Single cards | T3 | Implementing |
-| HUB-09 | P1: Single cards | T5 | Implementing |
-| HUB-10 | P1: Hero | T2 | Implementing |
-| HUB-11 | P1: Hero | T2 | Implementing |
-| HUB-12 | P1: Release page | T1 | Implementing |
-| HUB-13 | P1: Release page | T1 | Implementing |
-| HUB-14 | P1: Release page | T1 | Implementing |
-| HUB-15 | P1: Release page | T1 | Implementing |
-| HUB-16 | P1: Release page | T1 | Implementing |
-| HUB-17 | P1: Structured data | T2 | Implementing |
-| HUB-18 | P1: Structured data | T4 | Implementing |
-| HUB-19 | P1: Structured data | T4 | Implementing |
-| HUB-20 | P1: Structured data | T4 | Implementing |
-| HUB-21 | P2: Layout | T5 | Implementing |
-| HUB-22 | P2: Layout | T5 | Implementing |
-| HUB-23 | P2: Layout | T2 | Implementing |
-| HUB-24 | P2: Layout | T5 | Implementing |
+| HUB-01 | P1: Album cards | T2 | Verified |
+| HUB-02 | P1: Album cards | T2 | Verified |
+| HUB-03 | P1: Album cards | T2 | Verified |
+| HUB-04 | P1: Album cards | T5 | Verified |
+| HUB-05 | P1: Album cards | T5 | Verified |
+| HUB-06 | P1: Single cards | T3 | Verified |
+| HUB-07 | P1: Single cards | T3 | Verified |
+| HUB-08 | P1: Single cards | T3 | Verified |
+| HUB-09 | P1: Single cards | T5 | Verified |
+| HUB-10 | P1: Hero | T2 | Verified |
+| HUB-11 | P1: Hero | T2 | Verified |
+| HUB-12 | P1: Release page | T1 | Verified |
+| HUB-13 | P1: Release page | T1 | Verified |
+| HUB-14 | P1: Release page | T1 | Verified |
+| HUB-15 | P1: Release page | T1 | Verified |
+| HUB-16 | P1: Release page | T1 | Verified |
+| HUB-17 | P1: Structured data | T2 | Verified |
+| HUB-18 | P1: Structured data | T4 | Verified |
+| HUB-19 | P1: Structured data | T4 | Verified |
+| HUB-20 | P1: Structured data | T4 | Verified |
+| HUB-21 | P2: Layout | T5 | Verified |
+| HUB-22 | P2: Layout | T5 | Verified |
+| HUB-23 | P2: Layout | T2 | Verified |
+| HUB-24 | P2: Layout | T5 | Verified |
 
 **Coverage:** 24 total, 24 mapped to tasks (T1-T5), 0 unmapped.
 

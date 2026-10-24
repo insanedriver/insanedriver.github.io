@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 49,
+  "next_id": 51,
   "lessons": [
     {
       "id": "L-001",
@@ -877,6 +877,42 @@
       ],
       "created": "2026-10-23T19:10:03Z",
       "last_seen": "2026-10-23T19:10:03Z"
+    },
+    {
+      "id": "L-049",
+      "key": "surviving_mutant::when a test forbids names that a data file defines build the forbidden pattern from that data file instead of a hand typed list or a name the list missed passes",
+      "text": "When a test forbids names that a data file defines, build the forbidden pattern from that data file instead of a hand-typed list, or a name the list missed passes.",
+      "signal": "surviving_mutant",
+      "scope": "tests/data",
+      "status": "candidate",
+      "features": [
+        "discography-hub"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M10 / tests/discography/seo.e2e.cjs:44 (HUB-20) (tests/data)"
+      ],
+      "created": "2026-10-24T01:27:22Z",
+      "last_seen": "2026-10-24T01:27:22Z"
+    },
+    {
+      "id": "L-050",
+      "key": "spec_precision_gap::when the assumptions table confirms that a component leaves something out write that absence into the component s ac so a test can assert it",
+      "text": "When the Assumptions table confirms that a component leaves something out, write that absence into the component's AC so a test can assert it.",
+      "signal": "spec_precision_gap",
+      "scope": "spec-writing",
+      "status": "candidate",
+      "features": [
+        "discography-hub"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md HUB-07 / M6b (spec-writing)"
+      ],
+      "created": "2026-10-24T01:27:22Z",
+      "last_seen": "2026-10-24T01:27:22Z"
     }
   ]
 }
