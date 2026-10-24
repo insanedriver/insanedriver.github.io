@@ -22,6 +22,28 @@ test.describe('without JavaScript', () => {
     }
   });
 
+  test('HUB-18: one CollectionPage lists every card in DOM order with absolute URLs and titles', async ({ page }) => {
+    await page.goto('/discography/');
+    const blocks = await page.locator('script[type="application/ld+json"]')
+      .evaluateAll(els => els.map(el => JSON.parse(el.textContent)).filter(d => d['@type'] === 'CollectionPage'));
+    expect(blocks).toHaveLength(1);
+    const list = blocks[0].mainEntity;
+    expect(list['@type']).toBe('ItemList');
+    const cards = await page.locator('[data-disc-album], [data-disc-single]').evaluateAll(els => els.map(el => el.getAttribute('href')));
+    expect(cards).toHaveLength(21);
+    const titles = [...albums, ...catalog.singles].map(r => r.title);
+    expect(list.itemListElement).toEqual(cards.map((href, i) => ({
+      '@type': 'ListItem', position: i + 1, name: titles[i], url: `https://insanedriver.com.br${href}`,
+    })));
+  });
+
+  test('HUB-20: the hub meta description names no streaming platform', async ({ page }) => {
+    await page.goto('/discography/');
+    const content = await page.locator('meta[name="description"]').getAttribute('content');
+    expect(content.length).toBeGreaterThan(0);
+    expect(content).not.toMatch(/spotify|apple|deezer|tidal|amazon|youtube|pandora|bandcamp/i);
+  });
+
   test('HUB-19: album covers are served from the repo with their intrinsic size, lazy below the first', async ({ page }) => {
     await page.goto('/discography/');
     const attrs = await page.locator('.disc-album-art')

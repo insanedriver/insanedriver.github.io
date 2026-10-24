@@ -144,7 +144,7 @@ T5 → T6
 
 ---
 
-### T4: Hub CollectionPage and meta description
+### T4: Hub CollectionPage and meta description ✅
 
 **What**: Add the `CollectionPage` / `ItemList` JSON-LD for the 21 cards and reword the hub `page_description`; cover-loading checks for the hub.
 **Where**: `discography/index.html`
@@ -168,6 +168,8 @@ T5 → T6
 **Gate**: full
 
 **Commit**: `feat(discography): describe the hub as a collection of release pages`
+
+**Notes**: HUB-19 cover checks landed with T2 (albums) and T3 (singles). Gate: unit 218/218, e2e 315/315.
 
 ---
 

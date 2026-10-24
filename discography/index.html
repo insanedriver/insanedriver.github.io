@@ -2,7 +2,7 @@
 layout: base.html
 
 page_title: Discography
-page_description: Every Insane Driver album and single, with direct links to Spotify, Apple Music, Deezer, Tidal, Amazon Music and more.
+page_description: Every Insane Driver album and single in one place. Open a release for its story, tracklist, lyrics and where to listen.
 page_robots: index, follow
 page_id: discography
 jspath: js/discography
@@ -86,3 +86,19 @@ header_img_path: header_4.jpg
 
     </div>
 </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Insane Driver Discography",
+  "url": "https://insanedriver.com.br/discography/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ discography.albums.size | plus: discography.singles.size }},
+    "itemListElement": [{% for r in discography.albums %}{% unless forloop.first %},{% endunless %}
+      { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ r.title | jsonify }}, "url": "https://insanedriver.com.br{{ catalog.links[r.slug].page }}" }{% endfor %}{% for r in discography.singles %},
+      { "@type": "ListItem", "position": {{ forloop.index | plus: discography.albums.size }}, "name": {{ r.title | jsonify }}, "url": "https://insanedriver.com.br{{ catalog.links[r.slug].page }}" }{% endfor %}
+    ]
+  }
+}
+</script>

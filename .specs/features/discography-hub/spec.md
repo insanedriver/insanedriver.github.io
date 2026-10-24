@@ -166,9 +166,9 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 | HUB-15 | P1: Release page | T1 | Implementing |
 | HUB-16 | P1: Release page | T1 | Implementing |
 | HUB-17 | P1: Structured data | T2 | Implementing |
-| HUB-18 | P1: Structured data | Tasks | Pending |
-| HUB-19 | P1: Structured data | Tasks | Pending |
-| HUB-20 | P1: Structured data | Tasks | Pending |
+| HUB-18 | P1: Structured data | T4 | Implementing |
+| HUB-19 | P1: Structured data | T4 | Implementing |
+| HUB-20 | P1: Structured data | T4 | Implementing |
 | HUB-21 | P2: Layout | Tasks | Pending |
 | HUB-22 | P2: Layout | Tasks | Pending |
 | HUB-23 | P2: Layout | T2 | Implementing |
