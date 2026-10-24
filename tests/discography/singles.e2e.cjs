@@ -2,87 +2,48 @@ const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
 
 const singles = catalog.singles;
-const VISIBLE = 6;
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
-  test('DISC-15: every single renders, newest first', async ({ page }) => {
+  test('HUB-06: every single renders as a card, newest first, with no disclosure', async ({ page }) => {
     await page.goto('/discography/');
     const cards = page.locator('[data-disc-single]');
-    await expect(cards).toHaveCount(singles.length);
+    await expect(cards).toHaveCount(18);
     expect(await cards.evaluateAll(els => els.map(el => el.dataset.discSingle)))
       .toEqual(singles.map(s => s.slug));
+    await expect(page.locator('details')).toHaveCount(0);
+    for (const single of singles) await expect(page.locator(`[data-disc-single="${single.slug}"]`)).toBeVisible();
   });
 
-  test('DISC-16/17: six singles show outside the disclosure, the rest inside it, closed', async ({ page }) => {
-    await page.goto('/discography/');
-    const more = page.locator('[data-disc-singles-more]');
-    await expect(more).toHaveJSProperty('open', false);
-    await expect(page.locator('.disc-singles > .disc-single-grid > [data-disc-single]')).toHaveCount(VISIBLE);
-    await expect(more.locator('[data-disc-single]')).toHaveCount(singles.length - VISIBLE);
-    const visible = await page.locator('.disc-singles > .disc-single-grid > [data-disc-single]')
-      .evaluateAll(els => els.map(el => el.dataset.discSingle));
-    expect(visible).toEqual(singles.slice(0, VISIBLE).map(s => s.slug));
-  });
-
-  test('DISC-18: the disclosure reveals the archived singles without JavaScript', async ({ page }) => {
-    await page.goto('/discography/');
-    const more = page.locator('[data-disc-singles-more]');
-    const seventh = more.locator('[data-disc-single]').first();
-    await expect(seventh).toBeHidden();
-    await more.locator('summary').click();
-    await expect(more).toHaveJSProperty('open', true);
-    await expect(seventh).toBeVisible();
-    await expect(seventh.locator('[data-disc-link="spotify"]')).toHaveAttribute('href', singles[VISIBLE].links.spotify);
-  });
-
-  test('DISC-19: each single shows cover, title, year and its Spotify and Apple links', async ({ page }) => {
+  test('HUB-07: each single card is one anchor with cover, title and year', async ({ page }) => {
     await page.goto('/discography/');
     for (const single of singles) {
       const card = page.locator(`[data-disc-single="${single.slug}"]`);
+      await expect(card).toHaveJSProperty('tagName', 'A');
+      await expect(card.locator('a, button')).toHaveCount(0);
       await expect(card.locator('.disc-single-art')).toHaveAttribute('src', `/assets/images/releases/${single.cover}`);
+      await expect(card.locator('.disc-single-art')).toHaveAttribute('alt', `${single.title} cover`);
       await expect(card.locator('.disc-single-title')).toHaveText(single.title);
       await expect(card.locator('.disc-single-year')).toHaveText(String(single.year));
-      for (const key of ['spotify', 'apple']) {
-        await expect(card.locator(`[data-disc-link="${key}"]`)).toHaveAttribute('href', single.links[key]);
-      }
-      await expect(card.locator('[data-disc-link]')).toHaveCount(2);
     }
   });
 
-  test('DISC-34: single covers declare their intrinsic size and lazy-load', async ({ page }) => {
+  test('HUB-08: no platform anchor is left on the hub', async ({ page }) => {
+    await page.goto('/discography/');
+    await expect(page.locator('[data-disc-link]')).toHaveCount(0);
+  });
+
+  test('HUB-19: single covers declare their intrinsic size and lazy-load', async ({ page }) => {
     await page.goto('/discography/');
     const attrs = await page.locator('.disc-single-art')
       .evaluateAll(els => els.map(el => [el.getAttribute('width'), el.getAttribute('height'), el.getAttribute('loading')]));
-    expect(attrs).toHaveLength(singles.length);
-    for (const a of attrs) expect(a).toEqual(['600', '600', 'lazy']);
+    expect(attrs).toEqual(singles.map(s => [String(s.coverWidth), String(s.coverHeight), 'lazy']));
   });
 
-  test('DISC-45: the overflow disclosure appears only when the catalog overflows six', async ({ page }) => {
+  test('HUB-23: a single card navigates without JavaScript', async ({ page }) => {
     await page.goto('/discography/');
-    const more = page.locator('[data-disc-singles-more]');
-    if (singles.length > VISIBLE) {
-      await expect(more).toHaveCount(1);
-      await expect(more.locator('[data-disc-single]')).toHaveCount(singles.length - VISIBLE);
-    } else {
-      // Not exercised while the catalog holds 18 singles; this branch guards the
-      // day it shrinks, so the empty container can never ship.
-      await expect(more).toHaveCount(0);
-      await expect(page.locator('[data-disc-single]')).toHaveCount(singles.length);
-    }
-  });
-
-  test('DISC-20: a single never carries a preview button or an embed', async ({ page }) => {
-    await page.goto('/discography/');
-    await expect(page.locator('[data-disc-single] [data-disc-preview-btn]')).toHaveCount(0);
-    await expect(page.locator('[data-disc-single] iframe')).toHaveCount(0);
-  });
-
-  test('DISC-09: the index counter matches the rendered singles', async ({ page }) => {
-    await page.goto('/discography/');
-    await expect(page.locator('[data-disc-counter]'))
-      .toHaveText(`03 RELEASES // ${singles.length} SINGLES`);
-    await expect(page.locator('[data-disc-single]')).toHaveCount(singles.length);
+    await page.locator('[data-disc-single="change-live"]').click();
+    await expect(page).toHaveURL(/\/discography\/change-live\/$/);
   });
 });

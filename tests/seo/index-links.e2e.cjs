@@ -27,9 +27,9 @@ test.describe('without JavaScript', () => {
     await page.goto('/discography/');
     for (const single of catalog.singles) {
       const expected = SINGLE_PAGES.includes(single.slug) ? `/discography/${single.slug}/` : songUrl(single.title);
-      const link = page.locator(`[data-disc-single="${single.slug}"] .disc-single-title a`);
+      const link = page.locator(`[data-disc-single="${single.slug}"]`);
       await expect(link, single.slug).toHaveAttribute('href', expected);
-      await expect(link).toHaveText(single.title);
+      await expect(link.locator('.disc-single-title')).toHaveText(single.title);
     }
   });
 

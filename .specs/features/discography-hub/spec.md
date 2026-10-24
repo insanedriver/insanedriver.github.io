@@ -154,9 +154,9 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 | HUB-03 | P1: Album cards | T2 | Implementing |
 | HUB-04 | P1: Album cards | Tasks | Pending |
 | HUB-05 | P1: Album cards | Tasks | Pending |
-| HUB-06 | P1: Single cards | Tasks | Pending |
-| HUB-07 | P1: Single cards | Tasks | Pending |
-| HUB-08 | P1: Single cards | Tasks | Pending |
+| HUB-06 | P1: Single cards | T3 | Implementing |
+| HUB-07 | P1: Single cards | T3 | Implementing |
+| HUB-08 | P1: Single cards | T3 | Implementing |
 | HUB-09 | P1: Single cards | Tasks | Pending |
 | HUB-10 | P1: Hero | T2 | Implementing |
 | HUB-11 | P1: Hero | T2 | Implementing |

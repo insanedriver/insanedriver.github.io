@@ -76,21 +76,10 @@ header_img_path: header_4.jpg
         </div>
 
         <ul class="disc-single-grid">
-            {% for single in discography.singles limit: 6 %}
+            {% for single in discography.singles %}
             {% include 'discography/single-card' %}
             {% endfor %}
         </ul>
-
-        {% if discography.singles.size > 6 %}
-        <details class="disc-singles-more" data-disc-singles-more>
-            <summary><span class="disc-eyebrow">LOAD MORE</span> <span class="disc-tracklist-count">// {{ discography.singles.size | minus: 6 }} ARCHIVED</span></summary>
-            <ul class="disc-single-grid">
-                {% for single in discography.singles offset: 6 %}
-                {% include 'discography/single-card' %}
-                {% endfor %}
-            </ul>
-        </details>
-        {% endif %}
     </section>
         </div>
     </div>

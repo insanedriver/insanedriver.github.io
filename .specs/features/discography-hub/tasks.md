@@ -116,7 +116,7 @@ T5 → T6
 
 ---
 
-### T3: Single cards without the disclosure
+### T3: Single cards without the disclosure ✅
 
 **What**: Rewrite the single card as one anchor (cover, title, year, no platform icons) and loop all singles in one grid without `LOAD MORE`; rewrite `singles.e2e.cjs` and IDX-02.
 **Where**: `_includes/discography/single-card.liquid`
@@ -139,6 +139,8 @@ T5 → T6
 **Gate**: full
 
 **Commit**: `feat(discography): show every single as one card link`
+
+**Notes**: Retired DISC-16/17/18/45 (disclosure), DISC-19 icons, DISC-20/09 (folded into HUB-06/08/10). Gate: unit 218/218, e2e 313/313.
 
 ---
 
