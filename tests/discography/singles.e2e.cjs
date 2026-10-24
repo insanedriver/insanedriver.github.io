@@ -16,7 +16,7 @@ test.describe('without JavaScript', () => {
     for (const single of singles) await expect(page.locator(`[data-disc-single="${single.slug}"]`)).toBeVisible();
   });
 
-  test('HUB-07: each single card is one anchor with cover, title and year', async ({ page }) => {
+  test('HUB-07: each single card is one anchor with cover, title and year and no platform icon', async ({ page }) => {
     await page.goto('/discography/');
     for (const single of singles) {
       const card = page.locator(`[data-disc-single="${single.slug}"]`);
@@ -26,6 +26,7 @@ test.describe('without JavaScript', () => {
       await expect(card.locator('.disc-single-art')).toHaveAttribute('alt', `${single.title} cover`);
       await expect(card.locator('.disc-single-title')).toHaveText(single.title);
       await expect(card.locator('.disc-single-year')).toHaveText(String(single.year));
+      await expect(card.locator('.fa')).toHaveCount(0);
     }
   });
 

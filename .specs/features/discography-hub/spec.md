@@ -76,7 +76,7 @@ Every album and single now has its own page (`/discography/<slug>/`) with a desc
 **Acceptance Criteria**:
 
 1. HUB-06: The hub SHALL render one single card per entry in `discography.singles`, in that order, and SHALL contain no `<details>` element.
-2. HUB-07: Each single card SHALL be exactly one `<a>` whose `href` equals `catalog.links[slug].page` and SHALL show the cover, the title and the year.
+2. HUB-07: Each single card SHALL be exactly one `<a>` whose `href` equals `catalog.links[slug].page` and SHALL show the cover, the title and the year, with no platform icon (`.fa`) inside it.
 3. HUB-08: The hub SHALL contain no element carrying `data-disc-link`.
 4. HUB-09: WHILE the viewport is 375px wide the singles grid SHALL show at least two cards per row.
 

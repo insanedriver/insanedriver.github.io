@@ -43,6 +43,7 @@ header_img_path: header_4.jpg
 
         <ul class="disc-album-grid">
             {% for album in discography.albums %}
+            {%- assign description = '' -%}
             {%- for r in catalog.releases -%}{%- if r.slug == album.slug -%}{%- assign description = r.description -%}{%- endif -%}{%- endfor -%}
             <li>
                 <a class="disc-album-card" href="{{ catalog.links[album.slug].page }}" data-disc-album="{{ album.slug }}">

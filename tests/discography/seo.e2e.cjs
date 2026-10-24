@@ -1,5 +1,6 @@
 const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
+const platforms = require('../../_data/platforms.json');
 
 const albums = catalog.albums;
 const ldTypes = page => page.locator('script[type="application/ld+json"]')
@@ -41,7 +42,10 @@ test.describe('without JavaScript', () => {
     await page.goto('/discography/');
     const content = await page.locator('meta[name="description"]').getAttribute('content');
     expect(content.length).toBeGreaterThan(0);
-    expect(content).not.toMatch(/spotify|apple|deezer|tidal|amazon|youtube|pandora|bandcamp/i);
+    // Built from the platform list, so a newly added platform is checked too.
+    for (const p of platforms) {
+      for (const word of [p.key, p.name]) expect(content.toLowerCase(), word).not.toContain(word.toLowerCase());
+    }
   });
 
   test('HUB-19: album covers are served from the repo with their intrinsic size, lazy below the first', async ({ page }) => {
