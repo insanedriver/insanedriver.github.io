@@ -42,9 +42,9 @@ test('DISC-12: per-platform hover colors survive the move', async ({ page }) => 
   }
 });
 
-test('DISC-11: the discography page renders the same button system', async ({ page }) => {
-  await page.goto('/discography/');
-  const spotify = page.locator('#silicon-fortress [data-disc-link="spotify"]');
+test('DISC-11: the release page renders the same button system', async ({ page }) => {
+  await page.goto('/discography/silicon-fortress/');
+  const spotify = page.locator('.disc-release [data-disc-link="spotify"]');
   await expect(spotify).toHaveCSS('display', 'flex');
   await expect(spotify).toHaveCSS('background-color', 'rgba(10, 10, 10, 0.7)');
   await spotify.hover();
