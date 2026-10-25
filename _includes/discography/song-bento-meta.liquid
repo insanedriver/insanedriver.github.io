@@ -1,6 +1,6 @@
 {%- assign secs = song.duration | modulo: 60 -%}
 <div class="cyber-panel song-bento-meta" data-song-meta>
-    <div class="cyber-panel-tab"><span class="tab-icon"></span> TRACK::{{ song.number }}</div>
+    <div class="cyber-panel-tab"><span class="tab-icon"></span> {% if song.single %}SINGLE::{{ song.album.year }}{% else %}TRACK::{{ song.number }}{% endif %}</div>
     <div class="cyber-panel-body" data-hud="SONG.{{ song.slug | upcase }} // {{ song.album.year }}_">
         <span class="top-accent"></span>
         <span class="corner-tl"></span>
@@ -13,10 +13,14 @@
             </div>
             <div class="song-bento-meta-body">
                 <p class="song-bento-meta-line">
-                    <span class="disc-eyebrow">Track {{ song.number }} // {{ song.album.year }}</span>
+                    <span class="disc-eyebrow">{% if song.single %}Single{% else %}Track {{ song.number }}{% endif %} // {{ song.album.year }}</span>
                     <span class="song-bento-telemetry-item">Runtime {{ song.duration | divided_by: 60 | floor }}:{% if secs < 10 %}0{% endif %}{{ secs }}</span>
                 </p>
+                {% if song.single %}
+                <p class="song-album">Single · Released {{ song.album.year }}</p>
+                {% else %}
                 <p class="song-album">From the album <a href="{{ song.album.url }}" data-song-album>{{ song.album.title | escape }}</a> ({{ song.album.year }})</p>
+                {% endif %}
                 <div class="song-bento-intel">
                     <span class="disc-eyebrow">Recommended intel</span>
                     {% include 'seo/fans-of' %}

@@ -143,9 +143,9 @@ T1 → T2 → T3 → T4 → T5
 
 **Done when**:
 
-- [ ] New `tests/discography/single-lyrics.e2e.cjs` covers every listed AC on both pages
-- [ ] `song-bento.e2e.cjs` still passes on album songs (L-037)
-- [ ] Gate check passes: full gate
+- [x] New `tests/discography/single-lyrics.e2e.cjs` covers every listed AC on both pages
+- [x] `song-bento.e2e.cjs` still passes on album songs (L-037)
+- [x] Gate check passes: full gate
 
 **Tests**: e2e
 **Gate**: full

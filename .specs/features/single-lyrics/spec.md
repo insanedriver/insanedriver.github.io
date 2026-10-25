@@ -124,12 +124,12 @@ Every album track has a song page with its lyrics, but the two original songs th
 | SLYR-03 | P1: Single lyrics page | T2 | Implementing |
 | SLYR-04 | P1: Single lyrics page | T2 | Implementing |
 | SLYR-05 | P1: Single lyrics page | T2, T3 | Implementing |
-| SLYR-06 | P1: Single lyrics page | T4 | In Tasks |
-| SLYR-07 | P1: Single lyrics page | T4 | In Tasks |
+| SLYR-06 | P1: Single lyrics page | T4 | Implementing |
+| SLYR-07 | P1: Single lyrics page | T4 | Implementing |
 | SLYR-08 | P1: Single lyrics page | T2, T4 | Implementing |
 | SLYR-09 | P1: Single lyrics page | T2, T4 | Implementing |
 | SLYR-10 | P1: Single lyrics page | T3, T4 | Implementing |
-| SLYR-11 | P1: Single lyrics page | T4 | In Tasks |
+| SLYR-11 | P1: Single lyrics page | T4 | Implementing |
 | SLYR-12 | P1: Single lyrics page | T2, T4 | Implementing |
 | SLYR-13 | P1: Search engines see a lyrics page | T5 | In Tasks |
 | SLYR-14 | P1: Search engines see a lyrics page | T5 | In Tasks |
@@ -139,7 +139,7 @@ Every album track has a song page with its lyrics, but the two original songs th
 | SLYR-18 | P1: Search engines see a lyrics page | T3 | Implementing |
 | SLYR-19 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
 | SLYR-20 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
-| SLYR-21 | P2: Lyrics files follow the catalog conventions | T4 | In Tasks |
+| SLYR-21 | P2: Lyrics files follow the catalog conventions | T4 | Implementing |
 
 **Coverage:** 21 total, 21 mapped to tasks, 0 unmapped
 
