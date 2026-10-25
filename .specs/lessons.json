@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 51,
+  "next_id": 52,
   "lessons": [
     {
       "id": "L-001",
@@ -913,6 +913,24 @@
       ],
       "created": "2026-10-24T01:27:22Z",
       "last_seen": "2026-10-24T01:27:22Z"
+    },
+    {
+      "id": "L-051",
+      "key": "spec_precision_gap::lift every confirmed assumptions table value into an acceptance criterion so it gets an assertion",
+      "text": "Lift every confirmed Assumptions-table value into an acceptance criterion so it gets an assertion",
+      "signal": "spec_precision_gap",
+      "scope": "spec",
+      "status": "candidate",
+      "features": [
+        "footer-apple-music"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M12 / _includes/footer/social.liquid:10 (spec)"
+      ],
+      "created": "2026-10-25T21:04:59Z",
+      "last_seen": "2026-10-25T21:04:59Z"
     }
   ]
 }
