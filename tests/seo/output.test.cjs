@@ -50,7 +50,7 @@ test('SEO-02: the sitemap lists exactly the indexable pages', () => {
   assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
 });
 
-test('Success criteria: the sitemap lists 39 URLs (9 pages, 8 releases, 22 songs)', () => {
+test('Success criteria: the sitemap lists 39 URLs (9 pages, 6 releases, 24 songs)', () => {
   assert.equal(sitemapLocs().length, 39);
 });
 
