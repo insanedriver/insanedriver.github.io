@@ -119,29 +119,29 @@ Every album track has a song page with its lyrics, but the two original songs th
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| SLYR-01 | P1: Single lyrics page | Execute | Pending |
-| SLYR-02 | P1: Single lyrics page | Execute | Pending |
-| SLYR-03 | P1: Single lyrics page | Execute | Pending |
-| SLYR-04 | P1: Single lyrics page | Execute | Pending |
-| SLYR-05 | P1: Single lyrics page | Execute | Pending |
-| SLYR-06 | P1: Single lyrics page | Execute | Pending |
-| SLYR-07 | P1: Single lyrics page | Execute | Pending |
-| SLYR-08 | P1: Single lyrics page | Execute | Pending |
-| SLYR-09 | P1: Single lyrics page | Execute | Pending |
-| SLYR-10 | P1: Single lyrics page | Execute | Pending |
-| SLYR-11 | P1: Single lyrics page | Execute | Pending |
-| SLYR-12 | P1: Single lyrics page | Execute | Pending |
-| SLYR-13 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-14 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-15 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-16 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-17 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-18 | P1: Search engines see a lyrics page | Execute | Pending |
-| SLYR-19 | P2: Lyrics files follow the catalog conventions | Execute | Pending |
-| SLYR-20 | P2: Lyrics files follow the catalog conventions | Execute | Pending |
-| SLYR-21 | P2: Lyrics files follow the catalog conventions | Execute | Pending |
+| SLYR-01 | P1: Single lyrics page | T2, T3 | In Tasks |
+| SLYR-02 | P1: Single lyrics page | T1, T4 | Implementing |
+| SLYR-03 | P1: Single lyrics page | T2 | In Tasks |
+| SLYR-04 | P1: Single lyrics page | T2 | In Tasks |
+| SLYR-05 | P1: Single lyrics page | T2, T3 | In Tasks |
+| SLYR-06 | P1: Single lyrics page | T4 | In Tasks |
+| SLYR-07 | P1: Single lyrics page | T4 | In Tasks |
+| SLYR-08 | P1: Single lyrics page | T2, T4 | In Tasks |
+| SLYR-09 | P1: Single lyrics page | T2, T4 | In Tasks |
+| SLYR-10 | P1: Single lyrics page | T3, T4 | In Tasks |
+| SLYR-11 | P1: Single lyrics page | T4 | In Tasks |
+| SLYR-12 | P1: Single lyrics page | T2, T4 | In Tasks |
+| SLYR-13 | P1: Search engines see a lyrics page | T5 | In Tasks |
+| SLYR-14 | P1: Search engines see a lyrics page | T5 | In Tasks |
+| SLYR-15 | P1: Search engines see a lyrics page | T5 | In Tasks |
+| SLYR-16 | P1: Search engines see a lyrics page | T5 | In Tasks |
+| SLYR-17 | P1: Search engines see a lyrics page | T3 | In Tasks |
+| SLYR-18 | P1: Search engines see a lyrics page | T3 | In Tasks |
+| SLYR-19 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
+| SLYR-20 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
+| SLYR-21 | P2: Lyrics files follow the catalog conventions | T4 | In Tasks |
 
-**Coverage:** 21 total, 0 mapped to tasks, 21 unmapped ⚠️
+**Coverage:** 21 total, 21 mapped to tasks, 0 unmapped
 
 ---
 

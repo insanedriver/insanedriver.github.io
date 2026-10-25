@@ -25,7 +25,7 @@ test('SONG-04: a song page carries the English lyrics file text, in labelled sec
 
 test('LYR-01: the Portuguese .pt.txt translations are never used by the catalog', () => {
   const keys = Object.keys(catalogData.readLyrics(LYRICS));
-  assert.equal(keys.length, 20);
+  assert.equal(keys.length, 22);
   assert.ok(keys.every(k => !k.endsWith('.pt')), 'no .pt key');
   const c = catalogData();
   for (const album of fs.readdirSync(LYRICS)) {

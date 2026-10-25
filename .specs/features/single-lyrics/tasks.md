@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/single-lyrics/design.md`
-**Status**: Approved
+**Status**: In Progress
 
 ---
 
@@ -64,9 +64,9 @@ T1 → T2 → T3 → T4 → T5
 
 **Done when**:
 
-- [ ] Section labels equal SLYR-02's two lists, read with `parseSections`
-- [ ] `.pt.txt` has the same section count; no `'` and no `...` in the four files
-- [ ] Gate check passes: `npm run test:unit`
+- [x] Section labels equal SLYR-02's two lists, read with `parseSections`
+- [x] `.pt.txt` has the same section count; no `'` and no `...` in the four files
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
