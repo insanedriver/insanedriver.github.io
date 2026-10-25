@@ -128,7 +128,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 
 **Acceptance Criteria**:
 
-1. **SONG-01** — The build SHALL produce one page per unique song of the albums `insane-driver` and `silicon-fortress` (22 songs: 11 + 11) at `/discography/<album-slug>/<song-slug>/`.
+1. **SONG-01** — The build SHALL produce one page per unique song of the albums `insane-driver` and `silicon-fortress` (22 songs: 11 + 11) at `/discography/<album-slug>/<song-slug>/`. *(Extended by `single-lyrics` SLYR-01: the songs released only as singles, Waiting for You and The Sun Will Rise, are song pages at `/discography/<single-slug>/`.)*
 2. **SONG-02** — No song SHALL have more than one page; deluxe, acoustic, live and single versions SHALL NOT get a song page.
 3. **SONG-03** — Each song page SHALL have one `<h1>` with the song title and a link to its album's release page.
 4. **SONG-04** — WHERE the song has lyrics, the song page SHALL show the full lyrics with one visible heading per section label (`Verse 1`, `Chorus`, ...) and the line breaks of the source.
@@ -174,7 +174,7 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 
 **Acceptance Criteria**:
 
-1. **REL-01** — The build SHALL produce a release page at `/discography/<slug>/` for `silicon-fortress`, `insane-driver`, `insane-driver-deluxe`, `waiting-for-you`, `the-sun-will-rise`, `today-is-sunday-eder-franco` and `change-live`, and for no other release.
+1. **REL-01** — The build SHALL produce a release page at `/discography/<slug>/` for `silicon-fortress`, `insane-driver`, `insane-driver-deluxe`, `waiting-for-you`, `the-sun-will-rise`, `today-is-sunday-eder-franco` and `change-live`, and for no other release. *(Superseded in part by `single-lyrics` SLYR-05: `waiting-for-you` and `the-sun-will-rise` are now song pages at the same URL, not release pages.)*
 2. **REL-02** — Each release page SHALL have one `<h1>` with the release title, the cover image with `alt` `<title> cover`, the release year and type, and a description paragraph.
 3. **REL-03** — Each album release page SHALL list every track in order, each linking to its song page.
 4. **REL-04** — Each release page SHALL show the streaming links of the release that have a URL.

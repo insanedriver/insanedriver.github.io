@@ -18,14 +18,15 @@ test('SEO-03: robots.txt allows every crawler and points at the sitemap', () => 
 const ORIGIN = 'https://insanedriver.com.br';
 const INDEXABLE = ['/', '/band/', '/contact/', '/dates/', '/discography/', '/newsletter/', '/photos/', '/store/', '/videos/'];
 // REL-01: one page per release that does not fold into a song page.
-const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'].map(slug => `/discography/${slug}/`);
-// SONG-01: one page per song of the two studio albums.
+const RELEASES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe',
+  'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'].map(slug => `/discography/${slug}/`);
+// SONG-01: one page per song of the two studio albums. SLYR-17: one per song released only as a single.
 const SONGS = [
   ...['endless-path', 'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'buried-thoughts', 'fallen-dreams',
     'change', 'today-is-sunday', 'faithless-breath', 'make-decisions', 'tears-of-blood'].map(s => `/discography/insane-driver/${s}/`),
   ...['back-to-1994', 'faceless-demons', 'keep-away', 'silicon-fortress', 'age-of-lies', 'insane-driver',
     'desperate-prayer', 'ghosts', 'imagined-realities', 'invisible-chains', 'distant-hearts'].map(s => `/discography/silicon-fortress/${s}/`),
+  '/discography/waiting-for-you/', '/discography/the-sun-will-rise/',
 ];
 const sitemapLocs = () => {
   const xml = built('sitemap.xml');
@@ -49,7 +50,7 @@ test('SEO-02: the sitemap lists exactly the indexable pages', () => {
   assert.deepEqual([...sitemapLocs()].sort(), [...INDEXABLE, ...RELEASES, ...SONGS].map(u => ORIGIN + u).sort());
 });
 
-test('Success criteria: the sitemap lists 39 URLs (9 pages, 8 releases, 22 songs)', () => {
+test('Success criteria: the sitemap lists 39 URLs (9 pages, 6 releases, 24 songs)', () => {
   assert.equal(sitemapLocs().length, 39);
 });
 

@@ -8,7 +8,7 @@ const platforms = require('../../_data/platforms.json');
 
 // Real catalog data; stand-in lyrics for every song that has words.
 const fakeLyrics = () => Object.fromEntries(songs.songs.filter(s => !s.instrumental)
-  .map(s => [`${s.album}/${s.slug}`, `[Verse 1]\n${s.slug} line one\n${s.slug} line two\n`]));
+  .map(s => [`${s.single ? 'singles' : s.album}/${s.slug}`, `[Verse 1]\n${s.slug} line one\n${s.slug} line two\n`]));
 const catalog = (overrides = {}) => build(Object.assign({ discography, songs, lyrics: fakeLyrics(), videos }, overrides));
 const song = (c, slug) => c.songs.find(s => s.slug === slug);
 
@@ -22,12 +22,14 @@ test('songKey strips the deluxe and acoustic suffixes and kebab-cases', () => {
 
 test('SONG-01/02: 22 song pages, one per song, at /discography/<album>/<song>/', () => {
   const c = catalog();
-  assert.equal(c.songs.length, 22);
-  assert.equal(new Set(c.songs.map(s => s.url)).size, 22);
+  assert.equal(c.songs.length, 24);
+  assert.equal(new Set(c.songs.map(s => s.url)).size, 24);
   assert.equal(song(c, 'faceless-demons').url, '/discography/silicon-fortress/faceless-demons/');
   assert.equal(song(c, 'back-to-1994').url, '/discography/silicon-fortress/back-to-1994/');
   assert.equal(song(c, 'endless-path').url, '/discography/insane-driver/endless-path/');
-  for (const s of c.songs) assert.equal(s.url, `/discography/${s.album.slug}/${s.slug}/`);
+  for (const s of c.songs.filter(x => !x.single)) assert.equal(s.url, `/discography/${s.album.slug}/${s.slug}/`);
+  assert.equal(song(c, 'waiting-for-you').url, '/discography/waiting-for-you/');
+  assert.equal(song(c, 'the-sun-will-rise').url, '/discography/the-sun-will-rise/');
   assert.deepEqual(c.songs.filter(s => s.album.slug === 'insane-driver').length, 11);
   assert.deepEqual(c.songs.filter(s => s.album.slug === 'silicon-fortress').length, 11);
 });
@@ -44,11 +46,11 @@ test('SONG-01: a song carries its title, album, position and duration from disco
   });
 });
 
-test('REL-01: release pages exactly for the 3 albums and the 5 singles that fold into no song', () => {
+test('REL-01/SLYR-05: release pages exactly for the 3 albums and the 3 singles that fold into no song and own none', () => {
   const c = catalog();
   assert.deepEqual(c.releases.map(r => r.slug).sort(), [
     'change-live', 'fallen-dreams-acoustic', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
-    'the-sun-will-rise', 'today-is-sunday-eder-franco', 'waiting-for-you',
+    'today-is-sunday-eder-franco',
   ]);
   for (const r of c.releases) assert.equal(r.url, `/discography/${r.slug}/`);
   assert.equal(c.releases.find(r => r.slug === 'silicon-fortress').description, songs.releases['silicon-fortress']);
@@ -70,7 +72,7 @@ test('REL-06: the Eder Franco and live releases link to the Today Is Sunday and 
   const c = catalog();
   assert.equal(c.releases.find(r => r.slug === 'today-is-sunday-eder-franco').songUrl, '/discography/insane-driver/today-is-sunday/');
   assert.equal(c.releases.find(r => r.slug === 'change-live').songUrl, '/discography/insane-driver/change/');
-  assert.equal(c.releases.find(r => r.slug === 'waiting-for-you').songUrl, null);
+  assert.equal(c.releases.some(r => r.slug === 'waiting-for-you'), false);
   assert.equal(c.releases.find(r => r.slug === 'fallen-dreams-acoustic').songUrl, '/discography/insane-driver/fallen-dreams/');
   assert.equal(song(c, 'fallen-dreams').alsoReleasedAs.find(e => e.title === 'Fallen Dreams (Acoustic)').url, '/discography/fallen-dreams-acoustic/');
 });
@@ -335,6 +337,7 @@ test('NOVID-01/03: built songs carry their layout; the 10 sung songs without a v
   assert.deepEqual(c.songs.filter(s => s.layout === 'lyrics').map(s => s.slug).sort(), [
     'age-of-lies', 'faceless-demons', 'faithless-breath', 'fallen-dreams', 'firstly-my-breakfast',
     'insane-driver', 'invisible-chains', 'make-decisions', 'tears-of-blood', 'the-edge-of-life',
+    'the-sun-will-rise', 'waiting-for-you',
   ]);
   assert.deepEqual(c.songs.filter(s => s.layout === 'stack').map(s => s.slug).sort(), ['back-to-1994', 'endless-path']);
 });
@@ -351,4 +354,80 @@ test('NOVID-12: built songs carry the Spotify track URL as listenUrl', () => {
   const c = catalog({ platforms });
   assert.equal(song(c, 'faceless-demons').listenUrl, 'https://open.spotify.com/track/5N0rDJGWRcp3LsWSD82Flk');
   assert.equal(song(catalog(), 'faceless-demons').listenUrl, null);
+});
+
+// SLYR: a songs.json entry may belong to a single instead of an album.
+const WFY = { slug: 'waiting-for-you', single: 'waiting-for-you', duration: 218, about: 'About Waiting for You.',
+  links: { apple: 'https://music.apple.com/us/album/waiting-for-you/1793471043?i=1793471044' } };
+const TSWR = { slug: 'the-sun-will-rise', single: 'the-sun-will-rise', duration: 281 };
+const withSingles = (...extra) => Object.assign({}, songs, { songs: [...songs.songs.filter(s => !s.single), ...extra] });
+const singleLyrics = (...slugs) => Object.assign(fakeLyrics(), Object.fromEntries(slugs.map(slug =>
+  [`singles/${slug}`, `[Verse 1]\n${slug} one\n\n[Chorus]\n${slug} two\n`])));
+const singlesCatalog = () => catalog({ songs: withSingles(WFY, TSWR), lyrics: singleLyrics('waiting-for-you', 'the-sun-will-rise') });
+const wfySingle = discography.singles.find(s => s.slug === 'waiting-for-you');
+
+test('SLYR-01: a song of a single lives at the single URL, with the single as its parent release', () => {
+  const s = song(singlesCatalog(), 'waiting-for-you');
+  assert.equal(s.url, '/discography/waiting-for-you/');
+  assert.equal(s.single, true);
+  assert.equal(s.title, 'Waiting for You');
+  assert.equal(s.duration, 218);
+  assert.deepEqual(s.album, { slug: 'waiting-for-you', title: 'Waiting for You', year: 2025,
+    url: '/discography/waiting-for-you/', cover: 'waiting-for-you.jpg', links: wfySingle.links });
+  assert.equal(song(singlesCatalog(), 'ghosts').single, false);
+});
+
+test('SLYR-02 data: a song of a single reads singles/<slug> lyrics into sections', () => {
+  const s = song(singlesCatalog(), 'waiting-for-you');
+  assert.deepEqual(s.sections.map(x => x.label), ['Verse 1', 'Chorus']);
+  assert.equal(s.lyricsText, '[Verse 1]\nwaiting-for-you one\n\n[Chorus]\nwaiting-for-you two');
+  assert.equal(s.layout, 'lyrics');
+});
+
+test('SLYR-03: a sung single song without a lyrics file fails the build', () => {
+  const lyrics = fakeLyrics();
+  delete lyrics['singles/waiting-for-you'];
+  assert.throws(() => catalog({ songs: withSingles(WFY), lyrics }),
+    { message: 'seo-discovery: waiting-for-you has no lyrics file and is not instrumental' });
+});
+
+test('SLYR-04: a song naming an unknown single fails the build', () => {
+  assert.throws(() => catalog({ songs: withSingles({ slug: 'no-such-single', single: 'no-such-single', duration: 100 }),
+    lyrics: singleLyrics('no-such-single') }),
+  { message: 'seo-discovery: no-such-single references unknown single' });
+});
+
+test('SLYR-05: a single with its own song gets no release page and links to the song', () => {
+  const c = catalog({ songs: withSingles(WFY), lyrics: singleLyrics('waiting-for-you') });
+  assert.equal(c.releases.some(r => r.slug === 'waiting-for-you'), false);
+  assert.equal(c.links['waiting-for-you'].page, '/discography/waiting-for-you/');
+  assert.equal(c.songs.filter(s => s.url === '/discography/waiting-for-you/').length, 1);
+  // A single without a song keeps its release page.
+  assert.equal(c.releases.find(r => r.slug === 'the-sun-will-rise').url, '/discography/the-sun-will-rise/');
+});
+
+test('SLYR-08 data: a single song catalog code is the title initials plus -SINGLE', () => {
+  const c = singlesCatalog();
+  assert.equal(song(c, 'waiting-for-you').catalogCode, 'WFY-SINGLE');
+  assert.equal(song(c, 'the-sun-will-rise').catalogCode, 'TSWR-SINGLE');
+});
+
+test('SLYR-09 data: a single song shows the single cover', () => {
+  assert.deepEqual(song(singlesCatalog(), 'waiting-for-you').cover, { file: 'waiting-for-you.jpg', alt: 'Waiting for You single cover' });
+});
+
+test('SLYR-11 data: a single song listens on the single links, overridden by its own, under the single slug', () => {
+  const s = song(singlesCatalog(), 'waiting-for-you');
+  assert.equal(s.listen.slug, 'waiting-for-you');
+  assert.equal(s.listen.links.apple, WFY.links.apple);
+  assert.equal(s.listen.links.spotify, wfySingle.links.spotify);
+  assert.deepEqual(s.listen.track, WFY.links);
+});
+
+test('SLYR-12 data: a single song has no previous or next track', () => {
+  const c = singlesCatalog();
+  for (const slug of ['waiting-for-you', 'the-sun-will-rise']) {
+    assert.equal(song(c, slug).prev, null, slug);
+    assert.equal(song(c, slug).next, null, slug);
+  }
 });

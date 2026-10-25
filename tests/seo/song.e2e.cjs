@@ -3,7 +3,8 @@ const path = require('node:path');
 const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
 const platforms = require('../../_data/platforms.json');
-const songData = require('../../_data/songs.json').songs;
+// SONG-07 track URLs cover the album songs; SLYR: the single songs carry only an Apple track URL.
+const songData = require('../../_data/songs.json').songs.filter(d => !d.single);
 const videos = require('../../_data/videos.json');
 
 const ORIGIN = 'https://insanedriver.com.br';

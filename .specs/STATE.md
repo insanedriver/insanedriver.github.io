@@ -20,8 +20,8 @@
 
 ## Handoff
 
-- **Feature**: discography-hub (`/discography/` becomes a hub: hero with the catalog counter, three album card links with a 3-line description and OPEN RELEASE, all 18 singles as card links, one CollectionPage JSON-LD; BUY CD and PREVIEW move onto the album release pages)
-- **Phase / Task**: Complete. T1-T6 plus `0b4c9bf` (DISC-11 relocated) and Verifier fix `fd57656`; range `master..feature/discography-hub`, branched from `master` at `c0bb895`.
-- **Verification**: Verifier PASS on iteration 2. 24/24 ACs Verified. Unit 218/218, scoped e2e 324/324; sensor 15 distinct mutants, all killed. Candidate lessons L-049/L-050 recorded.
+- **Feature**: single-lyrics (Waiting for You and The Sun Will Rise become lyrics bento song pages at `/discography/<slug>/`; `songs.json` entries may name a `single` instead of an `album`; lyrics in `_data/lyrics/singles/`)
+- **Phase / Task**: Complete. T1-T5 plus the Verifier cosmetic follow-up; range `master..feature/single-lyrics`, branched from `master` at `755cafc`.
+- **Verification**: Verifier PASS on iteration 1. 21/21 ACs Verified. Unit 232/232, scoped e2e 329/329; sensor 12 mutants, 11 killed, 1 equivalent. No lessons recorded.
 - **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` viewer) fails every run in this environment.
-- **Next**: the user pushes `feature/discography-hub` and opens its PR against `master`.
+- **Next**: the user reviews the Portuguese translations and the two `about` texts, then pushes `feature/single-lyrics` and opens its PR against `master`.
