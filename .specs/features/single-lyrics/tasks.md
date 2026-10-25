@@ -115,10 +115,12 @@ T1 → T2 → T3 → T4 → T5
 
 **Done when**:
 
-- [ ] `discography/song.liquid` permalink is `{{ song.url | remove_first: '/' }}index.html`
-- [ ] Release lists in `catalog-data`, `catalog`, `songs-data`, `release.e2e`, `index-links.e2e`, `output` tests drop the two singles; song counts become 24 where they count all songs; sitemap test lists both URLs once
-- [ ] `seo-discovery` SONG-01/REL-01 amended to point at this spec (L-004)
-- [ ] Gate check passes: full gate
+- [x] `discography/song.liquid` permalink is `{{ song.url | remove_first: '/' }}index.html`
+- [x] Release lists in `catalog-data`, `catalog`, `songs-data`, `release.e2e`, `index-links.e2e`, `output` tests drop the two singles; song counts become 24 where they count all songs; sitemap test lists both URLs once
+- [x] `seo-discovery` SONG-01/REL-01 amended to point at this spec (L-004)
+- [x] Gate check passes: full gate
+
+**Deviation**: the two-item breadcrumbs (SLYR-16) moved here from T5, because the existing CRUMB-01 test pins them on these URLs. The SONG-07 track-URL tests are now scoped to album songs; the singles carry only an Apple track URL (spec Out of Scope). The Waiting for You `about` was reworded so its first sentence is a valid 50-160 character meta description (SEO-07).
 
 **Tests**: e2e
 **Gate**: full

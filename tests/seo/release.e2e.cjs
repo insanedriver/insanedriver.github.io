@@ -6,9 +6,10 @@ const copy = require('../../_data/songs.json').releases;
 const ORIGIN = 'https://insanedriver.com.br';
 const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold';
 
-// REL-01: the release pages, and no others.
-const PAGES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
-  'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'];
+// REL-01: the release pages, and no others. SLYR-05: the singles that own a song are song pages.
+const PAGES = ['silicon-fortress', 'insane-driver', 'insane-driver-deluxe',
+  'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic'];
+const SINGLE_SONGS = ['waiting-for-you', 'the-sun-will-rise'];
 const all = [...catalog.albums, ...catalog.singles];
 const release = slug => all.find(r => r.slug === slug);
 const isAlbum = r => r.type !== 'SINGLE';
@@ -28,7 +29,7 @@ test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
   test('REL-01: no release outside the list gets a page', async ({ page }) => {
-    for (const r of all.filter(r => !PAGES.includes(r.slug))) {
+    for (const r of all.filter(r => !PAGES.includes(r.slug) && !SINGLE_SONGS.includes(r.slug))) {
       const res = await page.goto(`/discography/${r.slug}/`);
       expect(res.status(), r.slug).toBe(404);
     }

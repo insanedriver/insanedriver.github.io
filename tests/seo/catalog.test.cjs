@@ -22,12 +22,14 @@ test('songKey strips the deluxe and acoustic suffixes and kebab-cases', () => {
 
 test('SONG-01/02: 22 song pages, one per song, at /discography/<album>/<song>/', () => {
   const c = catalog();
-  assert.equal(c.songs.length, 22);
-  assert.equal(new Set(c.songs.map(s => s.url)).size, 22);
+  assert.equal(c.songs.length, 24);
+  assert.equal(new Set(c.songs.map(s => s.url)).size, 24);
   assert.equal(song(c, 'faceless-demons').url, '/discography/silicon-fortress/faceless-demons/');
   assert.equal(song(c, 'back-to-1994').url, '/discography/silicon-fortress/back-to-1994/');
   assert.equal(song(c, 'endless-path').url, '/discography/insane-driver/endless-path/');
-  for (const s of c.songs) assert.equal(s.url, `/discography/${s.album.slug}/${s.slug}/`);
+  for (const s of c.songs.filter(x => !x.single)) assert.equal(s.url, `/discography/${s.album.slug}/${s.slug}/`);
+  assert.equal(song(c, 'waiting-for-you').url, '/discography/waiting-for-you/');
+  assert.equal(song(c, 'the-sun-will-rise').url, '/discography/the-sun-will-rise/');
   assert.deepEqual(c.songs.filter(s => s.album.slug === 'insane-driver').length, 11);
   assert.deepEqual(c.songs.filter(s => s.album.slug === 'silicon-fortress').length, 11);
 });
@@ -44,11 +46,11 @@ test('SONG-01: a song carries its title, album, position and duration from disco
   });
 });
 
-test('REL-01: release pages exactly for the 3 albums and the 5 singles that fold into no song', () => {
+test('REL-01/SLYR-05: release pages exactly for the 3 albums and the 3 singles that fold into no song and own none', () => {
   const c = catalog();
   assert.deepEqual(c.releases.map(r => r.slug).sort(), [
     'change-live', 'fallen-dreams-acoustic', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
-    'the-sun-will-rise', 'today-is-sunday-eder-franco', 'waiting-for-you',
+    'today-is-sunday-eder-franco',
   ]);
   for (const r of c.releases) assert.equal(r.url, `/discography/${r.slug}/`);
   assert.equal(c.releases.find(r => r.slug === 'silicon-fortress').description, songs.releases['silicon-fortress']);
@@ -70,7 +72,7 @@ test('REL-06: the Eder Franco and live releases link to the Today Is Sunday and 
   const c = catalog();
   assert.equal(c.releases.find(r => r.slug === 'today-is-sunday-eder-franco').songUrl, '/discography/insane-driver/today-is-sunday/');
   assert.equal(c.releases.find(r => r.slug === 'change-live').songUrl, '/discography/insane-driver/change/');
-  assert.equal(c.releases.find(r => r.slug === 'waiting-for-you').songUrl, null);
+  assert.equal(c.releases.some(r => r.slug === 'waiting-for-you'), false);
   assert.equal(c.releases.find(r => r.slug === 'fallen-dreams-acoustic').songUrl, '/discography/insane-driver/fallen-dreams/');
   assert.equal(song(c, 'fallen-dreams').alsoReleasedAs.find(e => e.title === 'Fallen Dreams (Acoustic)').url, '/discography/fallen-dreams-acoustic/');
 });
@@ -335,6 +337,7 @@ test('NOVID-01/03: built songs carry their layout; the 10 sung songs without a v
   assert.deepEqual(c.songs.filter(s => s.layout === 'lyrics').map(s => s.slug).sort(), [
     'age-of-lies', 'faceless-demons', 'faithless-breath', 'fallen-dreams', 'firstly-my-breakfast',
     'insane-driver', 'invisible-chains', 'make-decisions', 'tears-of-blood', 'the-edge-of-life',
+    'the-sun-will-rise', 'waiting-for-you',
   ]);
   assert.deepEqual(c.songs.filter(s => s.layout === 'stack').map(s => s.slug).sort(), ['back-to-1994', 'endless-path']);
 });
@@ -382,7 +385,9 @@ test('SLYR-02 data: a song of a single reads singles/<slug> lyrics into sections
 });
 
 test('SLYR-03: a sung single song without a lyrics file fails the build', () => {
-  assert.throws(() => catalog({ songs: withSingles(WFY), lyrics: fakeLyrics() }),
+  const lyrics = fakeLyrics();
+  delete lyrics['singles/waiting-for-you'];
+  assert.throws(() => catalog({ songs: withSingles(WFY), lyrics }),
     { message: 'seo-discovery: waiting-for-you has no lyrics file and is not instrumental' });
 });
 

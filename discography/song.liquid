@@ -5,7 +5,7 @@ pagination:
   size: 1
   alias: song
   addAllPagesToCollections: true
-permalink: "discography/{{ song.album.slug }}/{{ song.slug }}/index.html"
+permalink: "{{ song.url | remove_first: '/' }}index.html"
 page_robots: index, follow
 page_id: discography
 jspath: js/song
@@ -112,4 +112,4 @@ eleventyComputed:
 }
 </script>
 {% endif %}
-{% assign crumb_release = song.album %}{% assign crumb_song = song %}{% include 'seo/breadcrumbs' %}
+{% if song.single %}{% assign crumb_release = song %}{% else %}{% assign crumb_release = song.album %}{% assign crumb_song = song %}{% endif %}{% include 'seo/breadcrumbs' %}

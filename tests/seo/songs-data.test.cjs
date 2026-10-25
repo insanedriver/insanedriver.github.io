@@ -11,15 +11,17 @@ const WITH_ABOUT = [
   'faceless-demons', 'keep-away', 'silicon-fortress', 'age-of-lies', 'insane-driver', 'desperate-prayer',
   'ghosts', 'imagined-realities', 'invisible-chains', 'distant-hearts', 'buried-thoughts',
   'the-edge-of-life', 'firstly-my-breakfast', 'tide-of-fears', 'fallen-dreams', 'change', 'today-is-sunday',
-  'faithless-breath', 'make-decisions', 'tears-of-blood',
+  'faithless-breath', 'make-decisions', 'tears-of-blood', 'the-sun-will-rise', 'waiting-for-you',
 ];
 const RELEASE_PAGES = [
   'silicon-fortress', 'insane-driver', 'insane-driver-deluxe', 'waiting-for-you',
   'the-sun-will-rise', 'today-is-sunday-eder-franco', 'change-live', 'fallen-dreams-acoustic',
 ];
 
-test('SONG-01: 22 songs, one per track of the two studio albums, in tracklist order', () => {
-  assert.equal(songs.length, 22);
+test('SONG-01/SLYR-01: 22 album songs, one per track of the two studio albums, in tracklist order, plus 2 single songs', () => {
+  assert.equal(songs.length, 24);
+  assert.deepEqual(songs.filter(s => s.single).map(s => [s.slug, s.single]),
+    [['the-sun-will-rise', 'the-sun-will-rise'], ['waiting-for-you', 'waiting-for-you']]);
   for (const slug of ['insane-driver', 'silicon-fortress']) {
     assert.deepEqual(songs.filter(s => s.album === slug).map(s => s.slug), album(slug).tracks.map(t => kebab(t.title)), slug);
   }
@@ -30,7 +32,7 @@ test('SONG-02: no song slug repeats', () => {
 });
 
 test('LYR-04: every song references an existing album slug and a track title of that album', () => {
-  for (const s of songs) {
+  for (const s of songs.filter(x => !x.single)) {
     const a = album(s.album);
     assert.ok(a, `${s.slug}: unknown album ${s.album}`);
     assert.ok(a.tracks.some(t => kebab(t.title) === s.slug), `${s.slug}: no such track on ${s.album}`);
