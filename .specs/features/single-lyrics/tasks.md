@@ -89,10 +89,10 @@ T1 → T2 → T3 → T4 → T5
 
 **Done when**:
 
-- [ ] Fixture-based tests: URL `/discography/<single>/`, `single: true`, catalog code `<initials>-SINGLE`, cover/alt, prev/next null, no release page, `links[slug].page` = song URL
-- [ ] Each error alone throws its message (unknown single; missing lyrics)
-- [ ] Album songs unchanged (existing tests pass untouched)
-- [ ] Gate check passes: `npm run test:unit`
+- [x] Fixture-based tests: URL `/discography/<single>/`, `single: true`, catalog code `<initials>-SINGLE`, cover/alt, prev/next null, no release page, `links[slug].page` = song URL
+- [x] Each error alone throws its message (unknown single; missing lyrics)
+- [x] Album songs unchanged (existing tests pass untouched)
+- [x] Gate check passes: `npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
