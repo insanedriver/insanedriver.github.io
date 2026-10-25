@@ -119,27 +119,27 @@ Every album track has a song page with its lyrics, but the two original songs th
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| SLYR-01 | P1: Single lyrics page | T2, T3 | Implementing |
-| SLYR-02 | P1: Single lyrics page | T1, T4 | Implementing |
-| SLYR-03 | P1: Single lyrics page | T2 | Implementing |
-| SLYR-04 | P1: Single lyrics page | T2 | Implementing |
-| SLYR-05 | P1: Single lyrics page | T2, T3 | Implementing |
-| SLYR-06 | P1: Single lyrics page | T4 | Implementing |
-| SLYR-07 | P1: Single lyrics page | T4 | Implementing |
-| SLYR-08 | P1: Single lyrics page | T2, T4 | Implementing |
-| SLYR-09 | P1: Single lyrics page | T2, T4 | Implementing |
-| SLYR-10 | P1: Single lyrics page | T3, T4 | Implementing |
-| SLYR-11 | P1: Single lyrics page | T4 | Implementing |
-| SLYR-12 | P1: Single lyrics page | T2, T4 | Implementing |
-| SLYR-13 | P1: Search engines see a lyrics page | T5 | Implementing |
-| SLYR-14 | P1: Search engines see a lyrics page | T5 | Implementing |
-| SLYR-15 | P1: Search engines see a lyrics page | T5 | Implementing |
-| SLYR-16 | P1: Search engines see a lyrics page | T3, T5 | Implementing |
-| SLYR-17 | P1: Search engines see a lyrics page | T3 | Implementing |
-| SLYR-18 | P1: Search engines see a lyrics page | T3 | Implementing |
-| SLYR-19 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
-| SLYR-20 | P2: Lyrics files follow the catalog conventions | T1 | Implementing |
-| SLYR-21 | P2: Lyrics files follow the catalog conventions | T4 | Implementing |
+| SLYR-01 | P1: Single lyrics page | T2, T3 | Verified |
+| SLYR-02 | P1: Single lyrics page | T1, T4 | Verified |
+| SLYR-03 | P1: Single lyrics page | T2 | Verified |
+| SLYR-04 | P1: Single lyrics page | T2 | Verified |
+| SLYR-05 | P1: Single lyrics page | T2, T3 | Verified |
+| SLYR-06 | P1: Single lyrics page | T4 | Verified |
+| SLYR-07 | P1: Single lyrics page | T4 | Verified |
+| SLYR-08 | P1: Single lyrics page | T2, T4 | Verified |
+| SLYR-09 | P1: Single lyrics page | T2, T4 | Verified |
+| SLYR-10 | P1: Single lyrics page | T3, T4 | Verified |
+| SLYR-11 | P1: Single lyrics page | T4 | Verified |
+| SLYR-12 | P1: Single lyrics page | T2, T4 | Verified |
+| SLYR-13 | P1: Search engines see a lyrics page | T5 | Verified |
+| SLYR-14 | P1: Search engines see a lyrics page | T5 | Verified |
+| SLYR-15 | P1: Search engines see a lyrics page | T5 | Verified |
+| SLYR-16 | P1: Search engines see a lyrics page | T3, T5 | Verified |
+| SLYR-17 | P1: Search engines see a lyrics page | T3 | Verified |
+| SLYR-18 | P1: Search engines see a lyrics page | T3 | Verified |
+| SLYR-19 | P2: Lyrics files follow the catalog conventions | T1 | Verified |
+| SLYR-20 | P2: Lyrics files follow the catalog conventions | T1 | Verified |
+| SLYR-21 | P2: Lyrics files follow the catalog conventions | T4 | Verified |
 
 **Coverage:** 21 total, 21 mapped to tasks, 0 unmapped
 
