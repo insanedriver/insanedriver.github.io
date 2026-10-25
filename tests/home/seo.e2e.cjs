@@ -18,6 +18,6 @@ test('HOME-52: one MusicGroup JSON-LD describing the band with the footer profil
   expect(data.foundingDate).toBe('2013');
   expect(Array.isArray(data.genre) && data.genre.length > 0).toBe(true);
   expect(data.image).toBe('https://insanedriver.com.br/assets/images/home/hero-1280.jpg');
-  expect(footerUrls).toHaveLength(6);
+  expect(footerUrls).toHaveLength(7);
   expect(data.sameAs).toEqual(footerUrls);
 });
