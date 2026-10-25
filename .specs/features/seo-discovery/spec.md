@@ -198,6 +198,8 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 3. **IDX-03** — On `/discography/`, every tracklist row SHALL link to its song page.
 4. **IDX-04** — The existing `/discography/` tests (DISC-*) SHALL keep passing.
 
+> **Amended 2026-10-23 (`discography-hub`):** `/discography/` is now a hub of card links. IDX-01 holds as "every album card links to its release page" (HUB-02); IDX-02 holds on the single cards (HUB-07); IDX-03 moved with the tracklist to the release pages (REL-03); IDX-04 is superseded, since the DISC-* criteria for the old index were themselves superseded (see `discography-cyberpunk` A5).
+
 **Independent Test**: Open `/discography/`, click an album title, a single and a track row.
 
 ---
@@ -275,8 +277,8 @@ The site ranks first for "insane driver" but is invisible to people searching fo
 | REL-06 | P1: Release pages | T16 | Implementing |
 | IDX-01 | P2: Discography index | T20 | Implementing |
 | IDX-02 | P2: Discography index | T20 | Implementing |
-| IDX-03 | P2: Discography index | T20 | Implementing |
-| IDX-04 | P2: Discography index | T15, T20 | Implementing |
+| IDX-03 | P2: Discography index | discography-hub | Superseded (REL-03) |
+| IDX-04 | P2: Discography index | discography-hub | Superseded (see discography-cyberpunk A5) |
 | CRUMB-01 | P3: Breadcrumbs | T21 | Implementing |
 
 **Coverage:** 50 total, 50 mapped to tasks, 0 unmapped ✅

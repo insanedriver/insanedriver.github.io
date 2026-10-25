@@ -13,53 +13,34 @@ const songUrl = title => `/discography/${songAlbum(songSlug(title))}/${songSlug(
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 
-  test('IDX-01: every album title and cover links to the album release page', async ({ page }) => {
+  test('IDX-01: every album card links to the album release page', async ({ page }) => {
     await page.goto('/discography/');
     for (const album of catalog.albums) {
-      const card = page.locator(`#${album.slug}`);
-      const title = card.locator(`#disc-title-${album.slug} a`);
-      await expect(title).toHaveAttribute('href', `/discography/${album.slug}/`);
-      await expect(title).toHaveText(album.title);
-      const cover = card.locator('.disc-release-art a');
-      await expect(cover).toHaveAttribute('href', `/discography/${album.slug}/`);
-      await expect(cover.locator(`img[alt="${album.title} cover"]`)).toHaveCount(1);
+      const card = page.locator(`[data-disc-album="${album.slug}"]`);
+      await expect(card).toHaveAttribute('href', `/discography/${album.slug}/`);
+      await expect(card.locator('[data-disc-album-title]')).toHaveText(album.title);
+      await expect(card.locator(`img[alt="${album.title} cover"]`)).toHaveCount(1);
     }
-  });
-
-  test('IDX-04 / SONG-07 counterpart: the index platform buttons keep their own subtitles', async ({ page }) => {
-    await page.goto('/discography/');
-    await expect(page.locator('.cyber-link-sub', { hasText: 'Play the track' })).toHaveCount(0);
-    await expect(page.locator('.cyber-link-sub').first()).toBeVisible();
   });
 
   test('IDX-02: every single links to its release page, otherwise to its song page', async ({ page }) => {
     await page.goto('/discography/');
     for (const single of catalog.singles) {
       const expected = SINGLE_PAGES.includes(single.slug) ? `/discography/${single.slug}/` : songUrl(single.title);
-      const link = page.locator(`[data-disc-single="${single.slug}"] .disc-single-title a`);
+      const link = page.locator(`[data-disc-single="${single.slug}"]`);
       await expect(link, single.slug).toHaveAttribute('href', expected);
-      await expect(link).toHaveText(single.title);
+      await expect(link.locator('.disc-single-title')).toHaveText(single.title);
     }
   });
 
-  test('IDX-03: every tracklist row links to its song page', async ({ page }) => {
+  // IDX-03 (tracklist rows link to song pages) moved with the tracklist to the
+  // release pages; REL-03 in release.e2e.cjs covers it there.
+  test('IDX-01/03: following a card reaches the release page, and its tracklist the song page', async ({ page }) => {
     await page.goto('/discography/');
-    for (const album of catalog.albums) {
-      const hrefs = await page.locator(`[data-disc-tracklist="${album.slug}"] [data-disc-track] a`)
-        .evaluateAll(els => els.map(el => el.getAttribute('href')));
-      expect(hrefs).toEqual(album.tracks.map(t => songUrl(t.title)));
-    }
-  });
-
-  test('IDX-01/03: following the links reaches the release and song pages', async ({ page }) => {
-    await page.goto('/discography/');
-    await page.locator('#disc-title-silicon-fortress a').click();
-    await expect(page).toHaveURL(/\/discography\/silicon-fortress\/$/);
-    await expect(page.locator('h1')).toHaveText('Silicon Fortress');
-    await page.goto('/discography/');
-    const details = page.locator('[data-disc-tracklist="insane-driver"]');
-    await details.locator('summary').click();
-    await details.locator('a', { hasText: 'Buried Thoughts' }).click();
+    await page.locator('[data-disc-album="insane-driver"]').click();
+    await expect(page).toHaveURL(/\/discography\/insane-driver\/$/);
+    await expect(page.locator('h1')).toHaveText('Insane Driver');
+    await page.locator('[data-release-tracks] a', { hasText: 'Buried Thoughts' }).click();
     await expect(page).toHaveURL(/\/discography\/insane-driver\/buried-thoughts\/$/);
     await expect(page.locator('h1')).toHaveText('Buried Thoughts');
   });

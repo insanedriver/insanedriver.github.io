@@ -41,19 +41,19 @@ test('DISC-14: the panels escape the site-wide 56rem cap', async ({ page }) => {
   expect(width).toBeGreaterThan(900);
 });
 
-test('DISC-14: each release card stacks the cover above the buttons at 375px', async ({ page }) => {
+test('DISC-14: each release page stacks the cover above the buttons at 375px', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 720 });
-  await page.goto('/discography/');
   for (const album of catalog.albums) {
-    const art = await page.locator(`#${album.slug} .disc-release-art`).boundingBox();
-    const links = await page.locator(`#${album.slug} .disc-links`).first().boundingBox();
+    await page.goto(`/discography/${album.slug}/`);
+    const art = await page.locator('.disc-release-art').boundingBox();
+    const links = await page.locator('.disc-release .disc-links').first().boundingBox();
     expect(art.y + art.height).toBeLessThanOrEqual(links.y + 1);
     expect(Math.abs(art.x - links.x)).toBeLessThan(2);
   }
 });
 
-test('DISC-14: the page has no horizontal scroll at 375px or 1280px', async ({ page }) => {
-  for (const width of [375, 1280]) {
+test('HUB-21: the hub has no horizontal scroll at 375, 768, 992 or 1280px', async ({ page }) => {
+  for (const width of [375, 768, 992, 1280]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/discography/');
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -61,10 +61,74 @@ test('DISC-14: the page has no horizontal scroll at 375px or 1280px', async ({ p
   }
 });
 
-test('DISC-38: BUY CD reads differently from the streaming buttons', async ({ page }) => {
+const albumBoxes = page => page.locator('[data-disc-album]').evaluateAll(els => els.map(el => {
+  const r = el.getBoundingClientRect();
+  return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width) };
+}));
+
+test('HUB-05: the three album cards share one row from 992px', async ({ page }) => {
+  for (const width of [992, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/discography/');
+    const boxes = await albumBoxes(page);
+    expect(boxes).toHaveLength(3);
+    expect(new Set(boxes.map(b => b.y)).size, `${width}px`).toBe(1);
+    expect(boxes[0].x).toBeLessThan(boxes[1].x);
+    expect(boxes[1].x).toBeLessThan(boxes[2].x);
+  }
+});
+
+test('HUB-05: the album cards stack in one column below 992px', async ({ page }) => {
+  for (const width of [375, 991]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/discography/');
+    const boxes = await albumBoxes(page);
+    expect(new Set(boxes.map(b => b.x)).size, `${width}px`).toBe(1);
+    expect(boxes[0].y).toBeLessThan(boxes[1].y);
+    expect(boxes[1].y).toBeLessThan(boxes[2].y);
+  }
+});
+
+test('HUB-04: the card description is clamped to three lines', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/discography/');
-  const buy = page.locator('#silicon-fortress [data-disc-buy]');
-  const stream = page.locator('#silicon-fortress [data-disc-link="spotify"]');
+  const desc = page.locator('[data-disc-album="silicon-fortress"] [data-disc-album-description]');
+  await expect(desc).toHaveCSS('-webkit-line-clamp', '3');
+  await expect(desc).toHaveCSS('overflow', 'hidden');
+  // The Silicon Fortress copy runs past three lines at this width, so the clamp is what keeps it short.
+  const { height, scrollHeight, line } = await desc.evaluate(el => ({
+    height: el.getBoundingClientRect().height, scrollHeight: el.scrollHeight, line: parseFloat(getComputedStyle(el).lineHeight),
+  }));
+  expect(scrollHeight).toBeGreaterThan(height + 1);
+  expect(Math.round(height / line)).toBe(3);
+});
+
+test('HUB-09: at 375px at least two singles share a row', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/discography/');
+  const ys = await page.locator('[data-disc-single]').evaluateAll(els => els.slice(0, 2).map(el => Math.round(el.getBoundingClientRect().y)));
+  expect(ys[0]).toBe(ys[1]);
+});
+
+test('HUB-22: a focused card shows a visible outline', async ({ page }) => {
+  await page.goto('/discography/');
+  for (const sel of ['[data-disc-album="silicon-fortress"]', '[data-disc-single]']) {
+    const card = page.locator(sel).first();
+    await card.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(card).toBeFocused();
+    const ring = await card.evaluate(el => ({ style: getComputedStyle(el).outlineStyle, offset: parseFloat(getComputedStyle(el).outlineOffset) }));
+    expect(ring.style).not.toBe('none');
+    // The card is clip-pathed: a ring drawn outside it would be cut away.
+    expect(ring.offset).toBeLessThan(0);
+  }
+});
+
+test('DISC-38: BUY CD reads differently from the streaming buttons on the release page', async ({ page }) => {
+  await page.goto('/discography/silicon-fortress/');
+  const buy = page.locator('.disc-release [data-disc-buy]');
+  const stream = page.locator('.disc-release [data-disc-link="spotify"]');
   await expect(buy).toHaveCSS('background-color', 'rgb(252, 238, 10)');
   await expect(buy).toHaveCSS('color', 'rgb(5, 5, 5)');
   expect(await buy.evaluate(el => getComputedStyle(el).backgroundColor))
@@ -85,29 +149,7 @@ test('DISC-10: the shell is clipped, not scrollable', async ({ page }) => {
   expect(scrollable && canScroll > 0).toBe(false);
 });
 
-test('DISC-10: following an index anchor scrolls the page and leaves the header reachable', async ({ page }) => {
-  await page.goto('/discography/');
-  await page.locator('[data-disc-index-link="insane-driver"]').click();
-
-  const afterJump = await page.evaluate(() => ({
-    pageY: Math.round(window.scrollY),
-    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
-    cardTop: Math.round(document.querySelector('#insane-driver').getBoundingClientRect().top),
-  }));
-  expect(afterJump.pageY).toBeGreaterThan(0);
-  expect(afterJump.shellScrollTop).toBe(0);
-  expect(Math.abs(afterJump.cardTop)).toBeLessThan(80);
-
-  await page.evaluate(() => window.scrollTo(0, 0));
-  const backAtTop = await page.evaluate(() => ({
-    pageY: Math.round(window.scrollY),
-    shellScrollTop: document.querySelector('.disc-shell').scrollTop,
-    navVisible: document.querySelector('nav.navbar').getBoundingClientRect().bottom > 0,
-    indexTop: Math.round(document.querySelector('.disc-index').getBoundingClientRect().top),
-  }));
-  expect(backAtTop).toMatchObject({ pageY: 0, shellScrollTop: 0, navVisible: true });
-  expect(backAtTop.indexTop).toBeGreaterThan(0);
-});
+// DISC-10's anchor-jump check retired with the index anchors (discography-hub HUB-11).
 
 test('DISC-14: the shell fills the viewport on a wide screen, like the band page', async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1000 });

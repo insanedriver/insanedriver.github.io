@@ -214,6 +214,7 @@ Recorded after the independent verification of 2026-09-20, which found the spec 
 | A3 | DISC-47 (new) | The shell spans the full viewport instead of a 1180px cap | Copied from the videos page, whose content is a fixed-ratio player. The band page - the reference for this layout - is full-bleed, and on a wide monitor the cap wasted the space the user asked to use |
 | A4 | DISC-48 (new) | The shell is clipped rather than scroll-hidden, so an index anchor scrolls the page | `overflow: hidden` made the shell a scroll container: following a DISC::INDEX anchor scrolled the container, and with no scrollbar nothing could scroll it back, stranding the header and the top of the catalog for the rest of the visit |
 | A2 | DISC-46 | A URL that cannot be checked at all - not only one answering non-2xx/3xx - ships as `null` | Pandora is geo-blocked from Brazil, so its URLs were never verifiable. The broader rule is what was actually applied, and `design.md` already stated it |
+| A5 | DISC-01..07, 09, 10, 15..45, 48 | Superseded by `discography-hub` (2026-10-23): `/discography/` is now a hub of card links, and the listening, preview, BUY CD and tracking criteria hold on the release pages instead. Moved to the release pages: DISC-02..07 (REL-04 + DISC-05/06 tests), DISC-21..28 and DISC-44 (HUB-13/15; DISC-24 retired, a release page has one preview), DISC-35..38 (HUB-12/14), DISC-39..42 (HUB-16). Replaced on the hub: DISC-01 (HUB-01), DISC-09 (HUB-10), DISC-10/48 anchor jump (HUB-11; the clipped shell stays), DISC-15..18 (HUB-06), DISC-19 (HUB-07), DISC-20 (HUB-08/14), DISC-29/30 (REL-03 on the release pages), DISC-31/32 (HUB-17/18), DISC-33/34 (HUB-19), DISC-45 (REL-04; the singles disclosure is gone). Unchanged: DISC-08, 11..14, 43, 46, 47 | The index duplicated the release pages; the user chose to make it a bridge to them |
 
 ---
 
@@ -221,54 +222,54 @@ Recorded after the independent verification of 2026-09-20, which found the spec 
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| DISC-01 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-02 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-03 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-04 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-05 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-06 | P1: Listen on your own platform | Execute | Implementing |
-| DISC-07 | P1: Listen on your own platform | Execute | Implementing |
+| DISC-01 | P1: Listen on your own platform | discography-hub | Superseded (HUB-01, see A5) |
+| DISC-02 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
+| DISC-03 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
+| DISC-04 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
+| DISC-05 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
+| DISC-06 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
+| DISC-07 | P1: Listen on your own platform | discography-hub | Superseded (release pages, see A5) |
 | DISC-08 | P1: One system, one look | Execute | Implementing |
-| DISC-09 | P1: One system, one look | Execute | Implementing |
-| DISC-10 | P1: One system, one look | Execute | Implementing |
+| DISC-09 | P1: One system, one look | discography-hub | Superseded (HUB-10, see A5) |
+| DISC-10 | P1: One system, one look | discography-hub | Superseded (HUB-11, see A5) |
 | DISC-11 | P1: One system, one look | Execute | Implementing |
 | DISC-12 | P1: One system, one look | Execute | Implementing |
 | DISC-13 | P1: One system, one look | Execute | Implementing |
 | DISC-14 | P1: One system, one look | Execute | Implementing |
-| DISC-15 | P2: See the whole catalog | Execute | Implementing |
-| DISC-16 | P2: See the whole catalog | Execute | Implementing |
-| DISC-17 | P2: See the whole catalog | Execute | Implementing |
-| DISC-18 | P2: See the whole catalog | Execute | Implementing |
-| DISC-19 | P2: See the whole catalog | Execute | Implementing |
-| DISC-20 | P2: See the whole catalog | Execute | Implementing |
-| DISC-21 | P2: Preview before leaving | Execute | Implementing |
-| DISC-22 | P2: Preview before leaving | Execute | Implementing |
-| DISC-23 | P2: Preview before leaving | Execute | Implementing |
-| DISC-24 | P2: Preview before leaving | Execute | Implementing |
-| DISC-25 | P2: Preview before leaving | Execute | Implementing |
-| DISC-26 | P2: Preview before leaving | Execute | Implementing |
-| DISC-27 | P2: Preview before leaving | Execute | Implementing |
-| DISC-28 | P2: Preview before leaving | Execute | Implementing |
-| DISC-29 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-30 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-31 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-32 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-33 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-34 | P2: Tracklist and structured data | Execute | Implementing |
-| DISC-35 | P2: Buy the physical record | Execute | Implementing |
-| DISC-36 | P2: Buy the physical record | Execute | Implementing |
-| DISC-37 | P2: Buy the physical record | Execute | Implementing |
-| DISC-38 | P2: Buy the physical record | Execute | Implementing |
-| DISC-39 | P3: Know what converts | Execute | Implementing |
-| DISC-40 | P3: Know what converts | Execute | Implementing |
-| DISC-41 | P3: Know what converts | Execute | Implementing |
-| DISC-42 | P3: Know what converts | Execute | Implementing |
+| DISC-15 | P2: See the whole catalog | discography-hub | Superseded (HUB-06, see A5) |
+| DISC-16 | P2: See the whole catalog | discography-hub | Superseded (HUB-06, see A5) |
+| DISC-17 | P2: See the whole catalog | discography-hub | Superseded (HUB-06, see A5) |
+| DISC-18 | P2: See the whole catalog | discography-hub | Superseded (HUB-06, see A5) |
+| DISC-19 | P2: See the whole catalog | discography-hub | Superseded (HUB-07, see A5) |
+| DISC-20 | P2: See the whole catalog | discography-hub | Superseded (HUB-08/14, see A5) |
+| DISC-21 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-22 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-23 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-24 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-25 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-26 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-27 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-28 | P2: Preview before leaving | discography-hub | Superseded (HUB-13/15, see A5) |
+| DISC-29 | P2: Tracklist and structured data | discography-hub | Superseded (REL-03, see A5) |
+| DISC-30 | P2: Tracklist and structured data | discography-hub | Superseded (REL-03, see A5) |
+| DISC-31 | P2: Tracklist and structured data | discography-hub | Superseded (HUB-17/18, see A5) |
+| DISC-32 | P2: Tracklist and structured data | discography-hub | Superseded (HUB-17/18, see A5) |
+| DISC-33 | P2: Tracklist and structured data | discography-hub | Superseded (HUB-19, see A5) |
+| DISC-34 | P2: Tracklist and structured data | discography-hub | Superseded (HUB-19, see A5) |
+| DISC-35 | P2: Buy the physical record | discography-hub | Superseded (HUB-12/14, see A5) |
+| DISC-36 | P2: Buy the physical record | discography-hub | Superseded (HUB-12/14, see A5) |
+| DISC-37 | P2: Buy the physical record | discography-hub | Superseded (HUB-12/14, see A5) |
+| DISC-38 | P2: Buy the physical record | discography-hub | Superseded (HUB-12/14, see A5) |
+| DISC-39 | P3: Know what converts | discography-hub | Superseded (HUB-16, see A5) |
+| DISC-40 | P3: Know what converts | discography-hub | Superseded (HUB-16, see A5) |
+| DISC-41 | P3: Know what converts | discography-hub | Superseded (HUB-16, see A5) |
+| DISC-42 | P3: Know what converts | discography-hub | Superseded (HUB-16, see A5) |
 | DISC-43 | Edge: data integrity (slug/title/year/cover/type, unique slug, cover exists, known platform keys, valid duration) | Execute | Implementing |
-| DISC-44 | Edge: embed failure leaves links usable | Execute | Implementing |
-| DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | Execute | Implementing |
+| DISC-44 | Edge: embed failure leaves links usable | discography-hub | Superseded (HUB-15, see A5) |
+| DISC-45 | Edge: sparse link grid and <=6 singles render without empty containers | discography-hub | Superseded (REL-04, see A5) |
 | DISC-46 | Edge: authoring-time link check nulls unverifiable URLs | Execute | Implementing |
 | DISC-47 | P1: One system, one look (AC 8, full-bleed width) | Execute | Implementing |
-| DISC-48 | P1: One system, one look (AC 9, anchors scroll the page) | Execute | Implementing |
+| DISC-48 | P1: One system, one look (AC 9, anchors scroll the page) | discography-hub | Superseded (HUB-11, see A5) |
 
 **ID mapping:** DISC-01..07 = P1 "Listen on your own platform" ACs 1-7; DISC-08..14 = P1 "One system, one look" ACs 1-7; DISC-47..48 = that story's ACs 8-9; DISC-15..20 = P2 "See the whole catalog" ACs 1-6; DISC-21..28 = P2 "Preview before leaving" ACs 1-8; DISC-29..34 = P2 "Tracklist and structured data" ACs 1-6; DISC-35..38 = P2 "Buy the physical record" ACs 1-4; DISC-39..42 = P3 "Know what converts" ACs 1-4; DISC-43..46 = Edge Cases.
 

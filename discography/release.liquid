@@ -19,6 +19,8 @@ eleventyComputed:
 ---
 {%- assign is_album = false -%}
 {%- if release.type != 'SINGLE' -%}{%- assign is_album = true -%}{%- endif -%}
+{%- for r in discography.albums -%}{%- if r.slug == release.slug -%}{%- assign source = r -%}{%- endif -%}{%- endfor -%}
+{%- for r in discography.singles -%}{%- if r.slug == release.slug -%}{%- assign source = r -%}{%- endif -%}{%- endfor -%}
 <div class="disc-shell disc-page cyber-zone" data-disc>
     <div class="cyber-zone-inner">
 
@@ -47,6 +49,17 @@ eleventyComputed:
             {% endif %}{% endfor %}{% endif %}
 
             {% include 'discography/links' %}
+
+            {% if source.buyCd %}
+            <a class="disc-buy" href="{{ source.buyCd }}" data-disc-buy="{{ release.slug }}"><i class="fa fa-shopping-cart"></i> BUY CD</a>
+            {% endif %}
+
+            {% if source.spotifyId %}
+            <button type="button" class="disc-preview-btn" data-disc-preview-btn="{{ release.slug }}" data-disc-spotify-id="{{ source.spotifyId }}" aria-expanded="false" aria-controls="disc-preview-{{ release.slug }}" hidden>
+                <i class="fa fa-play-circle" aria-hidden="true"></i> PREVIEW
+            </button>
+            <div class="disc-preview" id="disc-preview-{{ release.slug }}" data-disc-preview="{{ release.slug }}"></div>
+            {% endif %}
 
             {% if is_album %}
             <section class="disc-tracklist disc-tracklist--page" aria-labelledby="release-tracks-title">
