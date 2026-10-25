@@ -168,10 +168,10 @@ T1 → T2 → T3 → T4 → T5
 
 **Done when**:
 
-- [ ] New `tests/seo/single-song.e2e.cjs` covers SLYR-13/15/16 on both pages
-- [ ] Unit test renders the `page_description` expression for a single without `about` (SLYR-14)
-- [ ] `song.e2e.cjs` and `breadcrumbs.e2e.cjs` still pass
-- [ ] Gate check passes: build gate
+- [x] New `tests/seo/single-song.e2e.cjs` covers SLYR-13/15/16 on both pages
+- [x] Unit test renders the `page_description` expression for a single without `about` (SLYR-14)
+- [x] `song.e2e.cjs` and `breadcrumbs.e2e.cjs` still pass
+- [x] Gate check passes: build gate
 
 **Tests**: e2e
 **Gate**: build

@@ -131,9 +131,9 @@ Every album track has a song page with its lyrics, but the two original songs th
 | SLYR-10 | P1: Single lyrics page | T3, T4 | Implementing |
 | SLYR-11 | P1: Single lyrics page | T4 | Implementing |
 | SLYR-12 | P1: Single lyrics page | T2, T4 | Implementing |
-| SLYR-13 | P1: Search engines see a lyrics page | T5 | In Tasks |
-| SLYR-14 | P1: Search engines see a lyrics page | T5 | In Tasks |
-| SLYR-15 | P1: Search engines see a lyrics page | T5 | In Tasks |
+| SLYR-13 | P1: Search engines see a lyrics page | T5 | Implementing |
+| SLYR-14 | P1: Search engines see a lyrics page | T5 | Implementing |
+| SLYR-15 | P1: Search engines see a lyrics page | T5 | Implementing |
 | SLYR-16 | P1: Search engines see a lyrics page | T3, T5 | Implementing |
 | SLYR-17 | P1: Search engines see a lyrics page | T3 | Implementing |
 | SLYR-18 | P1: Search engines see a lyrics page | T3 | Implementing |
