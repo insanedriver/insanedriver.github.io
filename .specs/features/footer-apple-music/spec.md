@@ -44,7 +44,7 @@ The footer links to Spotify and Bandcamp but not to Apple Music, although the ba
 **Acceptance Criteria**:
 
 1. FOOT-01: The footer SHALL render 7 social links in the order Spotify, Apple Music, YouTube, Instagram, Facebook, Twitter, Bandcamp.  <!-- ubiquitous -->
-2. FOOT-02: The Apple Music footer link SHALL have `href="https://music.apple.com/br/artist/insane-driver/1058331029?l=en"`, `target="_blank"` and `title="Insane Driver on Apple Music"`.  <!-- ubiquitous -->
+2. FOOT-02: The Apple Music footer link SHALL have `href="https://music.apple.com/br/artist/insane-driver/1058331029?l=en"`, `target="_blank"`, `title="Insane Driver on Apple Music"` and the hidden text `Insane Driver on Apple Music`.  <!-- ubiquitous -->
 3. FOOT-03: The Apple Music footer link SHALL show a visible `fa-apple` icon.  <!-- ubiquitous -->
 4. FOOT-04: The `MusicGroup` JSON-LD `sameAs` SHALL equal the footer link list, Apple Music included, in footer order.  <!-- ubiquitous -->
 5. FOOT-05: WHEN the viewport is 320px wide THEN the footer SHALL add no horizontal overflow with the 7 links.  <!-- event-driven -->

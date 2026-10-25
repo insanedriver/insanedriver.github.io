@@ -40,6 +40,7 @@ for (const url of ['/', '/band/']) {
       const apple = page.locator('.footer-social a').nth(1);
       await expect(apple).toHaveAttribute('target', '_blank');
       await expect(apple).toHaveAttribute('title', 'Insane Driver on Apple Music');
+      await expect(apple.locator('.social-text')).toHaveText('Insane Driver on Apple Music');
       await expect(apple.locator('i.fa-apple')).toBeVisible();
       // The footer adds no horizontal overflow: it fits the viewport and so does every social link.
       // (/band/ has an older overflow from its .band-container row, outside the footer.)
