@@ -27,7 +27,7 @@ No `tasks.md` (Small feature, Tasks phase skipped; spec maps all 5 ACs to a sing
 | FOOT-02 | href `https://music.apple.com/br/artist/insane-driver/1058331029?l=en`, `target="_blank"`, `title="Insane Driver on Apple Music"` | href: `tests/seo/identity.e2e.cjs:35` (2nd element of `SAME_AS`, `:5`); target: `:41` - `toHaveAttribute('target', '_blank')`; title: `:42` - `toHaveAttribute('title', 'Insane Driver on Apple Music')` on `.footer-social a` nth(1) | ✅ PASS |
 | FOOT-03 | visible `fa-apple` icon | `tests/seo/identity.e2e.cjs:43` - `expect(apple.locator('i.fa-apple')).toBeVisible()` | ✅ PASS |
 | FOOT-04 | `sameAs` equals the footer list, Apple Music included, in footer order | `tests/home/seo.e2e.cjs:22` - `expect(data.sameAs).toEqual(footerUrls)` (footer URLs parsed from `social.liquid`, order-sensitive, on `/`); `tests/seo/identity.e2e.cjs:28` - `expect(group.sameAs).toContain(profile)` for all 7 on `/` and `/band/` (same include) | ✅ PASS |
-| FOOT-05 | 320px viewport: footer adds no horizontal overflow with 7 links | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:61` - `expect(fit).toEqual({ footer: 0, footerRight: expect.any(Number), links: [] })`; `:62` - `expect(fit.footerRight).toBeLessThanOrEqual(0.5)` | ✅ PASS |
+| FOOT-05 | 320px viewport: footer adds no horizontal overflow with 7 links | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:62` - `expect(fit).toEqual({ footer: 0, footerRight: expect.any(Number), links: [] })`; `:63` - `expect(fit.footerRight).toBeLessThanOrEqual(0.5)` | ✅ PASS |
 | FOOT-06 | 320px viewport: the 7 links sit on a single row | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:49` - `expect(rows.spread).toBeLessThan(rows.half)` (top spread across links < half a link height) | ✅ PASS |
 
 **Status**: ✅ 5/5 ACs covered, asserted values match spec outcomes. One non-blocking spec-precision note (hidden text, see below).
@@ -78,7 +78,7 @@ Isolation: real tree `git status --porcelain` captured before the sensor and dif
 
 ## Edge Cases
 
-- [x] 320px viewport: footer fits (FOOT-05, `tests/seo/identity.e2e.cjs:61-62`; M9 killed)
+- [x] 320px viewport: footer fits (FOOT-05, `tests/seo/identity.e2e.cjs:62-63`; M9 killed)
 
 ---
 
