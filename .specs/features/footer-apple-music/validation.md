@@ -2,7 +2,7 @@
 
 **Date**: 2026-10-25
 **Spec**: `.specs/features/footer-apple-music/spec.md`
-**Diff range**: `master..feature/footer-apple-music` (13a2ee5..817b46c, 1 commit)
+**Diff range**: `master..feature/footer-apple-music` (13a2ee5..HEAD; FOOT-06 added after PR #53 review)
 **Verifier**: independent sub-agent (author ≠ verifier)
 
 **Verdict**: PASS ✅
@@ -27,7 +27,8 @@ No `tasks.md` (Small feature, Tasks phase skipped; spec maps all 5 ACs to a sing
 | FOOT-02 | href `https://music.apple.com/br/artist/insane-driver/1058331029?l=en`, `target="_blank"`, `title="Insane Driver on Apple Music"` | href: `tests/seo/identity.e2e.cjs:35` (2nd element of `SAME_AS`, `:5`); target: `:41` - `toHaveAttribute('target', '_blank')`; title: `:42` - `toHaveAttribute('title', 'Insane Driver on Apple Music')` on `.footer-social a` nth(1) | ✅ PASS |
 | FOOT-03 | visible `fa-apple` icon | `tests/seo/identity.e2e.cjs:43` - `expect(apple.locator('i.fa-apple')).toBeVisible()` | ✅ PASS |
 | FOOT-04 | `sameAs` equals the footer list, Apple Music included, in footer order | `tests/home/seo.e2e.cjs:22` - `expect(data.sameAs).toEqual(footerUrls)` (footer URLs parsed from `social.liquid`, order-sensitive, on `/`); `tests/seo/identity.e2e.cjs:28` - `expect(group.sameAs).toContain(profile)` for all 7 on `/` and `/band/` (same include) | ✅ PASS |
-| FOOT-05 | 320px viewport: footer adds no horizontal overflow with 7 links | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:55` - `expect(fit).toEqual({ footer: 0, footerRight: expect.any(Number), links: [] })`; `:56` - `expect(fit.footerRight).toBeLessThanOrEqual(0.5)` | ✅ PASS |
+| FOOT-05 | 320px viewport: footer adds no horizontal overflow with 7 links | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:61` - `expect(fit).toEqual({ footer: 0, footerRight: expect.any(Number), links: [] })`; `:62` - `expect(fit.footerRight).toBeLessThanOrEqual(0.5)` | ✅ PASS |
+| FOOT-06 | 320px viewport: the 7 links sit on a single row | `tests/seo/identity.e2e.cjs:32` 320px viewport; `:49` - `expect(rows.spread).toBeLessThan(rows.half)` (top spread across links < half a link height) | ✅ PASS |
 
 **Status**: ✅ 5/5 ACs covered, asserted values match spec outcomes. One non-blocking spec-precision note (hidden text, see below).
 
@@ -51,9 +52,10 @@ Scratch: `git worktree add --detach <scratchpad>/wt 817b46c`, `node_modules` sym
 | M10 | `_includes/seo/music-group.liquid:14` | removed Apple Music from `sameAs` | HOME-52, GEN-01/02/03 `/`, `/band/` (3 fail) | ✅ Killed |
 | M11 | `_includes/seo/music-group.liquid:14-15` | swapped Apple Music and YouTube in `sameAs` | HOME-52 (1 fail) | ✅ Killed |
 | M12 | `_includes/footer/social.liquid:10` | removed hidden `<span class="social-text">Insane Driver on Apple Music</span>` | none (9 pass) | ⚠️ Survived in pass 1. Fixed: FOOT-02 now names the hidden text, and `tests/seo/identity.e2e.cjs:43` `expect(apple.locator('.social-text')).toHaveText('Insane Driver on Apple Music')`. Re-run: ✅ Killed (2 fail) |
+| M13 | `less/footer.less` | removed the mobile 4px side padding (back to Bootstrap's 12px) | FOOT-06 on `/` and `/band/` (spread 43.5 ≥ 21.5) | ✅ Killed (2 fail) |
 
 **Sensor depth**: lightweight+ (12 mutations; feature is not P0)
-**Result**: 12/12 killed after the M12 fix - PASS ✅
+**Result**: 13/13 killed (M12 after its fix; M13 is the pre-fix tree of FOOT-06) - PASS ✅
 
 Isolation: real tree `git status --porcelain` captured before the sensor and diffed after worktree removal - identical (only the pre-existing untracked tool dirs). `git worktree list` shows only the main tree.
 
@@ -76,7 +78,7 @@ Isolation: real tree `git status --porcelain` captured before the sensor and dif
 
 ## Edge Cases
 
-- [x] 320px viewport: footer fits (FOOT-05, `tests/seo/identity.e2e.cjs:55-56`; M9 killed)
+- [x] 320px viewport: footer fits (FOOT-05, `tests/seo/identity.e2e.cjs:61-62`; M9 killed)
 
 ---
 
@@ -105,6 +107,7 @@ Isolation: real tree `git status --porcelain` captured before the sensor and dif
 | FOOT-03 | Implemented | ✅ Verified |
 | FOOT-04 | Implemented | ✅ Verified |
 | FOOT-05 | Implemented | ✅ Verified |
+| FOOT-06 | Implemented | ✅ Verified |
 
 ---
 
@@ -113,5 +116,5 @@ Isolation: real tree `git status --porcelain` captured before the sensor and dif
 **Overall**: ✅ Ready
 
 **Spec-anchored check**: 5/5 ACs matched spec outcome; 1 non-blocking spec-precision note (hidden text not in any AC)
-**Sensor**: 12 injected, 12 killed (M12 killed after the fix)
+**Sensor**: 13 injected, 13 killed (M12 after its fix)
 **Gate**: unit 232/232; in-scope e2e 9/9; full e2e 702/703 with 1 pre-existing unrelated failure (PS2-23)

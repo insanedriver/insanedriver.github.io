@@ -28,7 +28,7 @@ for (const url of ['/', '/band/']) {
       for (const profile of SAME_AS) expect(group.sameAs).toContain(profile);
     });
 
-    test(`footer on ${url}: Apple Music second, Bandcamp last, footer fits 320px`, async ({ page }) => {
+    test(`footer on ${url}: Apple Music second, Bandcamp last, one row at 320px`, async ({ page }) => {
       await page.setViewportSize({ width: 320, height: 800 });
       await page.goto(url, { waitUntil: 'load' });
       const hrefs = await page.locator('.footer-social a').evaluateAll(els => els.map(el => el.getAttribute('href')));
@@ -41,6 +41,12 @@ for (const url of ['/', '/band/']) {
       await expect(apple).toHaveAttribute('target', '_blank');
       await expect(apple).toHaveAttribute('title', 'Insane Driver on Apple Music');
       await expect(apple.locator('.social-text')).toHaveText('Insane Driver on Apple Music');
+      // One row: every link starts less than half a link height below the first (the Bandcamp SVG sits 0.5px lower).
+      const rows = await page.locator('.footer-social a').evaluateAll(els => {
+        const boxes = els.map(el => el.getBoundingClientRect());
+        return { spread: Math.max(...boxes.map(b => b.top)) - Math.min(...boxes.map(b => b.top)), half: boxes[0].height / 2 };
+      });
+      expect(rows.spread).toBeLessThan(rows.half);
       await expect(apple.locator('i.fa-apple')).toBeVisible();
       // The footer adds no horizontal overflow: it fits the viewport and so does every social link.
       // (/band/ has an older overflow from its .band-container row, outside the footer.)
