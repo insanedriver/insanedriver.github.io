@@ -312,6 +312,12 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md HUB-07 / M6b (spec-writing)
 - last seen: 2026-10-24T01:27:22Z
 
+### L-051 - Lift every confirmed Assumptions-table value into an acceptance criterion so it gets an assertion
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `spec` · harmful: 0
+- features: footer-apple-music
+- evidence: validation.md M12 / _includes/footer/social.liquid:10 (spec)
+- last seen: 2026-10-25T21:04:59Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.
