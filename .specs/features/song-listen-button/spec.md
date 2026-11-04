@@ -60,9 +60,9 @@ Adding `:not(.disc-buy)` to `#page_discography .disc-page a:not(.cyber-link-btn)
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| SLBTN-01 | P1: Readable Listen Now and Quick Play buttons | Execute | Implemented |
-| SLBTN-02 | P1: Readable Listen Now and Quick Play buttons | Execute | Implemented |
-| SLBTN-03 | P1: Readable Listen Now and Quick Play buttons | Execute | Implemented |
+| SLBTN-01 | P1: Readable Listen Now and Quick Play buttons | Execute | Verified |
+| SLBTN-02 | P1: Readable Listen Now and Quick Play buttons | Execute | Verified |
+| SLBTN-03 | P1: Readable Listen Now and Quick Play buttons | Execute | Verified |
 
 **Coverage:** 3 total, 3 mapped to Execute, 0 unmapped
 
