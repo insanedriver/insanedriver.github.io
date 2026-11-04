@@ -611,7 +611,7 @@ const roundedIn = page => page.evaluate(sel => {
   return out;
 }, SCOPES);
 
-test('NOVID-14: LISTEN NOW looks like QUICK PLAY', async ({ page }) => {
+test('NOVID-14/SLBTN-01..03: LISTEN NOW and QUICK PLAY show dark text at rest and on hover/focus while prose links stay cyan/magenta', async ({ page }) => {
   const look = sel => page.locator(sel).evaluate(el => {
     const cs = getComputedStyle(el);
     return [cs.backgroundColor, cs.color, cs.clipPath];
@@ -621,8 +621,34 @@ test('NOVID-14: LISTEN NOW looks like QUICK PLAY', async ({ page }) => {
   await page.goto(FACELESS.url);
   const listen = await look('[data-song-listen]');
   expect(quick[0]).toBe('rgb(0, 243, 255)');
+  expect(quick[1]).toBe('rgb(3, 8, 14)');
   expect(quick[2]).not.toBe('none');
   expect(listen).toEqual(quick);
+
+  for (const [url, sel] of [
+    [KEEP_AWAY.url, '[data-song-quickplay]'],
+    [FACELESS.url, '[data-song-listen]'],
+    ['/discography/waiting-for-you/', '[data-song-listen]'],
+  ]) {
+    await page.goto(url);
+    const btn = page.locator(sel);
+    await expect(btn).toHaveCSS('background-color', 'rgb(0, 243, 255)');
+    await expect(btn).toHaveCSS('color', 'rgb(3, 8, 14)');
+    await btn.focus();
+    await expect(btn).toHaveCSS('background-color', 'rgb(252, 238, 10)');
+    await expect(btn).toHaveCSS('color', 'rgb(3, 8, 14)');
+    await btn.evaluate(el => el.blur());
+    await btn.hover();
+    await expect(btn).toHaveCSS('background-color', 'rgb(252, 238, 10)');
+    await expect(btn).toHaveCSS('color', 'rgb(3, 8, 14)');
+  }
+
+  // SLBTN-03: prose links inside .disc-page keep cyan at rest and magenta on hover.
+  await page.goto(FACELESS.url);
+  const albumLink = page.locator('[data-song-album]');
+  await expect(albumLink).toHaveCSS('color', 'rgb(0, 243, 255)');
+  await albumLink.hover();
+  await expect(albumLink).toHaveCSS('color', 'rgb(255, 0, 234)');
 });
 
 test('NOVID-21: the lyrics bento has the HUD finish (BENTO-36/37/40/41)', async ({ page }) => {

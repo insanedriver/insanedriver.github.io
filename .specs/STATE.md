@@ -20,8 +20,8 @@
 
 ## Handoff
 
-- **Feature**: single-lyrics (Waiting for You and The Sun Will Rise become lyrics bento song pages at `/discography/<slug>/`; `songs.json` entries may name a `single` instead of an `album`; lyrics in `_data/lyrics/singles/`)
-- **Phase / Task**: Complete. T1-T5 plus the Verifier cosmetic follow-up; range `master..feature/single-lyrics`, branched from `master` at `755cafc`.
-- **Verification**: Verifier PASS on iteration 1. 21/21 ACs Verified. Unit 232/232, scoped e2e 329/329; sensor 12 mutants, 11 killed, 1 equivalent. No lessons recorded.
+- **Feature**: song-listen-button (exclude `.song-bento-quickplay` from `.disc-page a:not(...)` link colors so `Listen now` and `Quick play` render `#03080e` text on `#00f3ff` at rest and on `#fcee0a` on hover/focus)
+- **Phase / Task**: Complete. Branch `fix/song-listen-button`, branched from `master` at `1d3176d`.
+- **Verification**: Verifier PASS on iteration 1. 3/3 ACs Verified. Unit 232/232, scoped e2e 115/115 (`song-bento` + `single-lyrics`) and 28/28 (`theme` + `single-lyrics`); sensor 6/6 mutants killed. No lessons recorded.
 - **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` viewer) fails every run in this environment.
-- **Next**: the user reviews the Portuguese translations and the two `about` texts, then pushes `feature/single-lyrics` and opens its PR against `master`.
+- **Next**: push `fix/song-listen-button` and open its PR against `master` (or merge into `master`).
