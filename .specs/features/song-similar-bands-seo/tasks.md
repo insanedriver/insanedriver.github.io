@@ -58,7 +58,7 @@
 
 ### T4: Update `_includes/seo/fans-of.liquid` for song, release, and fallback
 
-**Status**: pending
+**Status**: done
 **Where**: `_includes/seo/fans-of.liquid`
 **Depends on**: T3
 **Tests**: `tests/discography/seo-similar-bands.e2e.cjs` (verified in T8)
