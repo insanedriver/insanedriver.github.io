@@ -1,0 +1,461 @@
+{
+  "endless-path": {
+    "primaryGenre": "Progressive Metal",
+    "secondaryGenre": "Power Ballad",
+    "bands": [
+      {
+        "name": "Dream Theater",
+        "era": "Groove/Prog",
+        "referenceTracks": "Pull Me Under, Another Day",
+        "score": 0.82,
+        "justification": "Progressive metal uniting an atmospheric intro, syncopated heavy riffs, and a memorable chorus."
+      },
+      {
+        "name": "Metallica",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Nothing Else Matters, Sad But True",
+        "score": 0.74,
+        "justification": "Introspective acoustic arpeggios, sweeping dynamic build, and emotionally charged solo."
+      }
+    ]
+  },
+  "the-edge-of-life": {
+    "primaryGenre": "Metalcore",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Killswitch Engage",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "The End of Heartache, My Curse",
+        "score": 0.81,
+        "justification": "Dense walls of guitar, modern melodic weight, and cathartic vocal delivery."
+      },
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.76,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      }
+    ]
+  },
+  "firstly-my-breakfast": {
+    "primaryGenre": "Hard Rock",
+    "secondaryGenre": "Groove Metal",
+    "bands": [
+      {
+        "name": "Slash feat. Myles Kennedy",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "World on Fire, Anastasia",
+        "score": 0.82,
+        "justification": "High-octane hard rock with fiery pentatonic riffing, loose groove, and soaring vocals."
+      },
+      {
+        "name": "Pantera",
+        "era": "Groove/Prog",
+        "referenceTracks": "Cowboys from Hell, Walk",
+        "score": 0.74,
+        "justification": "Technical aggressive main riff, tight rhythm section, and high-octane shredding solo."
+      }
+    ]
+  },
+  "tide-of-fears": {
+    "primaryGenre": "Post-Grunge",
+    "secondaryGenre": "Heavy Metal",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.83,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      },
+      {
+        "name": "Stone Sour",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Absolute Zero, Through Glass",
+        "score": 0.78,
+        "justification": "Heavy alternative hard/metal riff with punchy groove and dense melodic chorus."
+      }
+    ]
+  },
+  "buried-thoughts": {
+    "primaryGenre": "Heavy Metal",
+    "secondaryGenre": "Metalcore",
+    "bands": [
+      {
+        "name": "Avenged Sevenfold",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Nightmare, Hail to the King",
+        "score": 0.82,
+        "justification": "Intense modern metal with heavy riffs, relentless drumming, and dramatic atmosphere."
+      },
+      {
+        "name": "Metallica",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Enter Sandman, Sad But True",
+        "score": 0.77,
+        "justification": "Hypnotic heavy main riff, massive drum groove, and punchy heavy metal production."
+      }
+    ]
+  },
+  "fallen-dreams": {
+    "primaryGenre": "Power Ballad",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Blackbird, Isolation",
+        "score": 0.81,
+        "justification": "Clean atmospheric build evolving into walls of guitar and deeply emotional melodic solos."
+      },
+      {
+        "name": "Creed",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "One Last Breath, Higher",
+        "score": 0.79,
+        "justification": "Clean melodic fingerpicking that swells into a dramatic power ballad on the edge."
+      }
+    ]
+  },
+  "change": {
+    "primaryGenre": "Groove Metal",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Pantera",
+        "era": "Groove/Prog",
+        "referenceTracks": "Cowboys from Hell, Walk",
+        "score": 0.83,
+        "justification": "Technical aggressive main riff, tight rhythm section, and high-octane shredding solo."
+      },
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Isolation, Metalingus",
+        "score": 0.76,
+        "justification": "Fast, heavy alternative metal riffing that opens into an epic melodic chorus and technical solo."
+      }
+    ]
+  },
+  "today-is-sunday": {
+    "primaryGenre": "Heavy Metal",
+    "secondaryGenre": "Groove Metal",
+    "bands": [
+      {
+        "name": "Black Sabbath",
+        "era": "Classic/Old-School",
+        "referenceTracks": "War Pigs, Heaven and Hell",
+        "score": 0.82,
+        "justification": "Dense, Sabbath-style mid-tempo riffs, punctuated drum fills, and dark heavy atmosphere."
+      },
+      {
+        "name": "Black Label Society",
+        "era": "Groove/Prog",
+        "referenceTracks": "Suicide Messiah, Stillborn",
+        "score": 0.75,
+        "justification": "Sludgy, heavy modern Sabbath-inspired groove with saturated guitar tone."
+      }
+    ]
+  },
+  "faithless-breath": {
+    "primaryGenre": "Heavy Metal",
+    "secondaryGenre": "Metalcore",
+    "bands": [
+      {
+        "name": "Dio",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Holy Diver, Rainbow in the Dark",
+        "score": 0.8,
+        "justification": "Heavy mid-tempo stomp, classic galloping riff, and powerful melodic vocals."
+      },
+      {
+        "name": "Trivium",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "In Waves, Until the World Goes Cold",
+        "score": 0.77,
+        "justification": "Devastating syncopated riff, intense double-bass drumming, and interplay of weight and melody."
+      }
+    ]
+  },
+  "make-decisions": {
+    "primaryGenre": "Hard Rock",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Shinedown",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Sound of Madness, Second Chance",
+        "score": 0.81,
+        "justification": "Heavy modern hard rock with a direct main riff, driving groove, and explosive vocals."
+      },
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.76,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      }
+    ]
+  },
+  "tears-of-blood": {
+    "primaryGenre": "Power Ballad",
+    "secondaryGenre": "Hard Rock",
+    "bands": [
+      {
+        "name": "Scorpions",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Still Loving You, Rock You Like a Hurricane",
+        "score": 0.83,
+        "justification": "Classic power ballad with dramatic clean guitar and intense chorus about distant passion."
+      },
+      {
+        "name": "Black Label Society",
+        "era": "Groove/Prog",
+        "referenceTracks": "In This River, Suicide Messiah",
+        "score": 0.8,
+        "justification": "Emotive introspective ballad driven by rich harmony and a soulful, feeling-laden guitar solo."
+      }
+    ]
+  },
+  "back-to-1994": {
+    "primaryGenre": "Power Ballad",
+    "secondaryGenre": "Progressive Metal",
+    "bands": [
+      {
+        "name": "Dream Theater",
+        "era": "Groove/Prog",
+        "referenceTracks": "Another Day, Pull Me Under",
+        "score": 0.79,
+        "justification": "Sophisticated progressive ballad with emotive arrangement, clean vocal melody, and virtuosic solo."
+      },
+      {
+        "name": "Metallica",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Nothing Else Matters, Sad But True",
+        "score": 0.79,
+        "justification": "Introspective acoustic arpeggios, sweeping dynamic build, and emotionally charged solo."
+      }
+    ]
+  },
+  "faceless-demons": {
+    "primaryGenre": "Metalcore",
+    "secondaryGenre": "Groove Metal",
+    "bands": [
+      {
+        "name": "Killswitch Engage",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "My Curse, The End of Heartache",
+        "score": 0.83,
+        "justification": "Melodic metalcore pairing heavy verse riffing with a soaring, emotive clean chorus."
+      },
+      {
+        "name": "Lamb of God",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Redneck, Laid to Rest",
+        "score": 0.75,
+        "justification": "High-energy modern groove-thrash with biting riffs and explosive drumming."
+      }
+    ]
+  },
+  "keep-away": {
+    "primaryGenre": "Post-Grunge",
+    "secondaryGenre": "Metalcore",
+    "bands": [
+      {
+        "name": "Breaking Benjamin",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "The Diary of Jane, Breath",
+        "score": 0.83,
+        "justification": "Drop-tuned guitars, post-grunge melodic urgency, and an immediate dramatic chorus."
+      },
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.81,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      }
+    ]
+  },
+  "silicon-fortress": {
+    "primaryGenre": "Groove Metal",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Pantera",
+        "era": "Groove/Prog",
+        "referenceTracks": "Cowboys from Hell, Walk",
+        "score": 0.8,
+        "justification": "Technical aggressive main riff, tight rhythm section, and high-octane shredding solo."
+      },
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Isolation, Metalingus",
+        "score": 0.76,
+        "justification": "Fast, heavy alternative metal riffing that opens into an epic melodic chorus and technical solo."
+      }
+    ]
+  },
+  "age-of-lies": {
+    "primaryGenre": "Groove Metal",
+    "secondaryGenre": "Heavy Metal",
+    "bands": [
+      {
+        "name": "Avenged Sevenfold",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Nightmare, Hail to the King",
+        "score": 0.76,
+        "justification": "Intense modern metal with heavy riffs, relentless drumming, and dramatic atmosphere."
+      }
+    ]
+  },
+  "insane-driver": {
+    "primaryGenre": "Hard Rock",
+    "secondaryGenre": "Heavy Metal",
+    "bands": [
+      {
+        "name": "Ozzy Osbourne",
+        "era": "Classic/Old-School",
+        "referenceTracks": "Crazy Train, No More Tears",
+        "score": 0.81,
+        "justification": "Iconic driving main riff, pulsing rhythm section, and technical neoclassical solo."
+      },
+      {
+        "name": "Shinedown",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Sound of Madness, Second Chance",
+        "score": 0.78,
+        "justification": "Heavy modern hard rock with a direct main riff, driving groove, and explosive vocals."
+      }
+    ]
+  },
+  "desperate-prayer": {
+    "primaryGenre": "Heavy Metal",
+    "secondaryGenre": "Metalcore",
+    "bands": [
+      {
+        "name": "Iron Maiden",
+        "era": "Classic/Old-School",
+        "referenceTracks": "The Trooper, Wasted Years",
+        "score": 0.79,
+        "justification": "High-speed twin-guitar harmonies, galloping bassline, and relentless intensity."
+      },
+      {
+        "name": "Trivium",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "In Waves, Until the World Goes Cold",
+        "score": 0.75,
+        "justification": "Devastating syncopated riff, intense double-bass drumming, and interplay of weight and melody."
+      }
+    ]
+  },
+  "ghosts": {
+    "primaryGenre": "Post-Grunge",
+    "secondaryGenre": "Heavy Metal",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.81,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      },
+      {
+        "name": "Three Days Grace",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Animal I Have Become, Never Too Late",
+        "score": 0.79,
+        "justification": "Drop-D bass and guitar groove addressing inner conflict with a driving chorus."
+      }
+    ]
+  },
+  "imagined-realities": {
+    "primaryGenre": "Progressive Metal",
+    "secondaryGenre": "Groove Metal",
+    "bands": [
+      {
+        "name": "Dream Theater",
+        "era": "Groove/Prog",
+        "referenceTracks": "Pull Me Under, Another Day",
+        "score": 0.79,
+        "justification": "Progressive metal uniting an atmospheric intro, syncopated heavy riffs, and a memorable chorus."
+      }
+    ]
+  },
+  "invisible-chains": {
+    "primaryGenre": "Metalcore",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "All That Remains",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Two Weeks, This Calling",
+        "score": 0.82,
+        "justification": "Twin melodic guitars, heavy modern metal verse, and an unmistakable hook-driven chorus."
+      }
+    ]
+  },
+  "distant-hearts": {
+    "primaryGenre": "Power Ballad",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Blackbird, Metalingus",
+        "score": 0.81,
+        "justification": "Clean atmospheric build evolving into walls of guitar and deeply emotional melodic solos."
+      },
+      {
+        "name": "Iced Earth",
+        "era": "Groove/Prog",
+        "referenceTracks": "Watching Over Me, Melancholy (Holy Martyr)",
+        "score": 0.78,
+        "justification": "Crescendoing melodic power ballad about loss and memory with strong chorus and twin leads."
+      }
+    ]
+  },
+  "the-sun-will-rise": {
+    "primaryGenre": "Post-Grunge",
+    "secondaryGenre": "Hard Rock",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Metalingus, Isolation",
+        "score": 0.83,
+        "justification": "Heavy post-grunge groove, explosive drum dynamics, and high-intensity vocal lines."
+      },
+      {
+        "name": "Shinedown",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Sound of Madness, Second Chance",
+        "score": 0.73,
+        "justification": "Heavy modern hard rock with a direct main riff, driving groove, and explosive vocals."
+      }
+    ]
+  },
+  "waiting-for-you": {
+    "primaryGenre": "Power Ballad",
+    "secondaryGenre": "Post-Grunge",
+    "bands": [
+      {
+        "name": "Alter Bridge",
+        "era": "Modern/Post-Grunge",
+        "referenceTracks": "Blackbird, Metalingus",
+        "score": 0.82,
+        "justification": "Clean atmospheric build evolving into walls of guitar and deeply emotional melodic solos."
+      },
+      {
+        "name": "Black Label Society",
+        "era": "Groove/Prog",
+        "referenceTracks": "In This River, Suicide Messiah",
+        "score": 0.78,
+        "justification": "Emotive introspective ballad driven by rich harmony and a soulful, feeling-laden guitar solo."
+      }
+    ]
+  }
+}

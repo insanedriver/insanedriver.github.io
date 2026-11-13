@@ -15,7 +15,7 @@ eleventyComputed:
   page_title: "{{ song.title }}"
   page_header_class: "{% if song.layout != 'stack' %}song-title-badge{% endif %}"
   seo_title: "{{ song.title }} Lyrics – Insane Driver"
-  page_description: "{% if song.about %}{{ song.about | metaDescription }}{% elsif song.single %}{{ 'Lyrics of \"' | append: song.title | append: '\", Insane Driver' | append: \"'s \" | append: song.album.year | append: ' single – hard rock, heavy metal and metalcore from São Paulo, Brazil.' | metaDescription }}{% elsif song.instrumental %}{{ song.title }} is the instrumental track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }}, hard rock and heavy metal from Brazil.{% else %}{{ 'Lyrics of \"' | append: song.title | append: '\", track ' | append: song.position | append: \" of Insane Driver's \" | append: song.album.year | append: ' album ' | append: song.album.title | append: ' – hard rock, heavy metal and metalcore from São Paulo, Brazil.' | metaDescription }}{% endif %}"
+  page_description: "{% capture base_desc %}{% if song.about %}{{ song.about }}{% elsif song.single %}Lyrics of \"{{ song.title }}\", Insane Driver's {{ song.album.year }} single – hard rock, heavy metal and metalcore from São Paulo, Brazil.{% elsif song.instrumental %}{{ song.title }} is the instrumental track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }}, hard rock and heavy metal from Brazil.{% else %}Lyrics of \"{{ song.title }}\", track {{ song.position }} of Insane Driver's {{ song.album.year }} album {{ song.album.title }} – hard rock, heavy metal and metalcore from São Paulo, Brazil.{% endif %}{% endcapture %}{% if song.seo.fansOf %}{{ base_desc | songMetaDescription: song.seo.fansOf }}{% else %}{{ base_desc | metaDescription }}{% endif %}"
   og_image: "/assets/images/releases/{{ song.cover.file }}"
 ---
 {%- assign release = song.album -%}
@@ -84,13 +84,15 @@ eleventyComputed:
   "@type": "MusicRecording",
   "name": {{ song.title | jsonify }},
   "url": "https://insanedriver.com.br{{ song.url }}",
+  "description": {{ page_description | jsonify }},{% if song.seo.keywords %}
+  "keywords": {{ song.seo.keywords | jsonify }},{% endif %}
   "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
 {%- unless song.single %}
   "inAlbum": { "@type": "MusicAlbum", "name": {{ song.album.title | jsonify }}, "url": "https://insanedriver.com.br{{ song.album.url }}" },{% endunless %}
   "duration": "PT{{ song.duration | divided_by: 60 | floor }}M{{ song.duration | modulo: 60 }}S",{% unless song.single %}
   "position": {{ song.position }},{% endunless %}
   "image": "https://insanedriver.com.br/assets/images/releases/{{ song.cover.file }}",
-  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],{% if song.sameAs.size > 0 %}
+  "genre": {% if song.seo.genres.size > 0 %}{{ song.seo.genres | jsonify }}{% else %}["Hard Rock", "Heavy Metal", "Metalcore"]{% endif %},{% if song.sameAs.size > 0 %}
   "sameAs": {{ song.sameAs | jsonify }},{% endif %}
   "recordingOf": {
     "@type": "MusicComposition",

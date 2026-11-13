@@ -5,6 +5,28 @@
     </section>
     {% endif %}
 
+    {% if song.seo %}
+    <section class="song-sonic-dna" aria-labelledby="song-sonic-dna-title" data-song-sonic-dna>
+        <h2 id="song-sonic-dna-title" class="song-heading">Sonic DNA &amp; Similar Artists</h2>
+        <ul class="song-genre-tags" aria-label="Genres">
+            {% for genre in song.seo.genres %}
+            <li class="song-genre-tag">{{ genre | escape }}</li>
+            {% endfor %}
+        </ul>
+        <ul class="song-similar-list">
+            {% for band in song.seo.bands %}
+            <li class="song-similar-item">
+                <div class="song-similar-head">
+                    <strong class="song-similar-band">{{ band.name | escape }}</strong>
+                    <span class="song-similar-refs">Reference tracks: {{ band.referenceTracks | escape }}</span>
+                </div>
+                <p class="song-similar-why">{{ band.justification | escape }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
     {% if song.alsoReleasedAs.size > 0 %}
     <section class="song-also" aria-labelledby="song-also-title" data-song-also>
         <h2 id="song-also-title" class="song-heading">Also released as</h2>

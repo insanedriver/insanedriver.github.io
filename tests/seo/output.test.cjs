@@ -63,3 +63,26 @@ test('SEO-02: redirects, campaign pages and verification files stay out of the s
     assert.ok(!/google[^/]*\.html/.test(p), p);
   }
 });
+
+test('BANDSEO-04/06: built song pages include both summary and checked-only For fans of in meta description and MusicRecording JSON-LD', () => {
+  const html = built('discography/insane-driver/endless-path/index.html');
+  assert.match(html, /<meta name="description" content="Endless Path is the instrumental[^"]+For fans of Dream Theater and Metallica\."/);
+  assert.ok(!html.includes('Symphony X'), 'below-threshold band must not leak into endless-path');
+  const ldMatch = html.match(/<script type="application\/ld\+json">\s*(\{[\s\S]*?"@type":\s*"MusicRecording"[\s\S]*?\})\s*<\/script>/);
+  assert.ok(ldMatch, 'MusicRecording JSON-LD present');
+  const ld = JSON.parse(ldMatch[1]);
+  assert.deepEqual(ld.genre, ['Progressive Metal', 'Power Ballad']);
+  assert.ok(ld.keywords.includes('bands like Dream Theater'));
+  assert.ok(!ld.keywords.includes('Symphony X'));
+  assert.ok(ld.description.includes('instrumental'));
+  assert.ok(ld.description.includes('For fans of Dream Theater and Metallica.'));
+
+  for (const songPath of SONGS) {
+    const songHtml = built(`${songPath.slice(1)}index.html`);
+    const descMatch = songHtml.match(/<meta name="description" content="([^"]+)"/);
+    assert.ok(descMatch, `${songPath} missing meta description`);
+    const desc = descMatch[1].replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+    assert.ok(desc.length >= 50 && desc.length <= 160, `${songPath} description length ${desc.length}`);
+    assert.match(desc, /^.{15,}\sFor fans of .+\.$/, `${songPath} must keep both summary and For fans of: ${desc}`);
+  }
+});

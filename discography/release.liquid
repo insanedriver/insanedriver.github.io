@@ -96,7 +96,7 @@ eleventyComputed:
   "byArtist": { "@type": "MusicGroup", "name": "Insane Driver", "url": "https://insanedriver.com.br/band/" },
   "numTracks": {{ release.tracks.size }},
   "image": "https://insanedriver.com.br/assets/images/releases/{{ release.cover }}",
-  "genre": ["Hard Rock", "Heavy Metal", "Metalcore"],
+  "genre": {% if release.seo.genres.size > 0 %}{{ release.seo.genres | jsonify }}{% else %}["Hard Rock", "Heavy Metal", "Metalcore"]{% endif %},
   "description": {{ release.description | jsonify }},
   "sameAs": [{% assign sep = '' %}{% for p in platforms %}{% assign url = release.links[p.key] %}{% if url %}{{ sep }}{{ url | jsonify }}{% assign sep = ',' %}{% endif %}{% endfor %}],
   "track": [{% for track in release.tracks %}{% unless forloop.first %},{% endunless %}

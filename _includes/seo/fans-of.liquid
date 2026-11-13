@@ -1,1 +1,1 @@
-<p class="fans-of">For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold</p>
+<p class="fans-of">{% if song.seo.fansOf %}{{ song.seo.fansOf | escape }}{% elsif release.seo.fansOf %}{{ release.seo.fansOf | escape }}{% else %}For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold{% endif %}</p>

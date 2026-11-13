@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { songKey, sectionFamily, albumCode, uplink, songLayout, listenUrl, build } = require('../../lib/catalog.js');
+const { songKey, sectionFamily, albumCode, uplink, songLayout, listenUrl, formatFansOf, buildSongSeo, build } = require('../../lib/catalog.js');
+const seoCatalog = require('../../_data/seo-catalog.json');
 const discography = require('../../_data/discography.json');
 const songs = require('../../_data/songs.json');
 const videos = require('../../_data/videos.json');
@@ -430,4 +431,43 @@ test('SLYR-12 data: a single song has no previous or next track', () => {
     assert.equal(song(c, slug).prev, null, slug);
     assert.equal(song(c, slug).next, null, slug);
   }
+});
+
+test('BANDSEO-01/07: formatFansOf formats 0, 1, 2, and 3+ bands and build handles missing seoCatalog', () => {
+  assert.equal(formatFansOf([]), null);
+  assert.equal(formatFansOf(['Avenged Sevenfold']), 'For fans of Avenged Sevenfold');
+  assert.equal(formatFansOf(['Dream Theater', 'Metallica']), 'For fans of Dream Theater and Metallica');
+  assert.equal(formatFansOf(['A', 'B', 'C', 'D']), 'For fans of A, B, C and D');
+  assert.equal(song(catalog(), 'endless-path').seo, null);
+});
+
+test('BANDSEO-01: buildSongSeo deduplicates genres and builds checked-only keywords', () => {
+  const dup = buildSongSeo({
+    primaryGenre: 'Heavy Metal',
+    secondaryGenre: 'Heavy Metal',
+    bands: [{ name: 'Dio', referenceTracks: 'Holy Diver', score: 0.78, justification: 'Soaring vocals.' }],
+  }, 'Faithless Breath');
+  assert.deepEqual(dup.genres, ['Heavy Metal']);
+  assert.equal(dup.fansOf, 'For fans of Dio');
+  assert.equal(dup.keywords, 'Insane Driver, Faithless Breath, Heavy Metal, Dio, bands like Dio');
+});
+
+test('BANDSEO-01/05: build with seoCatalog enriches all 24 songs and aggregates top 4 bands per album', () => {
+  const c = catalog({ seoCatalog });
+  const ep = song(c, 'endless-path');
+  assert.equal(ep.seo.fansOf, 'For fans of Dream Theater and Metallica');
+  assert.deepEqual(ep.seo.genres, ['Progressive Metal', 'Power Ballad']);
+  assert.ok(!ep.seo.keywords.includes('Symphony X'));
+
+  const aol = song(c, 'age-of-lies');
+  assert.equal(aol.seo.fansOf, 'For fans of Avenged Sevenfold');
+
+  const sf = c.releases.find(r => r.slug === 'silicon-fortress');
+  assert.equal(sf.seo.bands.length, 4);
+  assert.equal(sf.seo.bands[0], 'Alter Bridge');
+  assert.ok(sf.seo.fansOf.startsWith('For fans of Alter Bridge, '));
+  assert.ok(sf.seo.genres.includes('Metalcore'));
+
+  const live = c.releases.find(r => r.slug === 'change-live');
+  assert.equal(live.seo, null);
 });

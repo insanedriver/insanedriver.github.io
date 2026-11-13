@@ -9,6 +9,7 @@ const LYRICS = path.join(__dirname, '../../_data/lyrics');
 test('SONG-01/REL-01/SLYR-05: the catalog data loads 24 songs and the 6 release pages from the real files', () => {
   const c = catalogData();
   assert.equal(c.songs.length, 24);
+  assert.ok(c.songs.every(s => s.seo && s.seo.fansOf), 'every song carries seo.fansOf');
   assert.deepEqual(c.releases.map(r => r.slug).sort(), [
     'change-live', 'fallen-dreams-acoustic', 'insane-driver', 'insane-driver-deluxe', 'silicon-fortress',
     'today-is-sunday-eder-franco',
