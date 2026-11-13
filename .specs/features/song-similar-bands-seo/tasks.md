@@ -94,7 +94,7 @@
 
 ### T8: Style `.song-sonic-dna` in `less/discography.less` and add E2E verification
 
-**Status**: pending
+**Status**: done
 **Where**: `less/discography.less`
 **Depends on**: T5, T6, T7
 **Tests**: `tests/discography/seo-similar-bands.e2e.cjs`
@@ -126,4 +126,4 @@ flowchart LR
     T7 --> T8
 ```
 
-- [ ] **T4**, **T5** (parallel after Phase 1) → **T6**, **T7** → **T8**
+- [x] **T4**, **T5** (parallel after Phase 1) → **T6**, **T7** → **T8**

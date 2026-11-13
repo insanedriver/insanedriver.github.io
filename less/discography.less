@@ -650,13 +650,63 @@
         font-weight: 700;
         &::after { content: '.'; color: #ff00ea; }
     }
-    .song-lyrics, .song-about, .song-also {
+    .song-lyrics, .song-about, .song-sonic-dna, .song-also {
         max-width: 760px;
     }
-    .song-about, .song-also {
+    .song-about, .song-sonic-dna, .song-also {
         margin-top: 32px;
         padding-top: 24px;
         border-top: 1px solid #294149;
+    }
+    .song-genre-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        margin: 0 0 16px;
+        padding: 0;
+    }
+    .song-genre-tag {
+        padding: 4px 10px;
+        border: 1px solid #294149;
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .song-similar-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .song-similar-item {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(41, 65, 73, 0.6);
+        &:last-child { border-bottom: none; padding-bottom: 0; }
+    }
+    .song-similar-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 12px;
+        margin-bottom: 6px;
+    }
+    .song-similar-band {
+        color: #fff;
+        font-size: 16px;
+    }
+    .song-similar-refs {
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    .song-similar-why {
+        margin: 0;
+        color: #9cbbc2;
+        font-size: 15px;
+        line-height: 1.55;
     }
     .song-lyrics-section {
         margin-bottom: 22px;
