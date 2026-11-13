@@ -67,7 +67,7 @@
 
 ### T5: Render `Sonic DNA & Similar Artists` in `_includes/discography/song-dossier.liquid`
 
-**Status**: pending
+**Status**: done
 **Where**: `_includes/discography/song-dossier.liquid`
 **Depends on**: T3
 **Tests**: `tests/discography/seo-similar-bands.e2e.cjs` (verified in T8)
