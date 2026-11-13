@@ -38,7 +38,7 @@
 
 ### T2: Add song SEO enrichment and album band aggregation to `lib/catalog.js`
 
-**Status**: pending
+**Status**: done
 **Where**: `lib/catalog.js`
 **Depends on**: T1
 **Tests**: `tests/seo/catalog.test.cjs`
