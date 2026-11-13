@@ -21,6 +21,7 @@ module.exports = () => build({
     lyrics: readLyrics(path.join(__dirname, 'lyrics')),
     videos: require('./videos.json'),
     platforms: require('./platforms.json'),
+    seoCatalog: require('./seo-catalog.json'),
 });
 module.exports.build = build;
 module.exports.readLyrics = readLyrics;

@@ -47,7 +47,7 @@
 
 ### T3: Pass `_data/seo-catalog.json` into `_data/catalog.js`
 
-**Status**: pending
+**Status**: done
 **Where**: `_data/catalog.js`
 **Depends on**: T2
 **Tests**: `tests/seo/catalog-data.test.cjs`
