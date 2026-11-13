@@ -76,7 +76,7 @@
 
 ### T6: Enrich `page_description` and `MusicRecording` JSON-LD in `discography/song.liquid`
 
-**Status**: pending
+**Status**: done
 **Where**: `discography/song.liquid`
 **Depends on**: T4
 **Tests**: `tests/seo/output.test.cjs`
