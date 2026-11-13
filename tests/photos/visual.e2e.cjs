@@ -85,7 +85,7 @@ test('PXCP-18: at wide viewports the panel actually fills the widened shell (no 
     };
   });
   expect(widths.shell).toBeGreaterThan(1500);
-  expect(Math.abs(widths.zoneInner - widths.shellContentWidth)).toBeLessThan(2);
+  expect(widths.zoneInner).toBe(1360); // DESK-01 keeps the backdrop full width and bounds content.
   await expect(page.locator('.photos-archive')).toHaveCSS('grid-template-columns', /^(\S+ ){3}\S+$/);
 });
 test('PXCP-19: photo previews are not tinted by the scanline overlay', async ({page}) => {

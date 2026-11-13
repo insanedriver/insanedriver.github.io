@@ -1,0 +1,67 @@
+// Compile into each active page's existing bundle, under its own #page_ scope.
+// Campaigns and the old agenda do not call this mixin.
+.desktop-layout() {
+    --site-content-max: 1360px;
+    --site-desktop-gutters: 64px;
+    --site-card-gap: 24px;
+    --site-panel-gap: 32px;
+    --site-section-gap: 48px;
+
+    @media (min-width: 1200px) {
+        .insane-content { padding: 0; }
+        .navbar { border-inline: 0; }
+
+        .band-container, .contact-container, .newsletter-container {
+            > .row {
+                margin-inline: 0;
+                > .col-md-12 { padding-inline: 0; }
+            }
+        }
+
+        .cyber-zone {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: var(--site-section-gap) 0 64px;
+        }
+
+        .cyber-zone-inner, .navbar > .container-fluid, .page-header,
+        footer > .container, .home-hero-content {
+            width: calc(100% - var(--site-desktop-gutters));
+            max-width: var(--site-content-max);
+            margin-inline: auto;
+            padding-inline: 0;
+        }
+
+        .navbar > .container-fluid > .navbar-collapse {
+            display: flex !important; // Bootstrap's expanded collapse is !important.
+            align-items: center;
+            gap: 16px;
+            min-height: 72px;
+            padding: 0;
+            &::before, &::after { display: none; }
+        }
+
+        .navbar .menu-center {
+            flex: 1;
+            order: 1;
+            display: flex;
+            justify-content: center;
+            width: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .nav-logo, .navbar .nav-media {
+            flex: none;
+            float: none !important; // Bootstrap's navbar-right float is !important.
+            margin: 0;
+        }
+        .navbar .nav-logo { order: 0; }
+        .navbar .nav-media { order: 2; display: flex; }
+        #navbar .nav-logo li { padding-top: 0; }
+        .navbar .logo-header { width: 128px; height: auto; }
+        .navbar .menu-center .nav > li > a { padding-inline: 10px; }
+        .navbar .nav-media > li > a { padding-inline: 8px; }
+    }
+}
