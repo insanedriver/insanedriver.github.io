@@ -85,7 +85,7 @@
 
 ### T7: Update `MusicAlbum` JSON-LD `genre` in `discography/release.liquid`
 
-**Status**: pending
+**Status**: done
 **Where**: `discography/release.liquid`
 **Depends on**: T4
 **Tests**: `tests/discography/seo-similar-bands.e2e.cjs` (verified in T8)
