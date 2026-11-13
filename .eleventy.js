@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const { selectSitemapEntries } = require("./lib/sitemap");
-const { jsonify, metaDescription } = require("./lib/filters");
+const { jsonify, metaDescription, songMetaDescription } = require("./lib/filters");
 const { coverSrcset } = require("./assets/js/home-core.js");
 const { inlineCss } = require("./lib/inline-css");
 
@@ -71,6 +71,7 @@ module.exports = function (eleventyConfig) {
 
     // SEO-07: descriptions cut to 160 characters
     eleventyConfig.addFilter("metaDescription", metaDescription);
+    eleventyConfig.addFilter("songMetaDescription", songMetaDescription);
 
     // We simply tell eleventy to pass a copy of our assets folder
     eleventyConfig.addPassthroughCopy("./assets");
