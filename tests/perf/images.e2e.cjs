@@ -22,11 +22,11 @@ test('PERF-26: /band/ at 375 px fetches the 768 px WebP header, not the JPEG', a
   expect(box.height).toBeCloseTo(375 * 320 / 1920, 0);
 });
 
-// Rendered size of the band photo before it became a <picture>, by viewport width.
+// Preserve the mobile box; DESK-05 replaces the old uncapped desktop size.
 const BAND_PHOTO_BOX = { 375: [269, 179.33], 1440: [1314, 876] };
 
 for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
-  test(`PERF-28: at ${width} px the band photo loads as WebP once scrolled into view, at its original size`, async ({ page }) => {
+  test(`PERF-28/DESK-05: at ${width} px the band photo loads as WebP at its responsive size`, async ({ page }) => {
     await page.setViewportSize({ width: Number(width), height: 700 });
     const seen = imageRequests(page);
     await page.goto('/band/', { waitUntil: 'load' });
@@ -36,8 +36,14 @@ for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
     expect(await photo.evaluate(img => new URL(img.currentSrc).pathname)).toMatch(/^\/assets\/images\/band-(768|1280|1920)\.webp$/);
     expect(seen.filter(p => p.startsWith('/assets/images/band'))).toEqual([await photo.evaluate(img => new URL(img.currentSrc).pathname)]);
     const box = await photo.boundingBox();
-    expect(box.width).toBeCloseTo(w, 0);
-    expect(box.height).toBeCloseTo(h, 0);
+    if (Number(width) >= 1200) {
+      expect(box.height).toBeLessThanOrEqual(700 * .6);
+      expect(box.width / box.height).toBeCloseTo(3 / 2, 2);
+      await expect(photo).toHaveCSS('object-fit', 'contain');
+    } else {
+      expect(box.width).toBeCloseTo(w, 0);
+      expect(box.height).toBeCloseTo(h, 0);
+    }
   });
 }
 
@@ -142,11 +148,13 @@ test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail'
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
 
-// Rendered size of the footer logo before it became a <picture>, by viewport width.
-const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [342, 74.14] };
+// The desktop logo retains its 30% width inside DESK-01's shared content guide;
+// its 600:95 aspect ratio and 20px top padding retain the original logo shape.
+const desktopLogoWidth = (1280 - 64) * .3;
+const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [desktopLogoWidth, 20 + desktopLogoWidth * 95 / 600] };
 
 for (const [width, [w, h]] of Object.entries(FOOTER_LOGO_BOX)) {
-  test(`PS2-11: at ${width} px the footer logo loads as WebP at its original size`, async ({ page }) => {
+  test(`PS2-11/DESK-01: at ${width} px the footer logo loads as WebP at its responsive size`, async ({ page }) => {
     await page.setViewportSize({ width: Number(width), height: 800 });
     await page.goto('/videos/', { waitUntil: 'load' });
     const logo = page.locator('.logo-footer');

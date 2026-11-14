@@ -49,8 +49,9 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-06 | P1 | Both steps | Verified |
 | DESK-07 | P1 | Both steps | Verified |
 | DESK-08 | P1 | Execute step 3 | Verified |
-| DESK-09 | P1 | Execute step 4 | Pending |
+| DESK-09 | P1 | Execute step 4 | Verified |
 | DESK-10 | P1 | Final verification | Pending |
+| DESK-11 | P1 | Execute step 5 | Pending |
 
 ## Edge Cases
 
@@ -64,7 +65,8 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 1. Shared desktop frame → the eight active `less/pages/*.less` entries, `less/desktop-layout.less`, `less/contact.less` (existing row overflow), `tests/desktop/frame.e2e.cjs`, two superseded width assertions in `tests/{discography/theme,photos/visual}.e2e.cjs`, compiled page CSS and this spec → build, unit tests, browser frame checks → `fix(layout): align desktop page frames to common guides`.
 2. Bounded grids and media → `less/desktop-layout.less`, `tests/desktop/{content,preservation}.e2e.cjs`, compiled page CSS and this spec → build, unit tests, desktop browser checks and existing affected E2E tests → `fix(layout): standardize desktop grids and media proportions`.
 3. Reconcile song regression expectations with approved per-track SEO → `tests/discography/song-bento.e2e.cjs` and this spec → exact per-track metadata checks and unit suite → `test(song): align bento expectations with per-track similar bands`.
-4. Restore split dossier composition with Sonic DNA → `less/song-bento.less`, `assets/css/discography.min.css`, `tests/discography/song-bento.e2e.cjs` and this spec → existing alignment assertions plus Sonic DNA placement, build and complete test suite → `fix(song): preserve split dossier layout with sonic dna`.
+4. Restore split dossier composition with Sonic DNA and align old image-size assertions with the approved desktop frame/media limits → `less/song-bento.less`, `assets/css/discography.min.css`, `tests/discography/song-bento.e2e.cjs`, `tests/perf/images.e2e.cjs` and this spec → existing alignment assertions plus Sonic DNA placement, responsive image checks, build and unit suite → `fix(song): preserve split dossier layout with sonic dna`.
+5. Reconcile remaining SEO/image regression contracts and complete the full gate → `tests/seo/{song,release,single-song}.e2e.cjs`, `tests/perf/images.e2e.cjs`, any shared test fixture needed for independent expected values, and this spec → build, unit suite and complete browser suite → `test(site): reconcile seo and image regression contracts`.
 
 No formal tasks/design phase: two dependent implementation steps; user decisions already confirmed in conversation. The shared desktop Less mixin compiles under each active page ID and uses a 1200px media boundary, keeping the existing CSS bundles and mobile cascade.
 
@@ -73,12 +75,19 @@ No formal tasks/design phase: two dependent implementation steps; user decisions
 The user authorized resolving all remaining points before opening the layout PR, including the previously recorded song regression failures. Steps 3 and 4 extend the original two layout steps. Existing exact layout assertions remain in force; incorrect global fans-of expectations are replaced with exact per-track expectations, without deleting or skipping tests. No content, integration or mobile DOM reorder is required.
 
 - **DESK-08** — WHEN a song has curated similar-band data, its bento metadata SHALL render exactly that track's band names in the agreed natural-English fans-of sentence. Status: Verified (step 3).
-- **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Pending (step 4).
+- **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Verified (step 4).
 - **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
+- **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Pending (step 5).
 
 ### Step 3 complete
 
 The two stale global fans-of assertions now assert exact metadata text for each track against the curated SEO catalog. Expected sentences use the platform's English list formatter independently of production `lib/catalog.js`; assertions still compare complete text, including one-band and two-band cases. No application content or templates changed. Gate: all 20 video/lyrics metadata cases passed, and all 240 unit cases passed. Coverage: `tests/discography/song-bento.e2e.cjs:112` and `:189` `expect(meta.locator('.fans-of')).toHaveText(expectedFansOf(s))` map to DESK-08. The other assertions in those cases retain their existing metadata/layout requirements. No assertions were weakened, removed or skipped.
+
+### Step 4 complete
+
+The split lyrics dossier now explicitly places About and Also in row 1 and lets Sonic DNA span the next row. Existing 4:2 geometry assertions remain intact; added assertions require Sonic DNA below both sections and the catalog below the complete dossier, with the mobile About → Sonic DNA → Also order preserved. This separately authorized inherited layout repair applies from 992px, including 992–1199px; DESK-06's preservation statement continues to concern the new desktop mixin, which still activates only at 1200px.
+
+The full-suite diagnostic exposed two superseded performance baselines: an uncapped Band photo and the old footer container. Their tests now assert DESK-05's proportional, contained 60vh photo and DESK-01's 30%-of-guide footer logo with its existing aspect ratio/padding. Mobile pixel baselines remain exact. Build and all 240 unit cases passed. A combined isolated gate passed 13/13 dossier/mobile/image cases. Visual inspection of the 1920px Age of Lies dossier confirmed the intended two-column first row and following Sonic DNA row. The complete browser gate remains pending step 5.
 
 ### Step 1 complete
 

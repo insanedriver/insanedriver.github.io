@@ -368,13 +368,14 @@ const lyricsRects = page => page.evaluate(() => {
   for (const l of ['b', 'c', 'd']) out[l] = box(grid.querySelector(`.song-bento-panel--${l}`));
   const one = sel => document.querySelector(sel) ? box(document.querySelector(sel)) : null;
   out.about = one('.song-bento-panel--d [data-song-about]');
+  out.dna = one('.song-bento-panel--d [data-song-sonic-dna]');
   out.also = one('.song-bento-panel--d [data-song-also]');
   out.catalog = one('.song-bento-panel--d .song-bento-foot');
   return out;
 });
 const stickyOf = (page, l) => page.locator(`.song-bento-panel--${l} .song-bento-sticky`).evaluate(el => [getComputedStyle(el).position, getComputedStyle(el).top]);
 
-for (const width of [1280, 992]) {
+for (const width of [1920, 1280, 992]) {
   for (const s of [FACELESS, AGE_OF_LIES]) {
     test(`NOVID-04/05/07/18/20: ${s.url} at ${width}px puts the lyrics beside Panel B and the dossier below`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
@@ -400,9 +401,11 @@ for (const width of [1280, 992]) {
         const split = r.about.width / (r.about.width + r.also.width);
         expect(split).toBeGreaterThanOrEqual(0.64);
         expect(split).toBeLessThanOrEqual(0.69);
+        // DESK-09: Sonic DNA follows the complete About/Also row.
+        expect(r.dna.top).toBeGreaterThanOrEqual(Math.max(r.about.bottom, r.also.bottom));
       }
-      // NOVID-20: the catalog line below both.
-      expect(r.catalog.top).toBeGreaterThanOrEqual(Math.max(r.about.bottom, r.also ? r.also.bottom : 0));
+      // NOVID-20 / DESK-09: the catalog follows all dossier sections.
+      expect(r.catalog.top).toBeGreaterThanOrEqual(Math.max(r.about.bottom, r.dna.bottom, r.also ? r.also.bottom : 0));
     });
   }
 }
@@ -425,6 +428,9 @@ for (const width of [991, 768, 375]) {
     }
     expect(r.b.top).toBeGreaterThanOrEqual(r.c.bottom);
     expect(r.d.top).toBeGreaterThanOrEqual(r.b.bottom);
+    // DESK-09: mobile retains the About → Sonic DNA → Also reading order.
+    expect(r.dna.top).toBeGreaterThanOrEqual(r.about.bottom);
+    expect(r.also.top).toBeGreaterThanOrEqual(r.dna.bottom);
     expect((await stickyOf(page, 'b'))[0]).toBe('static');
     // NOVID-15 → BENTO-24: Panel B primaries in 2 equal columns.
     const cols = await page.locator('.song-bento-panel--b .cyber-link-btn--primary').evaluateAll(els => els.map(el => {
