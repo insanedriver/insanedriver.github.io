@@ -28,30 +28,39 @@ test('HOME-20: while the gate class is set the loader covers the viewport with a
   expect(await page.evaluate(() => !!document.elementFromPoint(640, 400).closest('#home-loader'))).toBe(true);
 });
 
-// The release clocks start at the head gate (IDHomeBootAt), so the windows are
-// timed from there, not from when goto returns.
-const untilBoot = (page, ms) => page.waitForFunction(t => performance.now() - window.IDHomeBootAt >= t, ms);
-const bootElapsed = page => page.evaluate(() => performance.now() - window.IDHomeBootAt);
+const freezeReleaseClock = async page => {
+  await page.clock.install({ time: 0 });
+  await page.clock.pauseAt(1000);
+};
 
-// Checked once each, not retried: a later failsafe must not pass by waiting.
+// CSS starts when styles apply, not at the earlier head gate. Seek the actual
+// animation at exact checkpoints and advance JS separately, so command latency
+// cannot move a visibility assertion beyond the window it is intended to check.
 async function expectFailsafeWindow(page) {
   const loader = page.locator('#home-loader');
-  await untilBoot(page, 1500);
+  const animation = await loader.evaluateHandle(el => el.getAnimations()
+    .find(a => a.animationName === 'home-loader-failsafe'));
+  expect(await animation.evaluate(a => Boolean(a))).toBe(true);
+  await animation.evaluate(a => { a.pause(); a.currentTime = 1500; });
+  await page.clock.runFor(1500);
   expect(await loader.isVisible()).toBe(true);
   // isVisible ignores the release fade, so the release state is checked too.
   expect(await page.evaluate(() => {
     const el = document.getElementById('home-loader');
     return [window.IDHomeReleased, el.classList.contains('is-done'), el.getAttribute('aria-hidden'), document.querySelector('[data-home-page]').inert];
   })).toEqual([undefined, false, null, true]);
-  expect(await bootElapsed(page), 'visible check ran too late to mean anything').toBeLessThan(1900);
-  await untilBoot(page, 2500);
+  expect(await animation.evaluate(a => a.currentTime)).toBe(1500);
+  await animation.evaluate(a => { a.currentTime = 2500; });
+  await page.clock.runFor(1000);
   expect(await loader.isHidden()).toBe(true);
+  expect(await animation.evaluate(a => a.currentTime)).toBe(2500);
+  await animation.dispose();
 }
 
 test('HOME-23 edge: if home.js never runs, a CSS failsafe hides the loader by 2.5s', async ({ page }) => {
+  await freezeReleaseClock(page);
   await page.route('**/assets/js/home.js*', route => route.abort());
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#home-loader')).toBeVisible();
   await expectFailsafeWindow(page);
   expect(await page.evaluate(() => !!document.elementFromPoint(200, 200).closest('#home-loader'))).toBe(false);
   expect(await page.locator('[data-home-page]').evaluate(el => el.inert)).toBe(false);
@@ -70,6 +79,7 @@ test('PERF-35: the CSS failsafe is a 2s animation delay on the loader', async ({
 });
 
 test('PERF-35: with home.js and the inline release both gone, CSS alone hides the loader between 2s and 2.5s', async ({ page }) => {
+  await freezeReleaseClock(page);
   await page.route('**/assets/js/home.js*', route => route.abort());
   // Every IDHomeRelease call becomes a no-op, so only the CSS animation is left.
   await page.addInitScript(() => {

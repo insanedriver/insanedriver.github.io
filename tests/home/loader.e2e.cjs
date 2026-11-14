@@ -20,6 +20,24 @@ const dismissedAfter = page => page.waitForFunction(() => window.__homeDoneAt, n
 
 const skipEvents = page => page.evaluate(() => (window.dataLayer || []).filter(e => e && e.event === 'home_loader_skip'));
 
+// Interactions must occur while the boot is visible, rather than race the
+// automatic 600ms release over the browser-control connection.
+async function bootForInteraction(page) {
+  await page.clock.install({ time: 0 });
+  await page.clock.pauseAt(1000);
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => window.IDHome && document.documentElement.classList.contains('home-loading'));
+  await page.locator('#home-loader').evaluate(el => {
+    for (const animation of el.getAnimations()) {
+      if (animation.animationName === 'home-loader-failsafe') {
+        animation.pause();
+        animation.currentTime = 0;
+      }
+    }
+  });
+  await page.clock.runFor(100);
+}
+
 test('HOME-22: a first view keeps the boot on screen at least 0.6s, then leaves once ready', async ({ page }) => {
   await page.goto('/', { waitUntil: 'commit' });
   const ms = await dismissedAfter(page);
@@ -97,20 +115,27 @@ test('HOME-24: a second home view in the same session flashes for 0.4s, within t
 
 test('HOME-24: a repeat view leaves at 0.4s even when home.js arrives late', async ({ page }) => {
   let delivered = false;
+  let releaseScript;
+  const held = new Promise(resolve => { releaseScript = resolve; });
   await repeatViewUnderClock(page, () => page.route('**/assets/js/home.js*', async route => {
-    await new Promise(r => setTimeout(r, 700));
+    await held;
     delivered = true;
     await route.continue();
   }));
-  await releasedAt400(page);
-  // The script-free fallback released it, so it must release it fully.
-  expect(delivered).toBe(false);
-  const state = await page.evaluate(() => ({
-    aria: document.getElementById('home-loader').getAttribute('aria-hidden'),
-    inert: document.querySelector('[data-home-page]').inert,
-  }));
-  expect(state).toEqual({ aria: 'true', inert: false });
-  await expect(page.getByRole('status', { name: 'Loading Insane Driver' })).toHaveCount(0);
+  try {
+    await releasedAt400(page);
+    // The script-free fallback released it, so it must release it fully.
+    expect(delivered).toBe(false);
+    const state = await page.evaluate(() => ({
+      aria: document.getElementById('home-loader').getAttribute('aria-hidden'),
+      inert: document.querySelector('[data-home-page]').inert,
+    }));
+    expect(state).toEqual({ aria: 'true', inert: false });
+    await expect(page.getByRole('status', { name: 'Loading Insane Driver' })).toHaveCount(0);
+  } finally {
+    releaseScript();
+  }
+  await page.waitForLoadState('load');
 });
 
 test('HOME-24: a repeat view stays usable when the page parses after the 0.4s release', async ({ page }) => {
@@ -150,8 +175,7 @@ test('HOME-25: blocked sessionStorage means a full boot and no error', async ({ 
 
 for (const how of ['Escape', 'click']) {
   test(`HOME-26: ${how} skips the loader at once and reports it`, async ({ page }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await page.waitForFunction(() => window.IDHome && document.documentElement.classList.contains('home-loading'));
+    await bootForInteraction(page);
     if (how === 'Escape') await page.keyboard.press('Escape');
     else await page.mouse.click(300, 300);
     const ms = await dismissedAfter(page);
@@ -168,8 +192,7 @@ test('HOME-26: a loader that leaves on its own reports no skip', async ({ page }
 });
 
 test('HOME-28: while visible the loader is a labelled status and the page beneath is inert', async ({ page }) => {
-  await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => window.IDHome);
+  await bootForInteraction(page);
   const loader = page.locator('#home-loader');
   await expect(loader).toBeVisible();
   await expect(loader).toHaveAttribute('role', 'status');
@@ -323,7 +346,8 @@ for (const [how, act] of [
 ]) {
   test(`HOME-67: after ${how} the loader holds no keydown listener on document`, async ({ page }) => {
     await trackKeydown(page);
-    await page.goto('/', { waitUntil: 'commit' });
+    if (how === 'a click skip') await bootForInteraction(page);
+    else await page.goto('/', { waitUntil: 'commit' });
     await page.waitForFunction(() => window.__homeKeydownEver === true);
     await act(page);
     await dismissedAfter(page);

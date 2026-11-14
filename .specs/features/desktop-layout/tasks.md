@@ -32,7 +32,7 @@ An equivalent isolated server may run the same cases. It must serve HTML as UTF-
 ### Phase 1: PR readiness closure
 
 ```text
-T1 → T2 → T3 → T4 → T5 → T6
+T1 → T2 → T3 → T4 → T5 → T6 → T7
 ```
 
 ## Task Breakdown
@@ -97,11 +97,23 @@ T1 → T2 → T3 → T4 → T5 → T6
 **Gate**: Full
 **Commit**: `fix(home): retain mobile cover width before images load`
 
-### T6: Close complete validation and prepare PR
+### T6: Stabilize loader contract sampling
+
+**What**: Sample loader interactions under paused JS/CSS time, hold deferred script delivery explicitly, and inspect CSS failsafe checkpoints on its own animation clock rather than head-gate wall time. Production deadlines and all 30 cases remain unchanged.
+**Where**: `tests/home/loader.e2e.cjs`
+**Depends on**: T5
+**Requirement**: DESK-13
+**Done when**:
+- [x] All 30 loader/style cases pass with exact 400ms repeat, less-than-600ms skip and CSS 1500/2500ms checkpoints retained; unit suite 240/240 passes. Shared loader component tests include `tests/home/loader-style.e2e.cjs`. The late-script cleanup case was repeated successfully after adding guaranteed release.
+**Tests**: e2e, `npx playwright test tests/home/loader.e2e.cjs tests/home/loader-style.e2e.cjs`.
+**Gate**: Full
+**Commit**: `test(home): control loader clocks and script delivery`
+
+### T7: Close complete validation and prepare PR
 
 **What**: Record the complete green gate and independent spec/mutation verification, update handoff, and prepare the reviewed PR description.
 **Where**: `.specs/features/desktop-layout/validation.md`
-**Depends on**: T5
+**Depends on**: T6
 **Requirement**: DESK-10
 **Done when**:
 - [ ] Build, unit and complete browser suite pass with no disabled cases; independent report passes the state validator.
@@ -111,7 +123,7 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 ## Task Granularity Check
 
-Each T1–T4 changes one regression contract file. T5 changes one cover component with its compiled bundle and colocated browser test. T6 records one validation outcome with its status/handoff metadata. No unrelated application feature is included.
+Each T1–T4 changes one regression contract file. T5 changes one cover component with its compiled bundle and colocated browser test. T6 stabilizes one loader contract across its behavior/style files. T7 records one validation outcome with its status/handoff metadata. No unrelated application feature is included.
 
 ## Diagram-Definition Cross-Check
 
@@ -123,6 +135,7 @@ Each T1–T4 changes one regression contract file. T5 changes one cover componen
 | T4 | T3 | T3 → T4 | Match |
 | T5 | T4 | T4 → T5 | Match |
 | T6 | T5 | T5 → T6 | Match |
+| T7 | T6 | T6 → T7 | Match |
 
 ## Test Co-location Validation
 
@@ -133,4 +146,5 @@ Each T1–T4 changes one regression contract file. T5 changes one cover componen
 | T3 | Single rendering | e2e | e2e | Match |
 | T4 | Viewer rendering | e2e | e2e | Match |
 | T5 | Cover layout | e2e | e2e | Match |
-| T6 | Whole site | unit + e2e | unit + e2e | Match |
+| T6 | Loader contract | e2e | e2e | Match |
+| T7 | Whole site | unit + e2e | unit + e2e | Match |

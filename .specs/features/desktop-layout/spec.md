@@ -53,6 +53,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-10 | P1 | Final verification | Pending |
 | DESK-11 | P1 | Execute step 5 | Verified |
 | DESK-12 | P1 | PR readiness T5 | Verified |
+| DESK-13 | P1 | PR readiness T6 | Verified |
 
 ## Edge Cases
 
@@ -82,6 +83,7 @@ The user authorized resolving all remaining points before opening the layout PR,
 - **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
 - **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Verified (step 5).
 - **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Verified (PR readiness T5).
+- **DESK-13** — WHEN loader regression tests inspect a transient boot state, they SHALL control the JS clock so interactions precede automatic dismissal, explicitly hold late script delivery until the 400ms release assertions finish, and inspect CSS visibility at 1500ms and 2500ms of the actual failsafe animation. The 2s CSS delay, exact 400ms repeat release, less-than-600ms skip bound, accessibility/inert checks and listener cleanup SHALL remain asserted; production timer code SHALL remain unchanged. Status: Verified (PR readiness T6).
 
 ### Step 3 complete
 
@@ -104,6 +106,12 @@ Gate: 59/59 affected browser cases passed on a UTF-8 server; the strengthened ex
 The next complete run passed 766/767 browser cases and exposed an intermittent existing mobile cover collapse before image data arrived (414px case, 330px width shortfall). The cover now has explicit `width: 100%` only below 860px, keeping the existing 420px cap and automatic centering. This is a separately authorized inherited mobile sizing repair, not an extension of the desktop mixin below 1200px.
 
 The new regression case blocks release images, proves the streaming image has naturalWidth 0, and applies the same exact fill/centering assertions. All 40 phone-fit cases, all 240 unit cases and the build passed. No existing case or assertion was removed or relaxed. The final complete gate now includes this added case (768 browser cases expected), followed by independent verification under T6.
+
+### PR readiness T6 complete
+
+Subsequent complete runs exposed loader sampling races, including without a second browser process: input could arrive after the 600ms automatic release; a 700ms host delay did not guarantee script delivery remained pending while a fake clock advanced; and CSS animation delay starts when styles apply, after the earlier head timestamp. These are now explicit controlled preconditions. Interaction cases pause JS time and the CSS failsafe, act at logical 100ms, and retain the less-than-600ms skip/event/accessibility/cleanup assertions. The late script remains held until the exact 400ms assertions complete and is released in a finally block. CSS cases seek the real animation to exactly 1500ms and 2500ms with JS time advanced separately, retaining visibility and release-state assertions and the existing exact 2s delay checks.
+
+All 30 loader/style cases and 240 unit cases passed; the late-script cleanup case also passed independently after the final cleanup adjustment. No production timer, time bound, case count or skip setting changed. Coverage maps to DESK-13: `tests/home/loader-style.e2e.cjs` asserts exact animation time/visibility at both checkpoints; `tests/home/loader.e2e.cjs` preserves the existing repeat, skip, inert, accessibility and listener assertions. T7 now owns the complete green gate and refreshed independent verification.
 
 ### Step 1 complete
 
