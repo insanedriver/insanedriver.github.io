@@ -7,6 +7,19 @@ test.beforeEach(({ page }) => serveFonts(page));
 // fallback font.
 const realFonts = async page => expect(await fontsLoaded(page)).toEqual([1, 1]);
 
+test('HOME-71: the streaming cover fills its mobile panel before image data is available', async ({ page }) => {
+  await page.setViewportSize({ width: 414, height: 896 });
+  await page.route('**/assets/images/releases/**', route => route.abort());
+  await page.goto('/', { waitUntil: 'load' });
+  await expect(page.locator('[data-home-streaming-cover]')).toHaveJSProperty('naturalWidth', 0);
+  const { art, column } = await page.evaluate(() => {
+    const box = el => { const r = el.getBoundingClientRect(); return { left: r.left, width: r.width }; };
+    return { art: box(document.querySelector('.home-streaming-art')), column: box(document.querySelector('.home-streaming')) };
+  });
+  expect(Math.abs(art.width - Math.min(column.width, 420))).toBeLessThanOrEqual(1);
+  expect(Math.abs((art.left + art.width / 2) - (column.left + column.width / 2))).toBeLessThanOrEqual(1);
+});
+
 for (const width of [320, 375, 414, 600, 768, 859]) {
   test(`HOME-71: at ${width}px the NOW::STREAMING cover fills the panel content, up to 420px, centred`, async ({ page }) => {
     await page.setViewportSize({ width, height: 896 });

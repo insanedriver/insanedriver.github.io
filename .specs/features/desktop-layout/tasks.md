@@ -92,7 +92,7 @@ T1 → T2 → T3 → T4 → T5 → T6
 **Depends on**: T4
 **Requirement**: DESK-12
 **Done when**:
-- [ ] The cover fills and centers in its panel even when images have no natural width; existing phone/desktop button and cover checks pass.
+- [x] The cover fills and centers in its panel even when images have no natural width; existing phone/desktop button and cover checks pass. Complete: 40/40 phone-fit cases, 240/240 unit cases and build passed. `tests/home/phone-fit.e2e.cjs:14` requires naturalWidth 0 and `:19–20` preserve the exact width/centering assertions. One regression case was added; no existing case was disabled.
 **Tests**: e2e, co-located `tests/home/phone-fit.e2e.cjs`; compiled artifact `assets/css/home.min.css`.
 **Gate**: Full
 **Commit**: `fix(home): retain mobile cover width before images load`

@@ -52,7 +52,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-09 | P1 | Execute step 4 | Verified |
 | DESK-10 | P1 | Final verification | Pending |
 | DESK-11 | P1 | Execute step 5 | Verified |
-| DESK-12 | P1 | PR readiness T5 | Pending |
+| DESK-12 | P1 | PR readiness T5 | Verified |
 
 ## Edge Cases
 
@@ -81,7 +81,7 @@ The user authorized resolving all remaining points before opening the layout PR,
 - **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Verified (step 4).
 - **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
 - **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Verified (step 5).
-- **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Pending (PR readiness T5).
+- **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Verified (PR readiness T5).
 
 ### Step 3 complete
 
@@ -98,6 +98,12 @@ The full-suite diagnostic exposed two superseded performance baselines: an uncap
 The complete diagnostic run exposed 33 additional failures beyond the original song-bento set: old Band/footer dimensions, transient/global-network PhotoSwipe synchronization, fixed album/song recommendations and genres, and old single descriptions. Dimensions were reconciled in step 4. Follow-up T1–T4 now assert exact curated track copy, independently audited album rankings/genres, literal bounded single descriptions and each real viewer item's exact WebP source, including the unrendered neighbour. The proxy forwards the original PhotoSwipe constructor; the test also waits for an actual full image and retains the no-JPEG-request assertion.
 
 Gate: 59/59 affected browser cases passed on a UTF-8 server; the strengthened exact WebP mapping passed in the complete run; unit suite 240/240 passed. A first plain-Python server probe was discarded because its missing UTF-8 HTTP charset corrupted Unicode expectations; no product content was changed for that probe. Independent raw-data review confirmed the album fixture rankings and ordered genres and both single summaries. All new assertions map to DESK-11, while existing page/link/JSON-LD assertions remain in place. T5 repairs the subsequently exposed image-loading width race; T6 still owns the final complete green gate and independent verification.
+
+### PR readiness T5 complete
+
+The next complete run passed 766/767 browser cases and exposed an intermittent existing mobile cover collapse before image data arrived (414px case, 330px width shortfall). The cover now has explicit `width: 100%` only below 860px, keeping the existing 420px cap and automatic centering. This is a separately authorized inherited mobile sizing repair, not an extension of the desktop mixin below 1200px.
+
+The new regression case blocks release images, proves the streaming image has naturalWidth 0, and applies the same exact fill/centering assertions. All 40 phone-fit cases, all 240 unit cases and the build passed. No existing case or assertion was removed or relaxed. The final complete gate now includes this added case (768 browser cases expected), followed by independent verification under T6.
 
 ### Step 1 complete
 
