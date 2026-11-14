@@ -51,7 +51,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-08 | P1 | Execute step 3 | Verified |
 | DESK-09 | P1 | Execute step 4 | Verified |
 | DESK-10 | P1 | Final verification | Pending |
-| DESK-11 | P1 | Execute step 5 | Pending |
+| DESK-11 | P1 | Execute step 5 | Verified |
 | DESK-12 | P1 | PR readiness T5 | Pending |
 
 ## Edge Cases
@@ -80,7 +80,7 @@ The user authorized resolving all remaining points before opening the layout PR,
 - **DESK-08** — WHEN a song has curated similar-band data, its bento metadata SHALL render exactly that track's band names in the agreed natural-English fans-of sentence. Status: Verified (step 3).
 - **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Verified (step 4).
 - **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
-- **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Pending (step 5).
+- **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Verified (step 5).
 - **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Pending (PR readiness T5).
 
 ### Step 3 complete
@@ -92,6 +92,12 @@ The two stale global fans-of assertions now assert exact metadata text for each 
 The split lyrics dossier now explicitly places About and Also in row 1 and lets Sonic DNA span the next row. Existing 4:2 geometry assertions remain intact; added assertions require Sonic DNA below both sections and the catalog below the complete dossier, with the mobile About → Sonic DNA → Also order preserved. This separately authorized inherited layout repair applies from 992px, including 992–1199px; DESK-06's preservation statement continues to concern the new desktop mixin, which still activates only at 1200px.
 
 The full-suite diagnostic exposed two superseded performance baselines: an uncapped Band photo and the old footer container. Their tests now assert DESK-05's proportional, contained 60vh photo and DESK-01's 30%-of-guide footer logo with its existing aspect ratio/padding. Mobile pixel baselines remain exact. Build and all 240 unit cases passed. A combined isolated gate passed 13/13 dossier/mobile/image cases. Visual inspection of the 1920px Age of Lies dossier confirmed the intended two-column first row and following Sonic DNA row. The complete browser gate remains pending step 5.
+
+### Step 5 contract repairs complete
+
+The complete diagnostic run exposed 33 additional failures beyond the original song-bento set: old Band/footer dimensions, transient/global-network PhotoSwipe synchronization, fixed album/song recommendations and genres, and old single descriptions. Dimensions were reconciled in step 4. Follow-up T1–T4 now assert exact curated track copy, independently audited album rankings/genres, literal bounded single descriptions and each real viewer item's exact WebP source, including the unrendered neighbour. The proxy forwards the original PhotoSwipe constructor; the test also waits for an actual full image and retains the no-JPEG-request assertion.
+
+Gate: 59/59 affected browser cases passed on a UTF-8 server; the strengthened exact WebP mapping passed in the complete run; unit suite 240/240 passed. A first plain-Python server probe was discarded because its missing UTF-8 HTTP charset corrupted Unicode expectations; no product content was changed for that probe. Independent raw-data review confirmed the album fixture rankings and ordered genres and both single summaries. All new assertions map to DESK-11, while existing page/link/JSON-LD assertions remain in place. T5 repairs the subsequently exposed image-loading width race; T6 still owns the final complete green gate and independent verification.
 
 ### Step 1 complete
 

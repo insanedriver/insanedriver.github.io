@@ -122,7 +122,8 @@ test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and req
 });
 
 test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail', async ({ page }) => {
-  const jpegs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  const photos = require('../../_data/photos.json');
+  const jpegs = new Set(photos.map(p => p.thumbnail));
   // The last archive photo is the first one's previous neighbour. Kept unrendered (and,
   // with a fixed shuffle, out of the highlights) its lazy thumbnail never loads, so the
   // viewer has no currentSrc to reuse for it.
@@ -133,18 +134,30 @@ test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail'
     await route.fulfill({ response: res, body: html });
   });
   const seen = imageRequests(page);
-  await page.goto('/photos/', { waitUntil: 'networkidle' });
+  await page.goto('/photos/', { waitUntil: 'load' });
   const archive = page.locator('.photos-archive [data-photo-open]');
   expect(await archive.last().locator('img').evaluate(img => img.currentSrc)).toBe('');
   // Opened through the viewer's own entry point (the one the archive click handler calls):
   // a click here races the page and sometimes follows the link to the full JPEG instead.
   await page.waitForFunction(() => typeof window.openInsanePhoto === 'function');
+  // Full images can replace DOM placeholders before polling sees them. Capture
+  // the actual viewer item sources, including every still-unrendered neighbour.
+  await page.evaluate(() => {
+    window.PhotoSwipe = new Proxy(window.PhotoSwipe, {
+      construct(target, args) {
+        window.__photoPlaceholderSources = args[2].map(item => new URL(item.msrc, location.origin).pathname);
+        return Reflect.construct(target, args);
+      },
+    });
+  });
   expect(await archive.first().evaluate(link => window.openInsanePhoto(link.dataset.photoOpen, link))).toBe(true);
   await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);
-  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(1);
-  const placeholders = await page.locator('.pswp__img--placeholder').evaluateAll(imgs => imgs.map(img => new URL(img.src).pathname));
+  const placeholders = await page.evaluate(() => window.__photoPlaceholderSources);
+  expect(placeholders).toHaveLength(photos.length);
+  expect(placeholders).toEqual(photos.map(photo => photo.thumbnail.replace(/\.jpg$/, '.webp')));
   for (const src of placeholders) expect(src).toMatch(/\.webp$/);
-  await page.waitForLoadState('networkidle');
+  await expect.poll(() => page.locator('.pswp__img:not(.pswp__img--placeholder)').evaluateAll(imgs =>
+    imgs.some(img => img.complete && img.naturalWidth > 0))).toBe(true);
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
 

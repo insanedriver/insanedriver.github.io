@@ -80,7 +80,7 @@ T1 → T2 → T3 → T4 → T5 → T6
 **Depends on**: T3
 **Requirement**: DESK-11
 **Done when**:
-- [ ] Every exact WebP thumbnail, loaded full image and no-JPEG request assertion passes, including the hidden lazy neighbour.
+- [x] Every exact WebP thumbnail, loaded full image and no-JPEG request assertion passes, including the hidden lazy neighbour. Complete: 59/59 affected cases and the strengthened full-run PS2-23 case passed; `tests/perf/images.e2e.cjs:157` asserts the complete exact source array, `:160` confirms a real full image loads and `:161` requires no JPEG thumbnail requests. No viewer production code changed.
 **Tests**: e2e, image cases in the 59-case affected gate; strengthened exact mapping also passed in the complete run.
 **Gate**: Full
 **Commit**: `test(photos): verify stable webp viewer placeholder sources`
