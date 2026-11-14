@@ -1,0 +1,136 @@
+# Desktop layout PR readiness tasks
+
+## Execution Protocol
+
+Use `tlc-spec-driven`: preserve exact assertions, verify each task, commit code/tests/status together, and obtain a fresh independent Verifier after the last implementation task. The original layout steps and commits remain recorded in `spec.md`. This file formalizes the remaining follow-up after the complete suite exposed additional SEO/image contracts and the mobile cover sizing race. The user's instruction authorizes these repairs and PR preparation.
+
+**Status**: In Progress
+
+## Test Coverage Matrix
+
+Generated from `package.json`, `playwright.config.cjs`, the existing browser fixture and the spec. No additional project testing guidelines were found; strong defaults apply.
+
+| Code Layer | Required Test Type | Coverage Expectation | Location Pattern | Run Command |
+| --- | --- | --- | --- | --- |
+| Rendered SEO contracts | e2e | Exact per-track copy, album ranking/genres, bounded single descriptions, fallback releases | `tests/seo/*.e2e.cjs` | `npx playwright test tests/seo/song.e2e.cjs tests/seo/release.e2e.cjs tests/seo/single-song.e2e.cjs` |
+| Gallery image contract | e2e | Real viewer, exact WebP source for every item including lazy neighbour, no JPEG thumbnails | `tests/perf/images.e2e.cjs` | `npx playwright test tests/perf/images.e2e.cjs` |
+| Mobile cover layout | e2e | Full panel width up to 420px, centered before image availability and at existing breakpoints | `tests/home/phone-fit.e2e.cjs` | `npx playwright test tests/home/phone-fit.e2e.cjs` |
+| Whole site closure | unit + e2e | Every existing case retained; build and complete suite green, independent mutation check | `tests/*/*` | `npm test` |
+
+## Gate Check Commands
+
+| Gate Level | When to Use | Command |
+| --- | --- | --- |
+| Quick | Unit-only checks | `npm run test:unit` |
+| Full | Each rendered-contract task | `npm run test:unit` plus the task's Playwright command from the matrix; unchanged successful gate evidence may be shared |
+| Build | Closure | `npm run build` then `npm test`; no lint command is configured |
+
+An equivalent isolated server may run the same cases. It must serve HTML as UTF-8; the initial plain Python server probe is invalid for Unicode SEO assertions. Completed affected gates: 59 SEO/image cases, 13 dossier/image cases and 240 unit cases. The mobile cover and final full gate remain in progress.
+
+## Execution Plan
+
+### Phase 1: PR readiness closure
+
+```text
+T1 → T2 → T3 → T4 → T5 → T6
+```
+
+## Task Breakdown
+
+### T1: Reconcile song SEO copy expectations
+
+**What**: Assert exact curated per-track fans-of copy independently of production formatting.
+**Where**: `tests/seo/song.e2e.cjs`
+**Depends on**: None
+**Requirement**: DESK-11
+**Done when**:
+- [x] Every song case retains its other assertions and uses exact track-specific bands. Complete: affected 59/59 browser cases and 240/240 unit cases passed; `tests/seo/song.e2e.cjs:265` asserts full curated text and `:266` retains visibility.
+**Tests**: e2e, song cases in the 59-case affected gate.
+**Gate**: Full
+**Commit**: `test(seo): assert curated similar bands on song pages`
+
+### T2: Reconcile album SEO expectations
+
+**What**: Assert independently audited top-four band rankings and ordered genres, retaining fallback release checks; add the shared literal SEO fixture.
+**Where**: `tests/seo/release.e2e.cjs`
+**Depends on**: T1
+**Requirement**: DESK-11
+**Done when**:
+- [ ] Studio/deluxe album assertions use the audited fixture and variant releases retain the default copy.
+**Tests**: e2e, release cases in the 59-case affected gate; shared fixture `tests/seo/seo-regression.fixture.json`.
+**Gate**: Full
+**Commit**: `test(seo): assert aggregated album bands and genres`
+
+### T3: Reconcile single-song description expectations
+
+**What**: Assert exact descriptions containing the source summary and curated bands, bounded to 160 characters.
+**Where**: `tests/seo/single-song.e2e.cjs`
+**Depends on**: T2
+**Requirement**: DESK-11
+**Done when**:
+- [ ] Both single-song descriptions match independent literal expectations and retain existing JSON-LD checks.
+**Tests**: e2e, single cases in the 59-case affected gate.
+**Gate**: Full
+**Commit**: `test(seo): preserve summaries and bands in single descriptions`
+
+### T4: Observe stable gallery placeholder state
+
+**What**: Capture real PhotoSwipe item sources without depending on global network idleness or transient DOM placeholders.
+**Where**: `tests/perf/images.e2e.cjs`
+**Depends on**: T3
+**Requirement**: DESK-11
+**Done when**:
+- [ ] Every exact WebP thumbnail, loaded full image and no-JPEG request assertion passes, including the hidden lazy neighbour.
+**Tests**: e2e, image cases in the 59-case affected gate; strengthened exact mapping also passed in the complete run.
+**Gate**: Full
+**Commit**: `test(photos): verify stable webp viewer placeholder sources`
+
+### T5: Preserve mobile streaming-cover width before image load
+
+**What**: Give the mobile cover an explicit full width inside its existing 420px cap; regenerate the existing Home bundle and add the unavailable-image regression case.
+**Where**: `less/home.less`
+**Depends on**: T4
+**Requirement**: DESK-12
+**Done when**:
+- [ ] The cover fills and centers in its panel even when images have no natural width; existing phone/desktop button and cover checks pass.
+**Tests**: e2e, co-located `tests/home/phone-fit.e2e.cjs`; compiled artifact `assets/css/home.min.css`.
+**Gate**: Full
+**Commit**: `fix(home): retain mobile cover width before images load`
+
+### T6: Close complete validation and prepare PR
+
+**What**: Record the complete green gate and independent spec/mutation verification, update handoff, and prepare the reviewed PR description.
+**Where**: `.specs/features/desktop-layout/validation.md`
+**Depends on**: T5
+**Requirement**: DESK-10
+**Done when**:
+- [ ] Build, unit and complete browser suite pass with no disabled cases; independent report passes the state validator.
+**Tests**: unit + e2e; complete repository suite and independent targeted behavior mutations.
+**Gate**: Build
+**Commit**: `docs(spec): record complete desktop pr readiness verification`
+
+## Task Granularity Check
+
+Each T1–T4 changes one regression contract file. T5 changes one cover component with its compiled bundle and colocated browser test. T6 records one validation outcome with its status/handoff metadata. No unrelated application feature is included.
+
+## Diagram-Definition Cross-Check
+
+| Task | Depends On | Diagram Shows | Status |
+| --- | --- | --- | --- |
+| T1 | None | Start | Match |
+| T2 | T1 | T1 → T2 | Match |
+| T3 | T2 | T2 → T3 | Match |
+| T4 | T3 | T3 → T4 | Match |
+| T5 | T4 | T4 → T5 | Match |
+| T6 | T5 | T5 → T6 | Match |
+
+## Test Co-location Validation
+
+| Task | Layer | Required | Declared | Status |
+| --- | --- | --- | --- | --- |
+| T1 | Song rendering | e2e | e2e | Match |
+| T2 | Album rendering | e2e | e2e | Match |
+| T3 | Single rendering | e2e | e2e | Match |
+| T4 | Viewer rendering | e2e | e2e | Match |
+| T5 | Cover layout | e2e | e2e | Match |
+| T6 | Whole site | unit + e2e | unit + e2e | Match |

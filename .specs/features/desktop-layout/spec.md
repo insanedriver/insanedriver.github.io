@@ -52,6 +52,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-09 | P1 | Execute step 4 | Verified |
 | DESK-10 | P1 | Final verification | Pending |
 | DESK-11 | P1 | Execute step 5 | Pending |
+| DESK-12 | P1 | PR readiness T5 | Pending |
 
 ## Edge Cases
 
@@ -68,6 +69,8 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 4. Restore split dossier composition with Sonic DNA and align old image-size assertions with the approved desktop frame/media limits → `less/song-bento.less`, `assets/css/discography.min.css`, `tests/discography/song-bento.e2e.cjs`, `tests/perf/images.e2e.cjs` and this spec → existing alignment assertions plus Sonic DNA placement, responsive image checks, build and unit suite → `fix(song): preserve split dossier layout with sonic dna`.
 5. Reconcile remaining SEO/image regression contracts and complete the full gate → `tests/seo/{song,release,single-song}.e2e.cjs`, `tests/perf/images.e2e.cjs`, any shared test fixture needed for independent expected values, and this spec → build, unit suite and complete browser suite → `test(site): reconcile seo and image regression contracts`.
 
+The additional mobile cover race expands the follow-up beyond five implicit steps. `tasks.md` now owns the remaining atomic test-contract, mobile-cover and final-verification tasks. The original steps above remain the historical implementation outline; the remaining contracts are committed individually according to that task file.
+
 No formal tasks/design phase: two dependent implementation steps; user decisions already confirmed in conversation. The shared desktop Less mixin compiles under each active page ID and uses a 1200px media boundary, keeping the existing CSS bundles and mobile cascade.
 
 ### PR readiness follow-up (2026-11-14)
@@ -78,6 +81,7 @@ The user authorized resolving all remaining points before opening the layout PR,
 - **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Verified (step 4).
 - **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
 - **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Pending (step 5).
+- **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Pending (PR readiness T5).
 
 ### Step 3 complete
 
