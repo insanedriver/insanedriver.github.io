@@ -68,7 +68,7 @@ T1 → T2 → T3 → T4 → T5 → T6
 **Depends on**: T2
 **Requirement**: DESK-11
 **Done when**:
-- [ ] Both single-song descriptions match independent literal expectations and retain existing JSON-LD checks.
+- [x] Both single-song descriptions match independent literal expectations and retain existing JSON-LD checks. Complete: 59/59 affected cases and 240/240 unit cases passed; `tests/seo/single-song.e2e.cjs:24` asserts the full description and `:25` its 160-character bound.
 **Tests**: e2e, single cases in the 59-case affected gate.
 **Gate**: Full
 **Commit**: `test(seo): preserve summaries and bands in single descriptions`

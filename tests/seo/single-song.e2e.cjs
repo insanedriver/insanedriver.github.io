@@ -1,6 +1,5 @@
 const { test, expect } = require('../photos/browser.cjs');
-const songs = require('../../_data/songs.json').songs;
-const { metaDescription } = require('../../lib/filters');
+const descriptions = require('./seo-regression.fixture.json').singleDescriptions;
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -18,12 +17,12 @@ test.describe('without JavaScript', () => {
 
   for (const s of SINGLES) {
     const url = `/discography/${s.slug}/`;
-    const about = songs.find(x => x.slug === s.slug).about;
 
     test(`SLYR-13: ${url} title and description are the lyrics title and the about text`, async ({ page }) => {
       await page.goto(url);
       await expect(page).toHaveTitle(`${s.title} Lyrics – Insane Driver`);
-      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', metaDescription(about));
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', descriptions[s.slug]);
+      expect(descriptions[s.slug].length).toBeLessThanOrEqual(160);
     });
 
     test(`SLYR-15: ${url} publishes a MusicRecording without an album`, async ({ page }) => {
