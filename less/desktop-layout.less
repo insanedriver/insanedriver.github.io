@@ -63,5 +63,49 @@
         .navbar .logo-header { width: 128px; height: auto; }
         .navbar .menu-center .nav > li > a { padding-inline: 10px; }
         .navbar .nav-media > li > a { padding-inline: 8px; }
+
+        .disc-album-grid, .store-grid, .home-archive-list, .home-visual-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .photos-archive {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .cyber-member-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .disc-single-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .photos-thumbnails, .cyber-links-grid, .videos-feed { gap: var(--site-card-gap); }
+
+        .disc-release, .home-streaming {
+            grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+            gap: var(--site-panel-gap);
+        }
+        .home-streaming { grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); }
+        .disc-release-art, .home-streaming-art { width: 100%; max-width: 360px; }
+        .home-signal, .song-bento { gap: var(--site-panel-gap); }
+        .newsletter-container .cyber-zone-inner { column-gap: var(--site-panel-gap); row-gap: 0; }
+
+        .cyber-panel { margin-bottom: 0; }
+        // The decorative 20px bar plus 14px on either side makes a 48px division.
+        .cyber-separator { height: 20px; margin: 14px 0; }
+        .photos-archive-section { margin-top: 0; }
+        .cyber-ticker { margin-top: var(--site-section-gap); }
+        .cyber-bio-text { max-width: 760px; }
+        .contact-container .cyber-panel { width: 100%; max-width: 760px; margin-inline: auto; }
+
+        // Size the frame from the media's aspect ratio, including its border and
+        // padding, so a short desktop viewport shrinks the image without cropping.
+        .videos-stage { max-width: calc(60vh * 1.7777778 + 22px); margin-inline: auto; }
+        .photos-stage { max-width: calc(60vh * 1.6 + 22px); margin-inline: auto; }
+        .home-video-screen { max-width: ~"min(1100px, calc(60vh * 1.7777778 + 22px))"; }
+        .song-video-frame-box { max-width: calc(60vh * 1.7777778); margin-inline: auto; }
+        .cyber-band-photo-wrapper { max-width: calc(60vh * 1.5); margin-inline: auto; }
+        .cyber-band-photo { max-height: 60vh; object-fit: contain; }
     }
 }

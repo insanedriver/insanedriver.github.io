@@ -42,12 +42,12 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | DESK-01 | P1 | Execute step 1 | Verified |
-| DESK-02 | P1 | Execute step 2 | Pending |
-| DESK-03 | P1 | Execute step 2 | Pending |
-| DESK-04 | P1 | Execute step 2 | Pending |
-| DESK-05 | P1 | Execute step 2 | Pending |
-| DESK-06 | P1 | Both steps | Verified (step 1; recheck after step 2) |
-| DESK-07 | P1 | Both steps | Pending |
+| DESK-02 | P1 | Execute step 2 | Verified |
+| DESK-03 | P1 | Execute step 2 | Verified |
+| DESK-04 | P1 | Execute step 2 | Verified |
+| DESK-05 | P1 | Execute step 2 | Verified |
+| DESK-06 | P1 | Both steps | Verified |
+| DESK-07 | P1 | Both steps | Verified |
 
 ## Edge Cases
 
@@ -59,7 +59,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 ## Execution Plan
 
 1. Shared desktop frame → the eight active `less/pages/*.less` entries, `less/desktop-layout.less`, `less/contact.less` (existing row overflow), `tests/desktop/frame.e2e.cjs`, two superseded width assertions in `tests/{discography/theme,photos/visual}.e2e.cjs`, compiled page CSS and this spec → build, unit tests, browser frame checks → `fix(layout): align desktop page frames to common guides`.
-2. Bounded grids and media → `less/desktop-layout.less`, `tests/desktop/content.e2e.cjs`, compiled page CSS and this spec → build, unit tests, desktop browser checks and existing affected E2E tests → `fix(layout): standardize desktop grids and media proportions`.
+2. Bounded grids and media → `less/desktop-layout.less`, `tests/desktop/{content,preservation}.e2e.cjs`, compiled page CSS and this spec → build, unit tests, desktop browser checks and existing affected E2E tests → `fix(layout): standardize desktop grids and media proportions`.
 
 No formal tasks/design phase: two dependent implementation steps; user decisions already confirmed in conversation. The shared desktop Less mixin compiles under each active page ID and uses a 1200px media boundary, keeping the existing CSS bundles and mobile cascade.
 
@@ -75,3 +75,22 @@ Build passed. Unit gate passed (33 test files). Browser gate: all 10 frame tests
 | Menu within frame | `tests/desktop/frame.e2e.cjs:34` / `:35` bounds assertions | Visible navigation fits common guides | Yes |
 
 Reverse mapping: all frame assertions map to DESK-01, DESK-06, DESK-07; the two updated legacy assertions encode DESK-01's confirmed width. No unclaimed tests. Existing `tests/photos/browser.cjs` fixture and repository Playwright configuration are used. Adequacy: exact dimensions, background breadth, navigation bounds and mobile overflow are covered; no tests removed or skipped. Remaining content criteria belong to step 2.
+
+### Step 2 complete
+
+Grids now use the confirmed desktop column counts and 24px card gaps; paired panels use 32px gaps and decorative divisions total 48px. Biography and Contact panels are bounded to 760px, covers to 360px, and featured media to 60vh while preserving proportions. All new composition rules remain inside the 1200px desktop boundary.
+
+Build passed. The unit suite passed (33 test files). Desktop gates passed: 39 content checks, 10 frame checks and 7 preservation checks; the independent Verifier repeated all 56 successfully. The preservation checks compare computed widths, grid tracks and gaps with the same source compiled without the desktop mixin at 320/390/768/1024px. Exclusion checks cover pre-save, preorder and Dates, including the original preorder redirect contract.
+
+| Criterion | Evidence and assertion | Expected outcome | Covered |
+| --- | --- | --- | --- |
+| DESK-02 | `tests/desktop/content.e2e.cjs:21` `expect(style.columns, selector).toBe(columns)`; `:97` `expect(s.cols).toBe(2)`; `:129` feed display assertion | Confirmed grid counts at 1200/1366/1920/2560px, two-column panels, horizontal video feed | Yes |
+| DESK-03 | `tests/desktop/content.e2e.cjs:22` `expect(style.gap, selector).toBe('24px')`; `:28` `expect(division).toBe(48)`; `:98` `expect(s.gap).toBe('32px')` | 24px cards, 32px panels, 48px decorative divisions | Yes |
+| DESK-04 | `tests/desktop/content.e2e.cjs:48` `expect(bio.width).toBe(760)`; `:102`/`:103` embed bounds; `:121` panel width | Readable 760px text/panels and contained signup embed | Yes |
+| DESK-05 | `tests/desktop/content.e2e.cjs:50`/`:60`/`:69` height limits, `:61` 16:9 ratio, `:51`/`:70` object-fit, `:110` cover limit | Complete images and proportional video within 60vh, covers at most 360px | Yes |
+| DESK-06 | `tests/desktop/frame.e2e.cjs:30`/`:46` overflow assertions; `tests/desktop/preservation.e2e.cjs:80` `expect(actual).toEqual(await composition(page, selectors))` | No overflow at nine widths; unchanged mobile widths and grid composition | Yes |
+| DESK-07 | `tests/desktop/content.e2e.cjs:84` changed gallery counter and `:133` video counter; `tests/desktop/preservation.e2e.cjs:130` no matching desktop overrides; `tests/newsletter/markup.e2e.cjs:15`–`:81` signup contract | Controls, signup attributes and excluded pages preserved | Yes |
+
+Reverse mapping: content assertions cover DESK-02–05 and control preservation in DESK-07; preservation assertions cover DESK-06 and exclusions in DESK-07. Existing frame tests cover DESK-01 and overflow. All new assertions map to the confirmed scope, including the 1200px activation boundary and 1920×720 short desktop case. No existing tests were removed, skipped or weakened.
+
+The broader affected-page regression run completed with **238 passed and 22 failed**. Twenty failures assert the obsolete global fans-of text in `tests/discography/song-bento.e2e.cjs:108`/`:185`; two assert About/Also alignment at `:394` despite the existing intervening Sonic DNA section. Relevant tests, templates, data and existing song styles are unchanged from `b0a9d7f`; the 992px failure is below the new desktop boundary. A runtime probe with the old CSS could not complete because execution permission was unavailable. These inherited failures remain recorded and unchanged; this completion refers to the scoped desktop feature, not a clean full-repository regression run. See `validation.md` for the independent verdict and isolated mutation evidence.
