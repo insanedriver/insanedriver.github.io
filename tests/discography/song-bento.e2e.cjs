@@ -3,6 +3,7 @@ const catalog = require('../../_data/discography.json');
 const videos = require('../../_data/videos.json');
 const platforms = require('../../_data/platforms.json');
 const songData = require('../../_data/songs.json').songs;
+const seoCatalog = require('../../_data/seo-catalog.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -35,7 +36,10 @@ const sectionFamilies = page => page.locator('[data-song-lyrics] .song-lyrics-se
 const two = n => String(n).padStart(2, '0');
 const neighbour = (s, delta) => s.album.tracks.find(t => t.position === s.track.position + delta);
 
-const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold';
+// Derive exact expected copy from curated track data, independently of lib/catalog.
+const expectedFansOf = s => `For fans of ${new Intl.ListFormat('en-GB', {
+  style: 'long', type: 'conjunction',
+}).format(seoCatalog[s.slug].bands.map(b => b.name))}`;
 const TABS = ['PANEL A // VIDEO TRANSMISSION', 'PANEL B // AUDIO UPLINK', 'PANEL D // SONG DOSSIER', 'PANEL C // LYRICS TERMINAL'];
 const norm = t => t.replace(/\s+/g, ' ').trim();
 const initials = title => title.split(' ').map(w => w[0].toUpperCase()).join('');
@@ -105,7 +109,7 @@ test.describe('without JavaScript', () => {
       expect(metaText).toContain(`Runtime ${runtime(s.track.duration)}`);
       expect(metaText).toContain('Recommended intel');
       await expect(meta.locator(`a[href="/discography/${s.album.slug}/"]`)).toHaveText(s.album.title);
-      await expect(meta.getByText(FANS_OF, { exact: true })).toHaveCount(1);
+      await expect(meta.locator('.fans-of')).toHaveText(expectedFansOf(s));
 
       // BENTO-09 / BENTO-42: QUICK PLAY is a plain anchor to Panel A.
       const quick = meta.locator('a[data-song-quickplay]');
@@ -182,7 +186,7 @@ test.describe('without JavaScript', () => {
       expect(metaText).toContain(`Runtime ${runtime(s.track.duration)}`);
       expect(metaText).toContain('Recommended intel');
       await expect(meta.locator(`a[href="/discography/${s.album.slug}/"]`)).toHaveText(s.album.title);
-      await expect(meta.getByText(FANS_OF, { exact: true })).toHaveCount(1);
+      await expect(meta.locator('.fans-of')).toHaveText(expectedFansOf(s));
 
       // NOVID-11: the h1 is the title badge.
       expect(await page.locator('h1').evaluate(el => ({ text: el.textContent.trim(), badge: el.classList.contains('song-title-badge') })))
