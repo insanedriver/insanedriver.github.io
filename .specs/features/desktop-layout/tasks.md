@@ -56,7 +56,7 @@ T1 → T2 → T3 → T4 → T5 → T6
 **Depends on**: T1
 **Requirement**: DESK-11
 **Done when**:
-- [ ] Studio/deluxe album assertions use the audited fixture and variant releases retain the default copy.
+- [x] Studio/deluxe album assertions use the audited fixture and variant releases retain the default copy. Complete: 59/59 affected cases and 240/240 unit cases passed. `tests/seo/release.e2e.cjs:76` asserts exact fans-of text and `:98` exact ordered genres; an independent raw-data audit confirmed the fixture rankings and genres.
 **Tests**: e2e, release cases in the 59-case affected gate; shared fixture `tests/seo/seo-regression.fixture.json`.
 **Gate**: Full
 **Commit**: `test(seo): assert aggregated album bands and genres`
