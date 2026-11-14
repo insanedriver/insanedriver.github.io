@@ -20,8 +20,10 @@
 
 ## Handoff
 
-- **Feature**: song-listen-button (exclude `.song-bento-quickplay` from `.disc-page a:not(...)` link colors so `Listen now` and `Quick play` render `#03080e` text on `#00f3ff` at rest and on `#fcee0a` on hover/focus)
-- **Phase / Task**: Complete. Branch `fix/song-listen-button`, branched from `master` at `1d3176d`.
-- **Verification**: Verifier PASS on iteration 1. 3/3 ACs Verified. Unit 232/232, scoped e2e 115/115 (`song-bento` + `single-lyrics`) and 28/28 (`theme` + `single-lyrics`); sensor 6/6 mutants killed. No lessons recorded.
-- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` viewer) fails every run in this environment.
-- **Next**: push `fix/song-listen-button` and open its PR against `master` (or merge into `master`).
+- **Feature**: desktop-layout (`.specs/features/desktop-layout/spec.md`).
+- **Phase / Task**: Both implementation steps complete locally: shared frame `4013473`, bounded grids/media `99c2135`.
+- **Branch**: `fix/desktop-layout-standard`, based on `b0a9d7f`.
+- **Verification**: Build and unit suite passed (33 test files); independent desktop gate 56/56 passed. Isolated product-grid mutation killed. Independent report: `.specs/features/desktop-layout/validation.md`.
+- **Known failures**: Broader affected-page regression 238 passed / 22 failed: 20 obsolete global fans-of expectations and 2 About/Also alignment expectations in `tests/discography/song-bento.e2e.cjs`. Relevant source/tests unchanged from the branch base; old-CSS runtime probe was blocked by execution permission. These remain outside the completed layout change; no full-repository green verdict is claimed.
+- **Next step**: Review the completed local layout commits and independent report. No remote publication was requested; no PR was found for this branch during resumption.
+- **Uncommitted files outside feature scope**: Preserve the pre-existing `.specs/LESSONS.md`, `.specs/lessons.json`, tool/skill directories and `skills-lock.json` changes; do not include them in layout commits.
