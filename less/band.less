@@ -367,22 +367,23 @@
         width: 100%;
         max-width: 90%;
         margin: 0 auto;
-        text-align: center;
+        text-align: left;
 
         @media (min-width: 992px) { max-width: 75%; }
         @media (min-width: 1200px) { max-width: 65%; }
 
+        // REF-01..03: body copy in the body font, left-aligned, 17px on phones.
         p {
-            font-size: 1.35rem;
-            letter-spacing: 0.08em;
+            font-size: 1.7rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
             color: #d4d4d4;
-            text-transform: uppercase;
-            line-height: 1.8;
+            line-height: 1.6;
             margin: 0 0 1.2rem;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Rajdhani', sans-serif;
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
 
-            @media (min-width: 768px) { font-size: 1.65rem; }
+            @media (min-width: 768px) { font-size: 1.9rem; }
 
             strong {
                 color: #00f3ff;
@@ -409,6 +410,7 @@
         letter-spacing: 0.15em !important;
         margin-top: 2rem !important;
         padding: 1rem 0;
+        text-align: center;
         position: relative;
 
         @media (min-width: 768px) { font-size: 2.4rem !important; }

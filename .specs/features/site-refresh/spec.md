@@ -156,10 +156,10 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| REF-01 | P1: Readable body copy | Tasks | Pending |
-| REF-02 | P1: Readable body copy | Tasks | Pending |
-| REF-03 | P1: Readable body copy | Tasks | Pending |
-| REF-04 | P1: Readable body copy | Tasks | Pending |
+| REF-01 | P1: Readable body copy | T2 | Done |
+| REF-02 | P1: Readable body copy | T2 | Done |
+| REF-03 | P1: Readable body copy | T2 | Done |
+| REF-04 | P1: Readable body copy | T2 | Done |
 | REF-05 | P1: Footer | Tasks | Pending |
 | REF-06 | P1: Footer | Tasks | Pending |
 | REF-07 | P1: Footer | Tasks | Pending |

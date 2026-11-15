@@ -96,6 +96,7 @@ T8 → T9 → T10
 
 **What**: Band bio, Contact panel and Newsletter description paragraphs use Rajdhani, left-aligned, ≥16px at 390px, contrast ≥4.5:1; `data-hud` and panel tabs untouched.
 **Where**: `less/cyber-global.less`
+**Deviation**: the three rules live in different files, so each was edited in place (`less/band.less`, `less/newsletter.less`, `less/cyber-global.less`) instead of overriding them from one file. REF-04 says "current monospace font" but panel tabs use `SiliconFont, Rajdhani, sans-serif`; the test pins both tab and `data-hud` fonts to their values captured before the change (spec-precision gap).
 **Depends on**: T1
 **Reuses**: existing `.cyber-panel-body` rules
 **Requirement**: REF-01, REF-02, REF-03, REF-04
@@ -107,9 +108,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/site/readability.e2e.cjs` checks font-family, text-align at 390/1440, font-size ≥16px at 390, computed contrast ≥4.5:1 (text color vs nearest opaque background), and that `.cyber-panel-tab` / `[data-hud]` keep a monospace family
-- [ ] No horizontal overflow at 320/390/768/1024/1440/1920 on Band, Contact, Newsletter
-- [ ] Gate check passes (full)
+- [x] `tests/site/readability.e2e.cjs` checks font-family, text-align at 390/1440, font-size ≥16px at 390, computed contrast ≥4.5:1 (text color vs nearest opaque background), and that `.cyber-panel-tab` / `[data-hud]` keep a monospace family
+- [x] No horizontal overflow at 320/390/768/1024/1440/1920 on Band, Contact, Newsletter
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
