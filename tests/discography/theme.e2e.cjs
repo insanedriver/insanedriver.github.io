@@ -165,5 +165,5 @@ test('DISC-14: the shell fills the viewport on a wide screen, like the band page
   expect(discRatio).toBeGreaterThan(0.95);
   expect(Math.abs(discRatio - bandRatio)).toBeLessThan(0.1);
   const panel = await page.locator('.cyber-panel-body').first().evaluate(el => el.getBoundingClientRect().width);
-  expect(panel).toBeGreaterThan(1600);
+  expect(panel).toBe(1360); // DESK-01 supersedes the full-width content expectation.
 });

@@ -1,0 +1,111 @@
+// Compile into each active page's existing bundle, under its own #page_ scope.
+// Campaigns and the old agenda do not call this mixin.
+.desktop-layout() {
+    --site-content-max: 1360px;
+    --site-desktop-gutters: 64px;
+    --site-card-gap: 24px;
+    --site-panel-gap: 32px;
+    --site-section-gap: 48px;
+
+    @media (min-width: 1200px) {
+        .insane-content { padding: 0; }
+        .navbar { border-inline: 0; }
+
+        .band-container, .contact-container, .newsletter-container {
+            > .row {
+                margin-inline: 0;
+                > .col-md-12 { padding-inline: 0; }
+            }
+        }
+
+        .cyber-zone {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: var(--site-section-gap) 0 64px;
+        }
+
+        .cyber-zone-inner, .navbar > .container-fluid, .page-header,
+        footer > .container, .home-hero-content {
+            width: calc(100% - var(--site-desktop-gutters));
+            max-width: var(--site-content-max);
+            margin-inline: auto;
+            padding-inline: 0;
+        }
+
+        .navbar > .container-fluid > .navbar-collapse {
+            display: flex !important; // Bootstrap's expanded collapse is !important.
+            align-items: center;
+            gap: 16px;
+            min-height: 72px;
+            padding: 0;
+            &::before, &::after { display: none; }
+        }
+
+        .navbar .menu-center {
+            flex: 1;
+            order: 1;
+            display: flex;
+            justify-content: center;
+            width: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .nav-logo, .navbar .nav-media {
+            flex: none;
+            float: none !important; // Bootstrap's navbar-right float is !important.
+            margin: 0;
+        }
+        .navbar .nav-logo { order: 0; }
+        .navbar .nav-media { order: 2; display: flex; }
+        #navbar .nav-logo li { padding-top: 0; }
+        .navbar .logo-header { width: 128px; height: auto; }
+        .navbar .menu-center .nav > li > a { padding-inline: 10px; }
+        .navbar .nav-media > li > a { padding-inline: 8px; }
+
+        .disc-album-grid, .store-grid, .home-archive-list, .home-visual-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .photos-archive {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .cyber-member-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .disc-single-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: var(--site-card-gap);
+        }
+        .photos-thumbnails, .cyber-links-grid, .videos-feed { gap: var(--site-card-gap); }
+
+        .disc-release, .home-streaming {
+            grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+            gap: var(--site-panel-gap);
+        }
+        .home-streaming { grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); }
+        .disc-release-art, .home-streaming-art { width: 100%; max-width: 360px; }
+        .home-signal, .song-bento { gap: var(--site-panel-gap); }
+        .newsletter-container .cyber-zone-inner { column-gap: var(--site-panel-gap); row-gap: 0; }
+
+        .cyber-panel { margin-bottom: 0; }
+        // The decorative 20px bar plus 14px on either side makes a 48px division.
+        .cyber-separator { height: 20px; margin: 14px 0; }
+        .photos-archive-section { margin-top: 0; }
+        .cyber-ticker { margin-top: var(--site-section-gap); }
+        .cyber-bio-text { max-width: 760px; }
+        .contact-container .cyber-panel { width: 100%; max-width: 760px; margin-inline: auto; }
+
+        // Size the frame from the media's aspect ratio, including its border and
+        // padding, so a short desktop viewport shrinks the image without cropping.
+        .videos-stage { max-width: calc(60vh * 1.7777778 + 22px); margin-inline: auto; }
+        .photos-stage { max-width: calc(60vh * 1.6 + 22px); margin-inline: auto; }
+        .home-video-screen { max-width: ~"min(1100px, calc(60vh * 1.7777778 + 22px))"; }
+        .song-video-frame-box { max-width: calc(60vh * 1.7777778); margin-inline: auto; }
+        .cyber-band-photo-wrapper { max-width: calc(60vh * 1.5); margin-inline: auto; }
+        .cyber-band-photo { max-height: 60vh; object-fit: contain; }
+    }
+}

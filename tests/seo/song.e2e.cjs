@@ -6,10 +6,13 @@ const platforms = require('../../_data/platforms.json');
 // SONG-07 track URLs cover the album songs; SLYR: the single songs carry only an Apple track URL.
 const songData = require('../../_data/songs.json').songs.filter(d => !d.single);
 const videos = require('../../_data/videos.json');
+const seoCatalog = require('../../_data/seo-catalog.json');
 
 const ORIGIN = 'https://insanedriver.com.br';
 const DOCS = path.join(__dirname, '../../docs');
-const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold';
+const fansOf = s => `For fans of ${new Intl.ListFormat('en-GB', {
+  style: 'long', type: 'conjunction',
+}).format(seoCatalog[s.slug].bands.map(b => b.name))}`;
 
 // SONG-01: one page per track of the two studio albums, at /discography/<album>/<kebab title>/.
 const kebab = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -259,7 +262,8 @@ test.describe('without JavaScript', () => {
       }
 
       // GEN-05
-      await expect(page.getByText(FANS_OF, { exact: true })).toBeVisible();
+      await expect(page.locator('.fans-of')).toHaveText(fansOf(s));
+      await expect(page.locator('.fans-of')).toBeVisible();
     });
   }
 });

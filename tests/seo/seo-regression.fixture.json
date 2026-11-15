@@ -1,0 +1,16 @@
+{
+  "albums": {
+    "insane-driver": {
+      "fansOf": "For fans of Alter Bridge, Pantera, Black Label Society and Metallica",
+      "genres": ["Progressive Metal", "Power Ballad", "Metalcore", "Post-Grunge", "Hard Rock", "Groove Metal", "Heavy Metal"]
+    },
+    "silicon-fortress": {
+      "fansOf": "For fans of Alter Bridge, Dream Theater, Breaking Benjamin and Killswitch Engage",
+      "genres": ["Power Ballad", "Progressive Metal", "Metalcore", "Groove Metal", "Post-Grunge", "Heavy Metal", "Hard Rock"]
+    }
+  },
+  "singleDescriptions": {
+    "waiting-for-you": "Waiting for You is a song about resilience, about refusing to break while time slips away. For fans of Alter Bridge and Black Label Society.",
+    "the-sun-will-rise": "The Sun Will Rise carries a hopeful message: whatever adversity comes, things will turn out okay. For fans of Alter Bridge and Shinedown."
+  }
+}

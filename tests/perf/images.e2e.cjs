@@ -22,11 +22,11 @@ test('PERF-26: /band/ at 375 px fetches the 768 px WebP header, not the JPEG', a
   expect(box.height).toBeCloseTo(375 * 320 / 1920, 0);
 });
 
-// Rendered size of the band photo before it became a <picture>, by viewport width.
+// Preserve the mobile box; DESK-05 replaces the old uncapped desktop size.
 const BAND_PHOTO_BOX = { 375: [269, 179.33], 1440: [1314, 876] };
 
 for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
-  test(`PERF-28: at ${width} px the band photo loads as WebP once scrolled into view, at its original size`, async ({ page }) => {
+  test(`PERF-28/DESK-05: at ${width} px the band photo loads as WebP at its responsive size`, async ({ page }) => {
     await page.setViewportSize({ width: Number(width), height: 700 });
     const seen = imageRequests(page);
     await page.goto('/band/', { waitUntil: 'load' });
@@ -36,8 +36,14 @@ for (const [width, [w, h]] of Object.entries(BAND_PHOTO_BOX)) {
     expect(await photo.evaluate(img => new URL(img.currentSrc).pathname)).toMatch(/^\/assets\/images\/band-(768|1280|1920)\.webp$/);
     expect(seen.filter(p => p.startsWith('/assets/images/band'))).toEqual([await photo.evaluate(img => new URL(img.currentSrc).pathname)]);
     const box = await photo.boundingBox();
-    expect(box.width).toBeCloseTo(w, 0);
-    expect(box.height).toBeCloseTo(h, 0);
+    if (Number(width) >= 1200) {
+      expect(box.height).toBeLessThanOrEqual(700 * .6);
+      expect(box.width / box.height).toBeCloseTo(3 / 2, 2);
+      await expect(photo).toHaveCSS('object-fit', 'contain');
+    } else {
+      expect(box.width).toBeCloseTo(w, 0);
+      expect(box.height).toBeCloseTo(h, 0);
+    }
   });
 }
 
@@ -116,7 +122,8 @@ test('PS2-08: /photos/ fetches its grid and highlight thumbnails as WebP and req
 });
 
 test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail', async ({ page }) => {
-  const jpegs = new Set(require('../../_data/photos.json').map(p => p.thumbnail));
+  const photos = require('../../_data/photos.json');
+  const jpegs = new Set(photos.map(p => p.thumbnail));
   // The last archive photo is the first one's previous neighbour. Kept unrendered (and,
   // with a fixed shuffle, out of the highlights) its lazy thumbnail never loads, so the
   // viewer has no currentSrc to reuse for it.
@@ -127,26 +134,40 @@ test('PS2-23: opening a photo in the /photos/ viewer requests no JPEG thumbnail'
     await route.fulfill({ response: res, body: html });
   });
   const seen = imageRequests(page);
-  await page.goto('/photos/', { waitUntil: 'networkidle' });
+  await page.goto('/photos/', { waitUntil: 'load' });
   const archive = page.locator('.photos-archive [data-photo-open]');
   expect(await archive.last().locator('img').evaluate(img => img.currentSrc)).toBe('');
   // Opened through the viewer's own entry point (the one the archive click handler calls):
   // a click here races the page and sometimes follows the link to the full JPEG instead.
   await page.waitForFunction(() => typeof window.openInsanePhoto === 'function');
+  // Full images can replace DOM placeholders before polling sees them. Capture
+  // the actual viewer item sources, including every still-unrendered neighbour.
+  await page.evaluate(() => {
+    window.PhotoSwipe = new Proxy(window.PhotoSwipe, {
+      construct(target, args) {
+        window.__photoPlaceholderSources = args[2].map(item => new URL(item.msrc, location.origin).pathname);
+        return Reflect.construct(target, args);
+      },
+    });
+  });
   expect(await archive.first().evaluate(link => window.openInsanePhoto(link.dataset.photoOpen, link))).toBe(true);
   await expect(page.locator('.pswp')).toHaveClass(/pswp--open/);
-  await expect.poll(() => page.locator('.pswp__img--placeholder').count()).toBeGreaterThan(1);
-  const placeholders = await page.locator('.pswp__img--placeholder').evaluateAll(imgs => imgs.map(img => new URL(img.src).pathname));
+  const placeholders = await page.evaluate(() => window.__photoPlaceholderSources);
+  expect(placeholders).toHaveLength(photos.length);
+  expect(placeholders).toEqual(photos.map(photo => photo.thumbnail.replace(/\.jpg$/, '.webp')));
   for (const src of placeholders) expect(src).toMatch(/\.webp$/);
-  await page.waitForLoadState('networkidle');
+  await expect.poll(() => page.locator('.pswp__img:not(.pswp__img--placeholder)').evaluateAll(imgs =>
+    imgs.some(img => img.complete && img.naturalWidth > 0))).toBe(true);
   expect(seen.filter(p => jpegs.has(p))).toEqual([]);
 });
 
-// Rendered size of the footer logo before it became a <picture>, by viewport width.
-const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [342, 74.14] };
+// The desktop logo retains its 30% width inside DESK-01's shared content guide;
+// its 600:95 aspect ratio and 20px top padding retain the original logo shape.
+const desktopLogoWidth = (1280 - 64) * .3;
+const FOOTER_LOGO_BOX = { 412: [150, 43.75], 1280: [desktopLogoWidth, 20 + desktopLogoWidth * 95 / 600] };
 
 for (const [width, [w, h]] of Object.entries(FOOTER_LOGO_BOX)) {
-  test(`PS2-11: at ${width} px the footer logo loads as WebP at its original size`, async ({ page }) => {
+  test(`PS2-11/DESK-01: at ${width} px the footer logo loads as WebP at its responsive size`, async ({ page }) => {
     await page.setViewportSize({ width: Number(width), height: 800 });
     await page.goto('/videos/', { waitUntil: 'load' });
     const logo = page.locator('.logo-footer');

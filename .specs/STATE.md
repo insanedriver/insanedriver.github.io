@@ -20,8 +20,11 @@
 
 ## Handoff
 
-- **Feature**: song-listen-button (exclude `.song-bento-quickplay` from `.disc-page a:not(...)` link colors so `Listen now` and `Quick play` render `#03080e` text on `#00f3ff` at rest and on `#fcee0a` on hover/focus)
-- **Phase / Task**: Complete. Branch `fix/song-listen-button`, branched from `master` at `1d3176d`.
-- **Verification**: Verifier PASS on iteration 1. 3/3 ACs Verified. Unit 232/232, scoped e2e 115/115 (`song-bento` + `single-lyrics`) and 28/28 (`theme` + `single-lyrics`); sensor 6/6 mutants killed. No lessons recorded.
-- **Known flakes (pre-existing)**: HOME-24/26/28 loader timing; PS2-23 (`/photos/` viewer) fails every run in this environment.
-- **Next**: push `fix/song-listen-button` and open its PR against `master` (or merge into `master`).
+- **Feature**: desktop-layout (`.specs/features/desktop-layout/spec.md`).
+- **Phase / Task**: All implementation/test tasks committed through `4cdb91a`; T1–T7 complete. Final readiness documents record the green full gate and independent PASS.
+- **Branch**: `fix/desktop-layout-standard`, based on `b0a9d7f`.
+- **Verification**: Normal build passed; final `npm test` exited 0 with 240 unit and all 768 browser cases passed (17.1m browser phase). Independent PASS: 13/13 requirements, 225 selected browser cases, raw SEO audit, 8 byte-matched bundles, 4/4 isolated mutations killed, scratch/real-tree isolation verified. Spec/tasks/state validators passed. Report: `.specs/features/desktop-layout/validation.md`; full gate: `/tmp/desktop-pr-final-all.log`.
+- **Known failures / diagnostics**: No failures remain in the final full gate. Prior source/test issues and loader sampling races were fixed; loader production deadlines are unchanged. Earlier diagnostic logs under `/tmp/desktop-pr-diagnostic-{1,2,3}.log` are historical and superseded by the final green result.
+- **PR**: [#56 — fix(layout): standardize desktop frames and media sizing](https://github.com/insanedriver/insanedriver.github.io/pull/56), opened against `master`; branch published as `origin/fix/desktop-layout-standard`.
+- **Next step**: Review PR #56 and merge when approved. The reviewed base is `b0a9d7f`; all implementation, tests and readiness validation are complete. No merge or production deployment was requested or performed.
+- **Uncommitted files outside feature scope**: Preserve the pre-existing `.specs/LESSONS.md`, `.specs/lessons.json`, tool/skill directories and `skills-lock.json` changes; do not include them in layout commits.

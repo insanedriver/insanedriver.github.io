@@ -2,6 +2,8 @@ const { test, expect } = require('../photos/browser.cjs');
 const catalog = require('../../_data/discography.json');
 const platforms = require('../../_data/platforms.json');
 const copy = require('../../_data/songs.json').releases;
+// Independently checked top-four frequency/score rankings and ordered track genres.
+const albumSeo = require('./seo-regression.fixture.json').albums;
 
 const ORIGIN = 'https://insanedriver.com.br';
 const FANS_OF = 'For fans of Alter Bridge, Killswitch Engage and Avenged Sevenfold';
@@ -13,6 +15,7 @@ const SINGLE_SONGS = ['waiting-for-you', 'the-sun-will-rise'];
 const all = [...catalog.albums, ...catalog.singles];
 const release = slug => all.find(r => r.slug === slug);
 const isAlbum = r => r.type !== 'SINGLE';
+const seoOf = r => albumSeo[r.slug === 'insane-driver-deluxe' ? 'insane-driver' : r.slug];
 
 // Song pages live under the studio album the song first appeared on (spec Assumptions):
 // a Silicon Fortress track under silicon-fortress, a 2016 or deluxe track under insane-driver.
@@ -70,7 +73,8 @@ test.describe('without JavaScript', () => {
       expect(subs).toEqual(platforms.filter(p => p.primary && r.links[p.key]).map(p => p.sub));
 
       // GEN-05
-      await expect(page.getByText(FANS_OF, { exact: true })).toBeVisible();
+      await expect(page.locator('.fans-of')).toHaveText(seoOf(r)?.fansOf || FANS_OF);
+      await expect(page.locator('.fans-of')).toBeVisible();
     });
 
     if (isAlbum(r)) {
@@ -91,7 +95,7 @@ test.describe('without JavaScript', () => {
         expect(a.numTracks).toBe(r.tracks.length);
         expect(a.byArtist).toMatchObject({ '@type': 'MusicGroup', name: 'Insane Driver' });
         expect(a.image).toBe(`${ORIGIN}/assets/images/releases/${r.cover}`);
-        expect(a.genre).toEqual(['Hard Rock', 'Heavy Metal', 'Metalcore']);
+        expect(a.genre).toEqual(seoOf(r).genres);
         expect(a.track.map(t => [t['@type'], t.name, t.position, t.duration, t.url]))
           .toEqual(r.tracks.map(t => ['MusicRecording', t.title, t.position, iso(t.duration), ORIGIN + songUrl(r, t.title)]));
       });
