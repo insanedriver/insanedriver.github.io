@@ -121,6 +121,7 @@ T8 → T9 → T10
 
 **What**: Replace the `fa-twitter` bird in the header with an inline X SVG; accessible name `Insane Driver on X`; same for the Band page "Connect" X button for consistency.
 **Where**: `_includes/header/menu.liquid`
+**Deviation**: the logo is a shared partial `_includes/icons/x.liquid` (reused by T6) with its sizing in `less/cyber-global.less` and `less/cyber-links.less`.
 **Depends on**: T2
 **Reuses**: header social button markup
 **Requirement**: REF-08
@@ -132,8 +133,8 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/site/x-icon.test.cjs` asserts no built page using the base/home layout contains `fa-twitter` in the header, and the header link to `https://twitter.com/insanedriverid` has accessible name `Insane Driver on X`
-- [ ] Gate check passes: `npm run build && npm run test:unit`
+- [x] `tests/site/x-icon.test.cjs` asserts no built page using the base/home layout contains `fa-twitter` in the header, and the header link to `https://twitter.com/insanedriverid` has accessible name `Insane Driver on X`
+- [x] Gate check passes: `npm run build && npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick
