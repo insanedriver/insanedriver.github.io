@@ -144,7 +144,7 @@ T8 → T9 → T10
 ### T4: Band mobile button grid
 
 **What**: At 390px the Band "Listen now" and "Connect" buttons lay out in ≥2 columns, each ≥44px tall.
-**Where**: `less/pages/band.less`
+**Where**: `less/band.less` (imported by `less/pages/band.less`)
 **Depends on**: T3
 **Reuses**: `less/cyber-links.less`
 **Requirement**: REF-14
@@ -156,9 +156,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/band/mobile-grid.e2e.cjs` measures button boxes at 390px (≥2 distinct x positions per group, every height ≥44) and no overflow at 320/390
-- [ ] Existing `tests/band/cyber-links.e2e.cjs` and `tests/seo/band-overflow.e2e.cjs` still pass
-- [ ] Gate check passes (full)
+- [x] `tests/band/mobile-grid.e2e.cjs` measures button boxes at 390px (≥2 distinct x positions per group, every height ≥44) and no overflow at 320/390
+- [x] Existing `tests/band/cyber-links.e2e.cjs` and `tests/seo/band-overflow.e2e.cjs` still pass
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
