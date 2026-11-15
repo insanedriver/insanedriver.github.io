@@ -180,7 +180,7 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 | REF-22 | P1: Press kit | Tasks | Pending |
 | REF-23 | P1: Press kit | Tasks | Pending |
 | REF-24 | P1: Press kit | Tasks | Pending |
-| REF-25 | P2: Charset | Tasks | Pending |
+| REF-25 | P2: Charset | T1 | Done |
 
 **Coverage:** 25 total, 0 mapped to tasks, 25 unmapped ⚠️ (mapped when `tasks.md` is written)
 
