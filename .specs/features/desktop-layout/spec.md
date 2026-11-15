@@ -50,7 +50,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 | DESK-07 | P1 | Both steps | Verified |
 | DESK-08 | P1 | Execute step 3 | Verified |
 | DESK-09 | P1 | Execute step 4 | Verified |
-| DESK-10 | P1 | Final verification | Pending |
+| DESK-10 | P1 | Final verification | Verified |
 | DESK-11 | P1 | Execute step 5 | Verified |
 | DESK-12 | P1 | PR readiness T5 | Verified |
 | DESK-13 | P1 | PR readiness T6 | Verified |
@@ -72,7 +72,7 @@ As a visitor on a desktop monitor, I want consistent page boundaries and proport
 
 The additional mobile cover race expands the follow-up beyond five implicit steps. `tasks.md` now owns the remaining atomic test-contract, mobile-cover and final-verification tasks. The original steps above remain the historical implementation outline; the remaining contracts are committed individually according to that task file.
 
-No formal tasks/design phase: two dependent implementation steps; user decisions already confirmed in conversation. The shared desktop Less mixin compiles under each active page ID and uses a 1200px media boundary, keeping the existing CSS bundles and mobile cascade.
+The original layout used two implicit implementation steps and no design phase. Subsequent PR-readiness work is tracked in `tasks.md`. The shared desktop Less mixin compiles under each active page ID and uses a 1200px media boundary, keeping the existing CSS bundles and mobile cascade.
 
 ### PR readiness follow-up (2026-11-14)
 
@@ -80,7 +80,7 @@ The user authorized resolving all remaining points before opening the layout PR,
 
 - **DESK-08** — WHEN a song has curated similar-band data, its bento metadata SHALL render exactly that track's band names in the agreed natural-English fans-of sentence. Status: Verified (step 3).
 - **DESK-09** — WHILE the viewport is at least 992px wide and a lyrics dossier has About and Also released as, those sections SHALL retain the existing 4:2 side-by-side split, Sonic DNA SHALL occupy a following row below both sections, and the catalog line SHALL follow the whole dossier. Below 992px, the existing About → Sonic DNA → Also DOM reading order SHALL remain stacked. Status: Verified (step 4).
-- **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Pending (final verification).
+- **DESK-10** — Before the branch is declared PR-ready, the build, unit suite and complete browser suite SHALL pass without disabled tests or weakened assertions; an independent Verifier SHALL validate the fixes and their regression sensitivity. Status: Verified (final verification).
 - **DESK-11** — WHEN existing SEO regression checks run, song fans-of text SHALL match the curated per-track bands, album fans-of text SHALL match the approved frequency/score-ranked top four and genres SHALL match the unique track genres in order, and single-song descriptions SHALL preserve the track summary and band recommendation within 160 characters. WHEN the photo viewer opens an archive image, every placeholder source SHALL use its WebP thumbnail including an unrendered lazy neighbour, and no JPEG thumbnail SHALL be requested; verification SHALL observe stable viewer item state instead of assuming global network idleness or transient placeholder lifetime. Status: Verified (step 5).
 - **DESK-12** — WHILE the viewport is below 860px, the Now Streaming cover SHALL fill its panel's content width up to its existing 420px cap and remain centered, including before its image has a natural width. Status: Verified (PR readiness T5).
 - **DESK-13** — WHEN loader regression tests inspect a transient boot state, they SHALL control the JS clock so interactions precede automatic dismissal, explicitly hold late script delivery until the 400ms release assertions finish, and inspect CSS visibility at 1500ms and 2500ms of the actual failsafe animation. The 2s CSS delay, exact 400ms repeat release, less-than-600ms skip bound, accessibility/inert checks and listener cleanup SHALL remain asserted; production timer code SHALL remain unchanged. Status: Verified (PR readiness T6).
@@ -112,6 +112,12 @@ The new regression case blocks release images, proves the streaming image has na
 Subsequent complete runs exposed loader sampling races, including without a second browser process: input could arrive after the 600ms automatic release; a 700ms host delay did not guarantee script delivery remained pending while a fake clock advanced; and CSS animation delay starts when styles apply, after the earlier head timestamp. These are now explicit controlled preconditions. Interaction cases pause JS time and the CSS failsafe, act at logical 100ms, and retain the less-than-600ms skip/event/accessibility/cleanup assertions. The late script remains held until the exact 400ms assertions complete and is released in a finally block. CSS cases seek the real animation to exactly 1500ms and 2500ms with JS time advanced separately, retaining visibility and release-state assertions and the existing exact 2s delay checks.
 
 All 30 loader/style cases and 240 unit cases passed; the late-script cleanup case also passed independently after the final cleanup adjustment. No production timer, time bound, case count or skip setting changed. Coverage maps to DESK-13: `tests/home/loader-style.e2e.cjs` asserts exact animation time/visibility at both checkpoints; `tests/home/loader.e2e.cjs` preserves the existing repeat, skip, inert, accessibility and listener assertions. T7 now owns the complete green gate and refreshed independent verification.
+
+### Final PR readiness: complete
+
+Normal build passed (47 pages written, 291 files copied). Final `npm test` exited 0: **240 unit cases and all 768 browser cases passed**, with no skipped cases. The complete captured gate is `/tmp/desktop-pr-final-all.log`. Earlier failed/pending execution notes above are historical diagnostics, superseded by this final result.
+
+Independent verification confirms **13/13 requirements**, **225 selected browser cases passed**, and **4/4 isolated behavior mutations killed**, with real-tree isolation and scratch restoration verified. The final report is `validation.md`; the completion validator passed with zero errors. The source/test range ends at `4cdb91a`; subsequent changes only close this spec, tasks, report and handoff. All implementation and validation tasks are complete and the branch is ready for PR publication.
 
 ### Step 1 complete
 

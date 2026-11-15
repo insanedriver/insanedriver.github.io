@@ -4,7 +4,7 @@
 
 Use `tlc-spec-driven`: preserve exact assertions, verify each task, commit code/tests/status together, and obtain a fresh independent Verifier after the last implementation task. The original layout steps and commits remain recorded in `spec.md`. This file formalizes the remaining follow-up after the complete suite exposed additional SEO/image contracts and the mobile cover sizing race. The user's instruction authorizes these repairs and PR preparation.
 
-**Status**: In Progress
+**Status**: Done
 
 ## Test Coverage Matrix
 
@@ -25,7 +25,7 @@ Generated from `package.json`, `playwright.config.cjs`, the existing browser fix
 | Full | Each rendered-contract task | `npm run test:unit` plus the task's Playwright command from the matrix; unchanged successful gate evidence may be shared |
 | Build | Closure | `npm run build` then `npm test`; no lint command is configured |
 
-An equivalent isolated server may run the same cases. It must serve HTML as UTF-8; the initial plain Python server probe is invalid for Unicode SEO assertions. Completed affected gates: 59 SEO/image cases, 13 dossier/image cases and 240 unit cases. The mobile cover and final full gate remain in progress.
+An equivalent isolated server may run the same cases. It must serve HTML as UTF-8; the initial plain Python server probe was invalid for Unicode SEO assertions. Completed gates include 59 SEO/image, 13 dossier/image, 40 phone-fit and 30 loader cases; final `npm test` passed all 240 unit and 768 browser cases. Independent verification passed 225 cases and killed all 4 behavior mutations. Full evidence is in `validation.md`.
 
 ## Execution Plan
 
@@ -116,7 +116,7 @@ T1 → T2 → T3 → T4 → T5 → T6 → T7
 **Depends on**: T6
 **Requirement**: DESK-10
 **Done when**:
-- [ ] Build, unit and complete browser suite pass with no disabled cases; independent report passes the state validator.
+- [x] Build, 240 unit cases and all 768 browser cases passed with no disabled cases. Independent report PASS covers all 13 requirements, 225 selected cases and 4/4 killed mutations; `validate_state.py desktop-layout` exited 0. Final complete gate: `/tmp/desktop-pr-final-all.log`.
 **Tests**: unit + e2e; complete repository suite and independent targeted behavior mutations.
 **Gate**: Build
 **Commit**: `docs(spec): record complete desktop pr readiness verification`
