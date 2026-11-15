@@ -170,8 +170,8 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 | REF-12 | P1: Dates | Tasks | Pending |
 | REF-13 | P1: Dates | Tasks | Pending |
 | REF-14 | P1: Mobile grids | T4 | Done |
-| REF-15 | P1: Mobile grids | Tasks | Pending |
-| REF-16 | P1: Mobile grids | Tasks | Pending |
+| REF-15 | P1: Mobile grids | T5 | Done |
+| REF-16 | P1: Mobile grids | T5 | Done |
 | REF-17 | P1: Press kit | Tasks | Pending |
 | REF-18 | P1: Press kit | Tasks | Pending |
 | REF-19 | P1: Press kit | Tasks | Pending |

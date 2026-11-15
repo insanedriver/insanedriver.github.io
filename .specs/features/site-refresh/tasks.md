@@ -168,7 +168,7 @@ T8 → T9 → T10
 ### T5: Release mobile button grid
 
 **What**: At 390px Release streaming buttons lay out in ≥2 columns (≥44px tall), and "Buy CD" / "Preview" share left edge and height (±1px).
-**Where**: `less/pages/discography.less`
+**Where**: `less/discography.less` (imported by `less/pages/discography.less`)
 **Depends on**: T4
 **Reuses**: `.disc-links`, `.disc-buy`, `.disc-preview-btn`
 **Requirement**: REF-15, REF-16
@@ -180,9 +180,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/discography/mobile-grid.e2e.cjs` on `/discography/silicon-fortress/` at 390px checks columns, heights and Buy/Preview alignment (Preview forced visible), plus no overflow at 320/390
-- [ ] Existing discography e2e tests still pass
-- [ ] Gate check passes (full)
+- [x] `tests/discography/mobile-grid.e2e.cjs` on `/discography/silicon-fortress/` at 390px checks columns, heights and Buy/Preview alignment (Preview forced visible), plus no overflow at 320/390
+- [x] Existing discography e2e tests still pass
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
