@@ -75,3 +75,9 @@ for (const [path, selector] of Object.entries(TARGETS)) {
     });
   }
 }
+
+test('REF-04 (regression): the Band pull-quote keeps its uppercase display face', async ({ page }) => {
+  await page.goto('/band/', { waitUntil: 'load' });
+  const q = await page.locator('.cyber-bio-quote').evaluate(el => ({ t: getComputedStyle(el).textTransform, f: getComputedStyle(el).fontFamily }));
+  expect(q).toEqual({ t: 'uppercase', f: 'insaneFont, SiliconFont, Rajdhani, sans-serif' });
+});
