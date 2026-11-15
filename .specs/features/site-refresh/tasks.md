@@ -193,6 +193,7 @@ T8 → T9 → T10
 
 **What**: Rewrite the footer partials to the approved layout: logo zone, social icons (X SVG, no bird), `NAV::INDEX` link list with header destinations + "Press kit" `/press/`, no `|`, copyright `© 2013-<build year> Insane Driver`, back-to-top.
 **Where**: `_includes/footer/footer.liquid` (with `menu.liquid`, `social.liquid`, `copyright.liquid` folded into it or rewritten as its sub-partials)
+**Deviation**: kept the four sub-partials (`social.liquid` stays the source of the JSON-LD `sameAs` check in `tests/home/seo.e2e.cjs`), added `_includes/footer/logo.liquid` and `_data/build.js` (build year). Tagline uses existing site copy only (genres, São Paulo).
 **Depends on**: None (Phase 1 complete)
 **Reuses**: `_includes/header/menu.liquid` destinations
 **Requirement**: REF-05, REF-06, REF-08, REF-09
@@ -204,8 +205,8 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/site/footer.test.cjs` on built `/` and `/band/`: footer nav is a `<ul>` whose hrefs equal the header menu hrefs plus `/press/`; footer text has no `|`; X link has accessible name `Insane Driver on X`; no `fa-twitter`; copyright matches `© 2013-${new Date().getFullYear()} Insane Driver`
-- [ ] Gate check passes: `npm run build && npm run test:unit`
+- [x] `tests/site/footer.test.cjs` on built `/` and `/band/`: footer nav is a `<ul>` whose hrefs equal the header menu hrefs plus `/press/`; footer text has no `|`; X link has accessible name `Insane Driver on X`; no `fa-twitter`; copyright matches `© 2013-${new Date().getFullYear()} Insane Driver`
+- [x] Gate check passes: `npm run build && npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick

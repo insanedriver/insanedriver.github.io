@@ -161,10 +161,10 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 | REF-03 | P1: Readable body copy | T2 | Done |
 | REF-04 | P1: Readable body copy | T2 | Done |
 | REF-05 | P1: Footer | Tasks | Pending |
-| REF-06 | P1: Footer | Tasks | Pending |
+| REF-06 | P1: Footer | T6 | Done |
 | REF-07 | P1: Footer | Tasks | Pending |
 | REF-08 | P1: Footer | Tasks | Pending |
-| REF-09 | P1: Footer | Tasks | Pending |
+| REF-09 | P1: Footer | T6 | Done |
 | REF-10 | P1: Dates | Tasks | Pending |
 | REF-11 | P1: Dates | Tasks | Pending |
 | REF-12 | P1: Dates | Tasks | Pending |

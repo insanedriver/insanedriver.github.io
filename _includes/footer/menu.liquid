@@ -1,14 +1,14 @@
-<nav class="text-center">
-    <strong>
-        <a href="/">HOME</a> &nbsp; | &nbsp;
-        <a href="/band/">BAND</a> &nbsp; | &nbsp;
-        <!-- <a href="/dates/">DATES</a> &nbsp; | &nbsp; -->
-        <a href="/discography/">DISCOGRAPHY</a> &nbsp; | &nbsp;
-        <a href="/videos/">VIDEOS</a> &nbsp; | &nbsp;
-        <a href="/photos/">PHOTOS</a> &nbsp; | &nbsp;
-        <!-- <a href="/press/">PRESS</a> &nbsp; | &nbsp; -->
-        <a href="/store/">STORE</a> &nbsp; | &nbsp;
-        <a href="/newsletter/">NEWSLETTER</a>&nbsp; | &nbsp;
-        <a href="/contact/">CONTACT</a>
-    </strong>
+<nav class="footer-nav" aria-label="Footer">
+    <p class="footer-label"><span class="footer-label-mark" aria-hidden="true"></span> [NAV::INDEX]</p>
+    <ul class="footer-links">
+        <li{% if 'home' == page_id %} class="active"{% endif %}><a href="/"><span class="footer-link-name">Home</span> <span class="footer-link-num" aria-hidden="true">01</span></a></li>
+        <li{% if 'band' == page_id %} class="active"{% endif %}><a href="/band/"><span class="footer-link-name">Band</span> <span class="footer-link-num" aria-hidden="true">02</span></a></li>
+        <li{% if 'discography' == page_id %} class="active"{% endif %}><a href="/discography/"><span class="footer-link-name">Discography</span> <span class="footer-link-num" aria-hidden="true">03</span></a></li>
+        <li{% if 'videos' == page_id %} class="active"{% endif %}><a href="/videos/"><span class="footer-link-name">Videos</span> <span class="footer-link-num" aria-hidden="true">04</span></a></li>
+        <li{% if 'photos' == page_id %} class="active"{% endif %}><a href="/photos/"><span class="footer-link-name">Photos</span> <span class="footer-link-num" aria-hidden="true">05</span></a></li>
+        <li{% if 'store' == page_id %} class="active"{% endif %}><a href="/store/"><span class="footer-link-name">Store</span> <span class="footer-link-num" aria-hidden="true">06</span></a></li>
+        <li{% if 'newsletter' == page_id %} class="active"{% endif %}><a href="/newsletter/"><span class="footer-link-name">Newsletter</span> <span class="footer-link-num" aria-hidden="true">07</span></a></li>
+        <li{% if 'contact' == page_id %} class="active"{% endif %}><a href="/contact/"><span class="footer-link-name">Contact</span> <span class="footer-link-num" aria-hidden="true">08</span></a></li>
+        <li{% if 'press' == page_id %} class="active"{% endif %}><a href="/press/"><span class="footer-link-name">Press kit</span> <span class="footer-link-num" aria-hidden="true">09</span></a></li>
+    </ul>
 </nav>
