@@ -172,13 +172,13 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 | REF-14 | P1: Mobile grids | T4 | Done |
 | REF-15 | P1: Mobile grids | T5 | Done |
 | REF-16 | P1: Mobile grids | T5 | Done |
-| REF-17 | P1: Press kit | Tasks | Pending |
-| REF-18 | P1: Press kit | Tasks | Pending |
-| REF-19 | P1: Press kit | Tasks | Pending |
-| REF-20 | P1: Press kit | Tasks | Pending |
-| REF-21 | P1: Press kit | Tasks | Pending |
-| REF-22 | P1: Press kit | Tasks | Pending |
-| REF-23 | P1: Press kit | Tasks | Pending |
+| REF-17 | P1: Press kit | T9 | Done |
+| REF-18 | P1: Press kit | T9 | Done |
+| REF-19 | P1: Press kit | T9 | Done |
+| REF-20 | P1: Press kit | T9 | Done |
+| REF-21 | P1: Press kit | T9 | Done |
+| REF-22 | P1: Press kit | T9 | Done |
+| REF-23 | P1: Press kit | T9 | Done |
 | REF-24 | P1: Press kit | Tasks | Pending |
 | REF-25 | P2: Charset | T1 | Done |
 

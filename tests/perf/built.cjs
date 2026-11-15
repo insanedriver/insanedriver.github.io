@@ -4,8 +4,8 @@ const path = require('node:path');
 
 const DOCS = path.join(__dirname, '../../docs');
 
-// Every built .html page, as [url path, html]. Skips dot folders, the Google
-// verification files and the legacy dates/ page (out of scope).
+// Every built .html page, as [url path, html]. Skips dot folders and the Google
+// verification files. (/dates/ is a layout page since site-refresh REF-10.)
 function builtPages(dir = DOCS) {
   const out = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -13,7 +13,6 @@ function builtPages(dir = DOCS) {
     const full = path.join(dir, entry.name);
     const rel = '/' + path.relative(DOCS, full).split(path.sep).join('/');
     if (entry.isDirectory()) {
-      if (rel === '/dates') continue;
       out.push(...builtPages(full));
     } else if (entry.name.endsWith('.html') && !/^google.*\.html$/.test(entry.name)) {
       out.push([rel.replace(/index\.html$/, ''), fs.readFileSync(full, 'utf8')]);

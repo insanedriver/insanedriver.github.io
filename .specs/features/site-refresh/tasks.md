@@ -267,6 +267,7 @@ T8 → T9 → T10
 
 **What**: Create `/press/` on `base.html` with `EPK::BIO` (short + long), `EPK::FACTS` (counts from `_data/discography.json`), `EPK::PHOTOS` (all 2020 PROMO photos with download links), `EPK::LOGOS`, `EPK::CONTACT`, own SEO head, `index, follow`.
 **Where**: `press/index.html` (page styles in `less/pages/press.less`)
+**Deviation**: the bio moved to `_data/bio.js` and `band/index.html` renders it (built Band bio verified byte-identical after whitespace normalisation), so Band and Press share one source. Album count is labelled "Album releases" because `albums` includes the Deluxe edition. Inventory tests updated for the new page: `tests/seo/output.test.cjs` (sitemap 39 → 40), `tests/perf/scripts.test.cjs` (layout page counts), and `tests/perf/built.cjs` no longer skips `/dates/`, so perf checks now cover Dates too. Copy buttons are progressive enhancement (hidden without the Clipboard API).
 **Depends on**: T8
 **Reuses**: `band/index.html` bio copy, `_data/photos.json`, `_data/discography.json`, contact panel pattern
 **Requirement**: REF-17, REF-18, REF-19, REF-20, REF-21, REF-22, REF-23
@@ -278,9 +279,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/press/press.test.cjs` on built `docs/press/index.html`: short bio = first two Band bio paragraphs, long bio = all paragraphs + quote; one download link per 2020 PROMO photo to its `src`; logo downloads; album/single counts equal data; mailto; title/description/canonical/robots; `/press/` in sitemap; not in header menu
-- [ ] `tests/press/press.e2e.cjs`: reduced motion, no overflow at the six widths
-- [ ] Gate check passes (full)
+- [x] `tests/press/press.test.cjs` on built `docs/press/index.html`: short bio = first two Band bio paragraphs, long bio = all paragraphs + quote; one download link per 2020 PROMO photo to its `src`; logo downloads; album/single counts equal data; mailto; title/description/canonical/robots; `/press/` in sitemap; not in header menu
+- [x] `tests/press/press.e2e.cjs`: reduced motion, no overflow at the six widths
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
