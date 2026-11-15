@@ -217,6 +217,7 @@ T8 → T9 → T10
 
 **What**: Style the footer per the approved Stitch screens (cyan top rule, chamfered icon tiles, 2-col list on desktop, 44px tiles on mobile).
 **Where**: `less/footer.less`
+**Deviation**: `footer.liquid` wraps grid and bottom bar in one `.container`, because `tests/desktop/frame.e2e.cjs` expects a single `footer > .container` guide. The seven icons stay on one row at 320px (existing `tests/seo/identity.e2e.cjs`) by narrowing the footer gutter to 6px below 360px. Before shots: `.stitch/designs/v2/current-footer-*.png`; after shots captured at 390/1440.
 **Depends on**: T6
 **Reuses**: `less/cyber-global.less` tokens
 **Requirement**: REF-05, REF-07
@@ -228,9 +229,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/site/footer.e2e.cjs`: at 390px every footer link/icon box is ≥44×44; no overflow on Home and Band at 320/390/768/1024/1440/1920
-- [ ] Before/after screenshots captured for the user
-- [ ] Gate check passes (full)
+- [x] `tests/site/footer.e2e.cjs`: at 390px every footer link/icon box is ≥44×44; no overflow on Home and Band at 320/390/768/1024/1440/1920
+- [x] Before/after screenshots captured for the user
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
