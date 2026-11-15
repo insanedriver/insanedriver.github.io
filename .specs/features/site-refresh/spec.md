@@ -165,10 +165,10 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 | REF-07 | P1: Footer | T7 | Done |
 | REF-08 | P1: Footer | T7 | Done |
 | REF-09 | P1: Footer | T6 | Done |
-| REF-10 | P1: Dates | Tasks | Pending |
-| REF-11 | P1: Dates | Tasks | Pending |
-| REF-12 | P1: Dates | Tasks | Pending |
-| REF-13 | P1: Dates | Tasks | Pending |
+| REF-10 | P1: Dates | T8 | Done |
+| REF-11 | P1: Dates | T8 | Done |
+| REF-12 | P1: Dates | T8 | Done |
+| REF-13 | P1: Dates | T8 | Done |
 | REF-14 | P1: Mobile grids | T4 | Done |
 | REF-15 | P1: Mobile grids | T5 | Done |
 | REF-16 | P1: Mobile grids | T5 | Done |

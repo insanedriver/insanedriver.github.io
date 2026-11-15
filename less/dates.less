@@ -1,0 +1,79 @@
+// Dates (REF-10..12): Contact-style cyber zone with a TOUR::DATES intro panel and the
+// Bandsintown widget in a FEED::BANDSINTOWN panel. Approved Stitch reference:
+// .stitch/designs/v2/dates-{desktop,mobile}.png.
+#page_dates {
+    overflow-x: hidden;
+
+    .insane-content { padding: 0; }
+
+    .dates-container {
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        > .row {
+            margin-inline: 0;
+            > .col-md-12 { padding-inline: 0; }
+        }
+    }
+
+    .cyber-panel-body--dates-intro {
+        align-items: flex-start;
+
+        .cyber-glitch-title { margin: 0 0 1rem; }
+        .cyber-desc-text { max-width: none; }
+    }
+
+    .cyber-panel-body--dates-feed {
+        align-items: stretch;
+        gap: 2.4rem;
+        padding-bottom: 4.4rem;
+    }
+
+    .dates-widget {
+        width: 100%;
+        min-height: 4rem;
+        color: #ffffff;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.7rem;
+
+        // The widget draws its own list; keep it inside the panel and in the site's type.
+        .bit-widget { font-family: 'Rajdhani', sans-serif !important; }
+        iframe { max-width: 100%; border: 0; }
+    }
+
+    .dates-follow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        width: 100%;
+        max-width: 42rem;
+        min-height: 52px;
+        padding: 0 2rem;
+        border: 1px solid #00f3ff;
+        background: rgba(0, 243, 255, 0.06);
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 0 14px rgba(0, 243, 255, 0.25);
+        clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible {
+            background: #00f3ff;
+            color: #050505;
+            text-decoration: none;
+        }
+    }
+
+    // Edge case: no motion when the visitor asks for less.
+    @media (prefers-reduced-motion: reduce) {
+        main *, main *::before, main *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+}

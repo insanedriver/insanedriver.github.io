@@ -6,7 +6,7 @@ const pages = [
   ['/discography/', '.disc-shell'], ['/discography/silicon-fortress/', '.disc-shell'],
   ['/discography/silicon-fortress/ghosts/', '.disc-shell'],
   ['/photos/', '.photos-shell'], ['/videos/', '.videos-shell'],
-  ['/store/', '.store-shell'], ['/contact/', '.contact-container'],
+  ['/store/', '.store-shell'], ['/contact/', '.contact-container'], ['/dates/', '.dates-container'],
   ['/newsletter/', '.newsletter-container'],
 ];
 

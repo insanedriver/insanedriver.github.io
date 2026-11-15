@@ -242,6 +242,7 @@ T8 → T9 → T10
 
 **What**: Rebuild `/dates/` on `base.html` with `TOUR::DATES` and `FEED::BANDSINTOWN` cyber panels, https widget script, always-visible "Follow on Bandsintown" link, same SEO front matter, no own trackers.
 **Where**: `dates/index.html` (page styles in `less/pages/dates.less`, wired through the existing per-page CSS mechanism)
+**Deviation**: the legacy `widget.bandsintown.com/javascripts/bit_widget.js` now answers 403, so the page uses the current widget `https://widgetv3.bandsintown.com/main.min.js` (`data-artist-name`; verified rendering "No Upcoming Shows" for artist id 10752930 on 2026-11-15). Dates now gets the desktop layout like Contact: `tests/desktop/preservation.e2e.cjs` moves `/dates/` from the DESK-07 exclusion list into the covered areas, and `tests/desktop/frame.e2e.cjs` adds it to the guide checks (coverage added, none removed).
 **Depends on**: None (Phase 2 complete)
 **Reuses**: `contact/index.html` panel structure, `less/pages/contact.less`
 **Requirement**: REF-10, REF-11, REF-12, REF-13
@@ -253,9 +254,9 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/dates/dates.test.cjs` on built `docs/dates/index.html`: base layout markers present, no `http://` in any `<script src>` or `<iframe src>`, Bandsintown script is `https://`, link `https://www.bandsintown.com/Insane%20Driver` labelled `Follow on Bandsintown`, same title/description/robots, `/dates/` in sitemap, not in header/footer menus
-- [ ] `tests/dates/dates.e2e.cjs` with widget blocked: panel and link visible; reduced-motion has no animation/transition >0.01s; no overflow at the six widths
-- [ ] Gate check passes (full)
+- [x] `tests/dates/dates.test.cjs` on built `docs/dates/index.html`: base layout markers present, no `http://` in any `<script src>` or `<iframe src>`, Bandsintown script is `https://`, link `https://www.bandsintown.com/Insane%20Driver` labelled `Follow on Bandsintown`, same title/description/robots, `/dates/` in sitemap, not in header/footer menus
+- [x] `tests/dates/dates.e2e.cjs` with widget blocked: panel and link visible; reduced-motion has no animation/transition >0.01s; no overflow at the six widths
+- [x] Gate check passes (full)
 
 **Tests**: e2e
 **Gate**: full
