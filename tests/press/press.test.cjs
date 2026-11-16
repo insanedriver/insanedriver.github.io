@@ -91,3 +91,21 @@ test('REF-23: /press/ is in the sitemap and not in the header menu', () => {
     assert.doesNotMatch(header, /href="\/press\/"/, file);
   }
 });
+
+// REF-21 (sensor M10): render the Press template with stub data, so hardcoded counts cannot pass.
+test('REF-21: the highlight counts follow _data/discography.json (rendered with stub data: 7 albums, 11 singles)', async () => {
+  const Liquid = require('liquidjs');
+  const matter = require('gray-matter');
+  const root = path.join(__dirname, '../..');
+  const engine = Liquid({ root: [path.join(root, '_includes')], extname: '.liquid', dynamicPartials: true /* as in .eleventy.js */ });
+  const { content } = matter(fs.readFileSync(path.join(root, 'press/index.html'), 'utf8'));
+  const stub = n => Array.from({ length: n }, (_, i) => ({ slug: `x${i}` }));
+  const html = await engine.parseAndRender(content, {
+    discography: { albums: stub(7), singles: stub(11) },
+    bio: require('../../_data/bio.js'),
+    photos: [],
+  });
+  const facts = text(section(html, 'EPK::FACTS'));
+  assert.match(facts, /\b7 Album releases\b/);
+  assert.match(facts, /\b11 Singles\b/);
+});
