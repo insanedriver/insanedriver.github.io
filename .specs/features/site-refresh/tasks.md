@@ -10,7 +10,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 
 **Spec**: `.specs/features/site-refresh/spec.md`
 **Design**: none (incremental changes on existing patterns; visual references are the approved Stitch screens in `.stitch/designs/v2/{footer,dates,press}-{desktop,mobile}.png`, approved 2026-11-15 with the corrections listed below)
-**Status**: Done (pending Verifier)
+**Status**: Done (Verifier PASS, round 2)
 
 ### Corrections to the approved Stitch screens (apply during implementation)
 
