@@ -10,7 +10,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 
 **Spec**: `.specs/features/site-refresh/spec.md`
 **Design**: none (incremental changes on existing patterns; visual references are the approved Stitch screens in `.stitch/designs/v2/{footer,dates,press}-{desktop,mobile}.png`, approved 2026-11-15 with the corrections listed below)
-**Status**: Approved
+**Status**: Done (pending Verifier)
 
 ### Corrections to the approved Stitch screens (apply during implementation)
 
@@ -303,8 +303,8 @@ T8 → T9 → T10
 
 **Done when**:
 
-- [ ] `tests/site/contact-press.test.cjs` asserts built `/contact/` contains a link to `/press/`
-- [ ] Build gate passes: `npm run build && npm test`
+- [x] `tests/site/contact-press.test.cjs` asserts built `/contact/` contains a link to `/press/`
+- [x] Build gate passes: `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
