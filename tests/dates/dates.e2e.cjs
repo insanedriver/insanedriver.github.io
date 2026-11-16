@@ -18,7 +18,7 @@ test('edge: with reduced motion, /dates/ runs no animation or transition longer 
   const long = await page.evaluate(() => {
     const secs = v => v.split(',').map(s => s.trim().endsWith('ms') ? parseFloat(s) / 1000 : parseFloat(s) || 0);
     const out = [];
-    for (const el of document.querySelectorAll('main *, main')) {
+    for (const el of document.querySelectorAll('body, body *')) {
       for (const pseudo of [null, '::before', '::after']) {
         const cs = getComputedStyle(el, pseudo);
         const anim = cs.animationName !== 'none' ? Math.max(...secs(cs.animationDuration)) : 0;

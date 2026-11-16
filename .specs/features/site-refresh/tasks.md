@@ -327,3 +327,55 @@ T8 → T9 → T10
 | REF-17..23 | T9 |
 | REF-24 | T10 |
 | REF-25 | T1 |
+
+---
+
+## Fix tasks (Verifier round 1, 2026-11-15)
+
+### F1: Reduced motion on the whole Dates and Press pages
+
+**What**: The reduced-motion blocks covered only `main`, so the footer's 0.2s transitions still ran (Verifier gap 1). Widen the blocks to the whole page and the tests to `body, body *`.
+**Where**: `less/dates.less`, `less/press.less` (same one-line selector change)
+**Depends on**: None
+**Requirement**: Edge case (reduced motion)
+
+**Done when**:
+
+- [x] `tests/dates/dates.e2e.cjs` and `tests/press/press.e2e.cjs` scan `body, body *` (red before the fix, green after)
+- [x] Gate check passes (full)
+
+**Tests**: e2e
+**Gate**: full
+
+---
+
+### F2: Prove the Press counts come from the data
+
+**What**: Sensor mutant M10 (counts hardcoded as 3/18) survived. Add a test that renders the Press template with stub discography data (7 albums, 11 singles).
+**Where**: `tests/press/press.test.cjs`
+**Depends on**: None
+**Requirement**: REF-21
+
+**Done when**:
+
+- [x] New test passes on the real template and fails with M10 re-applied (checked, then reverted)
+- [x] Gate check passes: `npm run build && npm run test:unit`
+
+**Tests**: unit
+**Gate**: quick
+
+---
+
+### F3: Spec wording for REF-01 and REF-04
+
+**What**: Name the Band pull-quote exclusion in REF-01 and the exact font stacks in REF-04 (Verifier gaps 3 and 4).
+**Where**: `.specs/features/site-refresh/spec.md`
+**Depends on**: None
+**Requirement**: REF-01, REF-04
+
+**Done when**:
+
+- [x] `validate_spec.py site-refresh` passes
+
+**Tests**: none
+**Gate**: quick

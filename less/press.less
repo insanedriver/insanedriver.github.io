@@ -299,9 +299,9 @@
         &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
     }
 
-    // Edge case: no motion when the visitor asks for less.
+    // Edge case: no motion anywhere on the page (header, panels, footer) when the visitor asks for less.
     @media (prefers-reduced-motion: reduce) {
-        main *, main *::before, main *::after {
+        &, *, *::before, *::after {
             animation: none !important;
             transition: none !important;
         }
