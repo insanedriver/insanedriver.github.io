@@ -53,10 +53,10 @@ The user rejected a full redesign (three Stitch Home directions, 2026-11-15) and
 
 **Acceptance Criteria**:
 
-1. **REF-01** — The Band bio paragraphs, Contact panel paragraphs and Newsletter description paragraphs SHALL compute `font-family` starting with `Rajdhani` and `text-align: left` at 390px and 1440px.
+1. **REF-01** — The Band bio paragraphs (excluding the display pull-quote `.cyber-bio-quote`, which keeps the band face), Contact panel paragraphs and Newsletter description paragraphs SHALL compute `font-family` starting with `Rajdhani` and `text-align: left` at 390px and 1440px.
 2. **REF-02** — WHILE the viewport is 390px wide those paragraphs SHALL compute a font size of at least 16px.
 3. **REF-03** — Those paragraphs SHALL have a text/background contrast ratio of at least 4.5:1.
-4. **REF-04** — Elements marked `data-hud` and panel tab labels SHALL keep their current monospace font.
+4. **REF-04** — Elements marked `data-hud` SHALL keep `"Share Tech Mono", monospace`, and panel tab labels SHALL keep `SiliconFont, Rajdhani, sans-serif` (their fonts before this change).
 
 **Independent Test**: Playwright reads computed styles of the listed paragraphs at both widths.
 
