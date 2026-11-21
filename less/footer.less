@@ -184,6 +184,9 @@ footer .social-text {
 .footer-links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    // Column-first like the mockup: 01-05 down the left, 06-09 down the right.
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
     gap: 8px;
     margin: 0;
     padding: 0;
@@ -288,8 +291,6 @@ footer .scroll-top {
     .footer-links {
         column-gap: 24px;
         row-gap: 4px;
-        grid-auto-flow: column;
-        grid-template-rows: repeat(5, auto);
 
         a {
             border-color: transparent;
@@ -297,6 +298,13 @@ footer .scroll-top {
             padding: 0 4px;
         }
 
-        .active a { box-shadow: inset 3px 0 0 #00f3ff; padding-left: 12px; }
+        // Mockup: a left bar and cyan text only, no outline box. A real left border
+        // (not an inset shadow) keeps the bar inside the same box as its neighbours.
+        .active a {
+            border-color: transparent;
+            border-left: 3px solid #00f3ff;
+            box-shadow: none;
+            padding-left: 9px;
+        }
     }
 }
