@@ -16,9 +16,10 @@
         }
     }
 
-    // Approved column: panels sit in a centred ~760px column at every width
-    // (beats desktop-layout's 1360px .cyber-zone-inner and contact.less's 56rem leak).
-    .dates-container .cyber-zone-inner {
+    // Approved column: panels sit in a centred ~760px column at every width. The
+    // .cyber-zone-inner frame itself keeps desktop-layout's common 1360px guide (DESK-01).
+    .dates-container .cyber-zone-inner > .cyber-panel,
+    .dates-container .cyber-zone-inner > .cyber-separator {
         max-width: 76rem;
         margin-inline: auto;
     }
