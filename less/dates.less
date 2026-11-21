@@ -16,6 +16,17 @@
         }
     }
 
+    // Approved column: panels sit in a centred ~760px column at every width
+    // (beats desktop-layout's 1360px .cyber-zone-inner and contact.less's 56rem leak).
+    .dates-container .cyber-zone-inner {
+        max-width: 76rem;
+        margin-inline: auto;
+    }
+
+    // Near-black like the mockup (#050d12); the shared rgba(10,10,10,0.85) turns grey
+    // over this page's light scanline zone. Grid overlay is kept.
+    .cyber-panel-body { background-color: #050d12; }
+
     .cyber-panel-body--dates-intro {
         align-items: flex-start;
 
