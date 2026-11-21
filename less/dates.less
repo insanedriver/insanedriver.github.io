@@ -41,6 +41,53 @@
         iframe { max-width: 100%; border: 0; }
     }
 
+    // Empty state (mockup: ringed dot + heading). Hidden once the widget renders.
+    .dates-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.6rem;
+        padding: 2.4rem 0 0;
+        text-align: center;
+    }
+    .dates-widget:has(.bit-widget) ~ .dates-empty { display: none; }
+
+    .dates-empty-dot {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(0, 243, 255, 0.4);
+        border-radius: 50%;
+        box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00f3ff;
+        }
+        &::after { animation: dates-empty-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+    }
+
+    .dates-empty-title {
+        margin: 0;
+        color: #ffffff;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.025em;
+        @media (min-width: 768px) { font-size: 3rem; }
+    }
+
+    @keyframes dates-empty-ping {
+        75%, 100% { transform: scale(2); opacity: 0; }
+    }
+
     .dates-follow {
         display: flex;
         align-items: center;
