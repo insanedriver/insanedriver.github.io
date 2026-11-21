@@ -61,3 +61,13 @@ test('REF-13: /dates/ is not linked from the header or footer menu on any layout
     assert.doesNotMatch(footer, /href="\/dates\/"/, `${file} footer`);
   }
 });
+
+test('REF-12/edge: the FEED::BANDSINTOWN panel carries a static "No shows announced right now." empty state beside the widget', () => {
+  const panel = html().match(/FEED::BANDSINTOWN<\/div>([\s\S]*?)<\/section>/);
+  assert.ok(panel, 'feed panel');
+  const empty = panel[1].match(/<div class="dates-empty"[^>]*>([\s\S]*?)<\/div>/);
+  assert.ok(empty, 'empty state block inside the feed panel');
+  assert.match(empty[1], /<h3 class="dates-empty-title">No shows announced right now\.<\/h3>/);
+  // Only mockup copy: no invented telemetry line.
+  assert.doesNotMatch(panel[1], /telemetry standby/i);
+});
