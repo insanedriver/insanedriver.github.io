@@ -379,3 +379,35 @@ T8 → T9 → T10
 
 **Tests**: none
 **Gate**: quick
+
+---
+
+## Fix tasks (human visual check vs Stitch, 2026-11-21)
+
+Visual review of footer, `/dates/` and `/press/` at 390/1440 against `.stitch/designs/v2/`. Press judged close enough (its full-width container matches Contact and is kept). Low-severity polish items (HUD label contrast, YouTube glyph, footer glow, Press logo size, Copy icons) deferred.
+
+### V1: Dates empty state
+
+**What**: With the widget blocked or empty, the feed panel showed only the Follow button. Add the designed empty state (dot + "No shows announced right now."), hidden via `:has(.bit-widget)` once the widget renders.
+**Where**: `dates/index.html`, `less/dates.less`, `tests/dates/*`
+**Requirement**: REF-10, REF-12 (fallback content)
+
+- [x] Unit: built HTML has the heading in the feed panel; e2e: visible when blocked, hidden once `.bit-widget` exists (`d92a40c`, `5cbe4b7`)
+
+### V2: Dates column width and panel background
+
+**What**: Panels spanned the full width on a grey body. Centre them in a 760px column and make the panel body near-black (`#page_dates` scope only).
+**Where**: `less/dates.less`, `tests/dates/dates.e2e.cjs`
+**Requirement**: REF-10
+
+- [x] e2e: panel ≤800px and centred at 1440, body luminance < 0.008, no overflow at six widths (`b7d3abe`)
+- [x] Column cap moved from `.cyber-zone-inner` to the panels so the shared 1360px frame (DESK-01/06) holds
+
+### V3: Footer nav order and desktop active item
+
+**What**: Mobile nav ran across rows; desktop active item had a full outline. Flow down columns at all widths; desktop active = left bar + cyan text.
+**Where**: `less/footer.less`, `tests/site/footer.e2e.cjs`
+**Requirement**: REF-05 (approved layout), REF-07 kept
+
+- [x] e2e: column-first order at 390; active link has only a left border and stays in its column at 1440 (`c0dc6f4`, `f529e9f`)
+- [x] Full gate: `npm run build && npm test` — 335 unit + 844 e2e passed, 0 failed (at `6eef176`)
