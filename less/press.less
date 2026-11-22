@@ -1,5 +1,7 @@
 // Press kit (REF-17..22): five EPK panels in the Contact pattern. Approved Stitch
 // reference: .stitch/designs/v2/press-{desktop,mobile}.png, with the real photos and logos.
+@import (reference) "featured-reviews.less";
+
 #page_press {
     overflow-x: hidden;
 
@@ -177,6 +179,12 @@
         color: #d4d4d4;
         text-align: left;
     }
+
+    // ── Reviews (REV-17..19) ──
+
+    .featured-reviews();
+
+    .cyber-panel-body--press-reviews { align-items: center; }
 
     // ── Photos and logos ──
 

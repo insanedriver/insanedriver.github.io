@@ -166,9 +166,9 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 | REV-14 | P1: Review data integrity | T1 | Implementing |
 | REV-15 | P1: Review data integrity | T1 | Implementing |
 | REV-16 | P1: Review data integrity | T1 | Implementing |
-| REV-17 | P1: Entry points | Design | Pending |
-| REV-18 | P1: Entry points | Design | Pending |
-| REV-19 | P1: Entry points | Design | Pending |
+| REV-17 | P1: Entry points | T4 | Implementing |
+| REV-18 | P1: Entry points | T4 | Implementing |
+| REV-19 | P1: Entry points | T4 | Implementing |
 | REV-20 | P1: Entry points | Design | Pending |
 | REV-21 | P1: Entry points | Design | Pending |
 | REV-22 | P2: Readable | T3 | Implementing |

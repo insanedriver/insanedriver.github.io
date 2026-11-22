@@ -1,0 +1,75 @@
+// REV-18/20: the featured press quotes block, used by #page_press and #page_band.
+.featured-reviews() {
+    .featured-reviews {
+        display: grid;
+        gap: 1.4rem;
+        margin: 0 0 2.4rem;
+        padding: 0;
+        list-style: none;
+
+        @media (min-width: 992px) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    .featured-review {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.2rem;
+        min-width: 0;
+        padding: 1.6rem;
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        border-left: 3px solid #ff00ea;
+        background: rgba(5, 18, 26, 0.7);
+        text-align: left;
+    }
+
+    .featured-review-quote {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        font-size: 1.8rem;
+        line-height: 1.45;
+        color: #ffffff;
+    }
+
+    .featured-review-source {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #00f3ff;
+    }
+
+    .featured-review-score {
+        padding: 1px 8px;
+        border: 1px solid #ff00ea;
+        color: #ff00ea;
+        letter-spacing: 1px;
+    }
+
+    .featured-reviews-all {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 2rem;
+        border: 1px solid #00f3ff;
+        background: rgba(0, 243, 255, 0.06);
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
+    }
+}

@@ -69,6 +69,20 @@ header_img_path: header_3.jpg
 
                     <div class="cyber-separator" aria-hidden="true"></div>
 
+                    <section class="cyber-panel" aria-labelledby="press-reviews-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::REVIEWS</div>
+                        <div class="cyber-panel-body cyber-panel-body--press cyber-panel-body--press-reviews" data-hud="PRESS_FEED // {{ reviews.reviews.size }}_LOGS_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-eyebrow press-section-title" id="press-reviews-title">What the press said</h2>
+                            {% include 'press/featured-reviews' %}
+                        </div>
+                    </section>
+
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
                     <section class="cyber-panel" aria-labelledby="press-photos-title">
                         <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::PHOTOS</div>
                         <div class="cyber-panel-body cyber-panel-body--press" data-hud="ASSET_VAULT // SYNC_OK_">

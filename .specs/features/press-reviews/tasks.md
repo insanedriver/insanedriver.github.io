@@ -149,9 +149,9 @@ T6
 
 **Done when**:
 
-- [ ] `tests/press/press.test.cjs` gains REV-17..19 tests; the REV-17 panel-list test includes `EPK::REVIEWS`
-- [ ] `/press/` has no horizontal overflow (existing e2e)
-- [ ] Gate check passes: full gate
+- [x] `tests/press/press.test.cjs` gains REV-17..19 tests; the REV-17 panel-list test includes `EPK::REVIEWS`
+- [x] `/press/` has no horizontal overflow (existing e2e)
+- [x] Gate check passes: full gate
 
 **Tests**: unit
 **Gate**: full

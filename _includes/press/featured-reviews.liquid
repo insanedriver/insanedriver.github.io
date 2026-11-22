@@ -1,0 +1,9 @@
+{%- comment -%} REV-18/19/21: the featured press quotes and the link to every review, shared by /press/ and /band/. {%- endcomment -%}
+<ul class="featured-reviews">
+    {% for review in reviews.reviews %}{% if review.featured %}<li class="featured-review">
+        <blockquote class="featured-review-quote">"{{ review.quote }}"</blockquote>
+        <p class="featured-review-source"><span class="featured-review-outlet">{{ review.outlet }}</span>{% if review.score %} <span class="featured-review-score">{{ review.score }}</span>{% endif %}</p>
+    </li>
+    {% endif %}{% endfor %}
+</ul>
+<a class="featured-reviews-all" href="/press/reviews/">Read all {{ reviews.reviews.size }} reviews</a>
