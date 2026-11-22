@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: skipped. The feature reuses the existing patterns (Eleventy `_data` JSON, base layout pages, `less/pages/<page_id>.less` bundles, `cyber-panel` markup, `node:test` over built `docs/`, Playwright e2e).
-**Status**: In Progress
+**Status**: Done
 
 ---
 
@@ -201,8 +201,8 @@ T6
 
 **Done when**:
 
-- [ ] `tests/press/check-review-links.test.cjs` covers REV-24 with a stubbed fetch and REV-25
-- [ ] Gate check passes: build gate `npm run build && npm test`
+- [x] `tests/press/check-review-links.test.cjs` covers REV-24 with a stubbed fetch and REV-25
+- [x] Gate check passes: build gate `npm run build && npm test`
 
 **Tests**: unit
 **Gate**: build
