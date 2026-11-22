@@ -64,8 +64,8 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 1. The system SHALL build `/press/reviews/` on the base layout with the page title "Press Reviews" and `page_id` `press-reviews`. <!-- REV-01 -->
 2. The reviews page SHALL render one album section per album, *Silicon Fortress* first and *Insane Driver* second, each with the album title and year as a heading. <!-- REV-02 -->
-3. The reviews page SHALL render one card for every entry in `_data/reviews.json`, inside its album's section, newest `date` first. <!-- REV-03 -->
-4. Each review card SHALL show the outlet name, the author when present, the publication date, the English quote and the English summary. <!-- REV-04 -->
+3. The reviews page SHALL render one card for every entry in `_data/reviews.json`, inside its album's section, newest `date` first, where a partial date (`YYYY-MM`, `YYYY`) sorts below every fuller date that shares its prefix (2016-12-05, then 2016-12, then 2016). <!-- REV-03 -->
+4. Each review card SHALL show the outlet name, the author when present, the publication date ("Aug 18, 2016", "Apr 2016" or "2016" by stored precision), the English quote and the English summary. <!-- REV-04 -->
 5. WHERE a review has a `score`, the card SHALL show it exactly as stored (for example "9/10" or "5 stars"); WHERE it has none, the card SHALL render no score element. <!-- REV-05 -->
 6. Each review card SHALL link to the review's `url`, with `target="_blank"` and `rel="noopener"`. <!-- REV-06 -->
 7. WHERE a review's `language` is `pt`, the card SHALL show the label "Translated from Portuguese". <!-- REV-07 -->

@@ -60,7 +60,7 @@ T6
 
 ### T1: Create the review data
 
-**What**: `_data/reviews.json` with 18 reviews and 4 recognitions, written from the research file, plus the schema unit test.
+**What**: `_data/reviews.json` with 18 reviews and 3 recognitions, written from the research file, plus the schema unit test.
 **Where**: `_data/reviews.json`
 **Depends on**: None
 **Reuses**: `_data/discography.json` album slugs
@@ -73,7 +73,7 @@ T6
 
 **Done when**:
 
-- [x] 12 `insane-driver` reviews and 6 `silicon-fortress` reviews, 4 recognitions
+- [x] 12 `insane-driver` reviews and 6 `silicon-fortress` reviews, 3 recognitions (Terrorizer dropped in 00005d0)
 - [x] `tests/press/reviews-data.test.cjs` covers REV-13..16
 - [x] Gate check passes: `npm run build && npm run test:unit`
 
