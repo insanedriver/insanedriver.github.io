@@ -99,8 +99,8 @@ T6
 
 **Done when**:
 
-- [ ] `tests/press/reviews-page.test.cjs` covers REV-01..12 and the three edge cases over the built HTML
-- [ ] Gate check passes: `npm run build && npm run test:unit`
+- [x] `tests/press/reviews-page.test.cjs` covers REV-01..12 and the three edge cases over the built HTML
+- [x] Gate check passes: `npm run build && npm run test:unit`
 
 **Tests**: unit
 **Gate**: quick

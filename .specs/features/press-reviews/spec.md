@@ -150,18 +150,18 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| REV-01 | P1: Full reviews page | Design | Pending |
-| REV-02 | P1: Full reviews page | Design | Pending |
-| REV-03 | P1: Full reviews page | Design | Pending |
-| REV-04 | P1: Full reviews page | Design | Pending |
-| REV-05 | P1: Full reviews page | Design | Pending |
-| REV-06 | P1: Full reviews page | Design | Pending |
-| REV-07 | P1: Full reviews page | Design | Pending |
-| REV-08 | P1: Full reviews page | Design | Pending |
-| REV-09 | P1: Full reviews page | Design | Pending |
-| REV-10 | P1: Full reviews page | Design | Pending |
-| REV-11 | P1: Full reviews page | Design | Pending |
-| REV-12 | P1: Full reviews page | Design | Pending |
+| REV-01 | P1: Full reviews page | T2 | Implementing |
+| REV-02 | P1: Full reviews page | T2 | Implementing |
+| REV-03 | P1: Full reviews page | T2 | Implementing |
+| REV-04 | P1: Full reviews page | T2 | Implementing |
+| REV-05 | P1: Full reviews page | T2 | Implementing |
+| REV-06 | P1: Full reviews page | T2 | Implementing |
+| REV-07 | P1: Full reviews page | T2 | Implementing |
+| REV-08 | P1: Full reviews page | T2 | Implementing |
+| REV-09 | P1: Full reviews page | T2 | Implementing |
+| REV-10 | P1: Full reviews page | T2 | Implementing |
+| REV-11 | P1: Full reviews page | T2 | Implementing |
+| REV-12 | P1: Full reviews page | T2 | Implementing |
 | REV-13 | P1: Review data integrity | T1 | Implementing |
 | REV-14 | P1: Review data integrity | T1 | Implementing |
 | REV-15 | P1: Review data integrity | T1 | Implementing |
