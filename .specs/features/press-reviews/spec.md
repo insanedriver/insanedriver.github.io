@@ -150,33 +150,33 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| REV-01 | P1: Full reviews page | T2 | Implementing |
-| REV-02 | P1: Full reviews page | T2 | Implementing |
-| REV-03 | P1: Full reviews page | T2 | Implementing |
-| REV-04 | P1: Full reviews page | T2 | Implementing |
-| REV-05 | P1: Full reviews page | T2 | Implementing |
-| REV-06 | P1: Full reviews page | T2 | Implementing |
-| REV-07 | P1: Full reviews page | T2 | Implementing |
-| REV-08 | P1: Full reviews page | T2 | Implementing |
-| REV-09 | P1: Full reviews page | T2 | Implementing |
-| REV-10 | P1: Full reviews page | T2 | Implementing |
-| REV-11 | P1: Full reviews page | T2 | Implementing |
-| REV-12 | P1: Full reviews page | T2 | Implementing |
-| REV-13 | P1: Review data integrity | T1 | Implementing |
-| REV-14 | P1: Review data integrity | T1 | Implementing |
-| REV-15 | P1: Review data integrity | T1 | Implementing |
-| REV-16 | P1: Review data integrity | T1 | Implementing |
-| REV-17 | P1: Entry points | T4 | Implementing |
-| REV-18 | P1: Entry points | T4 | Implementing |
-| REV-19 | P1: Entry points | T4 | Implementing |
-| REV-20 | P1: Entry points | T5 | Implementing |
-| REV-21 | P1: Entry points | T5 | Implementing |
-| REV-22 | P2: Readable | T3 | Implementing |
-| REV-23 | P2: Readable | T3 | Implementing |
-| REV-24 | P3: Link health | T6 | Implementing |
-| REV-25 | P3: Link health | T6 | Implementing |
+| REV-01 | P1: Full reviews page | T2 | Verified |
+| REV-02 | P1: Full reviews page | T2 | Verified |
+| REV-03 | P1: Full reviews page | T2 | Verified |
+| REV-04 | P1: Full reviews page | T2 | Verified |
+| REV-05 | P1: Full reviews page | T2 | Verified |
+| REV-06 | P1: Full reviews page | T2 | Verified |
+| REV-07 | P1: Full reviews page | T2 | Verified |
+| REV-08 | P1: Full reviews page | T2 | Verified |
+| REV-09 | P1: Full reviews page | T2 | Verified |
+| REV-10 | P1: Full reviews page | T2 | Verified |
+| REV-11 | P1: Full reviews page | T2 | Verified |
+| REV-12 | P1: Full reviews page | T2 | Verified |
+| REV-13 | P1: Review data integrity | T1 | Verified |
+| REV-14 | P1: Review data integrity | T1 | Verified |
+| REV-15 | P1: Review data integrity | T1 | Verified |
+| REV-16 | P1: Review data integrity | T1 | Verified |
+| REV-17 | P1: Entry points | T4 | Verified |
+| REV-18 | P1: Entry points | T4 | Verified |
+| REV-19 | P1: Entry points | T4 | Verified |
+| REV-20 | P1: Entry points | T5 | Verified |
+| REV-21 | P1: Entry points | T5 | Verified |
+| REV-22 | P2: Readable | T3 | Verified |
+| REV-23 | P2: Readable | T3 | Verified |
+| REV-24 | P3: Link health | T6 | Verified |
+| REV-25 | P3: Link health | T6 | Verified |
 
-**Coverage:** 25 total, 0 mapped to tasks, 25 unmapped ⚠️ (mapped in Tasks)
+**Coverage:** 25 total, 25 mapped to tasks (T1-T6), 0 unmapped
 
 ---
 
