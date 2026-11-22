@@ -124,8 +124,8 @@ T6
 
 **Done when**:
 
-- [ ] `tests/press/reviews.e2e.cjs` covers REV-22 at 320/390/768/1440px and REV-23 at 390px
-- [ ] Gate check passes: full gate
+- [x] `tests/press/reviews.e2e.cjs` covers REV-22 at 320/390/768/1440px and REV-23 at 390px
+- [x] Gate check passes: full gate
 
 **Tests**: e2e
 **Gate**: full

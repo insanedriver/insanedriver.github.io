@@ -171,8 +171,8 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 | REV-19 | P1: Entry points | Design | Pending |
 | REV-20 | P1: Entry points | Design | Pending |
 | REV-21 | P1: Entry points | Design | Pending |
-| REV-22 | P2: Readable | Design | Pending |
-| REV-23 | P2: Readable | Design | Pending |
+| REV-22 | P2: Readable | T3 | Implementing |
+| REV-23 | P2: Readable | T3 | Implementing |
 | REV-24 | P3: Link health | Design | Pending |
 | REV-25 | P3: Link health | Design | Pending |
 
