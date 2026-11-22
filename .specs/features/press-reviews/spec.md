@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-What the specialized press wrote about the band's two albums, *Insane Driver* (2016) and *Silicon Fortress* (2021), is scattered across Brazilian webzines and blogs, and three of those sites are already dead. The site has no record of it, and foreign bookers and journalists cannot read the Portuguese originals. A web sweep (2026-11-22) found 18 press reviews (12 for the debut, 6 for Silicon Fortress), all published in Brazilian Portuguese, plus four recognitions.
+What the specialized press wrote about the band's two albums, *Insane Driver* (2016) and *Silicon Fortress* (2021), is scattered across Brazilian webzines and blogs, and three of those sites are already dead. The site has no record of it, and foreign bookers and journalists cannot read the Portuguese originals. A web sweep (2026-11-22) found 18 press reviews (12 for the debut, 6 for Silicon Fortress), all published in Brazilian Portuguese, plus three linkable recognitions.
 
 ## Goals
 
@@ -40,7 +40,7 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 | Deluxe Edition (2018) | Grouped with *Insane Driver*; a "Deluxe Edition" label only if a review is specifically about it (none exists today) | Q11 | y |
 | Dead links | Link to the Wayback snapshot, marked "Archived copy"; the original URL is kept in `originalUrl` | Q12 | y |
 | Print or unlinkable reviews (Roadie Crew #207, Metal na Lata 2016) | Marked "Print" or "Via press release" and linked to the press-release republication | Q14, Q15 | y |
-| Recognition strip | Terrorizer "Fear Candy" (2015), Roadie Crew 2016 readers' poll nominee, Metal Samsara best of 2016, Metal na Lata "Melhores do Ano 2021"; each linked | Q17 | y |
+| Recognition strip | Roadie Crew 2016 readers' poll nominee, Metal Samsara best of 2016, Metal na Lata "Melhores do Ano 2021"; each linked. Terrorizer "Fear Candy" (2015) dropped: its only source (hardandheavy.com.br/ptbr/?p=11097) is dead with no Wayback copy | Q17; link check 2026-11-22 | y, pending user |
 | Featured quotes | Roadie Crew (2016), Whiplash.Net (2016), Heavy And Hell (*Silicon Fortress*) | Q18 | y |
 | Translations | Written from the research file; the user reviews them before merge | Q13 | y |
 | Link checker | `scripts/check-review-links.cjs`, run by hand; it is not part of `npm test` and does not block the build | Grilling summary | y |
@@ -75,7 +75,7 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 11. The reviews page SHALL render a Recognition list with one linked item for each entry in `recognitions` of `_data/reviews.json`. <!-- REV-11 -->
 12. The sitemap SHALL list `/press/reviews/`, and the header menu SHALL NOT link to it. <!-- REV-12 -->
 
-**Independent Test**: Build the site, open `/press/reviews/`, and find 18 cards in two album sections and 4 recognition items, with every link resolving to its stored URL.
+**Independent Test**: Build the site, open `/press/reviews/`, and find 18 cards in two album sections and 3 recognition items, with every link resolving to its stored URL.
 
 ---
 
@@ -182,7 +182,7 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 ## Success Criteria
 
-- [ ] 18 reviews and 4 recognitions are live on `/press/reviews/`, every one linked.
+- [ ] 18 reviews and 3 recognitions are live on `/press/reviews/`, every one linked.
 - [ ] `/press/` and `/band/` each show 3 featured quotes and link to the full page.
 - [ ] `npm test` is green, with the new unit and e2e tests included.
 - [ ] The user has reviewed the English translations.

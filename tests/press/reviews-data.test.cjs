@@ -51,7 +51,7 @@ test('REV-16: no two reviews share a url', () => {
 });
 
 test('REV-11: every recognition has a title, an outlet, a year and a url', () => {
-  assert.equal(data.recognitions.length, 4);
+  assert.equal(data.recognitions.length, 3);
   for (const r of data.recognitions) {
     for (const field of ['title', 'outlet', 'year', 'url']) {
       assert.notEqual(String(r[field] || '').trim(), '', `${r.outlet} ${field}`);
