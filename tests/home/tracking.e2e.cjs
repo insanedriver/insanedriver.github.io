@@ -8,7 +8,7 @@ const SHUFFLED = pool[4].slug;
 
 const pushed = (page, name) => page.evaluate(n => (window.dataLayer || []).filter(e => e && e.event === n), name);
 
-// Popups (target=_blank links and the Mailchimp form) get a stub page, never the network.
+// Popups (target=_blank links) get a stub page, never the network.
 async function stubExternal(context) {
   await context.route(url => !['127.0.0.1', 'localhost'].includes(url.hostname),
     route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>stub</title>' }));
@@ -49,8 +49,7 @@ test('HOME-49: a NOW::STREAMING platform click reports the shuffled single with 
 
 for (const [name, selector, expected] of [
   ['video', '[data-home-teaser="video"]', { event: 'home_teaser_click', target: 'video', slug: 'keep-away' }],
-  ['album', '[data-home-teaser="album"][data-home-slug="silicon-fortress"]', { event: 'home_teaser_click', target: 'album', slug: 'silicon-fortress' }],
-  ['photos', '[data-home-teaser="photos"]', { event: 'home_teaser_click', target: 'photos' }]
+  ['album', '[data-home-teaser="album"][data-home-slug="silicon-fortress"]', { event: 'home_teaser_click', target: 'album', slug: 'silicon-fortress' }]
 ]) {
   test(`HOME-50: the ${name} teaser reports its click without blocking the navigation`, async ({ page }) => {
     await holdNavigation(page);
@@ -59,15 +58,6 @@ for (const [name, selector, expected] of [
     expect(await page.evaluate(() => window.__prevented)).toEqual([false]);
   });
 }
-
-// The signup lives in a cross-origin iframe on /newsletter/; the home panel
-// only links there and reports nothing.
-test('BIT-05: the Join the network link never reports home_newsletter_submit', async ({ page }) => {
-  await holdNavigation(page);
-  await panelByTab(page, 'SIGNAL::NEWSLETTER').getByRole('link', { name: 'Join the network' }).click();
-  expect(await page.evaluate(() => window.__prevented)).toEqual([false]);
-  expect(await pushed(page, 'home_newsletter_submit')).toEqual([]);
-});
 
 test('HOME-51: with no dataLayer the click creates it and Spotify still opens', async ({ page, context }) => {
   await page.evaluate(() => { delete window.dataLayer; });

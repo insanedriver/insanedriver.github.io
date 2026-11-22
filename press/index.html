@@ -1,0 +1,166 @@
+---
+layout: base.html
+
+page_title: Press Kit
+page_description: Insane Driver press kit for bookers and journalists - official bio, high-resolution promo photos, logos, key facts and the booking and press contact.
+page_robots: index, follow
+page_id: press
+header_img_path: header_3.jpg
+---
+
+<div class="container press-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="cyber-zone">
+                <div class="cyber-zone-inner">
+
+                    <section class="cyber-panel" aria-labelledby="press-bio-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::BIO</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="NODE.7F // EPK_BIO_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-sr-only" id="press-bio-title">Biography</h2>
+                            <div class="press-bio-grid">
+                                <article class="press-bio-col">
+                                    <header class="press-bio-head">
+                                        <h3 class="press-eyebrow">Short bio</h3>
+                                        <button type="button" class="press-copy" data-press-copy="short" hidden>Copy</button>
+                                    </header>
+                                    <div class="press-bio press-bio--short" data-press-bio="short">
+                                        {% for paragraph in bio.paragraphs limit: 2 %}<p>{{ paragraph }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </article>
+                                <article class="press-bio-col">
+                                    <header class="press-bio-head">
+                                        <h3 class="press-eyebrow">Long bio</h3>
+                                        <button type="button" class="press-copy" data-press-copy="long" hidden>Copy</button>
+                                    </header>
+                                    <div class="press-bio press-bio--long" data-press-bio="long">
+                                        {% for paragraph in bio.paragraphs %}<p>{{ paragraph }}</p>
+                                        {% endfor %}<p class="press-bio-quote">{{ bio.quote }}</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
+                    <section class="cyber-panel" aria-labelledby="press-facts-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::FACTS</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="FREQ.440 // EPK_FACTS_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-sr-only" id="press-facts-title">Key facts</h2>
+                            <dl class="press-facts">
+                                <div class="press-fact"><dt>Origin</dt><dd>São Paulo, Brazil</dd></div>
+                                <div class="press-fact"><dt>Active</dt><dd>Since 2013</dd></div>
+                                <div class="press-fact"><dt>Discography</dt><dd class="press-fact--accent">{{ discography.albums.size }} Album releases</dd></div>
+                                <div class="press-fact"><dt>Catalog</dt><dd class="press-fact--accent">{{ discography.singles.size }} Singles</dd></div>
+                            </dl>
+                            <div class="press-fans">{% include 'seo/fans-of' %}</div>
+                        </div>
+                    </section>
+
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
+                    <section class="cyber-panel" aria-labelledby="press-photos-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::PHOTOS</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="ASSET_VAULT // SYNC_OK_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-eyebrow press-section-title" id="press-photos-title">Official promo photos // 2020 shoot</h2>
+                            <ul class="press-photos">
+                                {% for photo in photos %}{% if photo.category == 'PROMO' and photo.caption contains '2020' %}
+                                <li class="press-photo">
+                                    <picture>
+                                        <source type="image/webp" srcset="{{ photo.thumbnail | replace: '.jpg', '.webp' }}">
+                                        <img src="{{ photo.thumbnail }}" alt="{{ photo.alt }}" width="285" height="{{ photo.height | times: 285 | divided_by: photo.width }}" loading="lazy" decoding="async">
+                                    </picture>
+                                    <a class="press-download" href="{{ photo.src }}" download><i class="fa fa-download" aria-hidden="true"></i> <span class="press-download-label">Download hi-res</span> <span class="press-download-size">{{ photo.width }}×{{ photo.height }}</span></a>
+                                </li>
+                                {% endif %}{% endfor %}
+                            </ul>
+                        </div>
+                    </section>
+
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
+                    <section class="cyber-panel" aria-labelledby="press-logos-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::LOGOS</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="LOGO_PACK // PNG_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-sr-only" id="press-logos-title">Logos</h2>
+                            <ul class="press-logos">
+                                <li class="press-logo">
+                                    <span class="press-eyebrow">Wordmark // horizontal</span>
+                                    <picture><source type="image/webp" srcset="/assets/images/logo_horizontal-600.webp"><img src="/assets/images/logo_horizontal.png" alt="Insane Driver horizontal wordmark" width="600" height="95" loading="lazy"></picture>
+                                    <a class="press-download" href="/assets/images/logo_horizontal.png" download><i class="fa fa-download" aria-hidden="true"></i> Download PNG <span class="press-download-size">600×95</span></a>
+                                </li>
+                                <li class="press-logo">
+                                    <span class="press-eyebrow">Emblem // stacked</span>
+                                    <picture><source type="image/webp" srcset="/assets/images/logo_loading.webp"><img src="/assets/images/logo_loading.png" alt="Insane Driver stacked emblem" width="300" height="204" loading="lazy"></picture>
+                                    <a class="press-download" href="/assets/images/logo_loading.png" download><i class="fa fa-download" aria-hidden="true"></i> Download PNG <span class="press-download-size">300×204</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
+                    <section class="cyber-panel" aria-labelledby="press-contact-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> EPK::CONTACT</div>
+                        <div class="cyber-panel-body cyber-panel-body--press cyber-panel-body--press-contact" data-hud="SEC.LVL.0 // PUBLIC_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="cyber-glitch-title" id="press-contact-title">Booking and Press</h2>
+                            <a class="press-email" href="mailto:contact@insanedriver.com.br"><i class="fa fa-envelope" aria-hidden="true"></i> <span>contact@insanedriver.com.br</span></a>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        if (!navigator.clipboard) { return; }
+        var buttons = document.querySelectorAll('[data-press-copy]');
+        Array.prototype.forEach.call(buttons, function (button) {
+            var bio = document.querySelector('[data-press-bio="' + button.getAttribute('data-press-copy') + '"]');
+            button.hidden = false;
+            button.addEventListener('click', function () {
+                var text = Array.prototype.map.call(bio.querySelectorAll('p'), function (p) { return p.textContent.trim(); }).join('\n\n');
+                var show = function (label) {
+                    button.textContent = label;
+                    setTimeout(function () { button.textContent = 'Copy'; }, 3000);
+                };
+                navigator.clipboard.writeText(text).then(function () {
+                    show('Copied');
+                }, function () {
+                    // Clipboard refused: select the bio so the visitor can copy it by hand.
+                    var range = document.createRange();
+                    range.selectNodeContents(bio);
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    show('Copy failed: text selected');
+                });
+            });
+        });
+    })();
+</script>

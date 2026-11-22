@@ -1,76 +1,76 @@
+// Site footer (REF-05..09): brand, [AUDIO::CHANNELS] icons and [NAV::INDEX] list,
+// then a bottom bar with the copyright and back-to-top. Approved Stitch reference:
+// .stitch/designs/v2/footer-{desktop,mobile}.png (without its invented copy).
+
 footer {
-    color: white;
-    background-color: black;
+    position: relative;
+    isolation: isolate;
+    color: #d4d4d4;
+    background-color: #02070c;
     background-image: url(../images/footer.jpg);
     background-image: image-set(url(../images/footer.webp) type("image/webp"), url(../images/footer.jpg) type("image/jpeg"));
     background-repeat: no-repeat;
-    background-position-x: center;
+    background-position: center top;
+    border-top: 1px solid #00f3ff;
+    box-shadow: 0 -8px 24px -10px rgba(0, 243, 255, 0.55);
+
+    // Darkens the band photo so the footer reads as a panel, not a picture.
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, rgba(2, 7, 12, 0.94) 0%, rgba(2, 7, 12, 0.8) 55%, rgba(2, 7, 12, 0.94) 100%);
+        pointer-events: none;
+    }
+
+    a, a:hover, a:focus { color: #ffffff; text-decoration: none; }
 }
 
 @media (max-width: 992px) {
-    footer {
-        background-size: 100% auto;
-    }
+    footer { background-size: 100% auto; }
 }
 
-footer a {
-    color: white;
+// Screen-reader names of icon-only links.
+footer .social-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
-footer a:hover {
-    color: white;
+.footer-grid {
+    display: grid;
+    gap: 32px;
+    padding-top: 36px;
+    padding-bottom: 28px;
+    // The logo is sized against this box (30cqi = 30% of the footer column).
+    container-type: inline-size;
 }
 
-footer h5 {
-	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+// Below 360px the seven 44px icons need the full 308px row.
+@media (max-width: 359px) {
+    footer > .container { padding-left: 6px; padding-right: 6px; }
 }
 
-.footer-social {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
+// ── Brand ──
 
-.footer-social a {
-    margin-right:4px;
-}
+.footer-brand {
+    text-align: center;
 
-.footer-social a:last-child {
-    margin-right: 0;
-}
-
-/* Same box as an fa-3x glyph; Font Awesome 4.4 has no Bandcamp icon. */
-.footer-bandcamp-icon {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    font-size: 3em;
-    vertical-align: bottom;
-}
-
-@media (max-width: 768px) {
-    .footer-social i,
-    .footer-social .footer-bandcamp-icon {
-        font-size: 2em;
-    }
-
-    /* Bootstrap's 12px button padding wraps the 7 icons below ~414px. */
-    .footer-social a {
-        padding-left: 4px;
-        padding-right: 4px;
-    }
-}
-
-.footer-copyright {
-    padding-top: 10px;
-    margin-bottom: 25px;
-    font-size: x-small;
+    p { margin: 0; }
 }
 
 .logo-footer {
     padding-top: 20px;
     margin: 0 auto;
-    width: 30%;
-    height: 30%;
+    width: 30cqi;
+    height: auto;
     /* The PNG's 600:95 shape, so the 300 px WebP (rounded to 300x48) draws at the same
        height. content-box keeps the 20px top padding out of the ratio (no side padding,
        so the width is unchanged). */
@@ -78,44 +78,248 @@ footer h5 {
     aspect-ratio: 600 / 95;
 }
 @media (max-width: 768px) {
-    .logo-footer {
-        width:150px;
+    .logo-footer { width: 150px; }
+}
+
+.footer-tagline {
+    margin-top: 16px !important;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+
+    @media (min-width: 480px) { font-size: 1.3rem; letter-spacing: 3px; }
+}
+
+.footer-origin {
+    margin-top: 6px !important;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(0, 243, 255, 0.7);
+}
+
+// ── Labels ──
+
+.footer-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.25);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: #00f3ff;
+
+    > span[aria-hidden] { color: #00f3ff; opacity: 0.8; }
+}
+
+.footer-label-mark {
+    width: 10px;
+    height: 10px;
+    background: #00f3ff;
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+}
+
+// ── Channels (profile icons) ──
+
+.footer-social {
+    display: grid;
+    grid-template-columns: repeat(7, 44px);
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (min-width: 480px) { grid-template-columns: repeat(7, 52px); justify-content: start; gap: 10px; }
+
+    li { display: block; }
+
+    a.social-footer,
+    a.social-footer:visited {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 44px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid rgba(0, 243, 255, 0.35);
+        border-radius: 0;
+        background: rgba(5, 18, 26, 0.85);
+        color: #ffffff;
+        font-size: 2rem;
+        box-shadow: none;
+        clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+        transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+        @media (min-width: 480px) { height: 52px; font-size: 2.2rem; }
+
+        i { font-size: inherit; line-height: 1; }
+        .icon-x, .footer-bandcamp-icon { width: 1em; height: 1em; }
+    }
+
+    a.social-footer:hover,
+    a.social-footer:focus-visible {
+        border-color: #00f3ff;
+        background: rgba(0, 243, 255, 0.12);
+        color: #00f3ff;
     }
 }
 
-.social-footer:visited {
-    color: white;
-}
-
-.social-footer:hover {
+/* Font Awesome 4.4 has no Bandcamp icon. */
+.footer-bandcamp-icon {
     display: inline-block;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    -moz-box-shadow: 5px 5px 4px #888;
-    -webkit-box-shadow: 5px 5px 4px #888;
-    box-shadow: 5px 5px 4px #888;
-    background-color: white;
-    color: black;
+    width: 1em;
+    height: 1em;
 }
 
-footer .container {
-    background-color:rgba(0, 0, 0, 0.6);
-    position: relative;
+// ── Nav index ──
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    // Column-first like the mockup: 01-05 down the left, 06-09 down the right.
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 48px;
+        padding: 0 14px;
+        border: 1px solid rgba(0, 243, 255, 0.18);
+        background: rgba(5, 18, 26, 0.7);
+        clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: border-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible { border-color: #00f3ff; color: #00f3ff; }
+
+        // The longest name (Discography) nearly fills the cell at 320px and 992-1199px;
+        // keep the index whole and let the name give way instead.
+        @media (max-width: 479px) { letter-spacing: 1px; }
+        @media (max-width: 359px) { padding: 0 10px; }
+    }
+
+    .footer-link-name {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .footer-link-num {
+        flex: none;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: rgba(0, 243, 255, 0.5);
+    }
+
+    .active a {
+        border-color: #00f3ff;
+        color: #00f3ff;
+        box-shadow: inset 3px 0 0 #00f3ff;
+    }
 }
 
-footer nav a {
-    display: inline-block;
-    padding-bottom: 2px;
+// ── Bottom bar ──
+
+.footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 14px;
+    padding-bottom: 18px;
+    border-top: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+.footer-copyright {
+    margin: 0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9cbbc2;
 }
 
 footer .scroll-top {
-    position: absolute;
-    width: 40px;
-    right: 0;
-    bottom: 0;
+    position: static;
+    flex: none;
+    margin: 0;
+
+    > li > a.top-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border: 1px solid #00f3ff;
+        background: rgba(5, 18, 26, 0.85);
+        color: #00f3ff;
+        font-size: 1.6rem;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #02070c; }
+    }
 }
 
-.footer-social .social-text {
-    display:none;
+// ── Desktop: three zones side by side ──
+
+@media (min-width: 992px) {
+    .footer-grid {
+        grid-template-columns: minmax(0, 32%) auto minmax(0, 1fr);
+        gap: 48px;
+        align-items: start;
+        padding-top: 48px;
+        padding-bottom: 36px;
+    }
+
+    .footer-brand { text-align: left; }
+    .logo-footer { margin: 0; }
+
+    .footer-social {
+        grid-template-columns: repeat(4, 52px);
+        gap: 12px;
+    }
+
+    .footer-links {
+        column-gap: 24px;
+        row-gap: 4px;
+
+        a {
+            border-color: transparent;
+            background: transparent;
+            padding: 0 4px;
+
+            @media (max-width: 1199px) { letter-spacing: 1px; }
+        }
+
+        // Mockup: a left bar and cyan text only, no outline box. A real left border
+        // (not an inset shadow) keeps the bar inside the same box as its neighbours.
+        .active a {
+            border-color: transparent;
+            border-left: 3px solid #00f3ff;
+            box-shadow: none;
+            padding-left: 9px;
+        }
+    }
 }

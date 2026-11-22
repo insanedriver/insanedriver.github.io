@@ -43,7 +43,8 @@ test('PERF-07: no layout page except the playlist picker references jQuery, Boot
   const pages = layoutPages().filter(([url]) => url !== PLAYLIST);
   const urls = pages.map(([url]) => url);
   for (const url of ['/band/', '/newsletter/', '/pre-save/', '/store/', '/contact/', '/']) assert.ok(urls.includes(url), url);
-  assert.equal(pages.length, 43, urls.join(' '));
+  // +2 for site-refresh: /dates/ moved onto the base layout (REF-10), /press/ is new (REF-17).
+  assert.equal(pages.length, 45, urls.join(' '));
   for (const [url, html] of pages) assert.deepEqual(removedIn(html), [], url);
 });
 
@@ -59,6 +60,6 @@ test('PERF-08: the playlist picker loads jQuery, and no Bootstrap or Owl', () =>
 
 test('PERF-11: every local <script src> on every layout page carries defer or async', () => {
   const pages = layoutPages();
-  assert.equal(pages.length, 44);
+  assert.equal(pages.length, 46);
   for (const [url, html] of pages) assertDeferred(url, html);
 });

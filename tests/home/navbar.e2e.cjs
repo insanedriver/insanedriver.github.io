@@ -23,7 +23,7 @@ test('HOME-36/37: the navbar turns solid past 40px of scroll and clears again at
 });
 
 test('HOME-37: landing on / with a hash deep in the page shows the navbar solid without any scroll', async ({ page }) => {
-  await page.goto('/#home-signal-title', { waitUntil: 'load' });
+  await page.goto('/#home-archive-title', { waitUntil: 'load' });
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(40);
   await expect(nav(page)).toHaveClass(/\bis-solid\b/);
 });

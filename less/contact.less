@@ -240,4 +240,25 @@
             }
         }
     }
+
+    // REF-24: route bookers and press to the EPK.
+    .contact-press-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 44px;
+        margin-top: 2rem;
+        padding: 0 1.8rem;
+        border: 1px solid rgba(0, 243, 255, 0.6);
+        background: rgba(0, 243, 255, 0.06);
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
+    }
 }

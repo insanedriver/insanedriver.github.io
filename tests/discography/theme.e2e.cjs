@@ -12,9 +12,9 @@ test('DISC-08: the panel chrome uses the shared palette and fonts', async ({ pag
   await expect(page.locator('.cyber-panel-tab').first()).toHaveCSS('border-top-color', 'rgb(0, 243, 255)');
   await expect(page.locator('.corner-bl').first()).toHaveCSS('background-color', 'rgb(0, 95, 140)');
   await expect(page.locator('.disc-accent').first()).toHaveCSS('color', 'rgb(255, 0, 234)');
-  await expect(page.locator('[data-disc-counter]')).toHaveCSS('color', 'rgb(0, 243, 255)');
+  await expect(page.locator('.disc-singles .disc-counter')).toHaveCSS('color', 'rgb(0, 243, 255)');
   expect(await page.locator('.disc-shell').evaluate(el => getComputedStyle(el).fontFamily)).toContain('Rajdhani');
-  expect(await page.locator('[data-disc-counter]').evaluate(el => getComputedStyle(el).fontFamily)).toContain('Share Tech Mono');
+  expect(await page.locator('.disc-singles .disc-counter').evaluate(el => getComputedStyle(el).fontFamily)).toContain('Share Tech Mono');
 });
 
 test('DISC-13: no legacy player markup survives on the page', async ({ page }) => {

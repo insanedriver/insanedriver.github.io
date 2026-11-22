@@ -18,8 +18,7 @@ async function render(release, shuffle) {
     homeShuffle: shuffle ? { pool: shuffle, json: JSON.stringify(shuffle).replace(/</g, '\\u003c') } : homeShuffle(),
     platforms: require('../../_data/platforms.json'),
     videos: require('../../_data/videos.json'),
-    discography: require('../../_data/discography.json'),
-    highlights: require('../../_data/highlights.js')()
+    discography: require('../../_data/discography.json')
   });
 }
 

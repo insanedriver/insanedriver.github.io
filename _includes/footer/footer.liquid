@@ -1,7 +1,19 @@
-<footer>
+<footer class="site-footer">
     <div class="container">
-        {% include 'footer/social' %}
-        {% include 'footer/menu' %}
-        {% include 'footer/copyright' %}
+        <div class="footer-grid">
+            <div class="footer-brand">
+                {% include 'footer/logo' %}
+                <p class="footer-tagline">Hard Rock // Heavy Metal // Metalcore</p>
+                <p class="footer-origin">São Paulo, Brazil</p>
+            </div>
+            <div class="footer-channels">
+                <p class="footer-label"><span aria-hidden="true">///</span> [AUDIO::CHANNELS]</p>
+                {% include 'footer/social' %}
+            </div>
+            {% include 'footer/menu' %}
+        </div>
+        <div class="footer-bar">
+            {% include 'footer/copyright' %}
+        </div>
     </div>
 </footer>

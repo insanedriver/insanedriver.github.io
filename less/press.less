@@ -1,0 +1,309 @@
+// Press kit (REF-17..22): five EPK panels in the Contact pattern. Approved Stitch
+// reference: .stitch/designs/v2/press-{desktop,mobile}.png, with the real photos and logos.
+#page_press {
+    overflow-x: hidden;
+
+    .insane-content { padding: 0; }
+
+    .press-container {
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        > .row {
+            margin-inline: 0;
+            > .col-md-12 { padding-inline: 0; }
+        }
+    }
+
+    .press-sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .cyber-panel-body--press {
+        align-items: stretch;
+        padding: 3rem 1.6rem 4.4rem;
+
+        @media (min-width: 768px) { padding: 3.6rem 3rem 4.6rem; }
+    }
+
+    .press-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.3rem;
+        font-weight: 400;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #00f3ff;
+
+        &::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            flex: none;
+            background: #00f3ff;
+        }
+    }
+
+    .press-section-title {
+        padding-bottom: 1.2rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    // ── Bio ──
+
+    .press-bio-grid {
+        display: grid;
+        gap: 2.8rem;
+
+        @media (min-width: 992px) {
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+            gap: 4rem;
+
+            .press-bio-col + .press-bio-col {
+                padding-left: 4rem;
+                border-left: 1px solid rgba(0, 243, 255, 0.15);
+            }
+        }
+    }
+
+    .press-bio-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 1.4rem;
+    }
+
+    .press-copy {
+        min-height: 36px;
+        padding: 0 14px;
+        border: 1px solid rgba(0, 243, 255, 0.5);
+        background: rgba(0, 243, 255, 0.06);
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #050505; }
+        &[hidden] { display: none; }
+    }
+
+    .press-bio p {
+        margin: 0 0 1.2rem;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 500;
+        font-size: 1.7rem;
+        line-height: 1.6;
+        letter-spacing: 0.02em;
+        color: #d4d4d4;
+        text-align: left;
+
+        @media (min-width: 768px) { font-size: 1.8rem; }
+
+        strong { color: #00f3ff; }
+    }
+
+    .press-bio .press-bio-quote {
+        margin-top: 1.8rem;
+        padding-left: 1.4rem;
+        border-left: 3px solid #ff00ea;
+        font-family: insaneFont, SiliconFont, 'Rajdhani', sans-serif;
+        font-size: 1.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase; // insaneFont has capitals only
+        color: #ff00ea;
+        text-shadow: 0 0 12px rgba(255, 0, 234, 0.45);
+    }
+
+    // ── Facts ──
+
+    .press-facts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 0 0 1.6rem;
+
+        @media (min-width: 992px) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.6rem; }
+    }
+
+    .press-fact {
+        padding: 1.4rem 1rem;
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        background: rgba(5, 18, 26, 0.7);
+        text-align: center;
+
+        dt {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(0, 243, 255, 0.7);
+        }
+
+        dd {
+            margin: 0.6rem 0 0;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.9rem;
+            color: #ffffff;
+
+            @media (min-width: 768px) { font-size: 2.3rem; }
+        }
+
+        .press-fact--accent { color: #00f3ff; }
+    }
+
+    .press-fans .fans-of {
+        margin: 0;
+        padding: 1.2rem 1.4rem;
+        border-left: 3px solid #00f3ff;
+        background: rgba(5, 18, 26, 0.7);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.7rem;
+        letter-spacing: 0.02em;
+        color: #d4d4d4;
+        text-align: left;
+    }
+
+    // ── Photos and logos ──
+
+    .press-photos, .press-logos {
+        display: grid;
+        gap: 1.6rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .press-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+
+        @media (min-width: 768px) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; }
+    }
+
+    .press-logos {
+        @media (min-width: 768px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .press-photo, .press-logo {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0.8rem;
+        border: 1px solid rgba(0, 243, 255, 0.2);
+        background: rgba(5, 18, 26, 0.7);
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .press-photo img {
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+    }
+
+    .press-logo {
+        padding: 1.4rem;
+
+        picture {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+        }
+
+        img { width: auto; max-width: 100%; max-height: 120px; }
+    }
+
+    .press-download {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px 8px;
+        min-height: 44px;
+        margin-top: auto;
+        padding: 6px 10px;
+        border: 1px solid rgba(0, 243, 255, 0.45);
+        background: rgba(0, 95, 140, 0.35);
+        color: #ffffff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
+    }
+
+    .press-download-label { white-space: nowrap; }
+
+    @media (max-width: 767px) {
+        .press-photos .press-download { font-size: 1.1rem; letter-spacing: 1px; padding: 6px; }
+    }
+
+    .press-download-size {
+        color: rgba(0, 243, 255, 0.8);
+        letter-spacing: 1px;
+    }
+    .press-download:hover .press-download-size,
+    .press-download:focus-visible .press-download-size { color: #050505; }
+
+    // ── Contact ──
+
+    .cyber-panel-body--press-contact {
+        align-items: center;
+        text-align: center;
+
+        .cyber-glitch-title { margin: 0 0 2rem; }
+    }
+
+    .press-email {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        max-width: 100%;
+        min-height: 52px;
+        padding: 0 2rem;
+        border: 1px solid #00f3ff;
+        background: rgba(0, 243, 255, 0.06);
+        color: #00f3ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        overflow-wrap: anywhere;
+        text-decoration: none;
+
+        @media (min-width: 768px) { font-size: 1.8rem; letter-spacing: 2px; }
+
+        &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
+    }
+
+    // Edge case: no motion anywhere on the page (header, panels, footer) when the visitor asks for less.
+    @media (prefers-reduced-motion: reduce) {
+        &, *, *::before, *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+}

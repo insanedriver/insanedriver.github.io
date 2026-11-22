@@ -4,9 +4,10 @@ const less = require('less');
 const { test, expect } = require('../photos/browser.cjs');
 
 const root = path.resolve(__dirname, '../..');
-const areas = ['home', 'band', 'discography', 'photos', 'videos', 'store', 'contact', 'newsletter'];
+// site-refresh REF-10 moved /dates/ onto the base layout in the Contact pattern, so it is a desktop area now.
+const areas = ['home', 'band', 'discography', 'photos', 'videos', 'store', 'contact', 'newsletter', 'dates'];
 const pages = [
-  ['/', 'home', ['.home-hero-content', '.home-streaming', '.home-archive-list', '.home-visual-grid', '.home-signal']],
+  ['/', 'home', ['.home-hero-content', '.home-streaming', '.home-archive-list']],
   ['/band/', 'band', ['.cyber-bio-text', '.cyber-band-photo-wrapper', '.cyber-member-grid', '.cyber-links-grid']],
   ['/discography/', 'discography', ['.disc-album-grid', '.disc-single-grid']],
   ['/discography/silicon-fortress/', 'discography', ['.disc-release', '.disc-release-art']],
@@ -15,6 +16,7 @@ const pages = [
   ['/videos/', 'videos', ['.videos-stage', '.videos-screen', '.videos-feed']],
   ['/store/', 'store', ['.store-grid']],
   ['/contact/', 'contact', ['.contact-container .cyber-panel']],
+  ['/dates/', 'dates', ['.dates-container .cyber-panel']],
   ['/newsletter/', 'newsletter', ['.newsletter-container .cyber-zone-inner', '.newsletter-embed-frame']],
 ];
 
@@ -87,7 +89,7 @@ for (const width of [320, 390, 768, 1024]) {
 const desktopRules = less.render(`@import "${path.join(root, 'less/desktop-layout.less')}";\n` +
   areas.map(area => `#page_${area} { .desktop-layout(); }`).join('\n')).then(({ css }) => css);
 
-for (const url of ['/pre-save/', '/preorder/', '/dates/']) {
+for (const url of ['/pre-save/', '/preorder/']) {
   test(`DESK-07: excluded ${url} receives no desktop overrides`, async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     if (url === '/preorder/') {

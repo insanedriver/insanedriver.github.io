@@ -395,13 +395,13 @@
 
     // ── Platform grids (buttons themselves come from cyber-links.less) ──
 
+    // REF-15: streaming buttons stay in two columns on phones.
     .disc-links {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
         margin-bottom: 12px;
 
-        @media (min-width: 560px) { grid-template-columns: 1fr 1fr; }
         @media (min-width: 1600px) { gap: 16px; }
     }
 
@@ -416,8 +416,15 @@
     .cyber-link-btn--primary {
         min-height: 120px;
         padding: 1.6rem 1rem;
+        text-align: center;
 
         i { font-size: 2.6rem; }
+
+        // Two columns on phones: keep the labels on as few lines as possible.
+        @media (max-width: 559px) {
+            .cyber-link-name { font-size: 1.6rem; letter-spacing: 1.5px; }
+            .cyber-link-sub { font-size: 1.05rem; letter-spacing: 1px; }
+        }
     }
 
     .cyber-link-btn--compact {
@@ -476,6 +483,19 @@
 
         &[aria-expanded='true'] { border-color: #ff00ea; color: #ff00ea; box-shadow: 0 3px #ff00ea; }
         &[aria-expanded='true']:hover { background: #ff00ea; color: #050505; }
+    }
+
+    // REF-16: on phones Buy CD and Preview stack as full-width bars of one height.
+    @media (max-width: 559px) {
+        .disc-buy, .disc-preview-btn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            min-height: 48px;
+            padding: 0 16px;
+            margin: 0 0 12px;
+        }
+        .disc-preview-btn[hidden] { display: none; }
     }
 
     .disc-preview:not(:empty) {
@@ -805,10 +825,6 @@
         .song-video-name { display: block; color: #fff; font-weight: 700; overflow-wrap: anywhere; }
         @media (max-width: 559px) { padding: 6px 10px; font-size: 13px; line-height: 1.3; .disc-eyebrow { display: none; } }
     }
-
-    // ── Footer override ──
-
-    footer { background-image: none; }
 
     @media (prefers-reduced-motion: reduce) {
         .disc-shell, .disc-shell::before, .disc-shell::after,

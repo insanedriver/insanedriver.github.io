@@ -167,56 +167,6 @@ jspath: js/home
         </div>
     </div>
 
-    <div class="cyber-separator"></div>
-
-    <div class="cyber-panel cyber-panel--home-visual">
-        <div class="cyber-panel-tab"><span class="tab-icon"></span> VISUAL::FEED</div>
-        <div class="cyber-panel-body" data-hud="VISUAL.FEED // {% if highlights.size < 10 %}0{% endif %}{{ highlights.size }} FRAMES_">
-            <span class="top-accent"></span>
-            <span class="corner-tl"></span>
-            <span class="corner-tr"></span>
-            <span class="corner-bl"></span>
-    <section class="home-visual" aria-labelledby="home-visual-title">
-        <div class="home-section-heading">
-            <div><span class="home-eyebrow">PROMO // LIVE</span><h2 id="home-visual-title">Photos<span class="home-accent">.</span></h2></div>
-        </div>
-        <a class="home-visual-link" href="/photos/" data-home-teaser="photos">
-            <span class="home-visual-grid">
-                {% for photo in highlights %}
-                <span class="home-visual-frame">
-                    <picture><source type="image/webp" srcset="{{ photo.thumbnail | replace: '.jpg', '.webp' }}"><img src="{{ photo.thumbnail }}" width="{{ photo.thumbnailWidth }}" height="{{ photo.thumbnailHeight }}" alt="{{ photo.alt | escape }}" loading="lazy" decoding="async"></picture>
-                </span>
-                {% endfor %}
-            </span>
-            <span class="home-visual-cta">Open the gallery <span aria-hidden="true">&rarr;</span></span>
-        </a>
-    </section>
-        </div>
-    </div>
-
-    <div class="cyber-separator"></div>
-
-    <div class="cyber-panel cyber-panel--home-signal">
-        <div class="cyber-panel-tab"><span class="tab-icon"></span> SIGNAL::NEWSLETTER</div>
-        <div class="cyber-panel-body" data-hud="FORM.READY // AWAITING_">
-            <span class="top-accent"></span>
-            <span class="corner-tl"></span>
-            <span class="corner-tr"></span>
-            <span class="corner-bl"></span>
-    <section class="home-signal" aria-labelledby="home-signal-title">
-        <div class="home-signal-copy">
-            <span class="home-eyebrow">INSANE FAMILY // UPLINK</span>
-            <h2 id="home-signal-title">Join the network<span class="home-accent">.</span></h2>
-            <p>New music, videos and shows straight to your inbox. No spam, just signal.</p>
-        </div>
-        <a class="home-signal-cta" href="/newsletter/">
-            <span>Join the network</span>
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </a>
-    </section>
-        </div>
-    </div>
-
     </div>
 </div>
 </div>
