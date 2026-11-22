@@ -175,9 +175,9 @@ T6
 
 **Done when**:
 
-- [ ] `tests/band/band-reviews.test.cjs` covers REV-20 and REV-21 (identical featured markup on both pages)
-- [ ] `/band/` has no horizontal overflow (existing e2e)
-- [ ] Gate check passes: full gate
+- [x] `tests/band/band-reviews.test.cjs` covers REV-20 and REV-21 (identical featured markup on both pages)
+- [x] `/band/` has no horizontal overflow (existing e2e)
+- [x] Gate check passes: full gate
 
 **Tests**: unit
 **Gate**: full

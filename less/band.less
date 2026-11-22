@@ -1,3 +1,5 @@
+@import (reference) "featured-reviews.less";
+
 #page_band {
     overflow-x: hidden;
 
@@ -281,6 +283,15 @@
     }
 
     // ── Separator ──
+
+    // REV-20: featured press quotes
+    .featured-reviews();
+
+    .cyber-panel-body--press-signal {
+        align-items: center;
+
+        .cyber-glitch-title { margin-bottom: 2.4rem; }
+    }
 
     .cyber-separator {
         width: 100%;
