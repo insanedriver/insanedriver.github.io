@@ -13,18 +13,28 @@ test('REF-12/edge: with the Bandsintown script blocked, /dates/ still shows its 
   await expect(page.locator('.cyber-panel', { hasText: 'FEED::BANDSINTOWN' }).getByRole('heading', { name: 'No shows announced right now.' })).toBeVisible();
 });
 
-test('REF-12/edge: the empty state hides once the Bandsintown widget renders', async ({ page }) => {
+// Stand-ins for what widgetv3 draws. The empty markup is what the real widget rendered
+// for Insane Driver with no shows (checked 2026-11-22); the list markup is a generic event row.
+const WIDGET_EMPTY = '<div class="bit-widget-container"><div class="bit-widget"><div class="bit-event-lists"><div class="bit-events-container"><div class="bit-play-my-city-wrapper"><div class="bit-play-my-city-heading-text">No Upcoming Shows</div><a class="bit-play-my-city-cta" href="#">play my city</a></div></div></div></div></div>';
+const WIDGET_LIST = '<div class="bit-widget-container"><div class="bit-widget"><div class="bit-event-lists"><div class="bit-events-container"><div class="bit-event">Show in Curitiba</div></div></div></div></div>';
+const drawWidget = (page, html) => page.evaluate(h => document.querySelector('.dates-widget').insertAdjacentHTML('beforeend', h), html);
+
+test('REF-12/edge: the empty state hides once the Bandsintown widget draws a list of shows', async ({ page }) => {
   await page.goto('/dates/', { waitUntil: 'load' });
   const empty = page.locator('.dates-empty');
   await expect(empty).toBeVisible();
-  // Stand in for the third-party widget drawing its list.
-  await page.evaluate(() => {
-    const w = document.createElement('div');
-    w.className = 'bit-widget';
-    w.textContent = 'event';
-    document.querySelector('.dates-widget').append(w);
-  });
+  await drawWidget(page, WIDGET_LIST);
   await expect(empty).toBeHidden();
+  await expect(page.getByText('Show in Curitiba')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Follow on Bandsintown' })).toBeVisible();
+});
+
+test('REF-12/edge: when Bandsintown answers with no shows, the designed empty state replaces its No Upcoming Shows block', async ({ page }) => {
+  await page.goto('/dates/', { waitUntil: 'load' });
+  await drawWidget(page, WIDGET_EMPTY);
+  await expect(page.getByRole('heading', { name: 'No shows announced right now.' })).toBeVisible();
+  await expect(page.getByText('No Upcoming Shows')).toBeHidden();
+  await expect(page.getByRole('link', { name: /play my city/i })).toBeHidden();
   await expect(page.getByRole('link', { name: 'Follow on Bandsintown' })).toBeVisible();
 });
 

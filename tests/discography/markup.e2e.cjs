@@ -46,10 +46,13 @@ test.describe('without JavaScript', () => {
     }
   });
 
-  test('HUB-10: the hero shows the heading and counts the catalog', async ({ page }) => {
+  test('the Discography page opens with Albums followed by Singles', async ({ page }) => {
     await page.goto('/discography/');
-    await expect(page.locator('#disc-index-title')).toHaveText('Discography.');
-    await expect(page.locator('[data-disc-counter]')).toHaveText('03 RELEASES // 18 SINGLES');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Discography');
+    const panels = page.locator('.disc-shell > .cyber-zone-inner');
+    await expect(panels.locator('> :first-child')).toHaveClass('cyber-panel');
+    await expect(panels.getByRole('heading', { level: 2 })).toHaveText(['Albums.', 'Singles.']);
+    await expect(panels.locator('> .cyber-separator')).toHaveCount(1);
   });
 
   test('HUB-11: the hub shell has no in-page anchor links', async ({ page }) => {
@@ -67,13 +70,13 @@ test.describe('without JavaScript', () => {
   test('HUB-24: the shell uses the cyber panel vocabulary', async ({ page }) => {
     await page.goto('/discography/');
     await expect(page.locator('.disc-shell.cyber-zone > .cyber-zone-inner')).toHaveCount(1);
-    const panelCount = 3; // hero + albums + singles
+    const panelCount = 2; // albums + singles
     await expect(page.locator('.cyber-panel')).toHaveCount(panelCount);
     for (const sel of ['.cyber-panel-tab', '.top-accent', '.corner-tl', '.corner-tr', '.corner-bl']) {
       await expect(page.locator(sel)).toHaveCount(panelCount);
     }
     const tabs = await page.locator('.cyber-panel-tab').evaluateAll(els => els.map(el => el.textContent.trim()));
-    expect(tabs).toEqual(['DISC::INDEX', 'DISC::ALBUMS', 'DISC::SINGLES']);
+    expect(tabs).toEqual(['DISC::ALBUMS', 'DISC::SINGLES']);
   });
 
   // DISC-05/06 now hold on the release pages, where the platform anchors live.

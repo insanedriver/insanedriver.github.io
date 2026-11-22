@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '../..');
 // site-refresh REF-10 moved /dates/ onto the base layout in the Contact pattern, so it is a desktop area now.
 const areas = ['home', 'band', 'discography', 'photos', 'videos', 'store', 'contact', 'newsletter', 'dates'];
 const pages = [
-  ['/', 'home', ['.home-hero-content', '.home-streaming', '.home-archive-list', '.home-visual-grid', '.home-signal']],
+  ['/', 'home', ['.home-hero-content', '.home-streaming', '.home-archive-list']],
   ['/band/', 'band', ['.cyber-bio-text', '.cyber-band-photo-wrapper', '.cyber-member-grid', '.cyber-links-grid']],
   ['/discography/', 'discography', ['.disc-album-grid', '.disc-single-grid']],
   ['/discography/silicon-fortress/', 'discography', ['.disc-release', '.disc-release-art']],

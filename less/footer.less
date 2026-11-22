@@ -210,9 +210,22 @@ footer .social-text {
         transition: border-color 0.2s ease, color 0.2s ease;
 
         &:hover, &:focus-visible { border-color: #00f3ff; color: #00f3ff; }
+
+        // The longest name (Discography) nearly fills the cell at 320px and 992-1199px;
+        // keep the index whole and let the name give way instead.
+        @media (max-width: 479px) { letter-spacing: 1px; }
+        @media (max-width: 359px) { padding: 0 10px; }
+    }
+
+    .footer-link-name {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .footer-link-num {
+        flex: none;
         font-family: 'Share Tech Mono', monospace;
         font-size: 1.1rem;
         font-weight: 400;
@@ -296,6 +309,8 @@ footer .scroll-top {
             border-color: transparent;
             background: transparent;
             padding: 0 4px;
+
+            @media (max-width: 1199px) { letter-spacing: 1px; }
         }
 
         // Mockup: a left bar and cyan text only, no outline box. A real left border

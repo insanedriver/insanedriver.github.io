@@ -28,6 +28,16 @@ test('HOME-30: sections below the hero live in a cyber zone of fully decorated p
   await expect(page.locator('.cyber-zone [data-home-hero]')).toHaveCount(0);
 });
 
+test('the home ends with the streaming, video and discography panels', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const zone = page.locator('.home-shell .cyber-zone-inner');
+  const tabs = await zone.locator('.cyber-panel-tab').allTextContents();
+  expect(tabs.map(tab => tab.trim())).toEqual(['NOW::STREAMING', 'ID-TV::LATEST', 'DISC::ARCHIVE']);
+  await expect(zone.locator('a[href="/photos/"], a[href="/newsletter/"]')).toHaveCount(0);
+  await expect(zone.locator('> .cyber-separator')).toHaveCount(2);
+  await expect(zone.locator('> :last-child')).toHaveClass(/cyber-panel--home-archive/);
+});
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
 

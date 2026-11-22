@@ -226,8 +226,7 @@
         });
     }
 
-    // Tracking: report platform, teaser and newsletter actions. Never touches
-    // the navigation or the form post itself.
+    // Report platform and teaser clicks without changing navigation.
     function tracking() {
         var card = document.querySelector('[data-home-release]');
         var streaming = document.querySelector('[data-home-streaming]');

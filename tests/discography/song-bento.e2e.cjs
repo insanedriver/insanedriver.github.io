@@ -467,6 +467,20 @@ for (const width of [1280, 375]) {
   });
 }
 
+for (const width of [320, 390, 767]) {
+  test(`at ${width}px the song cover fills the panel content`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    for (const song of [KEEP_AWAY, LYRICS_SONGS[0], INSTRUMENTALS[0]]) {
+      await page.goto(song.url);
+      const row = page.locator('[data-song]');
+      const content = await row.boundingBox();
+      const cover = await row.locator('.disc-release-art').boundingBox();
+      expect(cover.x, song.url).toBeCloseTo(content.x, 0);
+      expect(cover.width, song.url).toBeCloseTo(content.width, 0);
+    }
+  });
+}
+
 for (const width of [375, 768, 992, 1280]) {
   test(`BENTO-06: no horizontal overflow on any song page at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

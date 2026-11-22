@@ -145,9 +145,20 @@ header_img_path: header_3.jpg
             button.hidden = false;
             button.addEventListener('click', function () {
                 var text = Array.prototype.map.call(bio.querySelectorAll('p'), function (p) { return p.textContent.trim(); }).join('\n\n');
+                var show = function (label) {
+                    button.textContent = label;
+                    setTimeout(function () { button.textContent = 'Copy'; }, 3000);
+                };
                 navigator.clipboard.writeText(text).then(function () {
-                    button.textContent = 'Copied';
-                    setTimeout(function () { button.textContent = 'Copy'; }, 2000);
+                    show('Copied');
+                }, function () {
+                    // Clipboard refused: select the bio so the visitor can copy it by hand.
+                    var range = document.createRange();
+                    range.selectNodeContents(bio);
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    show('Copy failed: text selected');
                 });
             });
         });

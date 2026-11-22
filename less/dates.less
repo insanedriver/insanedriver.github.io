@@ -53,7 +53,10 @@
         iframe { max-width: 100%; border: 0; }
     }
 
-    // Empty state (mockup: ringed dot + heading). Hidden once the widget renders.
+    // Empty state (mockup: ringed dot + heading). Shown while the widget is loading or
+    // blocked, and when Bandsintown answers with no shows: its own "No Upcoming Shows /
+    // Play my city" block (.bit-play-my-city-wrapper) is hidden in favour of this one.
+    // Hidden only once the widget draws a real list.
     .dates-empty {
         display: flex;
         flex-direction: column;
@@ -62,7 +65,8 @@
         padding: 2.4rem 0 0;
         text-align: center;
     }
-    .dates-widget:has(.bit-widget) ~ .dates-empty { display: none; }
+    .dates-widget:has(.bit-play-my-city-wrapper) { display: none; }
+    .dates-widget:has(.bit-widget):not(:has(.bit-play-my-city-wrapper)) ~ .dates-empty { display: none; }
 
     .dates-empty-dot {
         position: relative;

@@ -31,6 +31,23 @@ test('REF-18: the Copy buttons put each bio on the clipboard', async ({ page, co
   await expect(copy).toHaveText(/Copied/i);
 });
 
+test('edge: when the clipboard is refused, Copy says so and selects the bio for a manual copy', async ({ page }) => {
+  await page.addInitScript(() => {
+    navigator.clipboard.writeText = () => Promise.reject(new DOMException('denied', 'NotAllowedError'));
+  });
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto('/press/', { waitUntil: 'load' });
+  const copy = page.locator('[data-press-copy="short"]');
+  await copy.click();
+  await expect(copy).toHaveText(/Copy failed/i);
+  const selected = await page.evaluate(() => window.getSelection().toString());
+  expect(selected).toContain('Insane Driver was forged');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+  expect(errors).toEqual([]);
+});
+
 for (const width of [320, 390, 768, 1024, 1440, 1920]) {
   test(`edge: at ${width}px /press/ has no horizontal overflow`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

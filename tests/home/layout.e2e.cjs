@@ -14,6 +14,10 @@ test('HOME-08: the shared menu and footer stay on the home', async ({ page }) =>
   await expect(page.locator('nav.navbar #navbar')).toHaveCount(1);
   await expect(page.locator('nav.navbar a[href="/discography/"]')).toHaveCount(1);
   await expect(page.locator('footer')).toHaveCount(1);
+  for (const href of ['/photos/', '/newsletter/']) {
+    await expect(page.locator(`nav.navbar a[href="${href}"]`)).toHaveCount(1);
+    await expect(page.locator(`footer a[href="${href}"]`)).toHaveCount(1);
+  }
 });
 
 test('HOME-53: Open Graph and Twitter card meta describe the home', async ({ page }) => {

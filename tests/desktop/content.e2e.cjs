@@ -5,7 +5,7 @@ const grids = [
   ['/discography/', [['.disc-album-grid', 3], ['.disc-single-grid', 6]]],
   ['/photos/', [['.photos-archive', 4], ['.photos-thumbnails', 6]]],
   ['/band/', [['.cyber-member-grid', 5], ['.cyber-links-grid:not(.cyber-links-grid--social)', 4]]],
-  ['/', [['.home-archive-list', 3], ['.home-visual-grid', 3]]],
+  ['/', [['.home-archive-list', 3]]],
 ];
 
 for (const width of [1200, 1366, 1920, 2560]) {
@@ -89,7 +89,7 @@ for (const width of [1200, 1920]) {
 test(`DESK-02/04/05: paired panels, readable Contact and contained newsletter at ${width}px`, async ({ page }) => {
   await page.setViewportSize({ width, height: 1080 });
   for (const [url, selector] of [['/discography/silicon-fortress/', '.disc-release'], ['/', '.home-streaming'],
-    ['/', '.home-signal'], ['/newsletter/', '.cyber-zone-inner']]) {
+    ['/newsletter/', '.cyber-zone-inner']]) {
     await page.goto(url, { waitUntil: 'load' });
     const grid = page.locator(selector);
     const s = await grid.evaluate(el => ({ cols: getComputedStyle(el).gridTemplateColumns.split(' ').length,

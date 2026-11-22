@@ -75,3 +75,21 @@ test('REF-05: at 1440px the active footer nav item on /band/ is a left bar only 
   expect(Math.round(r.aX)).toBe(Math.round(r.otherX));
   expect(r.aRight).toBeLessThanOrEqual(r.otherRight + 0.5);
 });
+
+for (const width of [320, 360, 390, 768, 992, 1024, 1199, 1440]) {
+  test(`edge: at ${width}px every footer nav name and index stay whole inside their link`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/band/', { waitUntil: 'load' });
+    await page.evaluate(() => document.fonts.ready);
+    const bad = await page.locator('footer .footer-links a').evaluateAll(els => els.flatMap(a => {
+      const box = a.getBoundingClientRect();
+      const num = a.querySelector('.footer-link-num').getBoundingClientRect();
+      const name = a.querySelector('.footer-link-name');
+      const out = [];
+      if (num.right > box.right + 0.5) out.push(`${a.textContent.trim()}: index ${num.right - box.right}px past the link`);
+      if (name.scrollWidth > name.clientWidth) out.push(`${a.textContent.trim()}: name truncated`);
+      return out;
+    }));
+    expect(bad).toEqual([]);
+  });
+}
