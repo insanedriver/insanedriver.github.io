@@ -169,7 +169,11 @@ test('REV-04: the visible date reads "Mon D, YYYY", "Mon YYYY" or "YYYY" by the 
 test('REV-03: a partial date sorts below the full dates that share its prefix (Gaveta 2016-12-05 before Cangaço 2016-12 before Metal na Lata 2016)', () => {
   const s = sections(page()).find(x => x.slug === 'insane-driver');
   const order = cards(s.html).map(c => text(c.match(/<h3 class="review-outlet">([\s\S]*?)<\/h3>/)[1]));
-  const at = name => order.indexOf(name);
+  const at = name => {
+    const i = order.indexOf(name);
+    assert.ok(i >= 0, `${name} is listed: ${order.join(' | ')}`);
+    return i;
+  };
   assert.ok(at('Gaveta de Bagunças') < at('Cangaço Rádio Rock'), order.join(' | '));
   assert.ok(at('Cangaço Rádio Rock') < at('Metal na Lata'), order.join(' | '));
   assert.equal(order[order.length - 1], 'Metal na Lata', 'a bare year sorts below every 2016 date');

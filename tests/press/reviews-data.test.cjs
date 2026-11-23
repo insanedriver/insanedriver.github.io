@@ -5,7 +5,7 @@ const data = require('../../_data/reviews.json');
 const albums = require('../../_data/discography.json').albums.map(a => a.slug);
 
 const REQUIRED = ['album', 'outlet', 'date', 'language', 'quote', 'quoteOriginal', 'summary', 'url'];
-const ISO_DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
+const ISO_DATE = /^\d{4}(-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?)?$/;
 
 test('REV-13: every review has the required non-empty fields, a discography album slug and an ISO date', () => {
   assert.ok(data.reviews.length > 0);
