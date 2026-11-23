@@ -6,9 +6,9 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 ## Goals
 
-- [ ] All 18 reviews are on the site in English, each linked to its original or to an archived copy.
-- [ ] A booker on `/press/` or a fan on `/band/` reaches the full list in one click.
-- [ ] Adding a review later means adding one entry to `_data/reviews.json`, with no template changes.
+- [x] All 18 reviews are on the site in English, each linked to its original or to an archived copy.
+- [x] A booker on `/press/` or a fan on `/band/` reaches the full list in one click.
+- [x] Adding a review later means adding one entry to `_data/reviews.json`, with no template changes.
 
 ## Out of Scope
 
@@ -183,6 +183,6 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 ## Success Criteria
 
 - [ ] 18 reviews and 3 recognitions are live on `/press/reviews/`, every one linked.
-- [ ] `/press/` and `/band/` each show 3 featured quotes and link to the full page.
-- [ ] `npm test` is green, with the new unit and e2e tests included.
+- [x] `/press/` and `/band/` each show 3 featured quotes and link to the full page.
+- [x] `npm test` is green, with the new unit and e2e tests included.
 - [x] The user has reviewed the English translations.
