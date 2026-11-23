@@ -185,4 +185,4 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 - [ ] 18 reviews and 3 recognitions are live on `/press/reviews/`, every one linked.
 - [ ] `/press/` and `/band/` each show 3 featured quotes and link to the full page.
 - [ ] `npm test` is green, with the new unit and e2e tests included.
-- [ ] The user has reviewed the English translations.
+- [x] The user has reviewed the English translations.
