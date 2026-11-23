@@ -109,3 +109,35 @@ test('REF-21: the highlight counts follow _data/discography.json (rendered with 
   assert.match(facts, /\b7 Album releases\b/);
   assert.match(facts, /\b11 Singles\b/);
 });
+
+// ── press-reviews (REV-17..19, 21) ──
+const reviewData = require('../../_data/reviews.json').reviews;
+const featured = reviewData.filter(r => r.featured);
+const panelTabs = html => [...html.matchAll(/<div class="cyber-panel-tab"><span class="tab-icon"><\/span> ([A-Z:_]+)<\/div>/g)].map(m => m[1]);
+// The featured quotes in a block of HTML: [{ quote, outlet, score }]
+const featuredQuotes = html => [...html.matchAll(/<li class="featured-review">([\s\S]*?)<\/li>/g)].map(m => {
+  const score = m[1].match(/<span class="featured-review-score">([\s\S]*?)<\/span>/);
+  return {
+    quote: text(m[1].match(/<blockquote class="featured-review-quote">([\s\S]*?)<\/blockquote>/)[1]),
+    outlet: text(m[1].match(/<span class="featured-review-outlet">([\s\S]*?)<\/span>/)[1]),
+    score: score ? text(score[1]) : null,
+  };
+});
+
+test('REV-17: /press/ has an EPK::REVIEWS panel directly after EPK::FACTS', () => {
+  const tabs = panelTabs(press());
+  assert.equal(tabs[tabs.indexOf('EPK::FACTS') + 1], 'EPK::REVIEWS', tabs.join(' '));
+});
+
+test('REV-18: EPK::REVIEWS shows the three featured quotes with outlet and score, in data order', () => {
+  assert.equal(featured.length, 3);
+  assert.deepEqual(featuredQuotes(section(press(), 'EPK::REVIEWS')), featured.map(r => ({ quote: `"${r.quote}"`, outlet: r.outlet, score: r.score || null })));
+});
+
+test('REV-19: EPK::REVIEWS links to /press/reviews/ with "Read all N reviews", N = the number of reviews', () => {
+  const panel = section(press(), 'EPK::REVIEWS');
+  const link = panel.match(/<a class="featured-reviews-all" href="\/press\/reviews\/">([\s\S]*?)<\/a>/);
+  assert.ok(link, 'link to /press/reviews/');
+  assert.equal(text(link[1]), `Read all ${reviewData.length} reviews`);
+});
+

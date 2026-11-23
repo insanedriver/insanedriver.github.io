@@ -1,6 +1,9 @@
 // Press kit (REF-17..22): five EPK panels in the Contact pattern. Approved Stitch
 // reference: .stitch/designs/v2/press-{desktop,mobile}.png, with the real photos and logos.
-#page_press {
+@import (reference) "featured-reviews.less";
+
+// Frame, headings and motion rules shared with the press reviews page (press-reviews.less).
+.press-base() {
     overflow-x: hidden;
 
     .insane-content { padding: 0; }
@@ -58,6 +61,18 @@
         margin-bottom: 2rem;
         border-bottom: 1px solid rgba(0, 243, 255, 0.2);
     }
+
+    // Edge case: no motion anywhere on the page (header, panels, footer) when the visitor asks for less.
+    @media (prefers-reduced-motion: reduce) {
+        &, *, *::before, *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+}
+
+#page_press {
+    .press-base();
 
     // ── Bio ──
 
@@ -178,6 +193,12 @@
         text-align: left;
     }
 
+    // ── Reviews (REV-17..19) ──
+
+    .featured-reviews();
+
+    .cyber-panel-body--press-reviews { align-items: center; }
+
     // ── Photos and logos ──
 
     .press-photos, .press-logos {
@@ -297,13 +318,5 @@
         @media (min-width: 768px) { font-size: 1.8rem; letter-spacing: 2px; }
 
         &:hover, &:focus-visible { background: #00f3ff; color: #050505; text-decoration: none; }
-    }
-
-    // Edge case: no motion anywhere on the page (header, panels, footer) when the visitor asks for less.
-    @media (prefers-reduced-motion: reduce) {
-        &, *, *::before, *::after {
-            animation: none !important;
-            transition: none !important;
-        }
     }
 }

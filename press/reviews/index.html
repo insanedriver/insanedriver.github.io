@@ -1,0 +1,68 @@
+---
+layout: base.html
+
+page_title: Press Reviews
+page_description: Every Brazilian metal press review of Insane Driver's albums Silicon Fortress and Insane Driver, in English, with scores and links to the originals.
+page_robots: index, follow
+page_id: press-reviews
+header_img_path: header_3.jpg
+---
+
+<div class="container press-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="cyber-zone">
+                <div class="cyber-zone-inner">
+
+                    <section class="cyber-panel reviews-archive" aria-labelledby="reviews-archive-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> PRESS::ARCHIVE</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="LOG.{{ reviews.reviews.size }} // PRESS_ARCHIVE_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="cyber-glitch-title" id="reviews-archive-title">What the press said</h2>
+                            <p class="reviews-intro">All reviews were originally published in Brazilian Portuguese. Quotes translated to English by Insane Driver; follow each link to read the full original.</p>
+                            <h3 class="press-eyebrow">Recognition</h3>
+                            <ul class="reviews-recognition">
+                                {% for item in reviews.recognitions %}<li><span class="reviews-recognition-year">{{ item.year }}</span> <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.outlet }}</a> <span class="reviews-recognition-title">{{ item.title }}</span></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </section>
+
+                    {% for group in reviewGroups %}
+                    <div class="cyber-separator" aria-hidden="true"></div>
+
+                    <section class="cyber-panel reviews-album" aria-labelledby="reviews-{{ group.slug }}-title">
+                        <div class="cyber-panel-tab"><span class="tab-icon"></span> REVIEWS::{{ group.title | upcase | replace: ' ', '_' }}</div>
+                        <div class="cyber-panel-body cyber-panel-body--press" data-hud="{{ group.reviews.size }}_REVIEWS // {{ group.year }}_">
+                            <span class="top-accent"></span>
+                            <span class="corner-tl"></span>
+                            <span class="corner-tr"></span>
+                            <span class="corner-bl"></span>
+                            <h2 class="press-eyebrow press-section-title" id="reviews-{{ group.slug }}-title">{{ group.title }} ({{ group.year }})</h2>
+                            <div class="review-list">
+                                {% for review in group.reviews %}
+                                <article class="review-card">
+                                    <header class="review-head">
+                                        <h3 class="review-outlet">{{ review.outlet }}</h3>
+                                        {% if review.score %}<span class="review-score">{{ review.score }}</span>{% endif %}
+                                    </header>
+                                    <p class="review-meta">{% if review.author %}<span class="review-author">{{ review.author }}</span><span class="review-sep" aria-hidden="true"> // </span>{% endif %}<time datetime="{{ review.date }}">{{ review.dateLabel }}</time></p>
+                                    <blockquote class="review-quote">"{{ review.quote }}"</blockquote>
+                                    <p class="review-summary">{{ review.summary }}</p>
+                                    <p class="review-labels">{% if review.language == 'pt' %}<span class="review-label">Translated from Portuguese</span>{% endif %}{% if review.archived %}<span class="review-label review-label--archived">Archived copy</span>{% endif %}{% if review.source == 'print' %}<span class="review-label review-label--source">Print</span>{% elsif review.source == 'press-release' %}<span class="review-label review-label--source">Via press release</span>{% endif %}</p>
+                                    <a class="review-link" href="{{ review.url }}" target="_blank" rel="noopener">{% if review.archived %}Read the archived review{% elsif review.source %}Read the source{% else %}Read the original review{% endif %}<span class="press-sr-only"> on {{ review.outlet }}</span> <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                </article>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
