@@ -53,7 +53,7 @@ header_img_path: header_3.jpg
                                     <blockquote class="review-quote">"{{ review.quote }}"</blockquote>
                                     <p class="review-summary">{{ review.summary }}</p>
                                     <p class="review-labels">{% if review.language == 'pt' %}<span class="review-label">Translated from Portuguese</span>{% endif %}{% if review.archived %}<span class="review-label review-label--archived">Archived copy</span>{% endif %}{% if review.source == 'print' %}<span class="review-label review-label--source">Print</span>{% elsif review.source == 'press-release' %}<span class="review-label review-label--source">Via press release</span>{% endif %}</p>
-                                    <a class="review-link" href="{{ review.url }}" target="_blank" rel="noopener">{% if review.archived %}Read the archived review{% elsif review.source %}Read the source{% else %}Read the original review{% endif %} <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                    <a class="review-link" href="{{ review.url }}" target="_blank" rel="noopener">{% if review.archived %}Read the archived review{% elsif review.source %}Read the source{% else %}Read the original review{% endif %}<span class="press-sr-only"> on {{ review.outlet }}</span> <i class="fa fa-external-link" aria-hidden="true"></i></a>
                                 </article>
                                 {% endfor %}
                             </div>
