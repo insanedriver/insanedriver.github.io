@@ -133,7 +133,7 @@ What the specialized press wrote about the band's two albums, *Insane Driver* (2
 
 **Acceptance Criteria**:
 
-1. WHEN `node scripts/check-review-links.cjs` runs THEN it SHALL request every review `url` and every recognition `url` and print each one that does not answer with HTTP 2xx or 3xx, together with its status. <!-- REV-24 -->
+1. WHEN `node scripts/check-review-links.cjs` runs THEN it SHALL request every review `url` and every recognition `url`, follow redirects, and print each one whose final answer is not HTTP 2xx or 3xx, together with its status. <!-- REV-24 -->
 2. The link check SHALL NOT run as part of `npm test` or `npm run build`. <!-- REV-25 -->
 
 ---

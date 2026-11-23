@@ -25,10 +25,15 @@ const report = (failures, total) => failures.length
 
 if (require.main === module) {
     const links = reviewLinks(require('../_data/reviews.json'));
+    // Follows redirects so a link that now redirects to a 404 is reported with the final status;
+    // the body is never read, so it is cancelled to free the connection.
     const fetchOnce = url => fetch(url, {
-        redirect: 'manual',
+        redirect: 'follow',
         signal: AbortSignal.timeout(TIMEOUT_MS),
         headers: { 'user-agent': 'Mozilla/5.0 (link check)' },
+    }).then(res => {
+        res.body?.cancel();
+        return res;
     });
     checkLinks(links, fetchOnce).then(failures => console.log(report(failures, links.length)));
 }
